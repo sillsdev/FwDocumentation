@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 	<head>
 		<title>New Page 1</title>
@@ -10,7 +10,7 @@
 	<body>
 		<p>XmlViews User Guide</p>
 		<p>John Thomson, 28 September 2003. Updated and added DetailControl info, August
-			24, 2005.<br>
+			24, 2005. Corrected obvious inaccurracies, JT November 2011<br>
 		</p>
 		<p>Note: I took most of the examples from working code, but did not have time to
 			retry them in isolation. This was also written some months after the relevant
@@ -41,8 +41,8 @@
 			object), a sequence of example sentences with their translations, and so forth.<br>
 		</p>
 		<h2>Layouts and parts</h2>
-		XmlViews are designed for a degree of user configurability (which is not yet
-		implemented). It is intended that the XML should, for each kind of object,
+		XmlViews are designed for a degree of user configurability (some of which is implemented, for
+		example through the Dictionary configure dialog). It is intended that the XML should, for each kind of object,
 		specify a collection of
 		<span style="FONT-STYLE: italic">parts</span>, elements describing a part
 		(typically, but not necessarily, a single field) of that object. Parts can be
@@ -50,7 +50,8 @@
 		<span style="FONT-STYLE: italic">layouts</span>, which are collections of
 		parts. The organization of layouts is deliberately kept as simple and general
 		as possible, so that all it specifies is a sequence of parts, optionally a
-		parameter for each, and optionally a visibility rule for each. The intent is
+		parameter for each, optionally a visibility rule for each, and a few easily configurable
+		attributes like separators and styles. The intent is
 		that a fairly simple UI will allow the user to select, order, and parameterize
 		a sequence of parts to make a layout (a complete way of looking at) a type of
 		object. This notion should work well for detail views (and eventually browse
@@ -180,7 +181,7 @@
 		<br>
 		Note the sortmethod attribute of the &lt;column&gt; element.&nbsp; It provides
 		the name of a C# method that takes one argument (specifying if the sort is from the end of the word) and
-		reeturns a string.&nbsp; This method is found for the actual
+		returns a string.&nbsp; This method is found for the actual
 		objects being sorted.&nbsp; If the name given by the sortmethod attribute does
 		not exist for the object's class, the standard CmObject SortKey and SortKey2
 		methods are called, and the concatenated result returned.<br>
@@ -208,9 +209,9 @@
 			the last two contain a default part for each field of each object, and a
 			default layout for each class that contains all its fields.
 			<li>
-				distfiles\lextext\configuration\parts contains a collection of parts and
+				distfiles\language explorer\configuration\parts contains a collection of parts and
 				layouts that have been created by hand to produce more specialized effects for
-				Harvest tools.</li>
+				FLEx.</li>
 		</ul>
 		You can add files to these collections by just putting them in the folders. A
 		file containing parts must have a name that ends in Parts.xml; one with layouts
@@ -367,7 +368,8 @@
 			for the elements that are children of the
 			<span style="FONT-STYLE: italic">layout</span>
 			elements, which are essentially instructions to use parts rather than the parts
-			themselves. Even &lt;partref target=.../&gt; would be better. I will try to
+			themselves. Even &lt;partref target=.../&gt; would be better. Unfortunately, layouts are persisted on end-user machines
+			as a way of persisting configuration, so changing these names is non-trivial. I will try to
 			consistently refer to these layout child part elements as
 			<span style="FONT-STYLE: italic">part ref</span>
 			elements.<br>
@@ -395,7 +397,8 @@
 			<span style="FONT-STYLE: italic">layout</span>
 			&lt;layout class="LexSense"&nbsp; type="jtview" name="Summary"&gt;. Since it
 			doesn't find that, it goes looking for the part, since a part is allowed to
-			'stand for' a layout containing only that part.)<br>
+			'stand for' a layout containing only that part.) You should not omit layouts like this, however, in views that will
+			be configured, because I don't think the configure dialog can handle missing ones like this.<br>
 		</p>
 		<p>Why are parts identified with a three-part hyphenated ID, and layouts using
 			three distinct attributes? If there was ever a good reason, I've forgotten it.
@@ -496,7 +499,7 @@
 		<p>Some objects are considered 'heavyweight', meaning that they are major groupings
 			of data that it will be helpful to mark off more clearly. A slice that begins
 			such a heavyweight object may be identified by the attribute/value
-			<span style="FONT-STYLE: italic">weight=heavy</span>. A thicker line is drawn
+			<span style="FONT-STYLE: italic">weight="heavy"</span>. A thicker line is drawn
 			above a slice that has this property.<br>
 		</p>
 		<p>Some objects are considered 'lightweight', meaning that we expect the user to
@@ -504,14 +507,16 @@
 			want to suppress the longer line between a field that really belongs to a
 			parent object and one that belongs to the first field of a lightweight object.
 			This can be done by specifying
-			<span style="FONT-STYLE: italic">weight=light</span>
+			<span style="FONT-STYLE: italic">weight="light"</span>
 			on the first slice of the lightweight object.<br>
 		</p>
 		<p>The summary slice does not have a
 			<span style="FONT-STYLE: italic">label</span>. This is valid, and causes the
 			data part of the slice to occupy the full width (out to where the label would
 			normally start on the left). It actually looks to most users as if the summary
-			JtView was just a label.<br>
+			JtView was just a label. To improve this illusion, you should specify that such
+			views be displayed with the UiElement style so they (typically) use the same
+			font as the other labels.<br>
 		</p>
 		<h2>JtViews</h2>
 		A JtView (yes, my initials, we couldn't think of a better name that wasn't
@@ -571,7 +576,7 @@
 			"vernacular". We may eventually support specifying individual writing systems
 			by name and/or abbreviation. (Currently it is possible to specify wsid and give
 			an integer value, but this is not be useful as writing system IDs are not
-			consistent across different databases.)</p>
+			consistent across different databases or even runs of the program!)</p>
 		<h3>&lt;int&gt;</h3>
 		<p>The other element types supported for basic properties (not involving a
 			relationship between objects) are as follows:</p>
@@ -644,8 +649,7 @@
 				</tr>
 				<tr>
 					<td width="28%">fontfamily</td>
-					<td width="72%">name of a font, or "default serif", or "default sans serif". (Note:
-						these may soon change to "default" and "default heading".)</td>
+					<td width="72%">name of a font, or "&gt;default font&lt;".)</td>
 				</tr>
 				<tr>
 					<td width="28%">italic</td>
@@ -744,7 +748,8 @@
 					<td width="72%">Millipoints. Minimum distance from one baseline to the next (extra
 						space will be added if necessary to accommodate superscripts, subscripts,
 						embedded objects and pictures, large font sizes). If negative, exact distance
-						from one baseline to the next, even if this causes some things to overlap.</td>
+						from one baseline to the next, even if this causes some things to overlap. Ebedded pictures and other large
+						things may force the line spacing to be a multiple of the exact line spacing.</td>
 				</tr>
 				<tr>
 					<td width="28%">borderleading, bordertrailing, bordertop, borderbottom</td>
@@ -786,7 +791,7 @@
 		<p>The view system supports additional properties not yet exposed through XmlViews.
 			In particular I just noticed that bordercolor is missing, and there is no way
 			to specify the overall direction of text flow in a paragraph. There may be a
-			few others.</p>
+			few others. [Some of these may have been filled in by now...JT Nov 2011]</p>
 		<h2>Simple grouping</h2>
 		<p>&lt;div&gt; groups several things vertically so the same properties can readily
 			be applied to all of them</p>
@@ -926,6 +931,9 @@ current specs]</span><br>
 			rules, cell borders, or the cell background color is different from the table
 			as a whole.<br>
 		</p>
+		<p>Note that in most of our current views, tables are only one line long, and the effect of larger
+		tables is achieved by stacking them in a div. The main reason for this is that our code for building
+		views lazily is not currently lazy about tables, so very large ones hurt performance.</p>
 		<h3>Concording</h3>
 		<p>A special kind of paragraph is used in concordance displays. It is limited to a
 			single line, and a significant word in the paragraph is highlighted and
@@ -947,7 +955,8 @@ current specs]</span><br>
 		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		&lt;/concpara&gt;<br>
 		This specifies a concordance paragraph (showing the contents of an StTxtPara
-		referenced by the BeginObject field of the CmBaseAnnotation we are displaying).
+		referenced by the BeginObject field of the CmBaseAnnotation we are displaying...sorry, using annotations like this is obsolete,
+		but it still should give the idea).
 		The BeginOffset and EndOffset fields of the CmBaseAnnotation determine the
 		range of characters that will be highlighed as the keyword, and the left edge
 		of the keyword will be aligned 144 points from the left margin.<br>
@@ -956,8 +965,8 @@ current specs]</span><br>
 		<p>&lt;virtual&gt;obj.Shortname&lt;/virtual&gt; Inserts as literal text the value
 			returned by the object's Shortname method. Note that this will not currently be
 			automatically updated if something happens to alter the object's shortname.<br>
-			(There are more of these, and a new way of doing arbitrary virtuals by writing
-			C# code and hooking it up. Todo: write these up.<br>
+			(You can use any FDO property that is annotated ([VirtualProperty...]) to indicate that it is
+			accessible to views.<br>
 		</p>
 		<h2>Conditionals</h2>
 		&lt;if condition&gt;...&lt;/if&gt; includes the embedded parts of the view if
@@ -1011,7 +1020,8 @@ current specs]</span><br>
 			which.</p>
 		<p>It is also possible to follow a relationship in the opposite direction, to find
 			the owning object or the referring object. This is not yet supported in
-			XmlViews.<br>
+			XmlViews, except where a suitable virtual property has been defined on the
+			target class.<br>
 		</p>
 		<h1>Detail views full doc</h1>
 		<h2>Detail layouts</h2>
@@ -1033,23 +1043,32 @@ current specs]</span><br>
 			<span style="FONT-STYLE: italic">type </span>is always 'Detail' for a detail
 			layout, and
 			<span style="FONT-STYLE: italic">name </span>identifies the specific layout.</p>
-		<p>&lt;&gt;A part ref element must have the
+			<p><b>The following is a table of the attributes that are available on a part:</b><br>(documentation included where known) There is also a schema for the view Layout xml files called ViewsLayout.xsd currently available in the Distfiles\Language Explorer\Configuration\Parts folder in the WW branch:</br></p>
+			<table border="1">
+	  <tr><td><span style="FONT-STYLE: italic">ref </span></td> <td>string</td><td>A part ref element must have the
 			<span style="FONT-STYLE: italic">ref</span>
 			attribute to indicate which part is to be included in the layout. Note that it
 			does not give the full id of the part; the class of the part id is determined
-			from the actual class of object displayed, and it is implicitly a detail part.</p>
-		<p>&lt;&gt;A part ref may specify
-			<span style="FONT-STYLE: italic">label</span>,
-			<span style="FONT-STYLE: italic">menu</span>, or
-			<span style="FONT-STYLE: italic">hotlink </span>attributes in order to override
+			from the actual class of object displayed, and it is implicitly a detail part.</td>
+										</tr><tr><td><span style="FONT-STYLE: italic">ws </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">before </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">after </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">visibility </span></td><td>string</td><td><span style="FONT-STYLE: italic">always</span>,
+			<span style="FONT-STYLE: italic">ifdata</span>, or
+			<span style="FONT-STYLE: italic">never</span>. (The last is of course useful
+			only where there is a customization mechanism to allow
+			the user to change it!)</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">label </span></td><td>string</td></td><td>attributes in order to override
 			corresponding attributes of slices in the part. (This is often convenient,
 			especially if the part in question is a generated one on a base class, but I am
 			concerned that using it may complicate some of the more advanced kinds of view
-			customization we hope to do one day. I recommend not using it extensively.)</p>
-		<p>&lt;&gt;</p>
-		<p>A part ref may also specify a
-			<span style="FONT-STYLE: italic">param</span>
-			attribute. In theory, different kinds of part might recognize different kinds
+			customization we hope to do one day. I recommend not using it extensively.)</td>
+										</tr><tr><td><span style="FONT-STYLE: italic">sep </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">showLabels </span> <td>boolean</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">style </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">flowType </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">param </span></td><td>string</td>
+										<td>In theory, different kinds of part might recognize different kinds
 			of parameter. Currently the only way this is used is to override the
 			<span style="FONT-STYLE: italic">layout</span>
 			attribute in slices of the part which display jtviews (editor="jtview" or
@@ -1059,27 +1078,59 @@ current specs]</span><br>
 			<span style="FONT-STYLE: italic">all</span>
 			of them will be overridden the same way. (Then again, this might be just what
 			you want, if you are defining a collection of compatible layouts all with the
-			same name.)<br>
-		</p>
-		<p>A part ref may have two kinds of children (but not both). Neither is
-			particularly useful at present, but they are used in places, so it is helpful
-			to have at least some understanding.<br>
-		</p>
-		<P>A part ref may specify
-			<span style="FONT-STYLE: italic">visibility</span>
-			as
-			<span style="FONT-STYLE: italic">always</span>,
-			<span style="FONT-STYLE: italic">ifdata</span>, or
-			<span style="FONT-STYLE: italic">never</span>. (The last is of course useful
-			only in the expectation that some customization interface will eventually allow
-			the user to change it!)</P>
-		<P>There is also a special kind of part to indicate a specific placement of custom
+			same name.)
+		</td>
+										</tr><tr><td><span style="FONT-STYLE: italic">collapsedLayout </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">expansion </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">menu </span></td><td>string</td></td><td>attributes in order to override
+			corresponding attributes of slices in the part. (This is often convenient,
+			especially if the part in question is a generated one on a base class, but I am
+			concerned that using it may complicate some of the more advanced kinds of view
+			customization we hope to do one day. I recommend not using it extensively.)</td>
+										</tr><tr><td><span style="FONT-STYLE: italic">hotlinks </span></td><td>string</td><td>attributes in order to override
+			corresponding attributes of slices in the part. (This is often convenient,
+			especially if the part in question is a generated one on a base class, but I am
+			concerned that using it may complicate some of the more advanced kinds of view
+			customization we hope to do one day. I recommend not using it extensively.)</td>
+										</tr><tr><td><span style="FONT-STYLE: italic">notifyVirtual </span> </td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">singlegraminfofirst </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">css </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">wsType </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">lexreltype </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">showasindentedpara </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">number </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">numstyle </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">numsingle </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">recurseConfig </span></td> <td>boolean</td> <td>If this attribute is set to false then the configuration for this element will
+													be controlled by the layout part that is referenced. The configuration dialog will
+													not have any visible options at this node.
+											</td>
+											</tr><tr><td><span style="FONT-STYLE: italic">recurseConfigLabel </span></td> <td>string</td><td>
+													When recurseConfig is false this option will be used to provide the user information
+													about where the configuration for this node is handled.</td>
+										</tr><tr><td><span style="FONT-STYLE: italic">parastyle </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">indent </span> <td>boolean</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">forceSubentryDisplay </span> <td>boolean</td><td>
+													This flag will be read during the display of a fragment to force the display of this
+													node when it would otherwise be suppressed. i.e. Senses are generally not to be displayed
+													if there is a sense as the parent, but when a LexEntry is marked as minor in a RootBased
+													dictionary and it is a component of the sense of another entry, the senses of the minor entry
+													should be displayed.</td>
+										</tr><tr><td><span style="FONT-STYLE: italic">preventnullstyle </span> <td>boolean</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">customFields </span></td><td>string</td><td>a special kind of part to indicate a specific placement of custom
 			fields in the layout. This part should have an attribute called
 			"customFields" that is set to some non-null value (it doesn't matter what the
-			value is). If no part like this is found, the custom fields will not be displayed.
-			</P>
-		<p>&nbsp; &lt;part customFields="here" /&gt;
-		</p>
+			value is). If no part like this is found, the custom fields will not be displayed.</td>
+										</tr><tr><td><span style="FONT-STYLE: italic">hideConfig </span> <td>boolean</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">comment </span></td><td>string</td><td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">entrytype </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">field </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">cssNumber </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">disallowCharStyle </span> </td><td>boolean</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">commandVisible </span> </td><td>boolean</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">beforeStyle </span></td><td>string</td></td>
+										</tr><tr><td><span style="FONT-STYLE: italic">abbr </span></td><td>string</td></td>
+										</tr></tr></table></p>
 		<P>&nbsp;</P>
 		<h3><span style="FONT-STYLE: italic">indent</span>
 			element provide additional part refs for the same object</h3>
@@ -1227,7 +1278,7 @@ current specs]</span><br>
 			at once what will be shown for each sense, rather than having to go and look up
 			another layout. On the other hand, it means that this particular layout for a
 			sense can't be reused, and it may complicate some aspects of the customization
-			code when we get around to doing it.<br>
+			code.<br>
 		</p>
 		<p></p>
 		<h2>Detail parts</h2>
@@ -1380,7 +1431,8 @@ current specs]</span><br>
 			property, or one alternative of a multilingual one. If the latter, the
 			<span style="FONT-STYLE: italic">ws</span>
 			attribute is required to indicate which one. The value should be either
-			"analysis" or "vernacular" (indicating the first such writing system).<br>
+			"analysis" or "vernacular" (indicating the first such writing system). [Nov 2011: probably more options now,
+			at least one for phonology WSs.)<br>
 		</p>
 		&nbsp;&nbsp;&nbsp; &lt;part id="PhNaturalClass-Detail-Description"
 		type="Detail"&gt;<br>
@@ -1392,7 +1444,7 @@ current specs]</span><br>
 		writing systems) of its property. The
 		<span style="FONT-STYLE: italic">ws </span>attribute can be 'all vernacular',
 		'all analysis', 'analysis vernacular', or 'vernacular analysis'. (The last two
-		are implicitly "all" of both types of writing system.)<br>
+		are implicitly "all" of both types of writing system.) (todo: Several more options now..)<br>
 		<h3>editor="enumcombobox"</h3>
 		<p>This type sets an integer to a value based on choosing an item from a list. The
 			list is supplied in the
