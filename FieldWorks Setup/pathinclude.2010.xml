@@ -17,7 +17,7 @@ default location.-->
 	<property name="oldLib" value=""/>
 	<readregistry property="oldLib" key="SYSTEM\CurrentControlSet\Control\Session Manager\Environment\LIB"
 		hive="LocalMachine" failonerror="false"/>
-	<property name="Path" value="${start}C:\HEREITIS;C:\Program Files\Microsoft Visual Studio 10.0\Common7\IDE;C:\Program Files\Microsoft Visual Studio 10.0\VC\bin;C:\Program Files\Microsoft Visual Studio 10.0\Common7\Tools;C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin;C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319;${fwroot}\bin;${fwroot}\bin\nant\bin;C:\THEEND${end}" />
+	<property name="Path" value="${start}C:\HEREITIS;C:\Program Files\Microsoft Visual Studio 10.0\Common7\IDE;C:\Program Files\Microsoft Visual Studio 10.0\VC\bin;C:\Program Files\Microsoft Visual Studio 10.0\Common7\Tools;C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\NETFX 4.0 Tools;C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin;C:\WINDOWS\Microsoft.NET\Framework\v4.0.30319;${fwroot}\bin;${fwroot}\bin\nant\bin;C:\THEEND${end}" />
 	<property name="INCLUDE" value="C:\Program Files\Microsoft SDKs\Windows\v7.0A\Include;C:\Program Files\Microsoft Visual Studio 10.0\VC\Include;C:\Program Files\Microsoft Visual Studio 10.0\VC\atlmfc\Include"/>
 	<property name="LIB" value="C:\Program Files\Microsoft SDKs\Windows\v7.0A\Lib;C:\Program Files\Microsoft Visual Studio 10.0\VC\Lib;C:\Program Files\Microsoft Visual Studio 10.0\VC\atlmfc\lib"/>
 	<setenv global="true" unless="${(environment-path == Path) and (oldInclude == INCLUDE) and (oldLib == LIB)}">
