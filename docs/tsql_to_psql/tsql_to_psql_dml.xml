@@ -1,0 +1,56 @@
+<chapter id="DML">
+	<title>Data Manipulation Language</title>
+	<section id="DML_Inserts">
+		<title>Inserts (DML) Conversion</title>
+		<para>
+			<emphasis>TSQL:</emphasis>
+			<itemizedlist>
+				<listitem override="none">
+					<programlisting>
+insert into AppCompat$(
+	[AppGuid]
+  values(
+	'76230C21-7084-11D5-83CD-0050BA78F57C'); <co id="co-uidie_1" linkends="co-uidie_2"/>
+go
+					</programlisting>
+					<calloutlist>
+						<callout arearefs="co-uidie_1" id="co-uidie_2">
+							<para>TSQL doesn't require any special handling for UID values inserts
+								except it has to be in the character representation.</para>
+						</callout>
+					</calloutlist>
+				</listitem>
+			</itemizedlist>
+		</para>
+		<para>
+			<emphasis>PSQL:</emphasis>
+			<itemizedlist>
+				<listitem override="none">
+					<programlisting>
+INSERT INTO APPCOMPAT$(
+	"APPGUID",
+	"APPNAME",
+	"EARLIESTCOMPATVER",
+	"LASTKNOWNCOMPATVER")
+  VALUES(
+	udf_Varchar_To_GUID( <co id="co-uidie_3" linkends="co-uidie_4"/>
+	  CAST('76230C21-7084-11D5-83CD-0050BA78F57C' AS VARCHAR(36) CHARACTER SET OCTETS))); <co id="co-uidie_5" linkends="co-uidie_6"/>
+COMMIT;
+					</programlisting>
+					<calloutlist>
+						<callout arearefs="co-uidie_3" id="co-uidie_4">
+							<para>PSQL requires the use of the udf_Varchar_To_GUID UDF to insert a
+								UID value.</para>
+						</callout>
+						<callout arearefs="co-uidie_5" id="co-uidie_6">
+							<para>PSQL also requires the <command>CAST('...' AS VARCHAR(36)
+									CHARACTER SET OCTETS)</command> syntax usage so that PSQL knows
+								to not do any transliteration and treat this insert as a binary data
+								insert.</para>
+						</callout>
+					</calloutlist>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</section>
+</chapter>

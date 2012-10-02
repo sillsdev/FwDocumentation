@@ -1,0 +1,57 @@
+<chapter id="Triggers">
+	<title>Triggers</title>
+	<section id="Triggers_General">
+		<title>General</title>
+		<para>General PSQL trigger notes: <itemizedlist>
+				<listitem override="none">
+					<programlisting>
+SET TERM !!; <co id="co-triggersTerm_1a" linkends="co-triggersTerm_1b"/>
+CREATE TRIGGER T_BI2_Field$ FOR Field$
+  ACTIVE BEFORE INSERT POSITION 2 <co id="co-triggersPosition_1a" linkends="co-triggersPosition_1b"/>
+AS
+BEGIN
+  /~  <co id="co-triggersComment_1a" linkends="co-triggersComment_1b"/>
+	If Custom is NULL then insert a -1 value.
+  ~/ <coref linkend="co-triggersComment_1a"/>
+  IF (NEW.Custom IS NULL) THEN
+	NEW.Custom = -1;
+END !! <co id="co-triggersTerm_2a" linkends="co-triggersTerm_2b"/>
+SET TERM ; !! <co id="co-triggersTerm_3a" linkends="co-triggersTerm_3b"/>
+COMMIT;
+					</programlisting>
+					<calloutlist>
+						<callout arearefs="co-triggersTerm_1a" id="co-triggersTerm_1b">
+							<para>
+								<command>SET TERM !!</command> changes the command line ending from
+								";" to "!!" in order to be able to submit multiline statements as
+								when defining triggers or stored procedures.</para>
+						</callout>
+						<callout arearefs="co-triggersPosition_1a" id="co-triggersPosition_1b">
+							<para>
+								<command>POSITION x</command> identifies in which order the trigger
+								will occur. Positions 0-9 and 32750-32767 are reserved for emulating
+								TSQL features such as tinyint default value support. An example is
+								shown in the default section of this document. Positions 10-32749
+								can then be used for any other type of user triggers. Lower numbered
+								triggers occur prior to higher numbered triggers.</para>
+						</callout>
+						<callout arearefs="co-triggersComment_1a" id="co-triggersComment_1b">
+							<para>
+								<command>/~ ... ~/</command> is explained in the comments section of
+								this document.</para>
+						</callout>
+						<callout arearefs="co-triggersTerm_2a" id="co-triggersComment_2b">
+							<para>
+								<command>END !!</command> terminates the trigger declaration.</para>
+						</callout>
+						<callout arearefs="co-triggersTerm_3a" id="co-triggersTerm_3b">
+							<para>
+								<command>SET TERM ;</command> changes the command line ending back
+								to ";" from "!!".</para>
+						</callout>
+					</calloutlist>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</section>
+</chapter>

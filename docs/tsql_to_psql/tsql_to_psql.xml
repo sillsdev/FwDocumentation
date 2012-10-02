@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="../docbook-html.xsl"?>
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+  <!ENTITY prerequisites SYSTEM "tsql_to_psql_prerequisites.xml">
+  <!ENTITY basic SYSTEM "tsql_to_psql_basic.xml">
+  <!ENTITY naming SYSTEM "tsql_to_psql_naming.xml">
+  <!ENTITY exceptions SYSTEM "tsql_to_psql_exceptions.xml">
+  <!ENTITY triggers SYSTEM "tsql_to_psql_triggers.xml">
+  <!ENTITY create_table_general SYSTEM "tsql_to_psql_create_general.xml">
+  <!ENTITY create_table_default SYSTEM "tsql_to_psql_create_default.xml">
+  <!ENTITY create_table_constraints SYSTEM "tsql_to_psql_create_constraints.xml">
+  <!ENTITY indexes SYSTEM "tsql_to_psql_indexes.xml">
+  <!ENTITY dml SYSTEM "tsql_to_psql_dml.xml">
+]>
+<book>
+	<title>TSQL to PSQL</title>
+	<bookinfo>
+		<releaseinfo>$Revision$</releaseinfo>
+		<pubdate>$Date$</pubdate>
+		<abstract>
+			<para>This document will cover common approaches for converting Microsoft SQL-Server
+				(MSSQL) procedural language (Transact SQL - TSQL) to Firebird procedural language
+				(PSQL).</para>
+		</abstract>
+	</bookinfo>
+	&prerequisites;
+	&naming;
+	&basic;
+	&exceptions;
+	&triggers;
+	<chapter id="Table_Creation">
+		<title>Table Creation</title>
+		&create_table_general;
+		&create_table_constraints;
+		&create_table_default;
+	</chapter>
+	&indexes;
+	&dml;
+</book>

@@ -1,0 +1,220 @@
+<chapter id="Naming_Conventions">
+	<title>Naming Conventions</title>
+	<section id="Naming_General">
+		<title>General</title>
+		<para>When defining constraint names, index names, etc it may be required to abbreviate the
+			tablenames and fieldnames in order to remain within the maximum length of 31
+		characters.</para>
+	</section>
+	<section id="Double_Quotes">
+		<title>Double-Quotes Delimiters</title>
+		<para>Double-quotes are used to escape illegal or special characters and make the table
+			names or field names case-sensitive. In order to avoid problems with character case in
+			PSQL:</para>
+		<orderedlist numeration="lowerroman">
+			<listitem>
+				<para>Never enclose table names in double-quotes.</para>
+			</listitem>
+			<listitem>
+				<para>Make all field names uppercase and enclose them in double-quotes. The
+					double-quotes are required to escape keywords or special characters. However,
+					the combination of double quotes and the name being in uppercase makes the name
+					equivalent to a nondelimited and case insensitive name if it isn't a keyword or
+					doesn't contain special characters. In other words by putting a name in
+					uppercase negates the fact that it is delimited by double-quotes. Once the
+					fields are created using this convention then we have the flexibility of not
+					having to use double-quotes where not required (fields that don't contain
+					keywords or special characters) in Select, Insert, Update and Delete
+				statements.</para>
+			</listitem>
+		</orderedlist>
+	</section>
+	<section id="Naming_Constants">
+		<title>Constants</title>
+		<para>Constants will start with a lower case "k" letter i.e
+			<emphasis>kcchMaxName</emphasis>.</para>
+	</section>
+	<section id="Naming_Constraints">
+		<title>Constraints</title>
+		<variablelist>
+			<varlistentry>
+				<term>Check Constraint</term>
+				<listitem>
+					<variablelist>
+						<varlistentry>
+							<term>CK_<emphasis>tablename</emphasis>_<emphasis>fieldname</emphasis>
+							</term>
+							<listitem>
+								<variablelist>
+									<varlistentry>
+										<term>
+											<emphasis>tablename</emphasis>
+										</term>
+										<listitem>Table name that the check constraint belongs
+										to.</listitem>
+									</varlistentry>
+									<varlistentry>
+										<term>
+											<emphasis>fieldname</emphasis>
+										</term>
+										<listitem>Field name that the constraint is primarily
+											against (or any other field that is part of the
+											constraint if this would result in a duplicate
+										name).</listitem>
+									</varlistentry>
+								</variablelist>
+							</listitem>
+						</varlistentry>
+					</variablelist>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Foreign Key Constraint</term>
+				<listitem>
+					<variablelist>
+						<varlistentry>
+							<term>FK_<emphasis>child-tablename</emphasis>_<emphasis>parent-tablename</emphasis>
+							</term>
+							<listitem>
+								<variablelist>
+									<varlistentry>
+										<term>
+											<emphasis>child-tablename</emphasis>
+										</term>
+										<listitem>Child table name that the foreign key belongs
+										to.</listitem>
+									</varlistentry>
+									<varlistentry>
+										<term>
+											<emphasis>parent-tablename</emphasis>
+										</term>
+										<listitem>Parent table name that the child is dependent upon
+											(or pointing to).</listitem>
+									</varlistentry>
+								</variablelist>
+							</listitem>
+						</varlistentry>
+					</variablelist>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Primary Key</term>
+				<listitem>
+					<variablelist>
+						<varlistentry>
+							<term>PK_<emphasis>tablename</emphasis>
+							</term>
+							<listitem>
+								<variablelist>
+									<varlistentry>
+										<term>
+											<emphasis>tablename</emphasis>
+										</term>
+										<listitem>Table name that the primary key belongs
+										to.</listitem>
+									</varlistentry>
+								</variablelist>
+							</listitem>
+						</varlistentry>
+					</variablelist>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>Unique Key Constraint</term>
+				<listitem>
+					<variablelist>
+						<varlistentry>
+							<term>UQ_<emphasis>tablename</emphasis>_<emphasis>fieldname</emphasis>
+							</term>
+							<listitem>
+								<variablelist>
+									<varlistentry>
+										<term>
+											<emphasis>tablename</emphasis>
+										</term>
+										<listitem>Table name that the unique key belongs
+										to.</listitem>
+									</varlistentry>
+								</variablelist>
+								<variablelist>
+									<varlistentry>
+										<term>
+											<emphasis>fieldname</emphasis>
+										</term>
+										<listitem>Field name that the unique key is enforcing a
+											uniqueness constraint upon (or one of them if on a
+											multi-field key).</listitem>
+									</varlistentry>
+								</variablelist>
+							</listitem>
+						</varlistentry>
+					</variablelist>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+	</section>
+	<section id="Naming_Indexes">
+		<title>Indexes</title>
+		<variablelist>
+			<varlistentry>
+				<term>Regular Indexes</term>
+				<listitem>
+					<variablelist>
+						<varlistentry>
+							<term>IX_<emphasis>tablename</emphasis>_<emphasis>fieldname</emphasis>
+							</term>
+							<listitem>
+								<variablelist>
+									<varlistentry>
+										<term>tablename</term>
+										<listitem>Is the table name that the index belongs
+										to.</listitem>
+									</varlistentry>
+									<varlistentry>
+										<term>fieldname</term>
+										<listitem>the field name that the index is primarily against
+											or the first field name in a multi-field index (compound
+											index).</listitem>
+									</varlistentry>
+								</variablelist>
+							</listitem>
+						</varlistentry>
+					</variablelist>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+	</section>
+	<section id="Naming_Triggers">
+		<title>Triggers</title>
+		<variablelist>
+			<varlistentry>
+				<term>T_<emphasis>xy#_tablename</emphasis>
+				</term>
+				<listitem>
+					<variablelist>
+						<varlistentry>
+							<term>x</term>
+							<listitem> Is either B for <command>BEFORE</command> or A for
+									<command>AFTER</command> type trigger.</listitem>
+						</varlistentry>
+						<varlistentry>
+							<term>y</term>
+							<listitem> Is either I, U or D for respectively
+								<command>INSERT</command>, <command>UPDATE</command> or
+									<command>DELETE</command> DML type trigger. </listitem>
+						</varlistentry>
+						<varlistentry>
+							<term>#</term>
+							<listitem>Is the <command>POSITION</command> number of the trigger.
+							</listitem>
+						</varlistentry>
+						<varlistentry>
+							<term>tablename</term>
+							<listitem>Is the table name the trigger belongs to.</listitem>
+						</varlistentry>
+					</variablelist>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+	</section>
+</chapter>

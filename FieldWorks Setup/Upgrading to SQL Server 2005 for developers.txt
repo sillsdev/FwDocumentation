@@ -1,0 +1,87 @@
+Upgrading SQL Server 2000 to SQL Server 2005 for developers
+
+You have several choices of what to install for SQL Server 2005. The Express version can be downloaded from Microsoft and optionally various tools (including SQL Server Management Studio, which is the replacement for Query Analyzer plus). If you want to use the Profiler, you will need to install SQL Server 2005 Developer. Everyone with a license to Visual Studio 2005 Professional (what SIL is using) can use SQL Server 2005 Developer, however, the original CD set we received did not have these CDs. So in order to install that you'll need to get these CDs. Keith Brewer at Waxhaw can send these, or we can probably send you some from Dallas. If you need Profiler, but don't have the CDs, you can install Express and use that until you receive the CDs, then uninstall Express and install Developer.
+
+Microsoft claims SQL Server 2005 Express will run on a minimum of 192Mb of memory, but recommend 512Mb. This is the version we install on end-user machines. For SQL Server 2005 Developer, they say a minimum is 512Mb and recommend 1Gb. So far we've had build failures on machines with 512Mb of memory using SQL Server 2005 Developer, and it appears that SQL Server is running out of memory. So for development purposes, if you want to use SQL Server 2005 Developer, you'd better have 1Gb of memory. Otherwise stick with SQL Server 2005 Express.
+
+Here are the steps for upgrading from SQL Server 2000 to SQL Server 2005.
+
+Uninstall SQL Server 2000 if present.
+-------------------
+1. Go to Add or Remove Programs and uninstall Microsoft SQL Server 2000 (SILFW)
+2. Optional. You can delete other Microsoft SQL Server applications, especially if you will be installing the full new developer edition.
+  Microsoft SQL Server 2005
+  Microsoft SQL Server 2005 Mobile [ENU] Developer Tools
+  Microsoft SQL Server Native Client
+  Microsoft SQL Server Setup Support Files (English)
+  Microsoft SQL Server VSS Writer
+3. Rename or move the C:\Program Files\Microsoft SQL Server\MSSQL$SILFW directory.
+4. Reboot
+
+Download SQL Server 2005 Express if you don't have SQL Server 2005 Developer CDs.
+-------------------
+1. Go to http://msdn.microsoft.com/vstudio/express/sql/download/
+2. In step 3, you'll need to choose the options you want.
+Minimum = Microsoft SQL Server 2005 Express Edition (SQLEXPR.EXE 53.8Mb) with optional SQL Server Management Studio Express (SQLServer2005_SSMSEE.msi 38.5Mb)
+Maximum = SQL Server Express Edition with Advanced Services SP1 (SQLEXPR_ADV.EXE 234Mb), and Microsoft SQL Server Express Edition Toolkit SP1(SQLEXPR_TOOLKIT.EXE 213Mb).
+3. In step 4, download and install SQL Server 2005 Books Online (121Mb), and if you want, the samples (18.6Mb)
+
+Installation of SQL Server 2005 Developer (Express has many of the same dialogs, so answer the questions the same way.)
+-------------------
+1. Insert SQL Server 2005 Developer disk 1.
+2. Choose Install Server components, tools, Books Online, and samples
+In the System Configuration Check, ignore the warning on IIS Feature Requirement. You may also have a Minimum Hardware Requirement warning.
+3. Enter name/company in Registration Information page.
+4. Either check all boxes in Compnents to Install page, or you can omit Analysis Services, Notification Services, and Integration Services. I don't think these optional components are used at all in FieldWorks development.
+5. On Instance Name page select Named instance and type SILFW
+6. On Existing components, check Workstation components, ... if it is there.
+7. On Service Account page click "Use the built-in System account -- Local system"
+8. On Authentication Mode page, click Mixed Mode and type inscrutable in password slots
+9. On Collation Settings page, accept defaults
+10. On Error and Usage Report Settings, accept defaults
+11. In the Completing Microsoft SQL Server 2005 Setup page click Surface Area Configuration tool (or if you are installing some other way where this option doesn't come up, open the tool from Start...Programs...Microsoft SQL Server 2005...Configuration Tools...Surface Area Configuration Tool and then proceed with these steps.)
+12. Select Surface Area Configuration for Services and Connections.
+13. Select Remote Connections, then Local and remote Connections using TCP/IP only, then Press OK. (A message will notify you that you need to restart the db. Wait for the reboot for this.)
+14. Select Surface Area Configuration for Features
+15. Under SILFW Database Engine, select OLE Automation and check the Enable button.
+16. Under SILFW Database Engine, select xp_cmdshell and check the Enable button.
+17. Click OK and close the Area Configuration tool, then click Finish on the remaining dialog.
+18. Install SQL Server 2005 SP1 The exact version depends on which version of SQL Server you installed. For Dallas teams, you can install \\ls-zook\dropbox\en_SQL_server_sp1_x86.exe. For those installing SQL Server 2005 Developer, you can download SQLServer2005SP1-KB913090-x86-ENU.exe (252.7Mb) from http://www.microsoft.com/downloads/details.aspx?familyid=cb6c71ea-d649-47ff-9176-e7cac58fd4bc&displaylang=en. For SQL Express, install the files you downloaded. In the Authentication Mode screen, accept default of Windows Authentication. If you get a Pending Reboot Files Found dialog, click Yes. Then if you get a Locked Files Found dialog. Click Continue.
+19. Reboot computer.
+
+Build FieldWorks
+-------------------
+1. Run nant remakefw to build FW.
+
+Upgrade db registry setting
+-------------------
+1. You need to figure out where your SILFW data directory now lives. It doesn't have a fixed path name as it did before. If you've done a remakefw, you can search for the directory that contains the latest TestLangProj and Lela-Teli files. Alternatively, you can check the registry key
+HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Microsoft SQL Server\SILFW\Setup
+The SQLPath string value will have something like
+C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL
+You need to use this path, but append \Data to the end. Insert this string (with no double quotes!) in the DbDir string environment in
+HKEY_LOCAL_MACHINE\SOFTWARE\SIL\FieldWorks
+If you would rather use the FieldWorks data directory when working with db you could set it to
+c:\fw\distfiles\data.
+
+Reattach other databases.
+-------------------
+If you had databases attached in MSSQL$SILFW before the upgrade process here's how you can get them reattached.
+1. In the old MSSQL$SILFW\data directory, give the DOS command: dir /b *.mdf >x.bat
+2. In x.bat created in step 1, use search and replace in ZEdit to replace .mdf^p with "^pdb attach ". Then clean up the batch file by making sure every line is a valid db attach line. Also, delete any lines for databases that are already attached in the new directory.
+3. Copy x.bat and the .mdf/.ldf files that you plan to attach into your new SILFW data directory.
+4. Run x.bat and then delete the file when all databases are attached. This takes longer to attach than normal because it is converting each database to SQL Server 2005.
+5. If you have any other files in your old directory you want to keep, copy them to the new SILFW data directory.
+6. Delete your old MSSQL$SILFW directory.
+
+Optional default settings from Steve Miller
+-------------------
+If you're like me, you've always been annoyed that Query Analyzer defaulted to using the master database, and there was no way to change it. (Actually, we could change the default and didn't know it, with sp_defaultdb, but that is now deprecated.) You can now set a default database by:
+1. Bring up SSMSE.
+2. Open a New Query.
+3. Create a login. I created a login for Windows Authentication by the command: CREATE LOGIN [DALLAS\millers] FROM WINDOWS WITH DEFAULT_DATABASE = TestLangProj. Note that there are no quote marks around the database name, and the use of square brackets around [domain\user].
+
+You can change the default database of any existing Login using the ALTER LOGIN command, or by:
+1. Bringing up SSMSE.
+2. Select Security, Logins, and the login you want.
+3. Change the Default database in the Login Properties dialog.

@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!-- This include file modifies the path variable for use with VS 2005 when installed in the
+default location.-->
+<project name="VS2005Paths" default="dummy2005" xmlns="http://fieldworks.sil.org/nant/fwnant.xsd">
+	<readregistry property="environment-path" key="SYSTEM\CurrentControlSet\Control\Session Manager\Environment\Path"
+		hive="LocalMachine"/>
+	<regex pattern="(?'start'.*;|^)(?'mypath'.*)C:\\HEREITIS;.*;C:\\THEEND(?'end'.*)"
+		input="${environment-path}" failonerror="false"/>
+	<if test="${not property::exists('mypath')}">
+		<property name="start" value="${environment-path};"/>
+		<property name="end" value=""/>
+	</if>
+
+	<setenv name="Path" value="${start}C:\HEREITIS;C:\Program Files\Microsoft Visual Studio 8\Common7\IDE;C:\Program Files\Microsoft Visual Studio 8\VC\bin;C:\Program Files\Microsoft Visual Studio 8\Common7\Tools;C:\Program Files\Microsoft Visual Studio 8\Common7\Tools\bin;C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\bin;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727;${fwroot}\bin;${fwroot}\bin\nant\bin;C:\THEEND${end}"
+		global="true"/>
+	<setenv name="INCLUDE" value="C:\Program Files\Microsoft Visual Studio 8\VC\PlatformSDK\Include;C:\Program Files\Microsoft Visual Studio 8\VC\Include;C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\include\;C:\Program Files\Microsoft Visual Studio 8\VC\atlmfc\Include;c:\Program Files\PlatformSDK\include"
+		 global="true"/>
+	<setenv name="LIB" value="C:\Program Files\Microsoft Visual Studio 8\VC\PlatformSDK\Lib;C:\Program Files\Microsoft Visual Studio 8\VC\Lib;C:\Program Files\Microsoft Visual Studio 8\SDK\v2.0\Lib\;C:\Program Files\Microsoft Visual Studio 8\VC\atlmfc\lib"
+		 global="true"/>
+</project>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<meta>
+		<filters directoryPatterns="" filePatterns=""
+			positiveFilePatterns="" showHiddenFiles="false"/>
+		<options/>
+	</meta>
+	<projectTree name="test_build.xpr">
+		<file name="../docbook-html.xsl"/>
+		<file name="test_build.xml"/>
+		<file name="testbuild.txt"/>
+	</projectTree>
+</project>

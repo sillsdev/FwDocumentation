@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="../docbook-html.xsl"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+<!ENTITY downloads SYSTEM "firebird_installation_downloads.xml">
+<!ENTITY step1 SYSTEM "firebird_installation_step1.xml">
+<!ENTITY step2 SYSTEM "firebird_installation_step2.xml">
+<!ENTITY step3 SYSTEM "firebird_installation_step3.xml">
+<!ENTITY step4 SYSTEM "firebird_installation_step4.xml">
+]>
+<article class="techreport">
+  <title>Windows Firebird Installation and Setup</title>
+  <articleinfo>
+	<releaseinfo>$Revision$</releaseinfo>
+
+	<pubdate>$Date$</pubdate>
+  </articleinfo>
+  <section id="Intro">
+	<title>Introduction</title>
+
+	<para>The installation and setup of Firebird consists of these main steps:</para>
+	<orderedlist>
+	  <listitem>
+		<simpara>Installing the Firebird files</simpara>
+	  </listitem>
+	  <listitem>
+		<simpara>Installing the FlameRobin application</simpara>
+	  </listitem>
+	  <listitem>
+		<simpara>Creating a Firebird database container</simpara>
+	  </listitem>
+	  <listitem>
+		<simpara>Install custom UDF DLLs</simpara>
+	  </listitem>
+	</orderedlist>
+  </section> &downloads; &step1; &step2; &step3; &step4; </article>

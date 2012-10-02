@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="Expat_Configuration">
+  <title>Expat Configuration</title>
+
+  <itemizedlist>
+	<listitem>
+	  <para>Open the System Control Panel via the "Start Menu - Settings - Control Panel". The
+		screen shot if for Windows 2000 and Windows XP has a different icon but the control panel
+		has the same name.</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/expat/expat_config_001.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Check the environment variables settings.</para>
+
+	  <itemizedlist>
+		<listitem>
+		  <para>Windows 2000</para>
+
+		  <itemizedlist>
+			<listitem>
+			  <para>Click the "Environment Variables..." button of the "Advanced" tab.</para>
+
+			  <mediaobject>
+				<imageobject>
+				  <imagedata fileref="../images/expat/expat_config_002.jpg"/>
+				</imageobject>
+			  </mediaobject>
+			</listitem>
+		  </itemizedlist>
+		</listitem>
+
+		<listitem>
+		  <para>Windows XP</para>
+
+		  <itemizedlist>
+			<listitem>
+			  <para>Click the "Environment Variables." button of the "Advanced" tab.</para>
+
+			  <mediaobject>
+				<imageobject>
+				  <imagedata fileref="../images/expat/expat_config_003.jpg"/>
+				</imageobject>
+			  </mediaobject>
+			</listitem>
+		  </itemizedlist>
+		</listitem>
+	  </itemizedlist>
+	</listitem>
+
+	<listitem>
+	  <para>Under the "System Variables..." section add :</para>
+
+	  <itemizedlist>
+		<listitem>
+		  <para><application>Expat</application>'s <filename>bin</filename> directory, i.e.
+			  <filename>C:\utils\expat\bin</filename>, to the <systemitem>PATH</systemitem>
+			variable.</para>
+		</listitem>
+	  </itemizedlist>
+	</listitem>
+
+	<listitem>
+	  <para>Under the "User Variables..." section add :</para>
+	  <note> The variables may have additional paths to them depending on what else you have your
+		development system configured for.</note>
+
+	  <itemizedlist>
+		<listitem>
+		  <para><application>Expat</application>'s <filename>Source\lib</filename> directory, i.e.
+			  <filename>C:\utils\expat\source\lib</filename>, to the
+			<systemitem>INCLUDE</systemitem> variable. It should read:</para>
+		  <itemizedlist>
+			<listitem>
+			  <systemitem>C:\Utils\expat\Source\lib;C:\VS8\VC\PlatformSDK\Include</systemitem>
+			</listitem>
+		  </itemizedlist>
+		</listitem>
+
+		<listitem>
+		  <para><application>Expat</application>'s <filename>bin</filename> directory, i.e.
+			  <filename>C:\utils\expat\bin</filename>, to the <systemitem>LIB</systemitem> variable.
+			It should read:</para>
+		  <itemizedlist>
+			<listitem>
+			  <systemitem>C:\Utils\expat\bin;C:\VS8\VC\PlatformSDK\lib</systemitem>
+			</listitem>
+		  </itemizedlist>
+		</listitem>
+	  </itemizedlist>
+	</listitem>
+
+	<listitem>
+	  <para>You are now ready to run the <filename>expat</filename> utility.</para>
+	</listitem>
+  </itemizedlist>
+</section>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="../docbook-html.xsl"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+  <!ENTITY step1 SYSTEM "expat_step1_download.xml">
+  <!ENTITY step2 SYSTEM "expat_step2_installation.xml">
+  <!ENTITY step3 SYSTEM "expat_step3_configuration.xml">
+  ]>
+<article class="techreport">
+	<title>Expat Installation and Setup</title>
+	<articleinfo>
+		<releaseinfo>$Revision$</releaseinfo>
+		<pubdate>$Date$</pubdate>
+	</articleinfo>
+	<section id="Intro">
+		<title>Introduction</title>
+		<para>This will show how to install the expat XML parsser.</para>
+		<para>The installation and setup of expat consists of these main
+			steps:</para>
+		<orderedlist>
+			<listitem>
+				<simpara>Dowloading the expat installation file (free download).</simpara>
+			</listitem>
+			<listitem>
+				<simpara>Installing expat.</simpara>
+			</listitem>
+			<listitem>
+				<simpara>Configuring your environment for expat.</simpara>
+			</listitem>
+		</orderedlist>
+	</section> &step1; &step2; &step3;</article>

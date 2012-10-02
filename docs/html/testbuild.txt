@@ -1,0 +1,102 @@
+
+OUT_MESSAGE                     ALTER EXCEPTION EXC_FW_BASE 'FW Base Exception Message'
+
+
+
+OUT_MESSAGE                     ALTER EXCEPTION EXC_T_BI1_CLASS$_INS_TABLE 'T_BI1_Class$_Ins Failed to Create Table'
+
+
+
+OUT_MESSAGE                     ALTER EXCEPTION EXC_T_BI1_CLASS$_CREATE_TRG 'T_BI1_Class$_Ins Failed to Create Trigger'
+
+
+
+OUT_MESSAGE                     ALTER EXCEPTION EXC_T_BD1_CLASS$_DEL_COPY 'T_BD1_CmObject_Del copy to ObjListTbl failed'
+
+
+
+OUT_MESSAGE                     ALTER EXCEPTION EXC_T_BD1_CLASS$_DEL_RI 'T_BD1_CmObject_Del Referential integrity violated'
+
+
+
+OUT_MESSAGE                     DROP EXTERNAL FUNCTION UDF_ASCII_CHAR
+
+
+
+OUT_MESSAGE                     DROP EXTERNAL FUNCTION UDF_RTRIM
+
+
+
+OUT_MESSAGE                     DROP EXTERNAL FUNCTION UDF_STRLEN
+
+
+
+OUT_MESSAGE                     DROP EXTERNAL FUNCTION UDF_SUBSTRLEN
+
+
+
+OUT_MESSAGE                     DROP EXTERNAL FUNCTION UDF_VARCHAR_TO_GUID
+
+
+
+OUT_MESSAGE                     DROP EXTERNAL FUNCTION UDF_GUID_TO_VARCHAR
+
+
+
+OUT_MESSAGE                     DROP EXTERNAL FUNCTION UDF_NEW_GUID
+
+
+
+OUT_MESSAGE                     DROP TABLE EXCEPTION_MESSAGES
+
+
+
+OUT_MESSAGE                     DROP TABLE VERSION$
+
+
+
+OUT_MESSAGE                     DROP TABLE APPCOMPAT$
+
+
+
+OUT_MESSAGE                     DROP TABLE MODULE$
+
+
+
+OUT_MESSAGE                     DROP TABLE CLASS$
+
+
+
+OUT_MESSAGE                     DROP TABLE FIELD$
+
+
+
+OUT_MESSAGE                     DROP TABLE CLASSPAR$
+
+
+
+OUT_MESSAGE                     DROP TABLE FLIDCOLLATION$
+
+
+
+OUT_MESSAGE                     DELETE FROM RDB$GENERATORS WHERE RDB$GENERATOR_NAME = 'S_FLIDCOLLATION$_ID'
+
+
+
+OUT_MESSAGE                     DROP TABLE OBJLISTTBL$
+
+
+
+OUT_MESSAGE                     DROP TABLE OBJINFOTBL$
+
+
+
+OUT_MESSAGE                     DROP TABLE SYNC$
+
+
+
+OUT_MESSAGE                     DELETE FROM RDB$GENERATORS WHERE RDB$GENERATOR_NAME = 'S_SYNC$_ID'
+
+
+
+OUT_MESSAGE                     DROP TABLE CMOBJECT

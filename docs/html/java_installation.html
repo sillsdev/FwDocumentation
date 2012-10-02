@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+	  <title>Java Installation</title>
+	  <link rel="stylesheet" href="fieldworks_db_port.css" type="text/css"/>
+	  <meta name="generator" content="DocBook XSL Stylesheets V1.68.1"/>
+   </head>
+   <body>
+	  <div class="article" lang="en">
+		 <div class="titlepage">
+			<div>
+			   <div>
+				  <h2 class="title">
+					 <a id="d0e3"/>Java Installation</h2>
+			   </div>
+			   <div>
+				  <p class="releaseinfo">$Revision$</p>
+			   </div>
+			   <div>
+				  <p class="pubdate">$Date$</p>
+			   </div>
+			</div>
+			<hr/>
+		 </div>
+		 <div class="toc">
+			<p>
+			   <b>Table of Contents</b>
+			</p>
+			<dl>
+			   <dt>
+				  <span class="section">
+					 <a href="#Intro">1. Introduction</a>
+				  </span>
+			   </dt>
+			   <dt>
+				  <span class="section">
+					 <a href="#Downloads">2. Downloads</a>
+				  </span>
+			   </dt>
+			   <dt>
+				  <span class="section">
+					 <a href="#JRE">3. JRE</a>
+				  </span>
+			   </dt>
+			   <dt>
+				  <span class="section">
+					 <a href="#JDK">4. JDK</a>
+				  </span>
+			   </dt>
+			   <dt>
+				  <span class="section">
+					 <a href="#JCE">5. JCE</a>
+				  </span>
+			   </dt>
+			</dl>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="Intro"/>1. Introduction</h2>
+				  </div>
+			   </div>
+			</div>
+			<p>This document provides the instructions for getting Java JRE and JDK installed. Currently
+	  (14-Apr-07) the JDK or JRE aren't required by the FieldWorks port but the JRE is used by
+	  several tools. The JDK also facilitates other development and testing functionalities.</p>
+			<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+			   <table border="0" summary="Note">
+				  <tr>
+					 <td rowspan="2" align="center" valign="top" width="25">
+						<img alt="[Note]" src="../images/admon/note.gif"/>
+					 </td>
+					 <th align="left">Note</th>
+				  </tr>
+				  <tr>
+					 <td align="left" valign="top">
+						<p>Uninstall any existing JRE or JDK before doing the following installations.</p>
+					 </td>
+				  </tr>
+			   </table>
+			</div>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="Downloads"/>2. Downloads</h2>
+				  </div>
+			   </div>
+			</div>
+			<p>You need to download and install the following software packages. The links and versions
+	  are as of the 14-Apr-07.</p>
+			<div class="itemizedlist">
+			   <ul type="disc">
+				  <li>Java Development Kit (JDK) version 6 update 1</li>
+				  <li>Java Runtime Environment (JRE) version 6 update 1</li>
+				  <li>Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files
+		6</li>
+				  <li>The above are all downloadable from: <a href="http://java.sun.com/javase/downloads/index.jsp" target="_top">http://java.sun.com/javase/downloads/index.jsp</a>
+				  </li>
+			   </ul>
+			</div>
+			<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+			   <table border="0" summary="Note">
+				  <tr>
+					 <td rowspan="2" align="center" valign="top" width="25">
+						<img alt="[Note]" src="../images/admon/note.gif"/>
+					 </td>
+					 <th align="left">Note</th>
+				  </tr>
+				  <tr>
+					 <td align="left" valign="top">
+						<div class="itemizedlist">
+						   <ul type="disc">
+							  <li>The instructions are based on the offline version of the downloads.</li>
+							  <li>The "JDK US DST Timezone Update Tool" is not required with Java version
+		  6.</li>
+							  <li>The Java Docs are included as part of JDK 6. They don't need to be downloaded
+			separately.</li>
+						   </ul>
+						</div>
+					 </td>
+				  </tr>
+			   </table>
+			</div>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="JRE"/>3. JRE</h2>
+				  </div>
+			   </div>
+			</div>
+			<div class="itemizedlist">
+			   <ul type="disc">
+				  <li>
+					 <p>The JRE is available as part of the JDK installer but by downloading it separately and
+		  installing the JRE first you obtain better control over it's install path location.</p>
+				  </li>
+				  <li>
+					 <p>Launch the <code class="filename">jre-6u1-windows-i586-p.exe</code> installer, select "Custom
+		  setup - ..." and click on "Accept &gt;"</p>
+					 <div class="mediaobject">
+						<img src="../images/java_install/java001.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Select all options and change the install path to <code class="filename">C:\java\jre\</code>
+		  and then click "Next &gt;".</p>
+					 <div class="mediaobject">
+						<img src="../images/java_install/java002.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Click on "Finish".</p>
+					 <div class="mediaobject">
+						<img src="../images/java_install/java003.jpg"/>
+					 </div>
+				  </li>
+			   </ul>
+			</div>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="JDK"/>4. JDK</h2>
+				  </div>
+			   </div>
+			</div>
+			<div class="itemizedlist">
+			   <ul type="disc">
+				  <li>
+					 <p>Launch the <code class="filename">jdk-6u1-windows-i586-p.exe</code> installer and select
+		  "Accept".</p>
+					 <div class="mediaobject">
+						<img src="../images/java_install/java004.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Unselect the Public JRE and click Next.</p>
+					 <div class="mediaobject">
+						<img src="../images/java_install/java005.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>If the following dialog window appears it is because you forgot to unselect the
+		  "Public JRE" in the above dialog. If this dialog window appears then select "No".</p>
+					 <div class="mediaobject">
+						<img src="../images/java_install/java006.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Click Finish.</p>
+					 <div class="mediaobject">
+						<img src="../images/java_install/java007.jpg"/>
+					 </div>
+				  </li>
+			   </ul>
+			</div>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="JCE"/>5. JCE</h2>
+				  </div>
+			   </div>
+			</div>
+			<div class="itemizedlist">
+			   <ul type="disc">
+				  <li>
+					 <p>Uncompress and extract <code class="filename">jce_policy-6.zip</code>.</p>
+				  </li>
+				  <li>
+					 <p>Copy the files in the extracted subfolder into:</p>
+					 <div class="itemizedlist">
+						<ul type="circle">
+						   <li>
+							  <p>C:\java\jre\lib\security</p>
+						   </li>
+						   <li>
+							  <p>C:\java\jdk\jre\lib\security</p>
+						   </li>
+						</ul>
+					 </div>
+				  </li>
+			   </ul>
+			</div>
+		 </div>
+	  </div>
+   </body>
+</html>

@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="../docbook-html.xsl"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+<!-- "e:/docbook/docbookx.dtd"> -->
+<article class="techreport">
+  <title>Firebird ODBC Installation</title>
+
+  <articleinfo>
+	<releaseinfo>$Revision$</releaseinfo>
+
+	<pubdate>$Date$</pubdate>
+  </articleinfo>
+
+  <section id="Intro">
+	<title>Introduction</title>
+
+	<para>This document provides the instructions for installing the Firebird ODBC driver installed.
+	  Currently (24-Apr-07) the ODBC driver is required by the LoadXML utility.</para>
+  </section>
+
+  <section id="Downloads">
+	<title>Downloads</title>
+
+	<para>You need to download and install the following software packages. The links and versions
+	  are as of the 24-Apr-07 (Beta V2.00.00.00142). These download links are from the following web
+	  page <ulink url="http://www.firebirdsql.org/index.php?op=files&amp;id=odbc"
+		>http://www.firebirdsql.org/index.php?op=files&amp;id=odbc</ulink></para>
+
+	<section id="Windows_Download">
+	  <title>Windows Download</title>
+
+	  <itemizedlist>
+		<listitem>
+		  <simpara>
+			<ulink url="http://www.praktik.km.ua/downloads/Firebird_ODBC_2.0.0-Win32.exe">Windows
+			  Full Install</ulink>
+		  </simpara>
+		</listitem>
+
+		<listitem>
+		  <para>Microsoft Data Access Components (MDAC) 2.8 Software Development Kit <ulink
+			  url="http://www.microsoft.com/downloads/details.aspx?FamilyID=5067faf8-0db4-429a-b502-de4329c8c850&amp;displaylang=en"
+			  >mdac28sdk.msi</ulink> (to obtain the ODBC Test utility)</para>
+		</listitem>
+	  </itemizedlist>
+	</section>
+
+	<section id="Linux_Download">
+	  <title>Linux Downloads</title>
+
+	  <itemizedlist>
+		<listitem>
+		  <simpara>
+			<ulink url="http://www.praktik.km.ua/downloads/OdbcFb32-beta-2.0.0142.tar.gz"
+			  >FirebirdSql.org Linux Shared Libraries</ulink>
+		  </simpara>
+
+		  <itemizedlist>
+			<listitem>
+			  <para>
+				<ulink url="http://www.praktik.km.ua/downloads/OdbcFb32-beta-2.0.0142-src.tar.gz"
+				  >FirebirdSql.org Linux Source Code</ulink>
+			  </para>
+			</listitem>
+		  </itemizedlist>
+		</listitem>
+
+		<listitem>
+		  <para><ulink
+			  url="ftp://ftp.easysoft.com/pub/firebird/odbc-firebird-1.0.0-linux-x86-glibc.tar.gz"
+			  >EasySoft Linux Driver Version 1.0</ulink> from <ulink
+			  url="http://freshmeat.net/projects/firebirddriver/">Freshmeat</ulink> (kernel 2.4,
+			glibc 2.3, libstdc++ 5.0)</para>
+
+		  <note>
+			<para>See the "<ulink
+				url="http://www.easysoft.com/products/data_access/licensing/manual/unix.html"
+				>Licensing Easysoft products under Unix</ulink>" page as even though it's a
+			  Freshmeat project it may not be open source.</para>
+		  </note>
+
+		  <itemizedlist>
+			<listitem>
+			  <para>Configuration information: <ulink
+				  url="http://www.easysoft.com/products/data_access/odbc_firebird_driver/manual/configuration.html"
+				  >http://www.easysoft.com/products/data_access/odbc_firebird_driver/manual/configuration.html</ulink></para>
+			</listitem>
+
+			<listitem>
+			  <para>General EasySoft FTP download site: <ulink
+				  url="ftp://ftp.easysoft.com/pub/firebird/"
+				>ftp://ftp.easysoft.com/pub/firebird/</ulink></para>
+			</listitem>
+		  </itemizedlist>
+		</listitem>
+	  </itemizedlist>
+	</section>
+  </section>
+
+  <section id="JRE">
+	<title>Windows Full Install</title>
+
+	<itemizedlist>
+	  <listitem>
+		<para>The JRE is available as part of the JDK installer but by downloading it separately and
+		  installing the JRE first you obtain better control over it's install path location.</para>
+	  </listitem>
+
+	  <listitem>
+		<para>Launch the <filename>Firebird_ODBC_2.0.0-Win32.exe</filename> installer and click on
+		  "Next &gt;"</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc001.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Read the license, click "I accept the agreement" and then click "Next &gt;".</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc002.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Click "Next &gt;".</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc003.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Change the path to "C:\Firebird\Firebird_ODBC" and click "Next &gt;".</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc004.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Select "Developer install - register driver in System Dir. Install documentation to
+		  program group." and click "Next &gt;".</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc005.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Set the "Start Menu Folder" to "Firebird\Firebird ODBC Driver" and click "Next
+		  &gt;".</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc006.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Click "Install".</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc007.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Click "Next &gt;".</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc008.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Click on "Finish".</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc009.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+	</itemizedlist>
+  </section>
+
+  <section id="JDK">
+	<title>Windows ODBC Configuration</title>
+
+	<itemizedlist>
+	  <listitem>
+		<para>Open the "Data Sources (ODBC)" control panel inside the "Administrative Tools" control
+		  panel/folder.</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc_cfg001.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Select the "System DSN" tab (this assumes you're logged into your system with
+		  administrator privileges) and select "Add...".</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc_cfg002.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Select the "Firebird/InterBase(r) driver" and click on "Finish".</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc_cfg003.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Set the following properties and then click "Test Connection":</para>
+
+		<itemizedlist>
+		  <listitem>
+			<para>Data Source Name (DSN): FW</para>
+
+			<note>
+			  <para>This name may have to be revised to match what LoadXML expects.</para>
+			</note>
+		  </listitem>
+
+		  <listitem>
+			<para>Driver: IscDbc</para>
+		  </listitem>
+
+		  <listitem>
+			<para>Description: Fieldworks</para>
+		  </listitem>
+
+		  <listitem>
+			<para>Database: C:\Firebird\data\fieldworks\FW01.FDB</para>
+		  </listitem>
+
+		  <listitem>
+			<para>Client: &lt;empty&gt;</para>
+		  </listitem>
+
+		  <listitem>
+			<para>Database Account: SYSDBA</para>
+		  </listitem>
+
+		  <listitem>
+			<para>Password: inscrutable</para>
+		  </listitem>
+
+		  <listitem>
+			<para>Role: &lt;empty&gt;</para>
+		  </listitem>
+
+		  <listitem>
+			<para>Character Set: NONE</para>
+		  </listitem>
+
+		  <listitem>
+			<para>Dialect: 3</para>
+		  </listitem>
+
+		  <listitem>
+			<para>Safe thread: checked</para>
+		  </listitem>
+
+		  <listitem>
+			<para>Transaction: all unchecked</para>
+		  </listitem>
+
+		  <listitem>
+			<para>Quoted Identifiers: checked</para>
+		  </listitem>
+
+		  <listitem>
+			<para>Set null field SCHEMA</para>
+		  </listitem>
+		</itemizedlist>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc_cfg004.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>If everything is setup correctly you should get the following window and then click
+		  "Ok" to this window, the "FireBird ODBC Setup" window and the "ODBC Data Source
+		  Administrator" window.</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc_cfg005.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+	</itemizedlist>
+  </section>
+
+  <section>
+	<title>MDAC SDK Installation</title>
+
+	<itemizedlist>
+	  <listitem>
+		<para>Launch mdac28sdk.msi and click "Next &gt;"</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc_mdac001.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Read the license, click "I accept the agreement" and then click "Next &gt;".</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc_mdac002.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Fill in the username and organization and click "Next &gt;".</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc_mdac003.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Click "Install Default"</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc_mdac004.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Click "Install"</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc_mdac005.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Click "Finish"</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc_mdac006.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+	</itemizedlist>
+  </section>
+
+  <section>
+	<title>Testing With ODBC Test</title>
+
+	<itemizedlist>
+	  <listitem>
+		<para>Start the appropriate ODBCTest utility from Windows Explorer Start menu under
+		  "Microsoft Data Acess 2.8 SDK".</para>
+
+		<note>
+		  <para>For most users this will be "ODBCTest (Unicode, x86)".</para>
+		</note>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc_test001.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Either use the "Full Connect ..." under the "Conn" menu, CTRL-F or click on the
+		  "Handshake" icon then the following "Full Connect" window will appear. Select "FW"and then
+		  click "OK".</para>
+
+		<note>
+		  <para>You don't specify a "User ID" or "Password".</para>
+		</note>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc_test002.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>The following result should then appear.</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc_test003.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Type "SELECT * FROM RDB$DATABASE;" in the top half of the window, click on the
+		  "Exclamation Point" icon, CTRL-E or select "SQLExecDirect..." item from the "Stmt" menu.
+		  The result in the following bottom window pane should appear "SQL_SUCCESS=0".</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc_test004.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Click on the "Window" icon beside the "Exclamation Point" icon, CTRL-R or select "Get
+		  Data All" item from the "Results" menu. The result in the following window pane should
+		  appear as:</para>
+
+		<para>"RDB$DESCRIPTION", "RDB$RELATION_ID", "RDB$SECURITY_CLASS", "RDB$CHARACTER_SET_NAME"
+		  &lt;Null&gt;, 310, &lt;Null&gt;, "NONE " 1 row fetched from 4 columns.</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_odbc/fb_odbc_test005.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>You can now exit the program by closing the window.</para>
+	  </listitem>
+	</itemizedlist>
+  </section>
+</article>

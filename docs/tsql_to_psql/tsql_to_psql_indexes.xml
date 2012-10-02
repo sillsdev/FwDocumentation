@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="Indexes">
+  <title>Indexes</title>
+
+  <section>
+	<title>Index Size Calculation</title>
+
+	<para>In Firebird the size of the indexes are more limited than in MSSQL.
+	<para>Maximum index key size: Start at 256 bytes for a single-column key,
+	and 200 for multi-column keys. Subtract four bytes per column. For
+	example: a single-column CHAR key can be up to 256 - 4 = 252 bytes; a
+	three-column key must add up to 200 - 12 = 188 bytes. Note that multi-byte
+	character sets must fit within the key by counting bytes, not by counting
+	characters. For example, a single-column key using 3-byte UTF8
+	characters can have a maximum of (256 - 4) / 3 = 84 characters. The
+	following page will help you calculate the index size <ulink
+	url="../html/ip_ib_indexcalculator.htm">Interbase/Firebird Index Size
+	Calculator</ulink> by <emphasis>Ivan Prenosil</emphasis>
+	(Ivan.Prenosil@seznam.cz) found at <ulink
+	url="http://www.volny.cz/iprenosil/interbase/ip_ib_indexcalculator.htm">www.volny.cz/iprenosil/interbase/ip_ib_indexcalculator.htm</ulink>.
+	</para></para>
+
+	<para>When Firebird 2.0 is released the aggregate key length limit of 252
+	bytes is removed. The limit will depend on page size. Actual numbers and
+	more information to come.</para>
+  </section>
+
+  <section id="Regular_Indexes">
+	<title>Regular Indexes</title>
+
+	<para><emphasis>TSQL</emphasis> <itemizedlist>
+		<listitem override="none">
+		  <programlisting>
+create table [Field$] (
+  [DstCls]    int
+)
+create index ind_Field$_DstCls on Field$(DstCls) <co id="co-index_1"
+			  linkends="co-index_2" />
+go
+					</programlisting>
+
+		  <callout arearefs="co-index_1" id="co-index_2">
+			<para>Index definition.</para>
+		  </callout>
+		</listitem>
+	  </itemizedlist></para>
+
+	<para><emphasis>PSQL</emphasis> <itemizedlist>
+		<listitem override="none">
+		  <programlisting>
+CREATE TABLE Field$
+(
+  "DSTCLS"  INTEGER
+);
+COMMIT;
+CREATE INDEX IX_FIELD$_DSTCLS ON Field$("DSTCLS"); <co id="co-index_3"
+			  linkends="co-index_4" />
+COMMIT;
+					</programlisting>
+
+		  <calloutlist>
+			<callout arearefs="co-index_3" id="co-index_4">
+			  <para>Regular single-field index. Use a naming convention that
+			  is as follows: IX_tablename_fieldname.</para>
+			</callout>
+		  </calloutlist>
+		</listitem>
+	  </itemizedlist></para>
+  </section>
+
+  <section id="Compound_Indexes">
+	<title>Compound Indexes</title>
+
+	<para><emphasis>TSQL</emphasis> <itemizedlist>
+		<listitem override="none">
+		  <programlisting>
+create table [Field$] (
+  [Class]     int,
+  [Name]      nvarchar(80)
+
+  constraint [_UQ_Field$_Class_Fieldname] unique ([class], [name]), <co
+			  id="co-compoundkeys_1" linkends="co-compoundkeys_2" />
+)
+create index Ind_Field$_Class on Field$(Class) <co id="co-redundantindex_1"
+			  linkends="co-redundantindex_2" />
+go
+					</programlisting>
+
+		  <calloutlist>
+			<callout arearefs="co-compoundkeys_1" id="co-compoundkeys_2">
+			  <para>Compound field (multiple fields) index will automatically
+			  be created to enforce the "UNIQUE" constraint.</para>
+			</callout>
+
+			<callout arearefs="co-redundantindex_1" id="co-redundantindex_2">
+			  <para>Index definition. It may be redundant because the "UNIQUE"
+			  constraint _UQ_Field$_Class_Fieldname declaration has "Class" as
+			  its first field of the compound fields constraint which
+			  automatically creates an index to enforce this constraint and
+			  therefore the unique index could be used by the optimizer when
+			  querying on the "Class" field.</para>
+			</callout>
+		  </calloutlist>
+		</listitem>
+	  </itemizedlist></para>
+
+	<para><emphasis>PSQL</emphasis> <itemizedlist>
+		<listitem override="none">
+		  <programlisting>
+CREATE TABLE Field$
+(
+  "CLASS"              INTEGER,
+  "NAME"               VARCHAR(80) CHARACTER SET UTF8
+);
+COMMIT;
+ALTER TABLE Field$ ADD CONSTRAINT UQ_FIELD$_CLASS_NAME UNIQUE ("CLASS", "NAME"); <co
+			  id="co-compoundkeys_3" linkends="co-compoundkeys_4" /> <co
+			  id="co-redundantindex_3" linkends="co-redundantindex_4" />
+COMMIT;
+					</programlisting>
+
+		  <calloutlist>
+			<callout arearefs="co-compoundkeys_3" id="co-compoundkeys_4">
+			  <para>When declaring unique compound keys you overall length is
+			  more restricted than with regular unique keys. In this case the
+			  Unicode Varchar is restricted to a maximum length of 64 because
+			  it is combined with an Integer field. But if it was a single
+			  field Unicode Varchar uniques index it would be limited to 84 in
+			  length.</para>
+			</callout>
+
+			<callout arearefs="co-redundantindex_3" id="co-redundantindex_4">
+			  <para>A separate index on "CLASS" is redundant because the
+			  "UNIQUE" constraint UQ_FIELD$_CLASS_NAME declaration has "CLASS"
+			  as its first field of the compound fields constraint which
+			  automatically creates an index to enforce this constraint and
+			  therefore the unique index will be used by the optimizer when
+			  querying on the "CLASS" field. In Firebird having a separate
+			  index that only contains the desired field will not help queries
+			  and will have a negative performance impact during DML
+			  operations because of the additional index update that is
+			  required.</para>
+			</callout>
+		  </calloutlist>
+		</listitem>
+	  </itemizedlist></para>
+  </section>
+</chapter>

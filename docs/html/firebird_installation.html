@@ -1,0 +1,685 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+	  <title>Windows Firebird Installation and Setup</title>
+	  <link rel="stylesheet" href="fieldworks_db_port.css" type="text/css"/>
+	  <meta name="generator" content="DocBook XSL Stylesheets V1.68.1"/>
+   </head>
+   <body>
+	  <div class="article" lang="en">
+		 <div class="titlepage">
+			<div>
+			   <div>
+				  <h2 class="title">
+					 <a id="d0e2"/>Windows Firebird Installation and Setup</h2>
+			   </div>
+			   <div>
+				  <p class="releaseinfo">$Revision$</p>
+			   </div>
+			   <div>
+				  <p class="pubdate">$Date$</p>
+			   </div>
+			</div>
+			<hr/>
+		 </div>
+		 <div class="toc">
+			<p>
+			   <b>Table of Contents</b>
+			</p>
+			<dl>
+			   <dt>
+				  <span class="section">
+					 <a href="#Intro">1. Introduction</a>
+				  </span>
+			   </dt>
+			   <dt>
+				  <span class="section">
+					 <a href="#Downloads">2. Downloads</a>
+				  </span>
+			   </dt>
+			   <dt>
+				  <span class="section">
+					 <a href="#Firebird_Files_Installation">3. Firebird Database Server Installation</a>
+				  </span>
+			   </dt>
+			   <dt>
+				  <span class="section">
+					 <a href="#IBExpert_Installation">4. FlameRobin Installation</a>
+				  </span>
+			   </dt>
+			   <dt>
+				  <span class="section">
+					 <a href="#Firebird_Database_Container_Creation">5. Firebird Database Container Creation</a>
+				  </span>
+			   </dt>
+			   <dd>
+				  <dl>
+					 <dt>
+						<span class="section">
+						   <a href="#Firebird_Database_Verification">5.1. Firebird Database Container Creation Verification</a>
+						</span>
+					 </dt>
+					 <dt>
+						<span class="section">
+						   <a href="#FlameRobin_Misc">5.2. FlameRobin Miscellaneous Items</a>
+						</span>
+					 </dt>
+				  </dl>
+			   </dd>
+			   <dt>
+				  <span class="section">
+					 <a href="#Custom_UDF_Installation">6. Custom UDF Installation</a>
+				  </span>
+			   </dt>
+			</dl>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="Intro"/>1. Introduction</h2>
+				  </div>
+			   </div>
+			</div>
+			<p>The installation and setup of Firebird consists of these main steps:</p>
+			<div class="orderedlist">
+			   <ol type="1">
+				  <li>Installing the Firebird files</li>
+				  <li>Installing the FlameRobin application</li>
+				  <li>Creating a Firebird database container</li>
+				  <li>Install custom UDF DLLs</li>
+			   </ol>
+			</div>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="Downloads"/>2. Downloads</h2>
+				  </div>
+			   </div>
+			</div>
+			<p>You need to download and install the necessary software packages. The
+  links and versions are as of 8-Apr-07. The screen shots are based on version
+  2.0.1.</p>
+			<div class="itemizedlist">
+			   <ul type="disc">
+				  <li>
+					 <p>
+						<span class="application">Firebird</span> version 2.0.1.12855
+	  (Firebird-2.0.1.12855-1-Win32.exe)</p>
+					 <p>
+						<a href="http://prdownloads.sourceforge.net/firebird/Firebird-1.5.3.4870-0-Win32.exe" target="_top">http://sourceforge.net/project/showfiles.php?group_id=9028</a>
+					 </p>
+					 <p>
+						<a href="http://firebird.sourceforge.net/index.php?op=files&amp;id=engine#v15" target="_top">http://www.firebirdsql.org/index.php?op=files&amp;id=engine_201</a>
+					 </p>
+				  </li>
+				  <li>
+					 <p>FlameRobin version 0.7.6 (flamerobin-0.7.6-setup.exe)</p>
+					 <p>
+						<a href="http://flamerobin.sourceforge.net/" target="_top">http://flamerobin.sourceforge.net/</a>
+					 </p>
+					 <p>
+						<a href="http://sourceforge.net/project/showfiles.php?group_id=124340&amp;package_id=136187" target="_top">http://sourceforge.net/project/showfiles.php?group_id=124340&amp;package_id=136187</a>
+					 </p>
+				  </li>
+			   </ul>
+			</div>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="Firebird_Files_Installation"/>3. Firebird Database Server Installation</h2>
+				  </div>
+			   </div>
+			</div>
+			<div class="itemizedlist">
+			   <ul type="disc">
+				  <li>
+					 <p>Ensure that you've uninstalled any already installed Firebird system.</p>
+				  </li>
+				  <li>
+					 <p>Launch the Firebird-2.0.1.12855-1-Win32.exe setup file.</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/firebird000.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Click "OK".</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/firebird001.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Click "Next".</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/firebird002.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Read the license agreement, select "I accept the agreement" and click "Next".</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/firebird003.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Click "Next".</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/firebird004.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Change the install directory to "C:\Firebird" as shown above.</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/firebird005.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>In Windows you have to choose the "Super Server" option. "Super Server" is the preferred
+		platform in general. Select the "Server components" and "Developer and admin tools
+		components" and then click "Next".</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/firebird007.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Modify the start program menu item so that it doesn't have the version number in it by
+		naming it "Firebird".Click "Yes".</p>
+				  </li>
+				  <li>
+					 <p>At the "Select Additional Tasks" Window set the following properties:</p>
+					 <div class="itemizedlist">
+						<ul type="circle">
+						   <li>
+							  <p>Use the Guardian to control the server = checked</p>
+						   </li>
+						   <li>
+							  <p>Run as a Service = checked</p>
+						   </li>
+						   <li>
+							  <p>Start Firebird automatically everytime you boot up = checked</p>
+						   </li>
+						   <li>
+							  <p>Copy Firebird client library to system directory = checked</p>
+						   </li>
+						   <li>
+							  <p>Create client library as GDS32.DLL for legacy app. support = checked</p>
+						   </li>
+						   <li>
+							  <p>Install Control Panel Applet (if present) = checked</p>
+						   </li>
+						</ul>
+					 </div>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/firebird008.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Click "Next".</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/firebird009.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Click "Install".</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/firebird010.jpg"/>
+					 </div>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/firebird011.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Click "Next".</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/firebird012.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Select "Start Firebird Service Now" and click "Finish".</p>
+				  </li>
+				  <li>
+					 <p>This completes the basic Firebird files installation.</p>
+				  </li>
+				  <li>
+					 <p>Verify using the Services Control Panel (shown below) that the Firebird Guardian and
+		Firebird Server are shown as running. Only the Firebird Guardian service needs to be set to
+		automatic if you want Firebird to startup on system startup. If not set both services to
+		manual.</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/firebird013.jpg"/>
+					 </div>
+					 <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+						<table border="0" summary="Note">
+						   <tr>
+							  <td rowspan="2" align="center" valign="top" width="25">
+								 <img alt="[Note]" src="../images/admon/note.gif"/>
+							  </td>
+							  <th align="left">Note</th>
+						   </tr>
+						   <tr>
+							  <td align="left" valign="top"> The services control panel on Windows 2000 can be found by following this path Start -
+		Settings - Control Panel - Administrative Tools - Services or for Win2k and WinXP selecting
+		Start - Run and entering "services.msc /s" at the prompt. </td>
+						   </tr>
+						</table>
+					 </div>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/firebird015.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Verify in the event viewer application log (shown below) for the following message with
+		no errors in either the application log or system log related to Firebird.</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/firebird017.jpg"/>
+					 </div>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/firebird014.jpg"/>
+					 </div>
+					 <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+						<table border="0" summary="Note">
+						   <tr>
+							  <td rowspan="2" align="center" valign="top" width="25">
+								 <img alt="[Note]" src="../images/admon/note.gif"/>
+							  </td>
+							  <th align="left">Note</th>
+						   </tr>
+						   <tr>
+							  <td align="left" valign="top"> The services control panel on Windows 2000 can be found by following this path Start -
+		Settings - Control Panel - Administrative Tools - Event Viewer or for Win2k and WinXP
+		selecting Start - Run and entering "eventvwr.msc /s" at the prompt. </td>
+						   </tr>
+						</table>
+					 </div>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/firebird016.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Create the following folder structure: "C:\Firebird\logs"</p>
+				  </li>
+			   </ul>
+			</div>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="IBExpert_Installation"/>4. FlameRobin Installation</h2>
+				  </div>
+			   </div>
+			</div>
+			<div class="itemizedlist">
+			   <ul type="disc">
+				  <li>
+					 <p>Launch the flamerobin-0.7.6-setup.exe installer.</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/flamerobin001.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Click "Next".</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/flamerobin002.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Read the license agreement, select "I accept the agreement" and click "Next".</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/flamerobin003.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Change the destination to "C:\Firebird\FlameRobin" and click "Next".</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/flamerobin004.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Change the start menu folder to "FlameRobin" and click "Next".</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/flamerobin005.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Check the "Create a desktop icon" and leave the "Create a Quick Launch icon" unchecked
+		and click "Next".</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/flamerobin006.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Click "Install".</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/flamerobin007.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Uncheck "Launch FlameRobin" and click "Finish".</p>
+				  </li>
+				  <li>
+					 <p>The first time you launch FlameRobin you will be presented with the following window.</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/flamerobin008.jpg"/>
+					 </div>
+					 <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+						<table border="0" summary="Note">
+						   <tr>
+							  <td rowspan="2" align="center" valign="top" width="25">
+								 <img alt="[Note]" src="../images/admon/note.gif"/>
+							  </td>
+							  <th align="left">Note</th>
+						   </tr>
+						   <tr>
+							  <td align="left" valign="top">
+								 <p>The fr_databases.conf file is particularly useful to ease the configuration of
+		  FlameRobin if the database was created by some other means than described in the following
+		  section or to restore the connection settings. It is an XML file that stores the file path
+		  of the database, username, password, character set and network connection settings. If the
+		  database already exists you can copy the file provided by the following link into your
+		  "C:\Documents and Settings\YourWindowsUsername\Local Settings\Application Data\flamerobin"
+		  folder: <a href="../html/fr_databases.conf" target="_top">fr_databases.conf</a>
+								 </p>
+							  </td>
+						   </tr>
+						</table>
+					 </div>
+				  </li>
+			   </ul>
+			</div>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="Firebird_Database_Container_Creation"/>5. Firebird Database Container Creation</h2>
+				  </div>
+			   </div>
+			</div>
+			<div class="itemizedlist">
+			   <ul type="disc">
+				  <li>
+					 <p>Modify Password for Sysdba:</p>
+					 <div class="itemizedlist">
+						<ul type="circle">
+						   <li>
+							  <p>Go into a command window under C:\firebird\bin</p>
+						   </li>
+						   <li>
+							  <p>At the shell (Windows or Unix) prompt type the following:</p>
+							  <div class="itemizedlist">
+								 <ul type="square">
+									<li>
+									   <p>gsec –user sysdba –password masterkey</p>
+									</li>
+								 </ul>
+							  </div>
+							  <p>A "GSEC&gt;" prompt should now appear as your now logged into the database using
+			the default username/password that is used for newly created databases.</p>
+							  <p>At the "GSEC&gt;" prompt type the following:</p>
+							  <div class="itemizedlist">
+								 <ul type="square">
+									<li>
+									   <p>modify sysdba –pw inscrutable</p>
+									</li>
+									<li>
+									   <p>quit</p>
+									</li>
+								 </ul>
+							  </div>
+						   </li>
+						</ul>
+					 </div>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/db001.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Create the following folder structure: "C:\Firebird\data\fieldworks".</p>
+				  </li>
+				  <li>
+					 <p>Start FlameRobin.</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/flamerobin009.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>From the "Database" menu select "Create new database...".</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/flamerobin010.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Enter the following values:</p>
+					 <div class="itemizedlist">
+						<ul type="circle">
+						   <li>
+							  <p>Display name: FieldWorks</p>
+						   </li>
+						   <li>
+							  <p>Database path: C:\Firebird\data\fieldworks\fw01.db</p>
+						   </li>
+						   <li>
+							  <p>Username: sysdba</p>
+						   </li>
+						   <li>
+							  <p>Password: inscrutable</p>
+						   </li>
+						   <li>
+							  <p>Page size: 8192</p>
+						   </li>
+						   <li>
+							  <p>Charset: NONE</p>
+						   </li>
+						   <li>
+							  <p>Role: (leave empty)</p>
+						   </li>
+						   <li>
+							  <p>SQL Dialect: Dialect 3</p>
+						   </li>
+						</ul>
+					 </div>
+					 <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+						<table border="0" summary="Note">
+						   <tr>
+							  <td rowspan="2" align="center" valign="top" width="25">
+								 <img alt="[Note]" src="../images/admon/note.gif"/>
+							  </td>
+							  <th align="left">Note</th>
+						   </tr>
+						   <tr>
+							  <td align="left" valign="top"> The selected Charset is NONE. Do not use UNICODE_FSS as this will cause problems when
+		registering UDFs with CSTRING(32767) parameters. Database can still be used with the Unicode
+		character set even if it was set with a default of NONE. The OCTETS setting was tried and
+		this turned out to have it's own set of problems when trying to use Unicode_FSS parameters
+		in stored procedures, etc. </td>
+						   </tr>
+						</table>
+					 </div>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/flamerobin011.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>FlameRobin will now display a "FieldWorks" icon in it's tree list.</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/flamerobin012.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Double-click on the "FieldWorks" icon and the following should be displayed:</p>
+					 <div class="mediaobject">
+						<img src="../images/fb_install/flamerobin013.jpg"/>
+					 </div>
+				  </li>
+			   </ul>
+			</div>
+			<div class="section" lang="en">
+			   <div class="titlepage">
+				  <div>
+					 <div>
+						<h3 class="title">
+						   <a id="Firebird_Database_Verification"/>5.1. Firebird Database Container Creation Verification</h3>
+					 </div>
+				  </div>
+			   </div>
+			   <div class="itemizedlist">
+				  <ul type="disc">
+					 <li>
+						<p>The following few steps are used to confirm that you're base installation is as
+		  expected and functional.</p>
+					 </li>
+					 <li>
+						<p>Under the "Server" menu select "Retrieve server version"</p>
+						<div class="mediaobject">
+						   <img src="../images/fb_install/flamerobin014.jpg"/>
+						</div>
+					 </li>
+					 <li>
+						<p>The following window should then be displayed to which you click the "OK" button:</p>
+						<div class="mediaobject">
+						   <img src="../images/fb_install/flamerobin024.jpg"/>
+						</div>
+					 </li>
+					 <li>
+						<p>Under the "Database" menu select "Run a query...".</p>
+						<div class="mediaobject">
+						   <img src="../images/fb_install/flamerobin015.jpg"/>
+						</div>
+					 </li>
+					 <li>
+						<p>Type in the query window <code class="code">SELECT * FROM RDB$DATABASE;</code> and press "Execute
+		  (F4)".</p>
+						<div class="mediaobject">
+						   <img src="../images/fb_install/flamerobin016.jpg"/>
+						</div>
+					 </li>
+					 <li>
+						<p>It should then return the following result after which you can close this window:</p>
+						<div class="mediaobject">
+						   <img src="../images/fb_install/flamerobin017.jpg"/>
+						</div>
+					 </li>
+					 <li>
+						<p>When closing FlameRobin you will be presented with the following warning dialog window
+		  which can be ignored if you've committed any transactions you've been working with
+		  otherwise click the "Cancel" button. This dialog can also be disabled by selecting the
+		  "Always quit without asking" option.</p>
+						<div class="mediaobject">
+						   <img src="../images/fb_install/flamerobin022.jpg"/>
+						</div>
+					 </li>
+				  </ul>
+			   </div>
+			</div>
+			<div class="section" lang="en">
+			   <div class="titlepage">
+				  <div>
+					 <div>
+						<h3 class="title">
+						   <a id="FlameRobin_Misc"/>5.2. FlameRobin Miscellaneous Items</h3>
+					 </div>
+				  </div>
+			   </div>
+			   <div class="itemizedlist">
+				  <ul type="disc">
+					 <li>
+						<p>To connect to the database start FlameRobin and double-click on the "Localhost" icon
+		  followed by a double-click on the "FieldWorks" icon.</p>
+						<div class="mediaobject">
+						   <img src="../images/fb_install/flamerobin020.jpg"/>
+						</div>
+						<div class="mediaobject">
+						   <img src="../images/fb_install/flamerobin021.jpg"/>
+						</div>
+						<div class="mediaobject">
+						   <img src="../images/fb_install/flamerobin013.jpg"/>
+						</div>
+					 </li>
+					 <li>
+						<p>Use the following preference settings when desiring to do some file logging such as
+		  when wanting to debug an issue and send some log files to another developer for help. The
+		  "Preferences" window is accessed via the "Preferences" item in the "View" menu.</p>
+						<div class="itemizedlist">
+						   <ul type="circle">
+							  <li>
+								 <p>Log DML statements: checked</p>
+							  </li>
+							  <li>
+								 <p>Enable logging to file: checked</p>
+							  </li>
+							  <li>
+								 <p>Log file name: C:\Firebird\logs\flamerobin.log</p>
+							  </li>
+							  <li>
+								 <p>Add header to each statement</p>
+							  </li>
+							  <li>
+								 <p>Add SET TERM when different terminator is used in editor</p>
+							  </li>
+						   </ul>
+						</div>
+						<div class="mediaobject">
+						   <img src="../images/fb_install/flamerobin023.jpg"/>
+						</div>
+					 </li>
+				  </ul>
+			   </div>
+			</div>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="Custom_UDF_Installation"/>6. Custom UDF Installation</h2>
+				  </div>
+			   </div>
+			</div>
+			<div class="itemizedlist">
+			   <ul type="disc">
+				  <li>
+					 <p>Copy the custom UDF DLLs and their corresponding SQL declaration files into
+		C:\Firebird\UDF</p>
+					 <div class="itemizedlist">
+						<ul type="circle">
+						   <li>
+							  <p>Copy the udf_SIL.dll from "C:\VCS\Wycliffe\projects\FieldWorks\Src\Sql\udfs\udf_SIL"
+			to "C:\Firebird\UDF".</p>
+						   </li>
+						</ul>
+					 </div>
+					 <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+						<table border="0" summary="Note">
+						   <tr>
+							  <td rowspan="2" align="center" valign="top" width="25">
+								 <img alt="[Note]" src="../images/admon/note.gif"/>
+							  </td>
+							  <th align="left">Note</th>
+						   </tr>
+						   <tr>
+							  <td align="left" valign="top">
+								 <p>Don' copy udf_GUID.dll or udf_GUID.sql files into "C:\Firebird\UDF" as their functions
+		  have been incorporated into udf_SIL.dll.</p>
+							  </td>
+						   </tr>
+						</table>
+					 </div>
+				  </li>
+			   </ul>
+			</div>
+		 </div>
+	  </div>
+   </body>
+</html>

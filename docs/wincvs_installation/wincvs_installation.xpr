@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<meta>
+		<filters directoryPatterns="" filePatterns=""
+			positiveFilePatterns="" showHiddenFiles="false"/>
+		<options/>
+	</meta>
+	<projectTree name="wincvs_installation.xpr">
+		<file name="../docbook-html.xsl"/>
+		<file name="pageant_startup.reg"/>
+		<file name="wincvs_installation.xml"/>
+	</projectTree>
+</project>

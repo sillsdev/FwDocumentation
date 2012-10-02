@@ -1,0 +1,326 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+	  <title>FieldWorks Database Port</title>
+	  <link rel="stylesheet" href="fieldworks_db_port.css" type="text/css"/>
+	  <meta name="generator" content="DocBook XSL Stylesheets V1.68.1"/>
+   </head>
+   <body>
+	  <div class="article" lang="en">
+		 <div class="titlepage">
+			<div>
+			   <div>
+				  <h2 class="title">
+					 <a id="d0e3"/>FieldWorks Database Port</h2>
+			   </div>
+			   <div>
+				  <h3 class="subtitle">
+					 <i>Project Overview</i>
+				  </h3>
+			   </div>
+			   <div>
+				  <div class="author">
+					 <h3 class="author">
+						<span class="firstname">Neil</span>
+						<span class="surname">Mayhew</span>
+					 </h3>
+					 <div class="affiliation">
+						<span class="jobtitle">Linux Development Manager<br/>
+						</span>
+						<span class="orgname">SIL Language Software Development<br/>
+						</span>
+					 </div>
+					 <code class="email">&lt;<a href="mailto:neil_mayhew@sil.org">neil_mayhew@sil.org</a>&gt;</code>
+				  </div>
+			   </div>
+			   <div>
+				  <p class="releaseinfo">$Revision$</p>
+			   </div>
+			   <div>
+				  <p class="pubdate">$Date$</p>
+			   </div>
+			</div>
+			<hr/>
+		 </div>
+		 <div class="toc">
+			<p>
+			   <b>Table of Contents</b>
+			</p>
+			<dl>
+			   <dt>
+				  <span class="section">
+					 <a href="#introduction">1. Introduction</a>
+				  </span>
+			   </dt>
+			   <dt>
+				  <span class="section">
+					 <a href="#architecture">2. Database Architecture</a>
+				  </span>
+			   </dt>
+			   <dd>
+				  <dl>
+					 <dt>
+						<span class="section">
+						   <a href="#d0e68">2.1. Object Modelling</a>
+						</span>
+					 </dt>
+					 <dt>
+						<span class="section">
+						   <a href="#d0e89">2.2. Code Generation</a>
+						</span>
+					 </dt>
+					 <dt>
+						<span class="section">
+						   <a href="#d0e124">2.3. Table Generation</a>
+						</span>
+					 </dt>
+					 <dt>
+						<span class="section">
+						   <a href="#d0e128">2.4. View Generation</a>
+						</span>
+					 </dt>
+					 <dt>
+						<span class="section">
+						   <a href="#d0e132">2.5. Object Access</a>
+						</span>
+					 </dt>
+					 <dt>
+						<span class="section">
+						   <a href="#d0e136">2.6. Object Queries</a>
+						</span>
+					 </dt>
+					 <dt>
+						<span class="section">
+						   <a href="#d0e140">2.7. Stored Procedures</a>
+						</span>
+					 </dt>
+				  </dl>
+			   </dd>
+			   <dt>
+				  <span class="section">
+					 <a href="#methodology">3. Porting Methodology</a>
+				  </span>
+			   </dt>
+			   <dt>
+				  <span class="section">
+					 <a href="#glossary">4. Glossary</a>
+				  </span>
+			   </dt>
+			</dl>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="introduction"/>1. Introduction</h2>
+				  </div>
+			   </div>
+			</div>
+			<p>FieldWorks (<span class="acronym">FW</span>) is a suite of applications for linguistics and
+			translation. It is built using a common infrastructure, which includes a database with
+			an object-relational mapping layer. All data are modelled as objects and persisted in
+			the database.</p>
+			<p>Currently, FieldWorks uses Microsoft SQL Server (<span class="acronym">SS</span>) as its
+			database. We are porting FW to use the open-source Firebird database
+			(<span class="acronym">FB</span>) as a replacement for SQL Server. This is in support of our
+			efforts to port FW to Linux and Mac, since Firebird is cross-platform, but may also have
+			advantages for the Windows version of FW. We do not plan to maintain multiple versions
+			of FW for different databases.</p>
+			<p>The porting work touches on three main areas of FieldWorks:</p>
+			<div class="orderedlist">
+			   <ol type="1">
+				  <li>
+					 <p>
+						<em class="firstterm">DbAccess</em>: a database interface layer, implemented in
+					C++, that forwards SQL queries to the database, and retrieves results, using
+					native database APIs.</p>
+				  </li>
+				  <li>
+					 <p>
+						<em class="firstterm">Stored procedures</em>: FW uses over 17,000 lines of SQL in
+					the form of stored procedures, views and triggers.</p>
+				  </li>
+				  <li>
+					 <p>
+						<em class="firstterm">Embedded queries</em>: over 750 SQL queries are spread
+					throughout the FW source code. Some of these are confined to the object cache
+					modules that provide object persistence, but others occur where the object cache
+					is bypassed to increase performance, for example when large tables need to be
+					searched and joined.</p>
+				  </li>
+			   </ol>
+			</div>
+			<p>DbAccess is almost finished, the stored procedures are partially done, and not much
+			work has been done on the embedded queries. Current efforts are focussed on the stored
+			proedures.</p>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="architecture"/>2. Database Architecture</h2>
+				  </div>
+			   </div>
+			</div>
+			<p>FW uses a custom object-relational mapping layer on top of its relational database. In
+			addition, the bulk of the schema is machine-generated from object-oriented data models.
+			As a result, the organization and naming of tables within the database is very different
+			from a typical hand-crafted, purely relational database, which can be quite confusing at
+			first for someone experienced in database design and programming.</p>
+			<p>The database generaration and operation involves the following stages:</p>
+			<div class="section" lang="en">
+			   <div class="titlepage">
+				  <div>
+					 <div>
+						<h3 class="title">
+						   <a id="d0e68"/>2.1. Object Modelling</h3>
+					 </div>
+				  </div>
+			   </div>
+			   <p>Classes to represent all the data that FW uses are modelled using a UML tool
+				called MagicDraw. These object models have been developed and refined over many
+				years, with extensive input from domain experts in linguistics, translation,
+				anthropology and other academic discipines.</p>
+			   <p>The resulting objects are highly interconnected. Relations between objects are
+				characterised by whether they are <em class="firstterm">owning</em> or
+					<em class="firstterm">reference</em> properties, and by their
+				<em class="firstterm">cardinality</em> (atomic, or belonging to one of several types of
+				collections). Owning properties delete their sub-objects when the parent object is
+				deleted, but reference properties do not. All relations are reversible (two-way).</p>
+			   <p>MagicDraw saves its models using an XML schema called XMI, and the model files are
+				passed through an XSLT stylesheet to produce a FW-specific XML format called a
+					<em class="firstterm">Conceptual Model</em>. This groups classes into modules, and
+				defines properties within classes. Properties can be basic (integer, string, etc.)
+				or one of the several types of relations already mentioned.</p>
+			</div>
+			<div class="section" lang="en">
+			   <div class="titlepage">
+				  <div>
+					 <div>
+						<h3 class="title">
+						   <a id="d0e89"/>2.2. Code Generation</h3>
+					 </div>
+				  </div>
+			   </div>
+			   <p>The Conceptual Model files are passed through a process called <em class="firstterm">Code
+					Generation</em>. This turns the model into SQL code that creates in a
+				database schema that implements the model.</p>
+			   <p>Previously, this process has been performed by a custom C++ tool called
+					<span>
+					 <strong class="command">CodeGen</strong>
+				  </span>. However, as a part of the port, this tool has been
+				replaced by an XSLT stylesheet.</p>
+			   <p>The SQL code that is generated is not DDL to create tables, however. It is a
+				series of <code class="code">INSERT</code>s into <em class="firstterm">Metadata Tables</em>. For
+				every module, class or property in the model there is one row in the
+				<code class="code">MODULE$</code>, <code class="code">CLASS$</code> or <code class="code">FIELD$</code> table respectively.
+				The definition of application data tables, columns and views is performed by
+				triggers on these Metadata Tables. At database initialization time, when the product
+				is first installed, the metadata tables are almost the only tables that are defined.
+				The rest of the system is bootstrapped by the triggers in response to
+				<code class="code">INSERT</code>s on their respective tables.</p>
+			   <p>Trigger operation is described in more detail in the following sections.</p>
+			</div>
+			<div class="section" lang="en">
+			   <div class="titlepage">
+				  <div>
+					 <div>
+						<h3 class="title">
+						   <a id="d0e124"/>2.3. Table Generation</h3>
+					 </div>
+				  </div>
+			   </div>
+			   <p/>
+			</div>
+			<div class="section" lang="en">
+			   <div class="titlepage">
+				  <div>
+					 <div>
+						<h3 class="title">
+						   <a id="d0e128"/>2.4. View Generation</h3>
+					 </div>
+				  </div>
+			   </div>
+			   <p/>
+			</div>
+			<div class="section" lang="en">
+			   <div class="titlepage">
+				  <div>
+					 <div>
+						<h3 class="title">
+						   <a id="d0e132"/>2.5. Object Access</h3>
+					 </div>
+				  </div>
+			   </div>
+			   <p/>
+			</div>
+			<div class="section" lang="en">
+			   <div class="titlepage">
+				  <div>
+					 <div>
+						<h3 class="title">
+						   <a id="d0e136"/>2.6. Object Queries</h3>
+					 </div>
+				  </div>
+			   </div>
+			   <p/>
+			</div>
+			<div class="section" lang="en">
+			   <div class="titlepage">
+				  <div>
+					 <div>
+						<h3 class="title">
+						   <a id="d0e140"/>2.7. Stored Procedures</h3>
+					 </div>
+				  </div>
+			   </div>
+			   <p/>
+			</div>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="methodology"/>3. Porting Methodology</h2>
+				  </div>
+			   </div>
+			</div>
+			<p/>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="glossary"/>4. Glossary</h2>
+				  </div>
+			   </div>
+			</div>
+			<div class="glosslist">
+			   <dl>
+				  <dt>FieldWorks (<span class="acronym">FW</span>)</dt>
+				  <dd>
+					 <p>A suite of applications for linguistics and translation based on a common
+						infrastructure.</p>
+				  </dd>
+				  <dt>Firebird (<span class="acronym">FB</span>)</dt>
+				  <dd>
+					 <p>A cross-platform, open-source relational database; formerly a commercial
+						product from Borland known as Interbase.</p>
+				  </dd>
+				  <dt>SQL Server (<span class="acronym">SS</span>)</dt>
+				  <dd>
+					 <p>A market-leading relational database from our friends in Redmond.</p>
+				  </dd>
+			   </dl>
+			</div>
+		 </div>
+	  </div>
+   </body>
+</html>

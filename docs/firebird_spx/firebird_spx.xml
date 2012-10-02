@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="../docbook-html.xsl"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+<article class="techreport">
+	<title>Firebird Support Stored Procedures</title>
+	<articleinfo>
+		<releaseinfo>$Revision$</releaseinfo>
+		<pubdate>$Date$</pubdate>
+	</articleinfo>
+	<section id="Intro">
+		<title>Introduction</title>
+		<para>Several stored procedures with a stored procedure name prefix of "spx" are present to
+			support the maintenance of Firebird database object. Firebird has numerous rules before
+			an object can be dropped or modified. Dependencies have to be dropped before the object
+			is dropped or under certain cases even modified. There are no object cascade delete
+			options in Firebird. You can have cascade delete between the parent table data and the
+			child table data but for example you cannot delete a table that has indexes before you
+			delete the indexes manually first.</para>
+		<para>Initially only information not immediately apparent from the source code will be
+			described here. For example the calling signatures (what parameters to pass and the
+			return value if any) will not be described.</para>
+		<para>The "drop all" spx procedures are mainly present to help manually wipe out a database
+			quickly.</para>
+	</section>
+	<section id="spx_Stored_Procedures">
+		<title>spx Stored Procedures</title>
+		<section id="spx_Create_Or_Alter_Exception">
+			<title>spx_Create_Or_Alter_Exception</title>
+			<itemizedlist>
+				<listitem>
+					<para>This procedure will allow you to create or modify a Firebird exception
+						object.</para>
+				</listitem>
+				<listitem>
+					<para>No dependencies are involved.</para>
+				</listitem>
+			</itemizedlist>
+		</section>
+		<section id="spx_Drop_Dependencies">
+			<title>spx_Drop_Dependencies</title>
+			<itemizedlist>
+				<listitem>
+					<para>This procedure will drop all dependent objects that would prevent the
+						modifications or deletion of the reference object. </para>
+				</listitem>
+				<listitem>
+					<para>It is used by numerous other "spx" procedures.</para>
+				</listitem>
+				<listitem>
+					<para>The procedure is recursive and calls upon itself to effectively do a
+						cascade delete of all dependent objects.</para>
+				</listitem>
+			</itemizedlist>
+		</section>
+		<section id="spx_Drop_External">
+			<title>spx_Drop_External</title>
+			<itemizedlist>
+				<listitem>
+					<para>This procedure will drop the specified UDF and all dependent
+					objects.</para>
+				</listitem>
+				<listitem>
+					<para>Caveat: there is a comment in this procedure that indicates that the
+						dependency dropping doesn't work. This has to be looked into in detail
+						later.</para>
+				</listitem>
+			</itemizedlist>
+		</section>
+		<section id="spx_Drop_Table">
+			<title>spx_Drop_Table</title>
+			<itemizedlist>
+				<listitem>
+					<para>This procedure will drop the specified table and all dependent
+					objects.</para>
+				</listitem>
+			</itemizedlist>
+		</section>
+		<section id="spx_Drop_Generator">
+			<title>spx_Drop_Generator</title>
+			<itemizedlist>
+				<listitem>
+					<para>This procedure will drop the specified generator and all dependent
+						objects. A generator is the equivalent of a sequence in Oracle
+					databases.</para>
+				</listitem>
+			</itemizedlist>
+		</section>
+		<section id="spx_Valid_New_Constraint_Name">
+			<title>spx_Valid_New_Constraint_Name</title>
+			<itemizedlist>
+				<listitem>
+					<para>Main purpose currently is to determine an appropriate constraint name that
+						is unique when records are inserted into Class$. The trigger
+						T_BI1_Class$_Ins of Class$ calls this procedure.</para>
+				</listitem>
+				<listitem>
+					<para>This procedure will determine a name within 31 characters that will be
+						unique.</para>
+				</listitem>
+				<listitem>
+					<para>It automatically generates foreign keys, primary keys and
+					T_BU5_..._TStmp</para>
+				</listitem>
+			</itemizedlist>
+		</section>
+		<section id="spx_Drop_All_Tables">
+			<title>spx_Drop_All_Tables</title>
+			<itemizedlist>
+				<listitem>
+					<para>This procedure will drop all of the tables and all dependent
+					objects.</para>
+				</listitem>
+				<listitem>
+					<para>This is currently not called by the build script.</para>
+				</listitem>
+			</itemizedlist>
+		</section>
+		<section id="spx_Drop_All_Exceptions">
+			<title>spx_Drop_All_Exceptions</title>
+			<itemizedlist>
+				<listitem>
+					<para>This procedure will drop all of the exceptions and all dependent
+					objects.</para>
+				</listitem>
+				<listitem>
+					<para>This is currently not called by the build script.</para>
+				</listitem>
+			</itemizedlist>
+		</section>
+	</section>
+	<section id="spx_Obsolete">
+		<title>Obsolete spx Stored Procedures</title>
+		<para>The following stored procedures exist in the source code but aren't used within the
+			FieldWorks Firebird database. They were created while trying to port the MSSQL objects
+			and code and weren't required by the final code. The source code is kept in case they
+			are needed in the future.</para>
+		<itemizedlist>
+			<listitem><simpara>spx_Valid_Name</simpara></listitem>
+			<listitem><simpara>spx_Valid_New_Name</simpara></listitem>
+			<listitem><simpara>spx_Valid_New_NonColumn_Name</simpara></listitem>
+		</itemizedlist>
+	</section>
+</article>

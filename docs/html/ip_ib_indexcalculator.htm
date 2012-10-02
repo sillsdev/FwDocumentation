@@ -1,0 +1,470 @@
+<HEAD>
+<TITLE>Firebird/InterBase - Index key size calculator</TITLE>
+<META NAME="Author" CONTENT="Ivan Prenosil">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+<META HTTP-EQUIV="Keywords" CONTENT="Firebird, InterBase, SQL database, index key">
+
+<SCRIPT language="JavaScript" type="text/javascript">
+
+function seglen(i) {
+  return ((i+3)-(i+3)%4)/4*5;  // in Delphi: (((X+3) div 4) * 5);
+};
+
+function keylen(i) {
+  return (i+3)-(i+3)%4;  // in Delphi: (X+3) - (X+3) mod 4;
+};
+
+function ixcalc() {
+  var ColCount= 0;
+  var ColSize = 0;
+  var KeySize = 0;
+
+  for (var i=1; i<=6; i++) {
+
+	var ftype    = document.getElementById('ftype'+i);
+	var fcharset = document.getElementById('fcharset'+i);
+	var fwidth   = document.getElementById('fwidth'+i);
+	var fsize    = document.getElementById('fsize'+i);
+
+	switch (ftype.value) {
+	  case 'C': fcharset.disabled=0; fwidth.disabled=0; break;
+	  case 'N': fcharset.disabled=1; fwidth.disabled=0; break;
+	  default : fcharset.disabled=1; fwidth.disabled=1;
+	}
+
+	fsize.innerHTML = '-';
+
+	if (!document.getElementById('fenabled' + i).checked) continue;
+
+	ColCount++;
+
+	switch (ftype.value) {
+	  case 'C': if (fwidth.value <= 0) fwidth.value = 1; else
+				if (fwidth.value > 32767) fwidth.value = 32767;
+
+				ColSize = fwidth.value * fcharset.value;
+				break;
+
+	  case 'N': if (fwidth.value <= 0) fwidth.value = 1; else
+				if (fwidth.value > 18) fwidth.value = 18;
+
+				if (fwidth.value <= 9) ColSize = 8; else
+									   ColSize = 10;
+				break;
+
+	  default : ColSize = ftype.value;
+	}
+
+	fsize.innerHTML = ColSize;
+	KeySize += seglen(Number(ColSize));  // converting to number required, otherwise concatenates
+  }
+
+  if (ColCount==1) KeySize=Number(ColSize);
+
+  KeySize = keylen(KeySize);
+
+  document.getElementById('cnt').innerHTML=ColCount+'&nbsp;';
+  document.getElementById('tot').innerHTML=KeySize+'&nbsp;';
+  document.getElementById('rem').innerHTML=252-KeySize+'&nbsp;';
+  if (KeySize<=252) {
+	document.getElementById('rem').style.color='transparent';
+	document.getElementById('rem').style.background='transparent';
+	}
+  else {
+	document.getElementById('rem').style.color='red';
+	document.getElementById('rem').style.background='white';
+	}
+};
+
+function initpage() {
+  for (var i=1; i<=6; i++) {
+	document.getElementById('fenabled' + i).checked=0;
+	document.getElementById('fwidth'+i).value=10;
+  }
+  document.getElementById('fenabled1').checked=1;
+  ixcalc();
+};
+
+
+</SCRIPT>
+
+</HEAD>
+
+<BODY ONLOAD="initpage();">
+
+<H1 ALIGN=LEFT> &nbsp; Index key size calculator</H1>
+
+<BODY>
+
+<!-- OPTGROUP causes that sometimes ONCHANGE is not fired when value is change by keyboard ... -->
+
+<P>
+<TABLE BORDER=0>
+  <TR><TH></TH><TH>Data type</TH><TH>Char.set</TH><TH>Width /<BR>Precision</TH><TH>Indexed <BR> data size</TH></TR>
+
+  <TR> <!-- -------------------- -->
+  <TD> <INPUT TYPE=checkbox CHECKED ID=fenabled1 SIZE=8 ONKEYUP="ixcalc();" ONCLICK="ixcalc();"> </TD>
+  <TD>
+  <SELECT ID=ftype1 ONCHANGE="ixcalc();">
+	<OPTGROUP LABEL="Integer types">
+	  <OPTION VALUE=8> INTEGER  </OPTION>
+	  <OPTION VALUE=8> SMALLINT </OPTION>
+	  <OPTION VALUE=10> BIGINT   </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Real types">
+	  <OPTION VALUE=8> DOUBLE PRECISION </OPTION>
+	  <OPTION VALUE=8> FLOAT </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Scaled numbers">
+	  <OPTION VALUE=N> DECIMAL(p,s) </OPTION>
+	  <OPTION VALUE=N> NUMERIC(p,s) </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Date/Time types">
+	  <OPTION VALUE=8> DATE </OPTION>
+	  <OPTION VALUE=8> TIME </OPTION>
+	  <OPTION VALUE=8> TIMESTAMP </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="String types">
+	  <OPTION VALUE=C> CHAR(n) </OPTION>
+	  <OPTION VALUE=C> VARCHAR(n) </OPTION>
+	</OPTGROUP>
+
+	<!-- <OPTGROUP LABEL="other">
+	  <OPTION VALUE=0 DISABLED> BLOB </OPTION>
+	</OPTGROUP> -->
+  </SELECT>
+  </TD> <TD>
+  <SELECT ID=fcharset1 DISABLED ONCHANGE="ixcalc();">
+	<OPTGROUP LABEL="Single byte">
+	  <OPTION VALUE=1> Single byte </OPTION>
+	  <OPTION VALUE=3> Single byte + collation</OPTION>
+	  <OPTION VALUE=1> NONE,OCTETS,ASCII </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Multi byte">
+	  <OPTION VALUE=3> UNICODE_FSS </OPTION>
+	  <OPTION VALUE=2> BIG_5 </OPTION>
+	  <OPTION VALUE=2> GB_2312 </OPTION>
+	  <OPTION VALUE=2> KSC_5601 </OPTION>
+	  <OPTION VALUE=2> EUCJ_0208 </OPTION>
+	  <OPTION VALUE=2> SJIS_0208 </OPTION>
+	</OPTGROUP>
+  </SELECT>
+  </TD>
+  <TD> <INPUT TYPE=text ID=fwidth1 SIZE=8 VALUE="10" DISABLED ONKEYUP="ixcalc();" ONCLICK="ixcalc();"> </TD>
+  <TD ID=fsize1 ALIGN=center> - </TD>
+  </TR>
+
+  <TR> <!-- -------------------- -->
+  <TD> <INPUT TYPE=checkbox ID=fenabled2 SIZE=8 ONKEYUP="ixcalc();" ONCLICK="ixcalc();"> </TD>
+  <TD>
+  <SELECT ID=ftype2 ONCHANGE="ixcalc();">
+	<OPTGROUP LABEL="Integer types">
+	  <OPTION VALUE=8> INTEGER  </OPTION>
+	  <OPTION VALUE=8> SMALLINT </OPTION>
+	  <OPTION VALUE=10> BIGINT   </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Real types">
+	  <OPTION VALUE=8> DOUBLE PRECISION </OPTION>
+	  <OPTION VALUE=8> FLOAT </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Scaled numbers">
+	  <OPTION VALUE=N> DECIMAL(p,s) </OPTION>
+	  <OPTION VALUE=N> NUMERIC(p,s) </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Date/Time types">
+	  <OPTION VALUE=8> DATE </OPTION>
+	  <OPTION VALUE=8> TIME </OPTION>
+	  <OPTION VALUE=8> TIMESTAMP </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="String types">
+	  <OPTION VALUE=C> CHAR(n) </OPTION>
+	  <OPTION VALUE=C> VARCHAR(n) </OPTION>
+	</OPTGROUP>
+
+	<!-- <OPTGROUP LABEL="other">
+	  <OPTION VALUE=0 DISABLED> BLOB </OPTION>
+	</OPTGROUP> -->
+  </SELECT>
+  </TD> <TD>
+  <SELECT ID=fcharset2 DISABLED ONCHANGE="ixcalc();">
+	<OPTGROUP LABEL="Single byte">
+	  <OPTION VALUE=1> Single byte </OPTION>
+	  <OPTION VALUE=3> Single byte + collation</OPTION>
+	  <OPTION VALUE=1> NONE,OCTETS,ASCII </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Multi byte">
+	  <OPTION VALUE=3> UNICODE_FSS </OPTION>
+	  <OPTION VALUE=2> BIG_5 </OPTION>
+	  <OPTION VALUE=2> GB_2312 </OPTION>
+	  <OPTION VALUE=2> KSC_5601 </OPTION>
+	  <OPTION VALUE=2> EUCJ_0208 </OPTION>
+	  <OPTION VALUE=2> SJIS_0208 </OPTION>
+	</OPTGROUP>
+  </SELECT>
+  </TD>
+  <TD> <INPUT TYPE=text ID=fwidth2 SIZE=8 DISABLED VALUE="10" ONKEYUP="ixcalc();" ONCLICK="ixcalc();"> </TD>
+  <TD ID=fsize2 ALIGN=center> -
+  </TD>
+  </TR>
+
+  <TR> <!-- -------------------- -->
+  <TD> <INPUT TYPE=checkbox ID=fenabled3 SIZE=8 ONKEYUP="ixcalc();" ONCLICK="ixcalc();"> </TD>
+  <TD>
+  <SELECT ID=ftype3 ONCHANGE="ixcalc();">
+	<OPTGROUP LABEL="Integer types">
+	  <OPTION VALUE=8> INTEGER  </OPTION>
+	  <OPTION VALUE=8> SMALLINT </OPTION>
+	  <OPTION VALUE=10> BIGINT   </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Real types">
+	  <OPTION VALUE=8> DOUBLE PRECISION </OPTION>
+	  <OPTION VALUE=8> FLOAT </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Scaled numbers">
+	  <OPTION VALUE=N> DECIMAL(p,s) </OPTION>
+	  <OPTION VALUE=N> NUMERIC(p,s) </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Date/Time types">
+	  <OPTION VALUE=8> DATE </OPTION>
+	  <OPTION VALUE=8> TIME </OPTION>
+	  <OPTION VALUE=8> TIMESTAMP </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="String types">
+	  <OPTION VALUE=C> CHAR(n) </OPTION>
+	  <OPTION VALUE=C> VARCHAR(n) </OPTION>
+	</OPTGROUP>
+
+	<!-- <OPTGROUP LABEL="other">
+	  <OPTION VALUE=0 DISABLED> BLOB </OPTION>
+	</OPTGROUP> -->
+  </SELECT>
+  </TD> <TD>
+  <SELECT ID=fcharset3 DISABLED ONCHANGE="ixcalc();">
+	<OPTGROUP LABEL="Single byte">
+	  <OPTION VALUE=1> Single byte </OPTION>
+	  <OPTION VALUE=3> Single byte + collation</OPTION>
+	  <OPTION VALUE=1> NONE,OCTETS,ASCII </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Multi byte">
+	  <OPTION VALUE=3> UNICODE_FSS </OPTION>
+	  <OPTION VALUE=2> BIG_5 </OPTION>
+	  <OPTION VALUE=2> GB_2312 </OPTION>
+	  <OPTION VALUE=2> KSC_5601 </OPTION>
+	  <OPTION VALUE=2> EUCJ_0208 </OPTION>
+	  <OPTION VALUE=2> SJIS_0208 </OPTION>
+	</OPTGROUP>
+  </SELECT>
+  </TD>
+  <TD> <INPUT TYPE=text ID=fwidth3 SIZE=8 DISABLED VALUE="10" ONKEYUP="ixcalc();" ONCLICK="ixcalc();"> </TD>
+  <TD ID=fsize3 ALIGN=center> -
+  </TD>
+  </TR>
+
+  <TR> <!-- -------------------- -->
+  <TD> <INPUT TYPE=checkbox ID=fenabled4 SIZE=8 ONKEYUP="ixcalc();" ONCLICK="ixcalc();"> </TD>
+  <TD>
+  <SELECT ID=ftype4 ONCHANGE="ixcalc();">
+	<OPTGROUP LABEL="Integer types">
+	  <OPTION VALUE=8> INTEGER  </OPTION>
+	  <OPTION VALUE=8> SMALLINT </OPTION>
+	  <OPTION VALUE=10> BIGINT   </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Real types">
+	  <OPTION VALUE=8> DOUBLE PRECISION </OPTION>
+	  <OPTION VALUE=8> FLOAT </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Scaled numbers">
+	  <OPTION VALUE=N> DECIMAL(p,s) </OPTION>
+	  <OPTION VALUE=N> NUMERIC(p,s) </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Date/Time types">
+	  <OPTION VALUE=8> DATE </OPTION>
+	  <OPTION VALUE=8> TIME </OPTION>
+	  <OPTION VALUE=8> TIMESTAMP </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="String types">
+	  <OPTION VALUE=C> CHAR(n) </OPTION>
+	  <OPTION VALUE=C> VARCHAR(n) </OPTION>
+	</OPTGROUP>
+
+	<!-- <OPTGROUP LABEL="other">
+	  <OPTION VALUE=0 DISABLED> BLOB </OPTION>
+	</OPTGROUP> -->
+  </SELECT>
+  </TD> <TD>
+  <SELECT ID=fcharset4 DISABLED ONCHANGE="ixcalc();">
+	<OPTGROUP LABEL="Single byte">
+	  <OPTION VALUE=1> Single byte </OPTION>
+	  <OPTION VALUE=3> Single byte + collation</OPTION>
+	  <OPTION VALUE=1> NONE,OCTETS,ASCII </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Multi byte">
+	  <OPTION VALUE=3> UNICODE_FSS </OPTION>
+	  <OPTION VALUE=2> BIG_5 </OPTION>
+	  <OPTION VALUE=2> GB_2312 </OPTION>
+	  <OPTION VALUE=2> KSC_5601 </OPTION>
+	  <OPTION VALUE=2> EUCJ_0208 </OPTION>
+	  <OPTION VALUE=2> SJIS_0208 </OPTION>
+	</OPTGROUP>
+  </SELECT>
+  </TD>
+  <TD> <INPUT TYPE=text ID=fwidth4 SIZE=8 DISABLED VALUE="10" ONKEYUP="ixcalc();" ONCLICK="ixcalc();"> </TD>
+  <TD ID=fsize4 ALIGN=center> -
+  </TD>
+  </TR>
+
+  <TR> <!-- -------------------- -->
+  <TD> <INPUT TYPE=checkbox ID=fenabled5 SIZE=8 ONKEYUP="ixcalc();" ONCLICK="ixcalc();"> </TD>
+  <TD>
+  <SELECT ID=ftype5 ONCHANGE="ixcalc();">
+	<OPTGROUP LABEL="Integer types">
+	  <OPTION VALUE=8> INTEGER  </OPTION>
+	  <OPTION VALUE=8> SMALLINT </OPTION>
+	  <OPTION VALUE=10> BIGINT   </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Real types">
+	  <OPTION VALUE=8> DOUBLE PRECISION </OPTION>
+	  <OPTION VALUE=8> FLOAT </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Scaled numbers">
+	  <OPTION VALUE=N> DECIMAL(p,s) </OPTION>
+	  <OPTION VALUE=N> NUMERIC(p,s) </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Date/Time types">
+	  <OPTION VALUE=8> DATE </OPTION>
+	  <OPTION VALUE=8> TIME </OPTION>
+	  <OPTION VALUE=8> TIMESTAMP </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="String types">
+	  <OPTION VALUE=C> CHAR(n) </OPTION>
+	  <OPTION VALUE=C> VARCHAR(n) </OPTION>
+	</OPTGROUP>
+
+	<!-- <OPTGROUP LABEL="other">
+	  <OPTION VALUE=0 DISABLED> BLOB </OPTION>
+	</OPTGROUP> -->
+  </SELECT>
+  </TD> <TD>
+  <SELECT ID=fcharset5 DISABLED ONCHANGE="ixcalc();">
+	<OPTGROUP LABEL="Single byte">
+	  <OPTION VALUE=1> Single byte </OPTION>
+	  <OPTION VALUE=3> Single byte + collation</OPTION>
+	  <OPTION VALUE=1> NONE,OCTETS,ASCII </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Multi byte">
+	  <OPTION VALUE=3> UNICODE_FSS </OPTION>
+	  <OPTION VALUE=2> BIG_5 </OPTION>
+	  <OPTION VALUE=2> GB_2312 </OPTION>
+	  <OPTION VALUE=2> KSC_5601 </OPTION>
+	  <OPTION VALUE=2> EUCJ_0208 </OPTION>
+	  <OPTION VALUE=2> SJIS_0208 </OPTION>
+	</OPTGROUP>
+  </SELECT>
+  </TD>
+  <TD> <INPUT TYPE=text ID=fwidth5 SIZE=8 DISABLED VALUE="10" ONKEYUP="ixcalc();" ONCLICK="ixcalc();"> </TD>
+  <TD ID=fsize5 ALIGN=center> -
+  </TD>
+  </TR>
+
+  <TR> <!-- -------------------- -->
+  <TD> <INPUT TYPE=checkbox ID=fenabled6 SIZE=8 ONKEYUP="ixcalc();" ONCLICK="ixcalc();"> </TD>
+  <TD>
+  <SELECT ID=ftype6 ONCHANGE="ixcalc();">
+	<OPTGROUP LABEL="Integer types">
+	  <OPTION VALUE=8> INTEGER  </OPTION>
+	  <OPTION VALUE=8> SMALLINT </OPTION>
+	  <OPTION VALUE=10> BIGINT   </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Real types">
+	  <OPTION VALUE=8> DOUBLE PRECISION </OPTION>
+	  <OPTION VALUE=8> FLOAT </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Scaled numbers">
+	  <OPTION VALUE=N> DECIMAL(p,s) </OPTION>
+	  <OPTION VALUE=N> NUMERIC(p,s) </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Date/Time types">
+	  <OPTION VALUE=8> DATE </OPTION>
+	  <OPTION VALUE=8> TIME </OPTION>
+	  <OPTION VALUE=8> TIMESTAMP </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="String types">
+	  <OPTION VALUE=C> CHAR(n) </OPTION>
+	  <OPTION VALUE=C> VARCHAR(n) </OPTION>
+	</OPTGROUP>
+
+	<!-- <OPTGROUP LABEL="other">
+	  <OPTION VALUE=0 DISABLED> BLOB </OPTION>
+	</OPTGROUP> -->
+  </SELECT>
+  </TD> <TD>
+  <SELECT ID=fcharset6 DISABLED ONCHANGE="ixcalc();">
+	<OPTGROUP LABEL="Single byte">
+	  <OPTION VALUE=1> Single byte </OPTION>
+	  <OPTION VALUE=3> Single byte + collation</OPTION>
+	  <OPTION VALUE=1> NONE,OCTETS,ASCII </OPTION>
+	</OPTGROUP>
+	<OPTGROUP LABEL="Multi byte">
+	  <OPTION VALUE=3> UNICODE_FSS </OPTION>
+	  <OPTION VALUE=2> BIG_5 </OPTION>
+	  <OPTION VALUE=2> GB_2312 </OPTION>
+	  <OPTION VALUE=2> KSC_5601 </OPTION>
+	  <OPTION VALUE=2> EUCJ_0208 </OPTION>
+	  <OPTION VALUE=2> SJIS_0208 </OPTION>
+	</OPTGROUP>
+  </SELECT>
+  </TD>
+  <TD> <INPUT TYPE=text ID=fwidth6 SIZE=8 DISABLED VALUE="10" ONKEYUP="ixcalc();" ONCLICK="ixcalc();"> </TD>
+  <TD ID=fsize6 ALIGN=center> -
+  </TD>
+  </TR>
+
+</TABLE>
+
+</P>
+
+<BR>
+
+<TABLE BORDER=0>
+  <TR> <TH ALIGN=left> Number of columns </TH> <TD ID=cnt ALIGN=RIGHT WIDTH=60>1&nbsp;</TD> </TR>
+  <TR> <TH ALIGN=left> Total key size </TH> <TD ID=tot ALIGN=RIGHT>8&nbsp;</TD> </TR>
+  <TR> <TH ALIGN=left> Remains </TH> <TD ID=rem ALIGN=RIGHT>248&nbsp;</TD> </TR>
+</TABLE>
+
+<HR>
+
+<P>
+Have you ever been surprised by error messages like these when creating indexes ?
+<PRE>unsuccessful metadata update
+-key size too big for index IX
+
+unsuccessful metadata update
+-key size exceeds implementation restriction for index "IX"</PRE>
+
+You do not know why you can index the first column, but not the second one ?
+<PRE>
+  A VARCHAR(100) CHARACTER SET ISO8859_1;
+  B VARCHAR(100) CHARACTER SET ISO8859_1 COLLATE EN_UK;
+</PRE>
+
+This little "Firebird Index Key Size Calculator" <SUP><SMALL>TM</SMALL></SUP>
+lets you play with different data types, looking at resulting size
+of internally used index key.
+
+Maximum index key size is 252 bytes.
+The computation (especially for multi-column keys)
+is a bit complicated, so don't be surprised by unexpected results.
+(Non-binary collations triple the size of single byte character sets.
+Integers are converted to double precision. etc.)
+
+Maximum number of segments is 16.
+
+<P>
+
+<HR>
+
+<ADDRESS> Copyright &copy 2004 Ivan Prenosil </ADDRESS>
+
+</BODY>
+
+</HTML>

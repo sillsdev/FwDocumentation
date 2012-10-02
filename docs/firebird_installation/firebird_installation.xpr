@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<meta>
+		<filters directoryPatterns="" filePatterns=""
+			positiveFilePatterns="" showHiddenFiles="false"/>
+		<options/>
+	</meta>
+	<projectTree name="firebird_installation.xpr">
+		<file name="../docbook-html.xsl"/>
+		<file name="firebird_installation.xml"/>
+		<file name="firebird_installation_downloads.xml"/>
+		<file name="firebird_installation_step1.xml"/>
+		<file name="firebird_installation_step2.xml"/>
+		<file name="firebird_installation_step3.xml"/>
+		<file name="firebird_installation_step4.xml"/>
+	</projectTree>
+</project>

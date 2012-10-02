@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="VCC_SDK">
+  <title>Windows Platform SDK Installation</title>
+
+  <itemizedlist>
+	<listitem>
+	  <para>Launch the "Windows Platform SDK" installer and click "Next".
+	  These instructions are based on the CD version of the "Windows 2003
+	  Platform SDK R2".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/platform_sdk_001.jpg" />
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Read the license agreement, select "I agree" and click
+	  "Next".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/platform_sdk_002.jpg" />
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Select "Custom" and click "Next".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/platform_sdk_003.jpg" />
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Specify <filename>C:\VS8\VC\PlatformSDK\</filename> for the
+	  installation path and click "Next".</para>
+
+	  <note>
+		<para>Using this exact path will take simplify the configuration of
+		VC++ to use the Platform SDK as this path is preconfigured within
+		VC++.</para>
+	  </note>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/platform_sdk_004.jpg" />
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Unselect all options except for the following and click
+	  "Next":</para>
+
+	  <itemizedlist>
+		<listitem>
+		   Microsoft Windows Core SDK
+		</listitem>
+
+		<listitem>
+		   Microsoft Windows Installer SDK (optional but could prove useful)
+		</listitem>
+
+		<listitem>
+		   Debugging Tools for Windows
+		</listitem>
+	  </itemizedlist>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/platform_sdk_005.jpg" />
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Click "Next".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/platform_sdk_006.jpg" />
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Click "Finish".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/platform_sdk_007.jpg" />
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Visual C++ has to be configured for use of the Platform SDK which
+	  is described in the following subsections. An alternative to editing the
+	  files described in the following subsection is to use replace the files
+	  in <filename>C:\VS8</filename> with the following expanded archive
+	  <filename><ulink url="../html/VS8.zip">VS8.zip</ulink></filename>. This
+	  will only replace the following files and if you're setup is identical
+	  to the previous instructions this will work just fine:</para>
+
+	  <itemizedlist>
+		<listitem>
+		  <para><filename>C:\VS8\VC\VCProjectDefaults\corewin_express.vsprops</filename></para>
+		</listitem>
+
+		<listitem>
+		  <para><filename>C:\VS8\VC\VCWizards\AppWiz\Generic\Application\html\1033\AppSettings.htm</filename></para>
+		</listitem>
+	  </itemizedlist>
+	</listitem>
+  </itemizedlist>
+
+  <section>
+	<title>Verify The Visual C++ Settings</title>
+
+	<para><itemizedlist>
+		<listitem>
+		  <para>Verify the Visual C++ directories in the Projects and
+		  Solutions section in the Options dialog box (via Options item in
+		  Tools menu) and add these directory entries if missing. Add the
+		  paths to the appropriate subsection:</para>
+
+		  <itemizedlist>
+			<listitem>
+			  <para>Executable files:
+			  <filename>$(VCInstallDir)PlatformSDK\bin</filename></para>
+
+			  <mediaobject>
+				<imageobject>
+				  <imagedata fileref="../images/vcc/platform_sdk_008.jpg" />
+				</imageobject>
+			  </mediaobject>
+			</listitem>
+
+			<listitem>
+			  <para>Include files:
+			  <filename>$(VCInstallDir)PlatformSDK\include</filename></para>
+
+			  <mediaobject>
+				<imageobject>
+				  <imagedata fileref="../images/vcc/platform_sdk_009.jpg" />
+				</imageobject>
+			  </mediaobject>
+			</listitem>
+
+			<listitem>
+			  <para>Library files:
+			  <filename>$(VCInstallDir)PlatformSDK\lib</filename></para>
+
+			  <mediaobject>
+				<imageobject>
+				  <imagedata fileref="../images/vcc/platform_sdk_010.jpg" />
+				</imageobject>
+			  </mediaobject>
+			</listitem>
+		  </itemizedlist>
+		</listitem>
+	  </itemizedlist></para>
+  </section>
+
+  <section>
+	<title>Update corewin_express.vsprops</title>
+
+	<itemizedlist>
+	  <listitem>
+		<para>Edit the <filename>corewin_express.vsprops</filename> file
+		(found in <filename>C:\VS8\VC\VCProjectDefaults</filename>) and Change
+		the string that reads:
+		<code>AdditionalDependencies="kernel32.lib"</code> to
+		<code>AdditionalDependencies="kernel32.lib user32.lib gdi32.lib
+		winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib
+		oleaut32.lib uuid.lib"</code>. The contents of the
+		<filename>C:\VS8\VC\VCProjectDefaults\corewin_express.vsprops</filename>
+		file should be:</para>
+
+		<programlisting>
+&lt;?xml version="1.0"?&gt;
+&lt;VisualStudioPropertySheet
+  ProjectType="Visual C++"
+  Version="8.00"
+  Name="Core Windows Libraries"&gt;
+  &lt;Tool
+	Name="VCLinkerTool"
+	AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib" /&gt;
+&lt;/VisualStudioPropertySheet&gt;
+		</programlisting>
+	  </listitem>
+
+	  <listitem>
+		<para>Save and close the file.</para>
+	  </listitem>
+	</itemizedlist>
+  </section>
+
+  <section>
+	<title>Generate And Build a Win32 Application To Test Your Paths</title>
+
+	<itemizedlist>
+	  <listitem>
+		<para>In Visual C++ Express, the Win32 Windows Application type is
+		disabled in the Win32 Application Wizard. To enable that type, you
+		need to edit the file <filename>AppSettings.htm</filename> file
+		located in the folder
+		<filename>C:\VS8\VC\VCWizards\AppWiz\Generic\Application\html\1033\</filename>.
+		In a text editor comment out lines 441 - 444 by putting a // in front
+		of them as shown here:</para>
+
+		<programlisting>
+if (window.external.FindSymbol("IS_EXPRESS_SKU"))
+{
+  SUPPORT_ATL.disabled = true;
+  support_atl_title.disabled = true;
+  SUPPORT_MFC.disabled = true;
+  support_mfc_title.disabled = true;
+  // WIN_APP.disabled = true;
+  // WIN_APP_LABEL.disabled = true;
+  // DLL_APP.disabled = true;
+  // DLL_APP_LABEL.disabled = true;
+}
+		</programlisting>
+	  </listitem>
+
+	  <listitem>
+		<para>Save and close the file.</para>
+	  </listitem>
+
+	  <listitem>
+		<para>From the File menu, click New Project. In the New Project dialog
+		box.</para>
+	  </listitem>
+
+	  <listitem>
+		<para>In the New Project dialog box, expand the Visual C++ node in the
+		Product Types tree and then click Win32.</para>
+	  </listitem>
+
+	  <listitem>
+		<para>Click on the Win32 Console Application template and then enter
+		TestApplication for your project a name and click OK. The location
+		path doesn't matter.</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/vcc/platform_sdk_011.jpg" />
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Click "Next".</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/vcc/platform_sdk_012.jpg" />
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>In the Win32 Application Wizard dialog box, make sure that
+		Windows application is selected as the Application type and the ATL is
+		not selected. Click the Finish button to generate the project.</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/vcc/platform_sdk_013.jpg" />
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>As a final step, test your project by clicking the Start button
+		in the IDE or by pressing F5. Your Win32 application should build and
+		run.</para>
+	  </listitem>
+
+	  <listitem>
+		<para>At the following screen press "Yes".</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/vcc/platform_sdk_014.jpg" />
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>The following screen should then appear if all is well and you
+		can then exit the test application.</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/vcc/platform_sdk_015.jpg" />
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+	</itemizedlist>
+  </section>
+</section>

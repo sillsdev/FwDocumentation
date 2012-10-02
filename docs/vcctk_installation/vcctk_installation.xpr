@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<meta>
+		<filters directoryPatterns="" filePatterns=""
+			positiveFilePatterns="" showHiddenFiles="false"/>
+		<options/>
+	</meta>
+	<projectTree name="vcctk_installation.xpr">
+		<file name="../docbook-html.xsl"/>
+		<file name="vcctk_installation.xml"/>
+		<file name="vcctk_step1_download.xml"/>
+		<file name="vcctk_step2_installation.xml"/>
+		<file name="vcctk_step3_service_pack.xml"/>
+		<file name="vcctk_step4_sdk.xml"/>
+		<file name="vcctk_step5_configuration.xml"/>
+	</projectTree>
+</project>

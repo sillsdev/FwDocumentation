@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="VCC_Service_Pack">
+  <title>Visual C++ Express Service Pack Installation</title>
+
+  <itemizedlist>
+	<listitem>
+	  <para>Launch the Visuall C++ Express service pack installer</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/vcc_install_008.jpg" />
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Click "OK".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/vcc_install_009.jpg" />
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Read the license agreement and click "I accept".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/vcc_install_010.jpg" />
+		</imageobject>
+	  </mediaobject>
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/vcc_install_011.jpg" />
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Click "OK".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/vcc_install_012.jpg" />
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+  </itemizedlist>
+</section>

@@ -1,0 +1,444 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 12 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:"Malgun Gothic";
+	panose-1:2 11 5 3 2 0 0 2 0 4;}
+@font-face
+	{font-family:"\@Malgun Gothic";
+	panose-1:2 11 5 3 2 0 0 2 0 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-top:24.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Cambria","serif";
+	color:#365F91;}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:.5in;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:.5in;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+p.Code, li.Code, div.Code
+	{mso-style-name:Code;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:.3in;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.CodeCxSpFirst, li.CodeCxSpFirst, div.CodeCxSpFirst
+	{mso-style-name:CodeCxSpFirst;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.3in;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.CodeCxSpMiddle, li.CodeCxSpMiddle, div.CodeCxSpMiddle
+	{mso-style-name:CodeCxSpMiddle;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.3in;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.CodeCxSpLast, li.CodeCxSpLast, div.CodeCxSpLast
+	{mso-style-name:CodeCxSpLast;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:.3in;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+.MsoPapDefault
+	{margin-bottom:10.0pt;
+	line-height:115%;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US>
+
+<div class=Section1>
+
+<h1>Implementing backreferences and related properties in the new architecture</h1>
+
+<p class=MsoNormal>In the old architecture, when we needed to find the objects
+that referred to a particular target, we usually created some embedded SQL,
+taking advantage of the bidirectionality of relationships in SQL. In the new
+world we can’t do this.</p>
+
+<p class=MsoNormal>We don’t propose currently to generate all possible
+backreference properties automatically, though we may decide to do this.
+Rather, we will create them selectively as needed. That allows us to decide,
+for each one, what degree of optimization is appropriate, as well as to avoid
+creating stuff we don’t need at all.</p>
+
+<p class=MsoNormal>Frequently backreferences are a natural property of the
+Repository of the referring class. A useful pattern is that if class X has a
+property Y that contains objects of class T, XRepository can have a method InstancesWithY(T
+target). For example, LexSense has a property DomainTypes with signature
+CmPossibility; if we need the inverse of this, we would create a method
+IEnumerable&lt;LexSense&gt; InstancesWithDomainType(ICmPossibility domainType)
+in (I)LexSenseRepository, and could then do things like
+lexSenseRepository.InstancesWithDomainType(aDomainType).</p>
+
+<p class=MsoNormal>There are various reasonable ways to implement such a
+method, discussed below.</p>
+
+<p class=MsoNormal>It’s also possible that the back-reference is a natural
+property of the object referred to. For example, LexSense has a property
+ReversalEntries, a collection of ReversalEntry. But the main point of
+ReversalEntry is to connect one or more senses; it is natural for ReversalEntry
+to have a property Senses. This could be implemented by delegation to
+LexSenseRepository.InstancesWithReversalEntry(this), but since we are
+generating all these by hand, this doesn’t have to be done; use discretion. I
+expect that XRepository.InstancesWithY(T) will be the default, and should
+certainly be used if there isn’t a more natural name than T.RefsFromYOfX.</p>
+
+<p class=MsoNormal>Consider for example that CmPossibility.Senses would not
+work (Senses is not a meaningful property of a list item; it’s not even unique,
+since several other properties of LexSense point to CmPossibility).
+CmPossibility.RefsFromDomainTypesOfLexSense is possible, but very ugly and totally
+unrelated to the concept of a list item. Likewise,
+ReversalEntry.RefsFromReversalEntriesOfLexSense is possible, but should not be
+done. Put it on the source repository if it doesn’t have a natural name as part
+of the target object class.</p>
+
+<p class=MsoNormal>Please do follow the InstancesWith naming pattern unless
+there is a clearly better name.</p>
+
+<p class=MsoNormal>Review: many properties have plural names to reflect a
+collection, but it’s unnatural for an InstancesWithX method that takes a single
+destination object as argument. For example, InstancesWithDomainType(aType) is
+more natural that InstancesWithDomainTypes(aType); the latter suggests passing
+a collection of target CmPossibilities. On the other hand, especially if we
+ever want to use reflection to get at these, it would be nice if the name were
+exactly predictable from the property name. I am inclined to prefer dropping
+the plural in InstancesWithX methods.</p>
+
+<h1>Select from all instances</h1>
+
+<p class=MsoNormal>The simplest thing that can possibly work in the new
+architecture is to select from the AllInstances() of the repository. For
+example, LexSenseRepository might have</p>
+
+<p class=Code>IEnumerable&lt;CmPossibility&gt;
+InstancesWithDomainType(ICmPossibility domainType) { return
+AllInstances().Select(s =&gt; s.DomainTypes.Contains(s)); }</p>
+
+<p class=MsoNormal>Feel free to use this in the initial port until a
+performance issue emerges.</p>
+
+<h1>Build a dictionary</h1>
+
+<p class=MsoNormal>The next possible implementation is to give the repository a
+dictionary member variable from the destination class to a list of the values.
+It might look like this:</p>
+
+<p class=CodeCxSpFirst>Dictionary&lt;ICmPossibility, List&lt;ILexSense&gt;()
+m_sensesByDomainType;</p>
+
+<p class=CodeCxSpMiddle>&nbsp;</p>
+
+<p class=CodeCxSpMiddle>IList&lt;ILexSense&gt;
+InstancesWithDomainType(ICmPossibilty domainType)</p>
+
+<p class=CodeCxSpMiddle>{</p>
+
+<p class=CodeCxSpMiddle>  if (m_sensesByDomainType == null)</p>
+
+<p class=CodeCxSpMiddle>    BuildSensesByDomainType();</p>
+
+<p class=CodeCxSpMiddle>  List&lt;ILexSense&gt; result;</p>
+
+<p class=CodeCxSpMiddle>  if (m_sensesByDomainType.TryGetValue(dt, out result))</p>
+
+<p class=CodeCxSpMiddle>    return result;</p>
+
+<p class=CodeCxSpMiddle>  return new List&lt;ILexSense&gt;();</p>
+
+<p class=CodeCxSpMiddle>}</p>
+
+<p class=CodeCxSpMiddle>&nbsp;</p>
+
+<p class=CodeCxSpMiddle>void BuildSensesByDomainType()</p>
+
+<p class=CodeCxSpMiddle>{</p>
+
+<p class=CodeCxSpMiddle>  foreach (var sense in AllInstances())</p>
+
+<p class=CodeCxSpMiddle>  {</p>
+
+<p class=CodeCxSpMiddle>    foreach (var dt in sense.DomainTypes)</p>
+
+<p class=CodeCxSpMiddle>    {</p>
+
+<p class=CodeCxSpMiddle>      List&lt;ILexSense&gt; senses;</p>
+
+<p class=CodeCxSpMiddle>      if (!m_sensesByDomainType.TryGetValue(dt, out
+senses))</p>
+
+<p class=CodeCxSpMiddle>      {</p>
+
+<p class=CodeCxSpMiddle>        senses = new List&lt;ILexSense&gt;();</p>
+
+<p class=CodeCxSpMiddle>        m_sensesByDomainType[dt] = senses;</p>
+
+<p class=CodeCxSpMiddle>      }</p>
+
+<p class=CodeCxSpMiddle>      senses.Add(sense);</p>
+
+<p class=CodeCxSpMiddle>    }</p>
+
+<p class=CodeCxSpMiddle>  }</p>
+
+<p class=CodeCxSpLast>}</p>
+
+<p class=MsoNormal>Enhance JohnT: I suspect the BuildSensesByDomainType thing
+can be done more elegantly using LINQ. GroupBy will almost do it, except we don’t
+get just one key from each sense.</p>
+
+<p class=MsoNormal>You should also add something to LexSense.DomainTypesSideEffects
+to ensure that InstancesWithDomainType continues to yield correct values.
+Specifically, give LexSenseRepository a method DomainTypesChanged(CollectionChangedEventArgs
+args), and call this from the side effects method for DomainTypes (which is
+passed the appropriate kind of event args). (This is rough…I haven’t checked
+the exact class of the EventArgs. It’s probably a template type.)</p>
+
+<p class=MsoNormal>The simplest implementation of DomainTypesChanged() is to
+set m_sensesByDomainType to null. This is acceptable if you expect little
+interleaving of changes to DomainTypes with uses of InstancesWithDomainType. If
+you anticipate (or encounter) performance problems from this, you can use the
+list of added and removed domain types in the event args to update the
+dictionary (if it has already been constructed).</p>
+
+<p class=MsoNormal>Review: the above design forces us to instantiate all the senses
+and all the domain types on the first call to InstancesWithDomainType. In
+principle, we could possibly avoid some of this by building our dictionary
+using GUIDs or object surrogates instead of actual objects. However, the loop
+that populates the dictionary instantiates all the objects anyway; unless we
+make the implementation actually dig into the XML of the surrogate, I don’t see
+how to avoid this. I am inclined to at least try the approach above first.</p>
+
+<h1>A dictionary of sorted lists</h1>
+
+<p class=MsoNormal>If there is a commonly-useful default order for the
+backreferences, you can use an appropriate SortedList&lt;T&gt; in place of the
+ordinary List&lt;T&gt; in the above.</p>
+
+<h1>A property on the destination object</h1>
+
+<p class=MsoNormal>The simplest way to implement this is just to delegate to
+the Repository method.</p>
+
+<p class=MsoNormal>It’s also possible to put an instance variable in the
+hand-written part of the partial class to hold such values, if they are
+commonly-enough used to warrant it. For example, if we want ReversalEntry to do
+this for Senses, we’d have in ReversalEntry</p>
+
+<p class=CodeCxSpFirst>IList&lt;ILexSense&gt; m_senses;</p>
+
+<p class=CodeCxSpMiddle>IList&lt;ILexSense&gt; Senses {</p>
+
+<p class=CodeCxSpMiddle>      get {</p>
+
+<p class=CodeCxSpMiddle>          if (m_senses == null)</p>
+
+<p class=CodeCxSpMiddle>                      Cache.ServiceLocator.GetService&lt;ILexSenseRepository&gt;().BuildSensesByReversalEntry();</p>
+
+<p class=CodeCxSpMiddle>          return m_senes;</p>
+
+<p class=CodeCxSpMiddle>      }</p>
+
+<p class=CodeCxSpLast>}</p>
+
+<p class=MsoNormal>BuildSensesByReversalEntry() is similar to BuildSensesByDomainType,
+except that instead of using a dictionary it creates the senses collection in
+each reversal entry.</p>
+
+<p class=MsoNormal>This requires some finesse. The Senses property of
+ReversalEntry should return a read-only list, and m_senses should only be
+updated by BuildSensesByReversalEntry. But BuildSensesByReversalEntry needs to
+be able to get a modifiable collection for any given reversal entry. We could</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Trust
+the (other) users of ReversalEntries.Senses not to modify the collection. This
+would be more acceptable if it remains an internal property.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Program
+Senses to return the member variable wrapped in a ReadOnlyCollection. Provide other,
+internal methods through which BuildSensesByReversalEntry can retrieve and set the
+writeable collection. (It will have to make a first pass clearing all the
+existing collections.)</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Program
+Senses to return the member variable wrapped in a ReadOnlyCollection. Provide
+an internal method for BuildSensesByReversalEntry to set the writeable
+collection. BuildSensesByReversalEntry builds a dictionary to record the writeable
+collections, and discards it when done. This provides slightly more protection
+against other clients modifying the collection, but it prevents repairing
+things when a Sense’s ReversalEntries changes.</p>
+
+<p class=MsoNormal>There’s probably a couple of other options. I think the
+second one is the best compromise between safety and efficiency.</p>
+
+<p class=MsoNormal>With this approach, to start over when a sense’s
+ReversalEntries changes requires clearing m_senses to null on all
+ReversalEntries; this is not likely to be cost-effective, so we should go
+directly to repairing the m_senses of each added and removed reversal entry in
+the side effects method for LexSense.ReversalEntries.</p>
+
+<h1>Persisting back-references</h1>
+
+<p class=MsoNormal>We’ve decided against doing this for the moment, but it is
+possible in principle for the LexSenseRepository to persist the dictionary
+mapping domain type to referring senses. To gain much, we’d have to implement
+it using guids, so we don’t have to instantiate all the senses (and domain
+types) in order to read it back. Unfortunately it is a rather large chunk of
+data to write each time it changes, and a rich source of potential write
+conflicts if two people are working on domain types at the same time.</p>
+
+<p class=MsoNormal>Similarly we could persist the m_senses list of a
+ReversalEntry. We’d want to be careful about this, because it adds the
+ReversalEntry itself to the list of modified objects for the update. If two
+people add senses to the same reversal entry, that would become a conflict. But
+one could argue that this is a good thing in such a case. Although it’s a back
+reference, the senses of a reversal entry is a very important part of it; it
+might make sense to consider this a conflict. (By contrast, it would be very
+bad to consider it a conflict if two people set different senses to refer to
+the same domain type.) Another objection is that we’d be storing redundant
+information. But doing it very carefully and selectively might be acceptable,
+if we badly need to avoid the startup overhead of instantiating all instances
+of the source class.</p>
+
+<p class=MsoNormal>Still, this is just something to think about for the future.
+For the moment we agreed to try to do without this redundancy.</p>
+
+<h1>Further filtering</h1>
+
+<p class=MsoNormal>In some cases, interesting properties are not just a
+function of the property involved. For example, for StTxtPara we are interested
+in its Segments, which are not just the CmBaseAnnotations which refer to it
+using BeginObject (sorted by BeginOffset), but limited to the ones of ‘type’
+TextSegment. It’s perfectly proper to give CmBaseAnnotationRepository a method
+SegmentsFor(IStTxtPara para) which returns this subset of
+InstancesWithBeginObject(ICmObject obj), though this is a case where
+maintaining the property on StTxtPara itself might make sense.</p>
+
+<p class=MsoNormal>(We’d also greatly benefit, of course, from subclassing
+CmBaseAnnotation and making a TextSegment class. Then we don’t have to
+instantiate ALL the CmBaseAnnotations to get our first segments list. In the
+new world, more subclasses improves performance.)</p>
+
+<h1>Generic class support</h1>
+
+<p class=MsoNormal>After we’ve built a few non-trivial back-reference
+properties, I expect we’ll want to create some helper classes. We could, for
+example, have a class which encapsulates all the logic to hold a back-reference
+dictionary, create it when first needed, and update it when notified of changes
+to the forward reference. Another could be created for sorted backrefs. I
+expect we will find one or both of these worth doing before long.</p>
+
+<h1>PropChanged</h1>
+
+<p class=MsoNormal>If a back-reference property is defined as a virtual
+property that is visible to DomainDataByFlid, then changes to it should result
+in PropChanged messages being broadcast at the end of the UOW. This is not
+necessary when first generating the properties, but if they are changed once
+they exist the notifications should be sent. This would call for a level of
+smart updating sufficient to give us specific information about which back-refs
+changed and how.</p>
+
+<p class=MsoNormal>Todo: research and document how to cause a PropChanged to
+happen for a virtual.</p>
+
+</div>
+
+</body>
+
+</html>

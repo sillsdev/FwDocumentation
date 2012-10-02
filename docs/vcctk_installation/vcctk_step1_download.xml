@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="VCC_Downloads">
+  <title>Downloads</title>
+
+  <para>You need to download and install the necessary software packages. The links and versions are
+	as of 09-Jan-2005.</para>
+
+  <itemizedlist>
+	<listitem>
+	  <simpara>Use the following link to download <application>Microsoft Visual C++
+		Express</application> version 2005:</simpara>
+
+	  <simpara>
+		<ulink url="http://msdn.microsoft.com/vstudio/express/downloads/default.aspx"
+		  >http://msdn.microsoft.com/vstudio/express/downloads/default.aspx</ulink>
+	  </simpara>
+
+	  <note> Visual C++ Express can also be downloaded as an ISO CD image (463 MB) from the MSDN
+		subscriber download site if you have a MSDN account. The download via the above link is very
+		slow. The download size for the above link which is approximately 68 MB took several hours
+		to download compared to less than an hour for the ISO MSDN download. </note>
+	</listitem>
+
+	<listitem>
+	  <simpara>Click on the "Go!" button beside the Visual C++ 2005 Express Edition language
+		selection.</simpara>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/vcc_download_001.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <simpara>From the link above there should be a link to download the latest
+		  <application>Microsoft Visual C++ Express</application> version 2005 Service Pack. The
+		following link is <application>Visual C++ Express</application> SP1:</simpara>
+
+	  <simpara>
+		<ulink
+		  url="http://download.microsoft.com/download/7/7/3/7737290f-98e8-45bf-9075-85cc6ae34bf1/VS80sp1-KB926748-X86-INTL.exe"
+		  >http://download.microsoft.com/download/7/7/3/7737290f-98e8-45bf-9075-85cc6ae34bf1/VS80sp1-KB926748-X86-INTL.exe</ulink>
+	  </simpara>
+
+	  <note> The above download link is extremely slow (over an hour for 43.5 MB) but I could only
+		find a 4454 MB "Visual Studio 2005 Service Pack 1 - DVD (Multilanguage) " on the MSDN
+		Subscriber downloads. </note>
+	</listitem>
+
+	<listitem>
+	  <simpara>For the Windows Platform SDK you have several download links available:</simpara>
+
+	  <itemizedlist>
+		<listitem>
+		  <simpara>
+			<ulink url="http://msdn.microsoft.com/vstudio/express/visualc/usingpsdk/">Using Visual
+			  C++ 2005 Express Edition with the Microsoft Platform SDK</ulink>
+		  </simpara>
+		</listitem>
+
+		<listitem>
+		  <simpara>
+			<ulink
+			  url="http://www.microsoft.com/downloads/details.aspx?familyid=484269E2-3B89-47E3-8EB7-1F2BE6D7123A&amp;displaylang=en"
+			  >Windows Server 2003 R2 Platform SDK Full Download</ulink>
+		  </simpara>
+		</listitem>
+
+		<listitem>
+		  <simpara>
+			<ulink
+			  url="http://www.microsoft.com/downloads/details.aspx?familyid=0BAF2B35-C656-4969-ACE8-E4C0C0716ADB&amp;displaylang=en"
+			  >Windows Server 2003 R2 Platform SDK Web Install</ulink>
+		  </simpara>
+		</listitem>
+
+		<listitem>
+		  <simpara>
+			<ulink type=""
+			  url="http://www.microsoft.com/downloads/details.aspx?FamilyId=E15438AC-60BE-41BD-AA14-7F1E0F19CA0D&amp;displaylang=en"
+			  >Windows Server 2003 R2 Platform SDK ISO Install</ulink>
+		  </simpara>
+		</listitem>
+	  </itemizedlist>
+
+	  <note> The above download links are extremely slow and the Platform SDK can also be downloaded
+		as an ISO CD image (409 MB) from the MSDN subscriber download site if you have a MSDN
+		account at a substantianlly faster speed. </note>
+	</listitem>
+  </itemizedlist>
+</section>

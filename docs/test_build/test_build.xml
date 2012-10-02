@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="../docbook-html.xsl"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+<article class="techreport">
+  <title>FieldWorks Installation and Setup</title>
+
+  <articleinfo>
+	<releaseinfo>$Revision$</releaseinfo>
+
+	<pubdate>$Date$</pubdate>
+  </articleinfo>
+
+  <section id="Prerequisites">
+	<title>Introduction</title>
+
+	<para>These instructions will guide you through a test build of the
+	FieldWorks database files to verify that all is setup properly.</para>
+  </section>
+
+  <section id="Compilation">
+	<title>Compilation</title>
+
+	<itemizedlist>
+	  <listitem>
+		<para>Launch the VC++ command window found in
+		C:\VCS\Wycliffe\projects\FieldWorks\Src\Sql\Scripts.</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/test_build/test001.jpg" />
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<simpara>There are two scripts</simpara>
+
+		<orderedlist>
+		  <listitem>
+			<simpara>testbuild.bat - used for test only purposes while the
+			development work is in progress. Note that the default path for
+			the Firebird base folder was modified to be C:\Firebird to
+			simplify development.</simpara>
+		  </listitem>
+
+		  <listitem>
+			<simpara>build.bat - used to build the final and complete
+			version</simpara>
+		  </listitem>
+		</orderedlist>
+	  </listitem>
+
+	  <listitem>
+		<para>Ensure to revise the Firebird reference paths in testbuild.bat
+		if Firebird isn't installed at C:\Firebird on your system. For example
+		if you've installed Firebird at E:\Firebird then tesbuild.bat would be
+		revised as follows:</para>
+
+		<programlisting>
+set FBBIN=E:\Firebird\bin
+set FBDB=E:\Firebird\Data\FieldWorks\FW01.DB
+				</programlisting>
+	  </listitem>
+
+	  <listitem>
+		<para>Type testbuild.bat at the prompt.</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/test_build/test002.jpg" />
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<simpara>Click on the following link to see a typical output results
+		of running testbuild.bat where there are no errors: <ulink
+		url="testbuild.txt">testbuild.txt</ulink></simpara>
+	  </listitem>
+	</itemizedlist>
+  </section>
+</article>

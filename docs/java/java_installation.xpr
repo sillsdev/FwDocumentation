@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<meta>
+		<filters directoryPatterns="" filePatterns=""
+			positiveFilePatterns="" showHiddenFiles="false"/>
+		<options/>
+	</meta>
+	<projectTree name="java_installation.xpr">
+		<file name="../docbook-html.xsl"/>
+		<file name="java_installation.xml"/>
+	</projectTree>
+</project>

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+	"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+	<article class="techreport">
+		<title>OxygenXML Installation And Sample Project</title>
+		<articleinfo>
+			<releaseinfo>$Revision$</releaseinfo>
+			<pubdate>$Date$</pubdate>
+		</articleinfo>
+		<abstract>
+			<para>This document describes how to install syncRO Soft OxygenXML and shows how to build a
+				sample project.</para>
+		</abstract>
+		<section id="Installation">
+			<title>Installation</title>
+			<itemizedlist>
+				<listitem id="Download">
+					<para>Download the Oxygen XML installer from:</para>
+					<simpara>
+						<ulink url="http://www.oxygenxml.com/download.html">
+							http://www.oxygenxml.com/download.html</ulink>
+					</simpara>
+				</listitem>
+				<listitem id="Install">
+					<para>Run the setup and choose the default options.</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/oxygenxml001.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem id="Registration">
+					<para>Start Oxygen XML and under the Help menu choose Register and paste in the
+						license text that you received by email.</para>
+				</listitem>
+				<listitem id="Preferences">
+					<para>Under the Options menu select Preferences.</para>
+					<itemizedlist>
+						<listitem>
+							<para>Under the Editor, Aspect preference you can set the Font preference to
+								Courier New or any personal preference. This is not required to be
+								changed. It is documented only to help locate what is most likely a
+								commonly desired modification.</para>
+							<mediaobject>
+								<imageobject>
+									<imagedata fileref="images/oxygenxml002.jpg"/>
+								</imageobject>
+							</mediaobject>
+						</listitem>
+						<listitem>
+							<para>Only for version 5.1 under the Editor, Tag Insight, Default preference
+								you can set the default DTD to
+								http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd (for Docbook
+								auto-completion) if you want to have auto-completion for entity
+								documents which don't have a DTD specified in the header when they are
+								included as part of another XML document. This is especially useful with
+								Docbook nested entity documents.</para>
+							<mediaobject>
+								<imageobject>
+									<imagedata fileref="images/oxygenxml013.jpg"/>
+								</imageobject>
+							</mediaobject>
+							<para>For version 6.0+ this is no longer required as defaults are preset
+								based on document type.</para>
+						</listitem>
+					</itemizedlist>
+				</listitem>
+			</itemizedlist>
+		</section>
+		<section id="Sample Project">
+			<title>Sample Project</title>
+			<note>
+				<para>For the sake of simplicity the projet name used for this sample will be
+					oxygenxml_installation.</para>
+			</note>
+			<orderedlist id="Sample Steps">
+				<listitem>
+					<para>Under the \FWPort\docs create an oxygenxml_installation subdirectory.</para>
+					<note>It is recommended that all files and subdirectories use all lowercase letters
+						and that the files follow the same name as the folder name.</note>
+				</listitem>
+				<listitem>
+					<para>Using OxygenXML go under the "File" menu and select the "New Project item" and
+						save it as oxygenxml_installation.xpr under \FWPort\docs\oxygenxml_installation
+						directory. You can also click on the following icon:</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/oxygenxml006.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Copy from another project directory into this directory the main XML document
+						or create a new one.</para>
+				</listitem>
+				<listitem>
+					<para>Copy the \FWPort\docs\common\templates\project.xsl XSL stylesheet into this
+						directory and rename it to be the same as the main document. In this case the
+						main document is called oxygenxml_installation.xml and therefore the stylesheet
+						will be called oxygenxml_installation.xsl.</para>
+					<para>The template XSL stylesheet has a directive in it that is OxygenXML version
+						dependent.</para>
+					<note>
+						<para>In version 6.0+ this has to be used and there are no more workarounds
+							required:</para>
+						<programlisting>&lt;xsl:import href=&quot;../common/docbook-xsl/html/docbook.xsl&quot;/&gt;</programlisting>
+					</note>
+					<note>
+						<para>But for version 5.1 this had to be used:</para>
+						<programlisting>&lt;xsl:import href=&quot;file:////FWPort/docs/common/docbook-xsl/html/docbook.xsl&quot;/&gt;</programlisting>
+						<para>The path was specified as above without the drive specifier in the hope
+							that it would make it generic between Unix and Windows platforms but it was
+							found on occasions that it would give an error when processed during
+							reformatting or XSL transformation.</para>
+						<para>The following was always successful but is non portable:</para>
+						<programlisting>&lt;xsl:import href=&quot;file:///C:/FWPort/docs/common/docbook-xsl/html/docbook.xsl&quot;/&gt;</programlisting>
+						<para>If the following error occurs when the drive specifier is omitted you can
+							clear the problem by closing OxygenXML and opening it by double-clicking in
+							Windows Explorer on the respective *.xpr OxygenXML project file and it
+							should work again.</para>
+						<para>
+							<emphasis>
+								<errortext>W warning: failed to load external entity
+									"file:////FWPort/docs/common/docbook-xsl/html/docbook.xsl"</errortext>
+							</emphasis>
+							<mediaobject>
+								<imageobject>
+									<imagedata fileref="images/oxygenxml012.jpg"/>
+								</imageobject>
+							</mediaobject>
+						</para>
+						<para>It appears that if OxygenXML is installed on a different drive than where
+							you're project file is located it will not resolve the paths as being the
+							same as the project file path. This can be resolved also by changing the
+							"Start in" value of the OxygenXML windows shortcut to the save drive
+							specifier as where you're documents are located i.e. if your project is on
+							drive C then specify "C:\" for the "Start in" value.</para>
+						<mediaobject>
+							<imageobject>
+								<imagedata fileref="images/oxygenxml011.jpg"/>
+							</imageobject>
+						</mediaobject>
+					</note>
+				</listitem>
+				<listitem>
+					<para>Create an images subdirectory.</para>
+				</listitem>
+				<listitem>
+					<para>If you're going to use the following graphics copy their respective
+						directories from \FWPort\docs\images to your project's images directory:</para>
+					<itemizedlist>
+						<listitem>
+							<para>Admonitions (Caution, Important, Note, Tip, Warning) directory is
+								admon.</para>
+						</listitem>
+						<listitem>
+							<para>Callouts (Program listing references) directory is callout.</para>
+						</listitem>
+						<listitem>
+							<para>Navigation (Home, Next, Pref, Up) directory is navig.</para>
+						</listitem>
+					</itemizedlist>
+					<para>For this project we only need the admonitions icons.</para>
+					<para>You should now have the following directory and file structure in place:</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/oxygenxml003.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Configure the transformation for XML documents.</para>
+					<orderedlist numeration="loweralpha">
+						<listitem>
+							<para>Under the "Document" menu, "XML Document" submenu select the
+								"Configure Transformation Scenario" item (or CTRL-SHIFT-C). You can also
+								click on the following icon:</para>
+							<mediaobject>
+								<imageobject>
+									<imagedata fileref="images/oxygenxml004.jpg"/>
+								</imageobject>
+							</mediaobject>
+						</listitem>
+						<listitem>
+							<para>Click on the "Edit" button of the following window:</para>
+							<mediaobject>
+								<imageobject>
+									<imagedata fileref="images/oxygenxml005.jpg"/>
+								</imageobject>
+							</mediaobject>
+						</listitem>
+						<listitem>
+							<para>Under the "XSLT" tab ensure that the following settings are set:</para>
+							<itemizedlist>
+								<listitem>
+									<para>XSL URL: ${cfdu}\${cfn}.xsl  was ${frameworks}/docbook/xsl/html/docbook.xsl</para>
+									<para>This ensures that the XSL document used for the transformation
+										is based on the XML document name being transformed. This is
+										required in order for the docbook graphics to be used with the
+										generated document.</para>
+								</listitem>
+								<listitem>
+									<para>Transformer: Xsltproc</para>
+								</listitem>
+								<listitem>
+									<para>The following window is a snapshot of what the "XSLT" tab
+										should look like:</para>
+									<mediaobject>
+										<imageobject>
+											<imagedata fileref="images/oxygenxml007.jpg"/>
+										</imageobject>
+									</mediaobject>
+								</listitem>
+							</itemizedlist>
+						</listitem>
+						<listitem>
+							<para> Under the "Output" tab ensure that the following settings are set:</para>
+							<itemizedlist>
+								<listitem>
+									<para>Save As: ${cfd}\${cfn}.html</para>
+									<para> This ensures that the HTML document is based on the XML
+										document name being transformed.</para>
+								</listitem>
+								<listitem>
+									<para>The following window is a snapshot of what the "Output" tab
+										should look like:</para>
+									<mediaobject>
+										<imageobject>
+											<imagedata fileref="images/oxygenxml008.jpg"/>
+										</imageobject>
+									</mediaobject>
+								</listitem>
+							</itemizedlist>
+						</listitem>
+						<listitem>
+							<para>Once all done then click on all of the "Ok" buttons until the popup
+								windows are dismissed</para>
+						</listitem>
+					</orderedlist>
+					<note>
+						<para>OxygenXML remembers the above settings based on the document type (i.e.
+							.xsl, .xml) from one project to the next therefore this will only need to be
+							set once.</para>
+					</note>
+				</listitem>
+				<listitem>
+					<para>Before you produce the html document from the main XML docbook document
+						reformat under the "Document" menu, "XML Document" submenu select the "Format
+						and indent" item (or CTRL-SHIFT-P). This makes difference comparison and CVS
+						handling friendlier. You can also click on the following icon:</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/oxygenxml009.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>To produce the html document from the main XML docbook document under the
+						"Document" menu, "XML Document" submenu select the "Apply Transformation
+						Scenario" item (or CTRL-SHIFT-T). You can also click on the following icon:</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/oxygenxml010.jpg"/>
+						</imageobject>
+					</mediaobject>
+					<para>If the "Configure transformation scenario" window popups then highlight the
+						"Docbook HTML" and click on the "Transform now" button. From this time on
+						OxygenXML will remember your preferred transformation.</para>
+				</listitem>
+			</orderedlist>
+		</section>
+	</article>

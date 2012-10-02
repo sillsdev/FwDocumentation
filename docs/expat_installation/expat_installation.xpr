@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<meta>
+		<filters directoryPatterns="" filePatterns=""
+			positiveFilePatterns="" showHiddenFiles="false"/>
+		<options/>
+	</meta>
+	<projectTree name="expat_installation.xpr">
+		<file name="../docbook-html.xsl"/>
+		<file name="expat_installation.xml"/>
+		<file name="expat_step1_download.xml"/>
+		<file name="expat_step2_installation.xml"/>
+		<file name="expat_step3_configuration.xml"/>
+	</projectTree>
+</project>

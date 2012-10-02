@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="../docbook-html.xsl"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+<!-- "e:/docbook/docbookx.dtd"> -->
+<article class="techreport">
+  <title>Java Installation</title>
+
+  <articleinfo>
+	<releaseinfo>$Revision$</releaseinfo>
+
+	<pubdate>$Date$</pubdate>
+  </articleinfo>
+
+  <section id="Intro">
+	<title>Introduction</title>
+
+	<para>This document provides the instructions for getting Java JRE and JDK installed. Currently
+	  (14-Apr-07) the JDK or JRE aren't required by the FieldWorks port but the JRE is used by
+	  several tools. The JDK also facilitates other development and testing functionalities.</para>
+
+	<note>
+	  <para>Uninstall any existing JRE or JDK before doing the following installations.</para>
+	</note>
+  </section>
+
+  <section id="Downloads">
+	<title>Downloads</title>
+
+	<para>You need to download and install the following software packages. The links and versions
+	  are as of the 14-Apr-07.</para>
+
+	<itemizedlist>
+	  <listitem>
+		<simpara>Java Development Kit (JDK) version 6 update 1</simpara>
+	  </listitem>
+
+	  <listitem>
+		<simpara>Java Runtime Environment (JRE) version 6 update 1</simpara>
+	  </listitem>
+
+	  <listitem>
+		<simpara>Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files
+		6</simpara>
+	  </listitem>
+
+	  <listitem>
+		<simpara>The above are all downloadable from: <ulink
+			url="http://java.sun.com/javase/downloads/index.jsp"
+			>http://java.sun.com/javase/downloads/index.jsp</ulink>
+		</simpara>
+	  </listitem>
+	</itemizedlist>
+	<note>
+	  <itemizedlist>
+		<listitem>
+		  <simpara>The instructions are based on the offline version of the downloads.</simpara>
+		</listitem>
+		<listitem>
+		  <simpara>The "JDK US DST Timezone Update Tool" is not required with Java version
+		  6.</simpara>
+		</listitem>
+		<listitem>
+		  <simpara>The Java Docs are included as part of JDK 6. They don't need to be downloaded
+			separately.</simpara>
+		</listitem>
+	  </itemizedlist>
+	</note>
+  </section>
+
+  <section id="JRE">
+	<title>JRE</title>
+
+	<itemizedlist>
+	  <listitem>
+		<para>The JRE is available as part of the JDK installer but by downloading it separately and
+		  installing the JRE first you obtain better control over it's install path location.</para>
+	  </listitem>
+
+	  <listitem>
+		<para>Launch the <filename>jre-6u1-windows-i586-p.exe</filename> installer, select "Custom
+		  setup - ..." and click on "Accept &gt;"</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/java_install/java001.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Select all options and change the install path to <filename>C:\java\jre\</filename>
+		  and then click "Next &gt;".</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/java_install/java002.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Click on "Finish".</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/java_install/java003.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+	</itemizedlist>
+  </section>
+
+  <section id="JDK">
+	<title>JDK</title>
+
+	<itemizedlist>
+	  <listitem>
+		<para>Launch the <filename>jdk-6u1-windows-i586-p.exe</filename> installer and select
+		  "Accept".</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/java_install/java004.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Unselect the Public JRE and click Next.</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/java_install/java005.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>If the following dialog window appears it is because you forgot to unselect the
+		  "Public JRE" in the above dialog. If this dialog window appears then select "No".</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/java_install/java006.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Click Finish.</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/java_install/java007.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+	</itemizedlist>
+  </section>
+
+  <section id="JCE">
+	<title>JCE</title>
+
+	<itemizedlist>
+	  <listitem>
+		<para>Uncompress and extract <filename>jce_policy-6.zip</filename>.</para>
+	  </listitem>
+
+	  <listitem>
+		<para>Copy the files in the extracted subfolder into:</para>
+
+		<itemizedlist>
+		  <listitem>
+			<para>C:\java\jre\lib\security</para>
+		  </listitem>
+
+		  <listitem>
+			<para>C:\java\jdk\jre\lib\security</para>
+		  </listitem>
+		</itemizedlist>
+	  </listitem>
+	</itemizedlist>
+  </section>
+</article>

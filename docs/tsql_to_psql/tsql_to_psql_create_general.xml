@@ -1,0 +1,50 @@
+<section id="General_Table_Notes">
+	<title>General Table Notes</title>
+	<section id="Table_Deletion">
+		<title>Table Deletion</title>
+		<para>If table already exists before you recreate it you want to first delete it.</para>
+		<para id="Table_Deletion_TSQL">
+			<phrase>
+				<emphasis>TSQL</emphasis>
+			</phrase>
+			<itemizedlist>
+				<listitem override="none">
+					<programlisting>
+if object_id('Version$') is not null begin <co id="co-object_exists_1" linkends="co-object_exists_2"/>
+	drop table [Version$] <co id="co-bracket_1" linkends="co-bracket_2"/>
+end
+go
+					</programlisting>
+					<calloutlist>
+						<callout arearefs="co-object_exists_1" id="co-object_exists_2">
+							<para>"object_id" tests for the existence of the table.</para>
+						</callout>
+						<callout arearefs="co-bracket_1" id="co-bracket_2">
+							<para>"[...]" brackets are used to escape illegal or special characters
+								so that they can be part of the name. These will also make the table
+								names or field names case-sensitive.</para>
+						</callout>
+					</calloutlist>
+				</listitem>
+			</itemizedlist>
+		</para>
+		<para id="Table_Deletion_PSQL">
+			<phrase>
+				<emphasis>PSQL</emphasis>
+			</phrase>
+			<itemizedlist>
+				<listitem override="none">
+					<programlisting>
+EXECUTE PROCEDURE spx_Drop_Table('Version$'); <co id="co-case_1" linkends="co-case_2"/>
+COMMIT;
+					</programlisting>
+					<calloutlist>
+						<callout arearefs="co-case_1" id="co-case_2">
+							<para>"spx_Drop_Table" table name parameter is case insensitive.</para>
+						</callout>
+					</calloutlist>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</section>
+</section>

@@ -1,0 +1,968 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="../docbook-html.xsl"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+<!-- "e:/docbook/docbookx.dtd"> -->
+<article class="techreport">
+  <title>WinCVS Installation</title>
+
+  <articleinfo>
+	<releaseinfo>$Revision$</releaseinfo>
+
+	<pubdate>$Date$</pubdate>
+  </articleinfo>
+
+  <section id="Intro">
+	<title>Introduction</title>
+
+	<para>This document provides the instructions for getting WinCVS installed and working with the
+	  FwPort project</para>
+
+	<orderedlist>
+	  <listitem>
+		<simpara>Get SSH connections working to the Wycliffe Canada CVS server</simpara>
+	  </listitem>
+
+	  <listitem>
+		<simpara>Get <application>WinCVS</application> working</simpara>
+	  </listitem>
+	</orderedlist>
+  </section>
+
+  <section id="Downloads">
+	<title>Downloads</title>
+
+	<para>You need to download and install the necessary software packages. The links and versions
+	  are as of 10-Apr-07.</para>
+
+	<itemizedlist>
+	  <listitem>
+		<simpara><ulink url="http://www.7-zip.org/">
+			<application>7Zip</application>
+		  </ulink> (if you don't already have an unzip utility)</simpara>
+	  </listitem>
+
+	  <listitem>
+		<simpara><application>PuTTY</application> version 0.59 (putty-0.59-installer.exe)</simpara>
+
+		<simpara>
+		  <ulink url="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">
+			http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html </ulink>
+		</simpara>
+	  </listitem>
+
+	  <listitem>
+		<simpara><application>Python</application> version 2.5 (python-2.5.msi)</simpara>
+
+		<simpara>
+		  <ulink url="http://www.python.org/download/"> http://www.python.org/download/</ulink>
+		</simpara>
+	  </listitem>
+
+	  <listitem>
+		<simpara><application>WinCVS</application> version 2.0.2.2.4 (WinCvs2_0_2-4.zip)</simpara>
+
+		<simpara>
+		  <ulink url="http://www.wincvs.org/download.html"> http://www.wincvs.org/download.htm
+		  </ulink>
+		</simpara>
+	  </listitem>
+
+	  <listitem>
+		<simpara>CVSNT version 2.5.03.2382 (cvsnt-2.5.03.2382.msi)</simpara>
+
+		<simpara>
+		  <ulink url="http://www.march-hare.com/cvspro/"> http://www.march-hare.com/cvspro/ </ulink>
+		</simpara>
+	  </listitem>
+	</itemizedlist>
+  </section>
+
+  <section id="SSH">
+	<title>SSH</title>
+
+	<section id="PuTTY_Install">
+	  <title>PuTTY Installation</title>
+
+	  <itemizedlist>
+		<listitem>
+		  <para>Run the putty-0.59-installer.exe</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty001.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Click "Yes"</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty002.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Click "Next"</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty003.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Change the install path to "C:\utils\putty" (document assumes this is the install
+			location)</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty004.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Click "Next"</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty005.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Click "Next"</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty006.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Click "Install"</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty007.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Click "Finish"</para>
+		</listitem>
+	  </itemizedlist>
+	</section>
+
+	<section id="PuTTY_Key_Generation">
+	  <title>PuTTYGen Key Generation</title>
+
+	  <itemizedlist>
+		<listitem>
+		  <para>Start puttygen.exe and select the "SSH2 DSA option"</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty008.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Click on Generate and move the move the mouse around while the key is being
+			generated (part of the key generation process)</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty009.jpg"/>
+			</imageobject>
+		  </mediaobject>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty010.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Once completed the screen will be similar to the above window.</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty011.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Right-Click in the blue highlighted public key area and if "Select All" is available
+			select it as it means that not all the public key is selected. If "Select All" is not
+			available that means that all is well and all the key is selected.</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty012.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Right-Click in the blue highlighted public key area and select "Copy" from the
+			pop-up menu. Then paste it into the email body of an email message to be sent to the CVS
+			administrator who will need this. You will not be able to connect until the
+			administrator installs your public key at his CVS server end.</para>
+		</listitem>
+
+		<listitem>
+		  <para>Enter a password of your liking in "Key passphrase" and in "Confirm
+		  passphrase"</para>
+		</listitem>
+
+		<listitem>
+		  <para>Click on "Save private key" and put the file in an easily accessible location
+			(because Pageant.exe will require it every time it starts up). A good location is
+			C:\utils\putty as that is the default folder that appears when Pageant gives you a
+			private key file open dialog. The document assumes this is the location of the saved
+			private key.</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty013.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Quit the PuTTY key generator</para>
+		</listitem>
+	  </itemizedlist>
+	</section>
+
+	<section id="PuTTY_Config">
+	  <title>PuTTY Configuration</title>
+
+	  <para>We now make sure that <application>PuTTY</application> can connect you to a shell prompt
+		on the server.</para>
+
+	  <itemizedlist>
+		<listitem>
+		  <para>Start <application>PuTTY</application>. You are presented with a configuration
+			dialog, divided into panels which are navigated by the tree control in the left
+		  pane.</para>
+		</listitem>
+
+		<listitem>
+		  <para>At "Connection:Data" set the following parameter:</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty019.jpg"/>
+			</imageobject>
+		  </mediaobject>
+
+		  <itemizedlist>
+			<listitem>
+			  <para>Auto-login username = assigned username</para>
+			</listitem>
+		  </itemizedlist>
+		</listitem>
+
+		<listitem>
+		  <para>At "Connection - SSH - Auth" set the following parameter:</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty020.jpg"/>
+			</imageobject>
+		  </mediaobject>
+
+		  <itemizedlist>
+			<listitem>
+			  <para>Private key file for authentication =
+			  C:\utils\putty\wycliffe_canada_private.ppk</para>
+			</listitem>
+		  </itemizedlist>
+		</listitem>
+
+		<listitem>
+		  <para>At "Session" set the following parameters:</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty021.jpg"/>
+			</imageobject>
+		  </mediaobject>
+
+		  <itemizedlist>
+			<listitem>
+			  <para>Host Name = cvs.wycliffe.ca</para>
+			</listitem>
+
+			<listitem>
+			  <para>Saved Sessions = CVS Canada</para>
+			</listitem>
+		  </itemizedlist>
+		</listitem>
+
+		<listitem>
+		  <para>Click on "Save".</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty022.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Double-clicking on "CVS Canada" or selecting it and clicking "Open" should result in
+			the following window if your setup is correct and your public key has been stored at the
+			CVS server end. At the "Passphrase for key" prompt enter the passphrase you stored with
+			your private key.</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty023.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+	  </itemizedlist>
+	</section>
+
+	<section id="Pageant_Config">
+	  <title>Pageant Configuration</title>
+
+	  <itemizedlist>
+		<listitem>
+		  <para>Start pageant.exe and it will show up in the Windows tray (an icon displayed as a
+			computer with a hat on).</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/pageant_tray_icon.gif"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Right-click on the pageant tray icon and select "Add Key"</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty014.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Select C:\utils\putty\wycliffe_canada_private.ppk and open it.</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty015.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Enter your password passphrase you save with your private key earlier and select
+			"OK"</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty016.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Optionally you can put a shortcut to pageant.exe in your "Startup" folder or copy
+			the following into a text file called pageant.reg, save it and then double-click on it
+			to store the registry information in your PC (note that the registry location I chose
+			you need normally to be an administrator of your PC in order for the registry value to
+			be stored):</para>
+
+		  <para>REGEDIT4</para>
+
+		  <para>[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]</para>
+
+		  <para>"pageant"="C:\\utils\\putty\\pageant.exe"</para>
+		</listitem>
+
+		<listitem>
+		  <para>Optionally you can download the following registry file and double-click on it:
+			  <ulink url="pageant_startup.reg">pageant_startup.reg</ulink></para>
+		</listitem>
+	  </itemizedlist>
+
+	  <note>
+		<para>This is just to allow you access to the key, and is not transmitted to the remote
+		  system. It is important for our security that you use a good key passphrase. You will need
+		  to add you private key and supply your passphrase everytime you enter into Windows and
+		  start Pageant.</para>
+	  </note>
+	</section>
+
+	<section id="Test_SSH_PuTTY">
+	  <title>Test SSH Using PuTTY</title>
+
+	  <itemizedlist>
+		<listitem>
+		  <para>Start PuTTY and at the opening window double-click on "CVS Canada" in the "Saved
+			Sessions" list.</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty022.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>The following screen should appear without prompting for a keyphrase. This requires
+			that pageant.exe is running and has your private key added (done in an earlier step).</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty024.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+	  </itemizedlist>
+	</section>
+
+	<section id="Test_SSH_Pageant">
+	  <title>Test SSH Using Pageant</title>
+
+	  <itemizedlist>
+		<listitem>
+		  <para>This requires that pageant.exe is running and has your private key added (done in an
+			earlier step). Right-click on the Pageant tray icon and select "Saved Sessions - CVS
+			Canada".</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/pageant_saved_sessions.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>The following screen should appear without prompting for a keyphrase.</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/putty024.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+	  </itemizedlist>
+	</section>
+  </section>
+
+  <section id="Python">
+	<title>Python Installation</title>
+
+	<para>
+	  <remark>Python is optional but highly recommend to fully enable all of the WinCVS
+	  features.</remark>
+	</para>
+
+	<itemizedlist>
+	  <listitem>
+		<para>Launch the Python installer via python-2.5.msi.</para>
+	  </listitem>
+
+	  <listitem>
+		<para>Click Next.</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/wincvs/python001.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>The path should be C:\Python25. Click Next.</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/wincvs/python002.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Click Next.</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/wincvs/python003.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+
+	  <listitem>
+		<para>Click Finish.</para>
+
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/wincvs/python004.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+	</itemizedlist>
+  </section>
+
+  <section id="CVS">
+	<title>WinCVS</title>
+
+	<section id="WinCVS_Install">
+	  <title>WinCVS Installation</title>
+
+	  <itemizedlist>
+		<listitem>
+		  <para>Unzip the WinCvs2_0_2-4.zip file and run the extracted wincvs_setup.exe file.</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvs001.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Click "Next".</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvs002.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Read the license, select "I accept the agreement" and click "Next".</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvs003.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Click "Next".</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvs004.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Click "Next".</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvs005.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Click "Next".</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvs006.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Click "Next".</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvs007.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Click "Install".</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvs008.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Deselect all options and click "Finish".</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvs010.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+	  </itemizedlist>
+	</section>
+	<section id="CVSNT_Install">
+	  <title>CVSNT Installation</title>
+	  <para>CVSNT is needed for the protocols. The server itself isn't installed.</para>
+
+	  <itemizedlist>
+		<listitem>
+		  <para>Start the CVSNT installer and click Next at the "Setup - CVSNT" "Welcome" window.</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvsnt001.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Accept the license agreement and click Next at the "License" window.</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvsnt002.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Select "Custom".</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvsnt003.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>At the "Custom Setup" window set the install path to "C:\cvsnt "using the "Browse"
+			button, select at least the following items and click Next.</para>
+
+		  <itemizedlist>
+			<listitem>
+			  <para>Uncheck the RCS Wrappers option</para>
+			</listitem>
+
+			<listitem>
+			  <para>Uncheck the CVSNT Server option</para>
+			</listitem>
+
+			<listitem>
+			  <para>Workspace Viewer</para>
+			</listitem>
+
+			<listitem>
+			  <para>U3 Support</para>
+			</listitem>
+
+			<listitem>
+			  <para>Documentation</para>
+			</listitem>
+
+			<listitem>
+			  <para>External Command (:ext:) protocol</para>
+			</listitem>
+
+			<listitem>
+			  <para>SSH Client (:ssh:) protocol</para>
+			</listitem>
+		  </itemizedlist>
+
+		  <note>
+			<para>Only the SSH Client protocol is required but the other selections provide
+			  alternative methods of using SSH.</para>
+
+			<para>Leaving the default options for the Protocols is the best thing to do.</para>
+		  </note>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvsnt004.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Click Install.</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvsnt005.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Click Finish at the following window.</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvsnt006.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+	  </itemizedlist>
+	</section>
+
+	<section id="WinCVS_Config">
+	  <title>WinCVS Configuration</title>
+
+	  <itemizedlist>
+		<listitem>
+		  <para>Launch WinCvs.</para>
+
+		  <note>
+			<para>Even though Windows isn't case-sensitive CVS is case-sensitive and therefore pay
+			  attention to the case of the various entries.</para>
+		  </note>
+		</listitem>
+
+		<listitem>
+		  <para>Close the "Tip of the Day" window.</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvs011.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>If you didn't install Python earlier then then click Ok at the "Install Python"
+			window. Python isn't required for basic use of WinCVS but can be installed separately if
+			full use of WinCVS is desired.</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvs025.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>At the "WinCVS Preferences" dialog window select the Globals tab and set the
+			following parameters:</para>
+
+		  <itemizedlist>
+			<listitem>
+			  <para>Supply control when adding files = checked</para>
+			</listitem>
+
+			<listitem>
+			  <para>Compression level = checked and set to 9</para>
+			</listitem>
+
+			<listitem>
+			  <para>Prune empty directories = checked</para>
+			</listitem>
+
+			<listitem>
+			  <para>Disable splash screen = checked</para>
+			</listitem>
+		  </itemizedlist>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvs019.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>This assumes that Python 2.5 was installed in "C:\Python25" and that TCL installed
+			as part of Python is going to be used. At the "WinCVS Preferences" dialog window select
+			the WinCvs tab and set the following parameters:</para>
+
+		  <itemizedlist>
+			<listitem>
+			  <para>Python DLL = python25.dll</para>
+			</listitem>
+
+			<listitem>
+			  <para>TCL DLL = C:\Python25\DLLs\tcl84.dll</para>
+			</listitem>
+		  </itemizedlist>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvs026.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Select the CVS tab and set the "HOME" parameter to "C:\Program Files\GNU\WinCvs 2.0"
+			or whatever the install directory path is. It can be set to just about any directory but
+			generally this is the preferred location.</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvs020.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Click on "OK"</para>
+		</listitem>
+
+		<listitem>
+		  <para>Create the following directory "C:\VCS\Wycliffe\projects". The case of the path is
+			important to be the same as specified because the CVS repository is case-sensitive. The
+			instructions presented here will permit you to do a complete checkout of the entire
+			repository at a later date. For now these instructions will be limited to what is the
+			basic structure for the FieldWorks files.</para>
+		</listitem>
+
+		<listitem>
+		  <para>At the main WinCVS window select "View -Browse Location - Change"</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvs014.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Select the previously created "C:\VCS\Wycliffe\projects" location</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvs015.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>At the toolbar location box highlight but DON'T click on "C:\" and then press on the
+			"Delete" key on your keyboard (this is counter-intuitive!).</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvs016.jpg"/>
+			</imageobject>
+		  </mediaobject>
+
+		  <note>
+			<para>If you inadvertently clicked on "C:\" you will have to first reselect
+			  "C:\VCS\Wycliffe\projects" before you will be allowed to delete "C:\" as just
+			  previously described.</para>
+		  </note>
+		</listitem>
+
+		<listitem>
+		  <para>At the remove confirmation prompt click "Yes"</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvs017.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>Right-Click on the "projects" folder on the left-hand window pane and select
+			"Checkout module" from the pop-up menu.</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvs018.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+
+		<listitem>
+		  <para>At the "Checkout Settings" dialog window set the following properties:</para>
+
+		  <itemizedlist>
+			<listitem>
+			  <para>CVSROOT = :ssh;username=blouiny;hostname=cvs.wycliffe.ca:/var/lib/cvs/mdu/</para>
+
+			  <note>
+				<para>Replace the username value with your own assigned username.</para>
+
+				<para>You can set CVSROOT using the "..." button beside the "CVSROOT" text box to
+				  set this field in a more interactive manner</para>
+			  </note>
+
+			  <mediaobject>
+				<imageobject>
+				  <imagedata fileref="../images/wincvs/cvs031.jpg"/>
+				</imageobject>
+			  </mediaobject>
+			</listitem>
+
+			<listitem>
+			  <para>Module name and path on the server = FieldWorks</para>
+
+			  <note>
+				<para>You can set path using the "..." button beside the "Module name ..." text box
+				  if the CVSROOT is properly set in the "Select Module" window or you can simply
+				  enter it manually. It is case sensitive. If using the "Select Module" window after
+				  setting the CVSROOT value then press the "Refresh" button.</para>
+			  </note>
+
+			  <mediaobject>
+				<imageobject>
+				  <imagedata fileref="../images/wincvs/cvs032.jpg"/>
+				</imageobject>
+			  </mediaobject>
+			</listitem>
+
+			<listitem>
+			  <para>Local folder to checkout to = C:\VCS\Wycliffe\projects</para>
+			</listitem>
+
+			<listitem>
+			  <para>The final checkout window should look something like this:</para>
+
+			  <mediaobject>
+				<imageobject>
+				  <imagedata fileref="../images/wincvs/cvs023.jpg"/>
+				</imageobject>
+			  </mediaobject>
+			</listitem>
+		  </itemizedlist>
+		</listitem>
+
+		<listitem>
+		  <para>Press "OK" at the "Checkout Settings" window.</para>
+		</listitem>
+
+		<listitem>
+		  <para>The end result should be something like this:</para>
+
+		  <mediaobject>
+			<imageobject>
+			  <imagedata fileref="../images/wincvs/cvs024.jpg"/>
+			</imageobject>
+		  </mediaobject>
+		</listitem>
+	  </itemizedlist>
+	</section>
+  </section>
+</article>

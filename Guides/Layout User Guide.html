@@ -1,0 +1,699 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <meta content="text/html; charset=ISO-8859-1"
+ http-equiv="content-type">
+  <title>Layout User Guide</title>
+</head>
+<body>
+<h1>Guide to creating FieldWorks Layouts</h1>
+John Thomson, 4 May 2005.<br>
+<h1>Introduction</h1>
+<p>There are three types of FieldWorks layouts: Detail, Browse, and
+Document...</p>
+<p>Layouts are made of Parts, relatively low-level building blocks...<br>
+</p>
+<p>There are two kinds of Parts, detail and jtview.<br>
+</p>
+<p>There is a built-in detail part for every property... (For owning
+properties it shows the default view of each owned object, for
+reference ones, a special slice or the shortname.<br>
+</p>
+<p>There are built-in jtview parts for most kinds of property.<br>
+</p>
+<p>(Todo) There is a built-in part CmObject-Jt-ShortName which displays
+the built-in C# shortname of the object.<br>
+</p>
+<p>There is a build-in 'default' layout for each class which displays
+the default part for each of its properties.<br>
+</p>
+<p>There is a built-in 'empty' layout on CmObject that displays
+nothing. (This is useful for adding your own parts to, see below.)<br>
+</p>
+<h1>Parts</h1>
+<p>A part has an attribute ID, made up of Classname-type-name, for
+example, LexEntry-detail-CitationForm.<br>
+</p>
+<p>(The caller of a part, an element that is inside a layout, uses just
+the name. The class is determined from the object to be displayed, and
+the type from the type of the layout or otherwise from context.)<br>
+</p>
+<p>A part often has a paramType element, which provides a hint to the
+UI of the kind of information that may be provided as a parameter when
+the part is used. Currently only one parameter is allowed. For example,
+paramType="DetailLayoutsOfDestClass" indicates that the parameter
+accepted by this part is the name of a detail layout of the destination
+class (of the seq or obj element, which is expected to be the only
+non-comment child of such a part).<br>
+</p>
+<p>A part has an attribute <span style="font-style: italic;">type </span>with
+the value <span style="font-style: italic;">detail or jtview.</span>
+This is currently redundant with the middle item in its ID, and is not
+yet used, but should make it easier to filter out relevant parts for a
+particular context.<br>
+</p>
+<p>Here are some real Part elements:</p>
+<p>&nbsp;&nbsp;&nbsp; &lt;part id="LexEntry-Detail-ChangeHandler"
+type="detail"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;RecordChangeHandler
+assemblyPath="TreeForms.dll" listName="RecordClerk-entries"<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+class="SIL.FieldWorks.Common.Framework.TreeForms.LexEntryChangeHandler"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;part id="LexEntry-Detail-CitationFormAV"
+type="detail"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;slice attr="CitationForm"
+label="Lexeme" editor="multistring" ws="all vernacular"
+menu="mnuDataTree-Help"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;part id="LexEntry-Detail-SensesNoHeader"
+type="detail"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;seq attr="Senses"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+</p>
+<h1>Part references</h1>
+<p>Parts are invoked by part reference elements. For example, </p>
+&nbsp;&nbsp;&nbsp; &lt;part ref="ChangeHandler"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;part ref="CitationFormAV"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;part ref="SensesNoHeader" param="Simple"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;part ref="SenseInserter"/&gt;<br>
+<p>These part references would invoke the parts indicated in the
+previous section (assuming they are part of a detail layout of a
+LexEntry).<br>
+</p>
+<p>In addition to the attributes already shown, a part may have the
+attribute <span style="font-style: italic;">visibility</span>, with
+values <span style="font-style: italic;">always, never, </span>or <span
+ style="font-style: italic;">ifdata</span>. The default is <span
+ style="font-style: italic;">always.</span> The <span
+ style="font-style: italic;">never</span> option is useful in
+suppressing a part that is included in a base layout that is being
+modified. It may also be useful for the purpose of suggesting where a
+part would go if it were enabled (we will eventually have UI allowing
+the user to modify layouts).<br>
+</p>
+<h1>Layouts</h1>
+<p>A layout is currently just a list of part references, together with
+the information which identifies it. For example,</p>
+&nbsp; &lt;layout class="LexEntry" type="detail" name="Simple"&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;part ref="ChangeHandler"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;part ref="CitationFormAV"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;part ref="SensesNoHeader" param="Simple"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;part ref="SenseInserter"/&gt;<br>
+&nbsp; &lt;/layout&gt;<br>
+<p>We plan to introduce &lt;group&gt; elements into this, but have not
+yet implemented this.<br>
+</p>
+<h2>Nested parts</h2>
+<p>A part reference may have other part references as child elements.
+For example,</p>
+<p>&nbsp; &lt;layout class="LexSense" type="detail" name="Simple"&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;part ref="Summary" label="Sense"
+param="MsaGloss" expansion="expanded"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;indent&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;part
+ref="GlossAllA"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;part
+ref="DefinitionAllA"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;part
+ref="MsaCombo"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/indent&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+&nbsp; &lt;/layout&gt;<br>
+</p>
+<>This means that the indicated parts (in the <span
+ style="font-style: italic;">indent</span> element) will be children of
+the parent part (slices more deeply indented). If the <span
+ style="font-style: italic;">expansion</span> attribute is set to <span
+ style="font-style: italic;">expanded</span>, the child parts will be
+filled in by default, otherwise, the user must expand a tree node to
+see them. (This will probably change somewhat in the next round of
+detail view reorganization.) More specifically, the nested parts are
+parts of the class
+indicated in the layout and each occurs once (subject to ifdata and
+similar constraints) for each &lt;slice&gt; element of the part
+(usually only one).<br>
+</>
+<p><>There's another case in which parts are nested directly inside
+another part:</></p>
+<p><></></p>
+<p><>&nbsp;&nbsp;&nbsp; &lt;layout class="LexEntry" type="detail"
+name="OptSensesEty"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;part ref="Senses"
+visibility="ifdata" param="GlossSn" expansion="expanded"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;part ref="Etymology"
+visibility="ifdata" expansion="expanded" param="empty"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;part
+ref="Form" visibility="ifdata"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;part
+ref="Source" visibility="ifdata"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/layout&gt;<br>
+</></p>
+<p><>Here, we are displaying the Etymology, a built-in part which
+displays an empty 'Etymology' header slice followed by a layout of the
+etymology object itself, if any. (If it were a sequence propertly, each
+object in the sequence would be shown in turn.) In this case, the child
+parts are used to modify the layout that is selected for the Etymology
+objects. (More precisely, they will modify the selected layout for any
+&lt;seq&gt; or &lt;obj&gt; element within the main part.) In this
+example, the layout selected for Etymology is <span
+ style="font-style: italic;">empty</span>, a special layout on CmObject
+which contains nothing. Therefore the nested parts form the whole
+layout of the Etymology. If the specified layout is not empty, a
+process of <span style="font-style: italic;">unification</span> is
+used to determine how the nested parts combine with the original ones.<br>
+</></p>
+<p><></></p>
+<></>
+<>Roughly, unification means that<br>
+</>
+<ul>
+  <li>the parts in the appropriate layout of the object's class are
+shown in the order they appear in that layout, followed by any parts
+from the caller that have <span style="font-style: italic;">ref</span>
+values that don't match anything in the called layout.</li>
+  <li>Where the caller and the called layout have parts with the same <span
+ style="font-style: italic;">ref</span> value, any attributes specified
+in the calling part are added to (or used to replace) the attributes of
+the called part reference.</li>
+</ul>
+<p>In other words, by specifying a part that occurs already in the
+called layout, you can override its properties, such as visibility; by
+specifying one that does not occur, you can add additional parts. (You
+can 'subtract' parts by specifying a matching part with <span
+ style="font-style: italic;">visibility="never"</span>.) (By specifying
+<span style="font-style: italic;">reorder="true"</span> on the parent
+part, you can instead make the order of the child elements in the
+calling part primary, with unmatched elements from the original
+following.)<br>
+</p>
+<h1>Converting XDEs</h1>
+<p>Most XDEs will be translated into a combination of <span
+ style="font-style: italic;">parts</span> and <span
+ style="font-style: italic;">layouts.</span> This can produce a pair of
+files where there used to be one, but on the other hand, our
+conventional file organization produced parallel directories for
+different layouts, whereas the current organization allows multiple
+layouts for the same class to share a file, and&nbsp; all parts to be
+shared by all layouts.<br>
+</p>
+<p>Let's look at an example. Here is the old XDE for the simple view of
+a LexSense, from
+DistFiles\LexText\Configuration\Lexicon\SimpleEdit\XDEs\LexSenseXde.xml:</p>
+<p>&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br>
+&lt;!-- DataEntryView specification for M3/Complete/LexSense. --&gt;<br>
+&lt;xde&gt;<br>
+&nbsp; &lt;template class="LexSense"&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;node id="LexSenseId" label="Sense"
+editor="jtview" backColor="Control" expansion="expanded"&gt;<br>
+&lt;!--At the top level node, display the following:<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+Stems: sense number, POS, gloss.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+eg. 1. n. 'bear'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+InflectionalAffixes: sense number, slotname if any, "inflectional" if
+not, gloss<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+eg. 2. TENSE. 'PAST' or 2. inflectional 'PAST'<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+DerivationalAffixes: sense number, fromPOS, "arrow", toPOS, gloss.<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+eg. 3. n. -&gt; v. --&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;deParams&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;frag root="true"
+name="gloss"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;para&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;properties&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;editable value="no"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/properties&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;obj class="LexSense" field="MorphoSyntaxAnalysis" frag="msa"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;lit&gt;&amp;#32;&lt;/lit&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;stringalt class="LexSense" field="Gloss" ws="analysis"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/para&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/frag&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;frag name="msa"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;choice&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;where is="MoStemMsa"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;obj class="MoStemMsa" field="PartOfSpeech" frag="pos"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/where&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;where is="MoUnclassifiedAffixMsa"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;obj class="MoUnclassifiedAffixMsa" field="PartOfSpeech"
+frag="pos"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/where&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;where is="MoInflectionalAffixMsa"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;obj class="MoInflectionalAffixMsa" field="AffixCategory"
+frag="affixCat"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/where&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;where is="MoDerivationalAffixMsa"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;choice&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;where class="MoDerivationalAffixMsa" field="FromPartOfSpeech"
+lengthatmost="0"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;choice&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;where class="MoDerivationalAffixMsa" field="ToPartOfSpeech"
+lengthatmost="0"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;lit&gt;Unclassified affix&lt;/lit&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/where&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;otherwise&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;lit&gt;???&lt;/lit&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;lit&gt; &amp;gt; &lt;/lit&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;obj class="MoDerivationalAffixMsa" field="ToPartOfSpeech"
+frag="pos"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/otherwise&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/choice&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/where&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;otherwise&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;obj class="MoDerivationalAffixMsa" field="FromPartOfSpeech"
+frag="pos"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;lit&gt; &amp;gt; &lt;/lit&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;choice&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;where class="MoDerivationalAffixMsa" field="ToPartOfSpeech"
+lengthatmost="0"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;lit&gt;???.&lt;/lit&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/where&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;otherwise&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;obj class="MoDerivationalAffixMsa" field="ToPartOfSpeech"
+frag="pos"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/otherwise&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/choice&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/otherwise&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/choice&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/where&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/choice&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/frag&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;frag name="affixCat"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;span&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;properties&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;italic value="on"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;bold value="on"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/properties&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;lit&gt;infl.&lt;/lit&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/span&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/frag&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;frag name="pos"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;span&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;properties&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;italic value="on"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;bold value="on"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/properties&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;stringalt class="PartOfSpeech" field="Abbreviation"
+ws="analysis"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;lit&gt;.&lt;/lit&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/span&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/frag&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/deParams&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;node attr="Gloss" label="Gloss"
+editor="multistring" ws="all analysis" menu="mnuDataTree-Help"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;node attr="Definition"
+label="Definition" editor="multistring" ws="all analysis"
+menu="mnuDataTree-Help"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;node attr="MorphoSyntaxAnalysis"
+label="Function" editor="msaReferenceComboBox"
+menu="mnuDataTree-Help"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/node&gt;<br>
+&nbsp; &lt;/template&gt;<br>
+&lt;/xde&gt;<br>
+</p>
+<p>This layout produces four slices, one a summary JtView (most of the
+XDE), with three child slices (expanded by default). The <span
+ style="font-style: italic;">node</span> elements correspond to the
+slices.<br>
+</p>
+<p>First, each <span style="font-style: italic;">node</span> typically
+becomes a <span style="font-style: italic;">part</span> containing a <span
+ style="font-style: italic;">slice</span> element. For example, the
+Gloss node becomes the following part:</p>
+<p>&nbsp;&nbsp;&nbsp; &lt;part id="LexSense-Detail-GlossAllA"
+type="detail"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;slice attr="Gloss"
+label="Gloss" editor="multistring" ws="all analysis"
+menu="mnuDataTree-Help"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+</p>
+<p>The attributes of the <span style="font-style: italic;">slice</span>
+are usually exactly the same as those of the old <span
+ style="font-style: italic;">node</span>, except that <span
+ style="font-style: italic;">attr</span> becomes <span
+ style="font-style: italic;">field</span>. (This is part of our attempt
+to make the jtviews code consistent with the detail view specs.) The
+part id will be made up
+of Classname-Detail- followed by a name. In this case we have made a
+part that shows all analysis writing systems (AllA) of the Gloss
+property. Of course, if you have already made such a part for another
+layout, you needn't make it again! There are also some built-in parts
+you can take advantage of; the built-in part for a string property,
+however, only displays the first analysis or vernacular writing system.<br>
+</p>
+<p>A few editors have also changed name. The <span
+ style="font-style: italic;">message</span> editor is now invoked by <span
+ style="font-style: italic;">editor="lit"</span>, and <span
+ style="font-style: italic;">integer</span> has become <span
+ style="font-style: italic;">int</span>, again for consistency with
+jtviews. The behaviour of the <span style="font-style: italic;">jtview</span>
+editor has changed drastically, discussed in a separate section below.<br>
+</p>
+<p></p>
+<p>The parts are inserted into a file such as
+distfiles\LexText\Configuration\Parts\LexSenseParts.xml. The directory
+is currently hard-coded (relative to the FW install directory), and the
+name must end in Parts.xml; using the class name is currently just a
+convention. The top level node is a PartInventory, and the parts are
+organized into bins that specify class names:</p>
+<p>&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br>
+&lt;!-- Manually created Parts for LexSense. --&gt;<br>
+&lt;PartInventory&gt;<br>
+&nbsp; &lt;bin class="LexSense"&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;part id="LexSense-Detail-GlossAllA"
+type="detail"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;slice field="Gloss"
+label="Gloss" editor="multistring" ws="all analysis"
+menu="mnuDataTree-Help"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;part id="LexSense-Detail-DefinitionAllA"
+type="detail"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;slice field="Definition"
+label="Definition" editor="multistring" ws="all analysis"
+menu="mnuDataTree-Help"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;part id="LexSense-Detail-MsaCombo"
+type="detail"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;slice
+field="MorphoSyntaxAnalysis" label="Function"
+editor="msaReferenceComboBox" menu="mnuDataTree-Help"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+&nbsp; &lt;/bin&gt;<br>
+&lt;/PartInventory&gt;<br>
+</p>
+<p>The <span style="font-style: italic;">template</span> element
+generally becomes a <span style="font-style: italic;">layout</span>,
+with one <span style="font-style: italic;">part</span> reference for
+each of the old &lt;node&gt; elements. For example, here's a complete
+layout inventory file for LexSense, conventionally stored at
+distfiles\LexText\Configuration\Parts\LexSenseLayouts.xml. (Note that
+layouts are stored in the same directory as parts. The name must end in
+<span style="font-style: italic;">Layouts.xml</span>.<br>
+</p>
+<p>&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br>
+&lt;!-- Manually created Layouts for LexSense. --&gt;<br>
+&lt;LayoutInventory&gt;<br>
+&nbsp; &lt;layout class="LexSense" type="detail" name="Simple"&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;part ref="Summary" label="Sense"
+param="MsaGloss" expansion="expanded"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;indent&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;part
+ref="GlossAllA"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;part
+ref="DefinitionAllA"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;part
+ref="MsaCombo"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/indent&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+&nbsp; &lt;/layout&gt;<br>
+&lt;/LayoutInventory&gt;<br>
+</p>
+<h2>Changes to jtviews<br>
+</h2>
+<p>The jtview code is also changing drastically (currently only for
+jtviews within a slice). A jtview no longer has a <span
+ style="font-style: italic;">deParams</span> child element containing
+fragments. Frequently, each fragment will become a part or a layout.
+For the moment, the two are fairly interchangeable; a layout is just a
+sequence of parts (which should support the <span
+ style="font-style: italic;">visibility</span> attribute, but this
+isn't implemented yet, and a part may be used as a layout consisting of
+only that part. (For this reason, layout and part names should not
+overlap.)<br>
+</p>
+<p>Because parts are sensitive to the actual class of the destination
+object, frequently a <span style="font-style: italic;">choice</span>
+element with <span style="font-style: italic;">where is="class"</span>
+will convert into distinct parts or layouts for each possible class.<br>
+</p>
+<p>In modifying a jtview, the following keyword changes should be made.
+(For now, the old ones are still supported, but not for long!)<br>
+</p>
+<ul>
+  <li>objseq -&gt; seq</li>
+  <li>unicode -&gt; string</li>
+  <li>stringalt -&gt; string</li>
+</ul>
+<p>Note also that the way of handling sequences with separators has
+changed. In the old approach the separators were specified in the
+fragment used to display each item in the sequence. In the new
+approach, each item might be of a different class and use a different
+part. So these properties are now placed on the calling <span
+ style="font-style: italic;">seq</span> element. For example,</p>
+&nbsp;&nbsp;&nbsp; &lt;part id="LexEntry-Jt-SenseList"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;para&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;seq
+field="Senses" sep=", " layout="Gloss"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/para&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+<p>Let's consider how to convert the LexSense summary above. First,
+consider this fragment:</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;frag name="pos"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;span&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;properties&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;italic value="on"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;bold value="on"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/properties&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;stringalt class="PartOfSpeech" field="Abbreviation"
+ws="analysis"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;lit&gt;.&lt;/lit&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/span&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/frag&gt;</p>
+<p>This fragment is designed to display the abbreviation of a
+part-of-speech using bold italic. However, a part-of-speech is a kind
+of CmPossibility, and this piece is potentially reusable anywhere we
+want a bold italic abbreviation. It becomes</p>
+<p>&nbsp;&nbsp;&nbsp; &lt;part id="CmPossibility-Jt-BoldItalicAbbr"
+type="jtview"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp; &lt;span&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;properties&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;italic
+value="on"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;bold
+value="on"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/properties&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;string field="Abbreviation"
+ws="analysis"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;lit&gt;.&lt;/lit&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp; &lt;/span&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+</p>
+<p>The <span style="font-style: italic;">class</span> attribute has
+been removed just to aid readability. It may still be supplied if
+desired.<br>
+</p>
+<p>One of the <span style="font-style: italic;">where</span> clauses
+in the root fragment is</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;where is="MoStemMsa"&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;obj class="MoStemMsa" field="PartOfSpeech" frag="pos"/&gt;<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&lt;/where&gt;<br>
+</p>
+<p>This can become a part of MoStemMsa:</p>
+<p>&nbsp;&nbsp;&nbsp; &lt;part id="MoStemMsa-Jt-basic" type="jtview"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;obj field="PartOfSpeech"
+layout="BoldItalicAbbr"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/part&gt;</p>
+<p>Notice that this uses the part that we defined on CmPossibility as a
+layout. As noted above, any part may be used as a layout.<br>
+</p>
+<p>Similarly, the other where clauses become parts on the different
+subclasses of MorphoSyntaxAnalysis:</p>
+<p>&nbsp;&nbsp;&nbsp; &lt;part id="MoUnclassifiedAffixMsa-Jt-basic"
+type="jtview"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;obj field="PartOfSpeech"
+layout="BoldItalicAbbr"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;part id="MoInflectionalAffixMsa-Jt-basic"
+type="jtview"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;obj field="AffixCategory"
+layout="LitInfl"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;part id="MoDerivationalAffixMsa-Jt-basic"
+type="jtview"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;choice&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;where
+field="FromPartOfSpeech" lengthatmost="0"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &lt;choice&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;where field="ToPartOfSpeech"
+lengthatmost="0"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&lt;lit&gt;Unclassified affix&lt;/lit&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/where&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;otherwise&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&lt;lit&gt;???&lt;/lit&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;lit&gt;
+&amp;gt; &lt;/lit&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;obj
+field="ToPartOfSpeech" layout="BoldItalicAbbr"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/otherwise&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &lt;/choice&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/where&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&lt;otherwise&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &lt;obj field="FromPartOfSpeech"
+layout="BoldItalicAbbr"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &lt;lit&gt; &amp;gt; &lt;/lit&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &lt;choice&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;where field="ToPartOfSpeech"
+lengthatmost="0"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&lt;lit&gt;???.&lt;/lit&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/where&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;otherwise&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;obj
+field="ToPartOfSpeech" layout="BoldItalicAbbr"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/otherwise&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp; &lt;/choice&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&lt;/otherwise&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/choice&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+</p>
+<p>The first two are similar to what we already defined. The one for
+MoDerivationalAffixMsa is more complex because it does special things
+if one or other part of speech is missing.<br>
+</p>
+<p>For a reason I'm not sure of, an MoInflectionalAffixMsa's affix
+category is displayed as a literal. We can make a part to do this:</p>
+<p>&nbsp;&nbsp;&nbsp; &lt;part id="CmPossibility-Jt-LitInfl"
+type="jtview"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;span&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&lt;properties&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;italic
+value="on"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;bold
+value="on"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&lt;/properties&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&lt;lit&gt;infl.&lt;/lit&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/span&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+</p>
+<p>Since this is so idiosyncratic, it would be nice to just insert the
+literal into the calling part. I need to investigate whether this can
+be done and perhaps make it possible if not.<br>
+</p>
+<p>The root fragment is named "gloss" in the original, but a more
+descriptive name is helpful for a reusable part:</p>
+<p>&nbsp;&nbsp;&nbsp; &lt;part id="LexSense-Jt-MsaGloss"
+type="jtview"&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;para&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;obj
+field="MorphoSyntaxAnalysis" layout="basic"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+&lt;lit&gt;&amp;#32;&lt;/lit&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;string
+field="Gloss" ws="analysis"/&gt;<br>
+&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/para&gt;<br>
+&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+</p>
+<p>Notice that the <span style="font-style: italic;">obj</span>element
+calls the <span style="font-style: italic;">basic</span> view of the
+MorphoSyntaxAnalysis property. The appropriate part is automatically
+selected based on the class.<br>
+</p>
+<p>Finally, here is the part that calls it (in the main detail layout
+of a LexSense):</p>
+<p>&nbsp;&nbsp;&nbsp; &lt;part ref="Summary" label="Sense"
+param="MsaGloss" expansion="expanded"&gt;</p>
+<p><span style="font-style: italic;">Summary</span> is a special
+detail-view part defined on CmObject. It creates a jtview slice
+containing the layout specified as its parameter. A <span
+ style="font-style: italic;">Summary</span> layout always has a grey
+background and is read-only (unless overridden within the layout
+explicitly).<br>
+</p>
+<p><br>
+</p>
+</body>
+</html>

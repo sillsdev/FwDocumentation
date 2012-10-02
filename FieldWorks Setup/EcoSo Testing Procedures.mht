@@ -1,0 +1,334 @@
+MIME-Version: 1.0
+Content-Location: file:///C:/907C5513/EcoSoTestingProcedures.htm
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="us-ascii"
+
+<html xmlns:o=3D"urn:schemas-microsoft-com:office:office"
+xmlns:w=3D"urn:schemas-microsoft-com:office:word"
+xmlns=3D"http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=3DContent-Type content=3D"text/html; charset=3Dus-ascii">
+<meta name=3DProgId content=3DWord.Document>
+<meta name=3DGenerator content=3D"Microsoft Word 10">
+<meta name=3DOriginator content=3D"Microsoft Word 10">
+<link rel=3DFile-List href=3D"EcoSoTestingProcedures_files/filelist.xml">
+<title>ECObjects and ScriptureObjects Testing Procedures</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>DDO</o:Author>
+  <o:LastAuthor>DDO</o:LastAuthor>
+  <o:Revision>2</o:Revision>
+  <o:TotalTime>20</o:TotalTime>
+  <o:Created>2003-03-20T22:07:00Z</o:Created>
+  <o:LastSaved>2003-03-20T22:07:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>180</o:Words>
+  <o:Characters>1032</o:Characters>
+  <o:Company> </o:Company>
+  <o:Lines>8</o:Lines>
+  <o:Paragraphs>2</o:Paragraphs>
+  <o:CharactersWithSpaces>1210</o:CharactersWithSpaces>
+  <o:Version>10.4219</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SnapToGridInCell/>
+   <w:WrapTextWithPunct/>
+   <w:UseAsianBreakRules/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:1627421319 -2147483648 8 0 66047 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-language:AR-SA;}
+h1
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:16.0pt;
+	font-family:Arial;
+	mso-font-kerning:16.0pt;
+	mso-bidi-language:AR-SA;}
+a:link, span.MsoHyperlink
+	{mso-ansi-font-size:10.0pt;
+	font-family:Arial;
+	mso-ascii-font-family:Arial;
+	mso-hansi-font-family:Arial;
+	color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;
+	text-underline:single;}
+p.TOCHeading, li.TOCHeading, div.TOCHeading
+	{mso-style-name:"TOC Heading";
+	mso-style-update:auto;
+	mso-style-parent:"";
+	mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:0in;
+	text-indent:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-list:l0 level1 lfo1;
+	tab-stops:.3in list .5in;
+	background:#FFFF99;
+	font-size:12.0pt;
+	font-family:Tahoma;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	font-variant:small-caps;
+	color:#333399;
+	mso-font-kerning:16.0pt;
+	font-weight:bold;}
+p.IndentLevel1, li.IndentLevel1, div.IndentLevel1
+	{mso-style-name:"Indent Level 1";
+	mso-style-parent:"";
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.75in;
+	margin-bottom:.0001pt;
+	text-indent:-.25in;
+	mso-pagination:widow-orphan;
+	mso-list:l0 level2 lfo1;
+	tab-stops:list .75in;
+	font-size:11.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:Arial;}
+p.IndentLevel2, li.IndentLevel2, div.IndentLevel2
+	{mso-style-name:"Indent Level 2";
+	mso-style-parent:"";
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:1.0in;
+	margin-bottom:.0001pt;
+	text-indent:-.25in;
+	mso-pagination:widow-orphan;
+	mso-list:l0 level3 lfo1;
+	tab-stops:list 1.0in;
+	mso-layout-grid-align:none;
+	font-size:11.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:Arial;}
+p.IndentLevel3, li.IndentLevel3, div.IndentLevel3
+	{mso-style-name:"Indent Level 3";
+	mso-style-parent:"";
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:1.25in;
+	margin-bottom:.0001pt;
+	text-indent:-.25in;
+	mso-pagination:widow-orphan;
+	mso-list:l0 level4 lfo1;
+	tab-stops:list 1.25in;
+	font-size:11.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:Arial;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:502666469;
+	mso-list-template-ids:1299346770;}
+@list l0:level1
+	{mso-level-style-link:"TOC Heading";
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	margin-left:0in;
+	text-indent:.25in;}
+@list l0:level2
+	{mso-level-style-link:"Indent Level 1";
+	mso-level-tab-stop:.75in;
+	mso-level-number-position:left;
+	margin-left:.75in;
+	text-indent:-.25in;}
+@list l0:level3
+	{mso-level-style-link:"Indent Level 2";
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	margin-left:1.0in;
+	text-indent:-.25in;}
+@list l0:level4
+	{mso-level-number-format:alpha-lower;
+	mso-level-style-link:"Indent Level 3";
+	mso-level-tab-stop:1.25in;
+	mso-level-number-position:left;
+	margin-left:1.25in;
+	text-indent:-.25in;}
+@list l0:level5
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	margin-left:1.5in;
+	text-indent:-.25in;}
+@list l0:level6
+	{mso-level-number-format:alpha-upper;
+	mso-level-tab-stop:1.75in;
+	mso-level-number-position:left;
+	margin-left:1.75in;
+	text-indent:-.25in;}
+@list l0:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1
+	{mso-list-id:1179583844;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1589670502 67698703 67698713 67698715 67698703 67698=
+713 67698715 67698703 67698713 67698715;}
+@list l1:level1
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";}
+</style>
+<![endif]-->
+</head>
+
+<body lang=3DEN-US link=3Dblue vlink=3Dpurple style=3D'tab-interval:.5in'>
+
+<div class=3DSection1>
+
+<h1>ECObjects and ScriptureObjects Testing Procedures</h1>
+
+<p class=3DIndentLevel1 style=3D'mso-list:none;tab-stops:.5in'><o:p>&nbsp;<=
+/o:p></p>
+
+<p class=3DMsoNormal>Whenever a new ECObjects.dll or ScriptureObjects.dll i=
+s to
+be tested using the NUnit test DLL EcoSoTest.dll, follow these procedures:<=
+/p>
+
+<p class=3DMsoNormal><o:p>&nbsp;</o:p></p>
+
+<ol style=3D'margin-top:0in' start=3D1 type=3D1>
+ <li class=3DMsoNormal style=3D'mso-list:l1 level1 lfo3;tab-stops:list .5in=
+'>Check
+	 out the changed dll (i.e. ECObjects.dll or ScriptureObjects.dll) from
+	 Perforce.</li>
+ <li class=3DMsoNormal style=3D'mso-list:l1 level1 lfo3;tab-stops:list .5in=
+'>When
+	 the tests will be modified, check out EcoSoTest.cs from Perforce.</li>
+ <li class=3DMsoNormal style=3D'mso-list:l1 level1 lfo3;tab-stops:list .5in=
+'>Copy
+	 the changed dll to <a href=3D"file:///C:\EcoSo\Bin\ScriptureObjectsDbg=
+"><span
+	 style=3D'font-size:11.0pt;mso-bidi-font-size:12.0pt;mso-ascii-font-fam=
+ily:
+	 "Times New Roman";mso-hansi-font-family:"Times New Roman"'>C:\EcoSo\Bi=
+n\ScriptureObjectsDbg</span></a>.</li>
+ <li class=3DMsoNormal style=3D'mso-list:l1 level1 lfo3;tab-stops:list .5in=
+'>Navigate
+	 to <a href=3D"file:///C:\EcoSo\Test\FwNetTest\EcoSoTest"><span
+	 style=3D'font-size:11.0pt;mso-bidi-font-size:12.0pt;mso-ascii-font-fam=
+ily:
+	 "Times New Roman";mso-hansi-font-family:"Times New Roman"'>C:\EcoSo\Te=
+st\FwNetTest\EcoSoTest</span></a>
+	 and run the batch file called <span style=3D'color:red'>EcoSoTest.bat<=
+/span>.
+	 This will build the C# interop dll&#8217;s.</li>
+ <li class=3DMsoNormal style=3D'mso-list:l1 level1 lfo3;tab-stops:list .5in=
+'>Open
+	 the NUnit test dll&#8217;s solution (<span style=3D'color:red'>EcoSoTe=
+st.sln</span>)
+	 in Visual Studio. It should be found at: <a
+	 href=3D"file:///C:\EcoSo\Test\FwNetTest\EcoSoTest"><span style=3D'font=
+-size:
+	 11.0pt;mso-bidi-font-size:12.0pt;mso-ascii-font-family:"Times New Roma=
+n";
+	 mso-hansi-font-family:"Times New Roman"'>C:\EcoSo\Test\FwNetTest\EcoSo=
+Test</span></a>.</li>
+ <li class=3DMsoNormal style=3D'mso-list:l1 level1 lfo3;tab-stops:list .5in=
+'>When
+	 any of the changes in a dll are thought to cause ignored tests to succ=
+eed,
+	 find those tests and remove their [Ignore] attribute.</li>
+ <li class=3DMsoNormal style=3D'mso-list:l1 level1 lfo3;tab-stops:list .5in=
+'>When
+	 interfaces change, the tests will need to be modified to take this into
+	 consideration.</li>
+ <li class=3DMsoNormal style=3D'mso-list:l1 level1 lfo3;tab-stops:list .5in=
+'>Build
+	 the project and run the tests.</li>
+ <li class=3DMsoNormal style=3D'mso-list:l1 level1 lfo3;tab-stops:list .5in=
+'>When
+	 all tests pass or are returned to ignore status, check into Perforce, =
+the
+	 changed dll&#8217;s and the changed (or any new) tests.</li>
+</ol>
+
+</div>
+
+</body>
+
+</html>
