@@ -1,0 +1,2174 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:st1="urn:schemas-microsoft-com:office:smarttags"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 10">
+<meta name=Originator content="Microsoft Word 10">
+<link rel=File-List href="Views_User_Guide_files/filelist.xml">
+<link rel=Edit-Time-Data href="Views_User_Guide_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Views component architecture</title>
+<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
+ name="State"/>
+<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
+ name="place"/>
+<o:SmartTagType namespaceuri="urn:schemas-microsoft-com:office:smarttags"
+ name="date"/>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Randy Regnier</o:Author>
+  <o:LastAuthor>John Thomson</o:LastAuthor>
+  <o:Revision>9</o:Revision>
+  <o:TotalTime>118</o:TotalTime>
+  <o:Created>2002-03-08T03:58:00Z</o:Created>
+  <o:LastSaved>2004-05-14T16:37:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>11488</o:Words>
+  <o:Characters>65484</o:Characters>
+  <o:Company>SIL</o:Company>
+  <o:Lines>545</o:Lines>
+  <o:Paragraphs>153</o:Paragraphs>
+  <o:CharactersWithSpaces>76819</o:CharactersWithSpaces>
+  <o:Version>10.3501</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:Compatibility>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if !mso]><object
+ classid="clsid:38481807-CA0E-42D2-BF39-B33AF135CC4D" id=ieooui></object>
+<style>
+st1\:*{behavior:url(#ieooui) }
+</style>
+<![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:\5B8B\4F53;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 135135232 16 0 262145 0;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 135135232 16 0 262145 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+h1
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:1;
+	font-size:24.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;
+	font-weight:bold;}
+h2
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	font-size:18.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:SimSun;
+	font-weight:bold;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+p
+	{mso-margin-top-alt:auto;
+	margin-right:0in;
+	mso-margin-bottom-alt:auto;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+pre
+	{margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Courier New";}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:67122274;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1252722028 -1303063278 -926880188 851082990 -769073568 -1912586206 -701618478 -1410064962 1255175224 753317990;}
+@list l0:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l0:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1
+	{mso-list-id:369038971;
+	mso-list-template-ids:1496619962;}
+@list l2
+	{mso-list-id:378939596;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1702308046 1110488658 -597384890 -1766588030 763118948 1897948810 1510877604 -301153302 1782468198 -289112812;}
+@list l2:level1
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3
+	{mso-list-id:683895384;
+	mso-list-template-ids:57294280;}
+@list l3:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l4
+	{mso-list-id:1059279376;
+	mso-list-template-ids:178318742;}
+@list l4:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l5
+	{mso-list-id:1484395848;
+	mso-list-template-ids:822872972;}
+@list l6
+	{mso-list-id:1638100877;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-1644550442 1799507928 -1512269614 1450056758 -1614660090 -630531994 1166834768 -1737840506 -988923468 620502422;}
+@list l6:level1
+	{mso-level-number-format:bullet;
+	mso-level-text:\F0B7;
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	mso-ansi-font-size:10.0pt;
+	font-family:Symbol;}
+@list l6:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l6:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l7
+	{mso-list-id:2126922684;
+	mso-list-type:hybrid;
+	mso-list-template-ids:2110317646 922932422 1381527376 -929411828 344219950 -1508113938 1175478484 217493452 -1151961834 962630168;}
+@list l7:level1
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l7:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l7:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l7:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l7:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l7:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l7:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l7:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l7:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";}
+</style>
+<![endif]-->
+<meta http-equiv=Content-Language content=en-us>
+</head>
+
+<body lang=EN-US link=blue vlink=blue style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<h1>Views user guide</h1>
+
+<p>John Thomson, <st1:date Year="2001" Day="5" Month="3">5 March 2001</st1:date>.
+File: Views_User_Guide.htm.</p>
+
+<p>Eberhard Beilharz, <st1:date Year="2002" Day="19" Month="6">19 June 2002</st1:date>.
+<span class=GramE>Modified so that it corresponds to changed MakeRoot method.</span></p>
+
+<p><span class=GramE>Adapted from Views Component Architecture.</span></p>
+
+<h1>1 Introduction</h1>
+
+<p>The FieldWorks Views component serves several functions:</p>
+
+<ol start=1 type=1>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l2 level1 lfo3;tab-stops:list .5in'>It provides a high-level
+	 interface to the FieldWorks text rendering and editing code, insulating
+	 programmers from many of the complexities of laying out potentially
+	 mixed-direction text that may be rendered by a variety of different
+	 engines.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l2 level1 lfo3;tab-stops:list .5in'>It provides sophisticated
+	 control over the layout of information, approaching what can be done using
+	 XML and XSL to produce HTML with styles. In addition, it can create
+	 interlinear layouts.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l2 level1 lfo3;tab-stops:list .5in'>It maintains information
+	 about the source of each bit of text in the display. This means that, with
+	 minimal effort, a layout can function as an editor for many purposes.
+	 Also, when the data changes, it is readily possible to automatically
+	 update all places where it is displayed.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l2 level1 lfo3;tab-stops:list .5in'>It provides replacements for
+	 a number of Windows common controls which take text input as FieldWorks
+	 TsString objects and can render styled, multilingual strings using
+	 FieldWorks rendering.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l2 level1 lfo3;tab-stops:list .5in'>It supports random scrolling
+	 through very large (book length) windows without pre-loading all the
+	 necessary data.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l2 level1 lfo3;tab-stops:list .5in'>* It provides a number of
+	 standard dialogs which can be used for text formatting, helping to give
+	 FieldWorks applications a standard look and feel. These dialogs include an
+	 MS-Word-like character and paragraph named style mechanism.</li>
+</ol>
+
+<p>(* indicates a planned capability not yet implemented. The standard dialogs
+are actually implemented, but not all are yet packaged into a DLL usable
+through COM).</p>
+
+<p>The component breaks down into two main blocks of code (which we may even
+decide to make separate DLLs). The first part has to do with data layout,
+editing, source tracking, and partial loading of large documents. This code is
+highly interconnected and very complex. It has been carefully kept as portable
+as possible, avoiding direct use of the Windows API and data structures as much
+as possible.</p>
+
+<p>The other part is a collection of largely independent chunks of code, each
+of which implements a particular dialog or ActiveX control.</p>
+
+<p>The ideas behind the Views component were largely inspired by <st1:State><st1:place>T<sub>E</sub>X</st1:place></st1:State>
+(see <i>The TeXbook</i> by Donald E. Knuth, ISBN 0-201-13448-9, published
+jointly by the American Mathematical Society and Addison-Wesley Publishing
+Company) and HTML (<a href="http://www.w3.org/MarkUp/">http://www.w3.org/MarkUp/</a>).</p>
+
+<h1>2 Basic concepts</h1>
+
+<p>A &quot;view&quot; is a way of looking at data and, possibly, editing it.
+Usually the problem is to display and edit data which has a moderately or
+extremely complex underlying structure, while insulating the end user from as
+much as possible of the complexity.</p>
+
+<p>For example, in our database we may have a set of tables which describe an
+Event. An Event has a title, a type (observation, interview, etc.), a
+Description (the main body of the event, which in turn is made up of paragraph
+records), Sources (a list of links to records in another table which contains
+information about people), Locations and other similar lists, a time, a set of
+tags (links to records in one of several outlines used to categorize data),
+personal notes, and yet other things. We would like to present this information
+as a something that is recognizable as a report on the event. For example, one
+Data Notebook presentation of the data looks like this:</p>
+
+<p align=center style='text-align:center'><img border=0 width=655 height=722
+id="_x0000_i1025" src="Diagrams/VUG_fig_1.jpg"></p>
+
+<p align=center style='text-align:center'>Figure 1. Screen shot from Data
+Notebook</p>
+
+<p>Getting something like this onto the screen is not trivial. Obviously it has
+to start with getting data from the database (or file, or whatever), including
+following the relevant links to things like rows in the table of People and
+extracting the Researcher's name. (And the name may be recorded in English,
+Korean, and French, so you have to make sure to get the right version.)</p>
+
+<p>Then, the data has to be organized into paragraphs, the appropriate labels have
+to be inserted, and it has to be formatted, with the appropriate pieces bold,
+the appropriate space between paragraphs, and so forth. The tag indicating that
+this record is an Event has to be placed in the right margin.</p>
+
+<p>Of course you want the user to be able to scroll through it all, and the
+layout has to be recomputed if the width of the window changes, and again to
+fit the page if the user asks to print it.</p>
+
+<p>Then, suppose the user clicks somewhere and starts typing. It may be obvious
+to the user that he is trying to edit the second paragraph of the Description
+of the event, but it is non-trivial for you to figure that out from the fact
+that he is editing the third paragraph in the window. And if you get down to
+the fifth paragraph, you need to be ready to allow the user to edit the date of
+the event, but pretty much anywhere else in that paragraph shouldn't just be
+edited. (A label like &quot;sources&quot; can't be changed at all, and this is
+probably not the place to be changing the spelling of Dr Livingston's name,
+which may be used by many records.)</p>
+
+<p>Also, the user may be looking at this data in other ways. The Data Notebook
+will allow another window to be open at the same time, displaying the same data
+in &quot;Data Entry&quot; mode, like this:</p>
+
+<p align=center style='text-align:center'><img border=0 width=658 height=601
+id="_x0000_i1026" src="Diagrams/VUG_fig_2.jpg"></p>
+
+<p align=center style='text-align:center'>Figure 2. Screen shot from Data
+Notebook, Data Entry mode.</p>
+
+<p>In this mode the user can change the researcher to something else. When this
+happens, the display in the first window ought to be updated too. Moreover, the
+new name probably has a different length. Therefore, the part of the fifth
+paragraph which contains the date and can be edited will have to move.</p>
+
+<p>The View subsystem and the code which supports using it with a database is
+designed to deal with these kinds of problems. It allows you to specify in a
+declarative way that you want certain data in your view, and (also largely
+declaratively) that you want certain formatting, certain properties to appear
+in certain paragraphs or tables, or that you want to insert at a certain point
+another view which, itself, may be a complex organization of data.</p>
+
+<p>Once things are so specified, the Views subsystem does the actual layout and
+rendering, keeps track of what database property is displayed where, updates
+the display when the data changes, and (if you so specify) allows the user to
+edit, figures out what needs to change in the database to correspond to that
+editing, and updates the database.</p>
+
+<p>A view can also operate on top of an ordinary file (without using a
+database). In this case, you are responsible to load the file format into a “cache”
+in memory, and to write a new version of the document from the cache
+information if the user changes it.</p>
+
+<h2>2.1 Using views</h2>
+
+<p>There are in general three main aspects to using the core view code.</p>
+
+<ol start=1 type=1>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l7 level1 lfo6;tab-stops:list .5in'>Connecting it to a window so
+	 that it can display itself and interact with the user</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l7 level1 lfo6;tab-stops:list .5in'>Connecting it to a source of
+	 data that it will display and possibly edit.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l7 level1 lfo6;tab-stops:list .5in'>Configuring it to lay that
+	 data out the way you want.</li>
+</ol>
+
+<p>Most of the ActiveX controls (not yet implemented, unfortunately) and .NET
+controls will do a lot of this work for you. The first point is replaced by the
+normal requirements for hosting a control, and in many cases the control takes
+care of the data source and layout concerns and exposes a simpler interface by
+which you read and write strings. The most general of the planned ActiveX
+controls allows you to provide the data source and layout configuration while
+still taking care of the window hookup.</p>
+
+<p>In C++ code you have another way to hook the view up to a window: you can
+subclass one of the classes defined in AfVwWnd.h, and implement a MakeRoot
+method to create the root box and hook up the data and configuration
+interfaces. Since this is the approach that is fully supported at present, it
+will be the one we discuss at length in this document.</p>
+
+<p>It is also possible to display a view without using any of these window
+classes. (One example is AfDeSplitChild, which displays several distinct views
+within a single window). When you do this you have quite a bit of work to do to
+make sure that all necessary events are passed to the view and all events it
+generates are properly handled. Few people will want to do this, but in case
+you do, the process is outlined in the Views Architecture document, and AfDeSplitChild
+(or the classes in AfVwWnd itself) can function as examples.</p>
+
+<p>In C# code you typically subclass RootSite (or SimpleRootSite if not using a
+database), and again override MakeRoot to hook up the other interfaces.</p>
+
+<h1>3 &quot;Hello world&quot;</h1>
+
+<p>Let's create a very simple, but complete, View-based display. We'll start
+with the FieldWorks &quot;Hello World&quot; sample program, and change it so
+that the main window displays &quot;Hello world&quot; using a view. You can see
+the completed project at fw\samples\HelloWorld\HelloView</p>
+
+<h2>3.1 Making a project</h2>
+
+<p>First you will want to make a new project. Directions for doing so are in <a
+href="../creating_a_new_fieldworks_project.htm#New_exe">creating_a_new_fieldworks_project.htm</a>.
+My version is going to be called HelloView. I put it under
+fw\samples\HelloWorld\HelloView. (This required one extra step: since it is an
+extra level of directory down, I had to edit two lines in the make file to look
+like this, with the extra HelloWorld inserted:)</p>
+
+<pre>HV_SRC=$(BUILD_ROOT)\<span style='color:red'>Samples\HelloWorld\HelloView</span></pre><pre>HV_RES=$(BUILD_ROOT)\<span
+style='color:red'>Samples\HelloWorld\HelloView</span>\Res</pre>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>3.2
+The view window class</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Now,
+our main client window area is going to be a view window. For now we'll do the
+simplest kind, with no scroll bar: an AfVwWnd. So, we need to change the client
+window declaration from</p>
+
+<pre>class HvClientWnd : public AfWnd</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>to</p>
+
+<pre>class HvClientWnd : public Af<span style='color:red'>Vw</span>Wnd</pre>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>3.3
+Introduction to &quot;MakeRoot&quot;</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Now,
+when you have an AfVwWnd, you are required to write a &quot;MakeRoot&quot;
+method, which creates and initializes the object that represents the view. On
+the other hand, you don't have to implement OnPaint. So replace the declaration
+of OnPaint with the following:</p>
+
+<pre>virtual void MakeRoot(IVwGraphics * pvg, ILgEncodingFactory * pencf, IVwRootBox ** pprootb);</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+first few lines of this method are pretty much common to all MakeRoot methods.
+They create a &quot;root box&quot; and hook it to the window (the AfVwWnd,
+which you have subclassed) that will function as a &quot;site&quot; for it. The
+&quot;site&quot; interface is fully implemented by AfVwWnd and therefore
+inherited; you don't have to to anything about it.</p>
+
+<pre>/*----------------------------------------------------------------------------------------------</pre><pre><span
+style='mso-tab-count:1'>        </span>Make the root box.</pre><pre>----------------------------------------------------------------------------------------------*/</pre><pre>void HvClientWnd::MakeRoot(IVwGraphics * pvg, ILgEncodingFactory * pencf, IVwRootBox ** pprootb)</pre><pre>{</pre><pre><span
+style='mso-tab-count:1'>        </span>*pprootb = NULL;</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>IVwRootBoxPtr qrootb;</pre><pre><span
+style='mso-tab-count:1'>        </span>qrootb.CreateInstance(CLSID_VwRootBox);</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qrootb-&gt;SetSite(this));</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Let's
+look at the end of the method next. Most of what comes between is preparing for
+the SetRootObjects call. This tells the view what to display and how. Once
+we've done it, all that remains is to return the root box (and a reference
+count on it) to the caller.</p>
+
+<pre><span style='mso-tab-count:1'>        </span>CheckHr(qrootb-&gt;SetRootObjects(&amp;hvoRoot, &amp;pvvc, &amp;frag, NULL, 1));</pre><pre><span
+style='mso-tab-count:1'>        </span>*pprootb = qrootb.Detach();</pre><pre>}</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>A
+view can display multiple top-level objects, in which case the first three
+arguments to this method are each arrays, with one element per top-level
+object. But by far the most common case (in fact the only thing we've tested, I
+think) is to display just one top level object. In such cases, the last
+argument is 1 (it is an object count), and the &quot;arrays&quot; can be
+simulated by references to single items, as shown here.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+first argument specifies the &quot;root&quot; object we want to display,
+represented as a &quot;handle to viewable object&quot; or HVO. (Handle
+signifies that the view does not care what a &quot;viewable object&quot; is. It
+just has to be able to pass it to certain other methods.) We're going to
+simulate our data object, so we can use anything we like for our handle. Thus,
+we can provide the first argument just like this:</p>
+
+<pre><span style='mso-tab-count:1'>        </span>HVO<span style='mso-spacerun:yes'>  </span>hvoRoot = 1;</pre>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>3.4
+A data source</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Before
+we get back to the other arguments, let's think about having some actual data
+to display. The view needs a source of data. For our data source we will use a
+&quot;VwCacheDa&quot;, a simple in-memory data source that just makes available
+to the view whatever data we give it. We can make one like this:</p>
+
+<pre><span style='mso-tab-count:1'>        </span>VwCacheDaPtr qcda;</pre><pre><span
+style='mso-tab-count:1'>        </span>qcda.Attach(NewObj VwCacheDa());</pre><pre><span
+style='mso-tab-count:1'>        </span>if (pencf)</pre><pre><span
+style='mso-tab-count:2'>               </span>CheckHr(qcda-&gt;putref_EncodingFactory(pencf));</pre><pre><span
+style='mso-tab-count:1'>        </span>else</pre><pre><span style='mso-tab-count:
+1'>        </span>{</pre><pre><span style='mso-tab-count:2'>               </span>ILgEncodingFactoryPtr qencf;</pre><pre><span
+style='mso-tab-count:2'>               </span>qencf.CreateInstance(CLSID_LgEncodingFactory);<span
+style='mso-tab-count:1'>        </span>// Get the registry-based factory.</pre><pre><span
+style='mso-tab-count:2'>               </span>CheckHr(qcda-&gt;putref_EncodingFactory(qencf));</pre><pre><span
+style='mso-tab-count:1'>        </span>}</pre><pre><span style='mso-tab-count:
+1'>        </span>CheckHr(qrootb-&gt;putref_DataAccess(qcda));</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Now
+we want to put some data in it. Specifically, we are going to tell it that our
+&quot;object&quot; (hvoRoot) has a string &quot;property&quot; identified by a
+constant, ktagProp, whose value is &quot;Hello World! This is a view&quot;.
+Strings in the View world are represented as ITsString objects. They are
+created by a String factory object, and they need an &quot;encoding&quot; that
+specifies their language. The complete code to get a string factory, get the
+encoding for standard English, and make a string looks like this:</p>
+
+<pre><span style='mso-tab-count:1'>        </span>ITsStrFactoryPtr qtsf;</pre><pre><span
+style='mso-tab-count:1'>        </span>qtsf.CreateInstance(CLSID_TsStrFactory);</pre><pre><span
+style='mso-tab-count:1'>        </span>ITsStringPtr qtss;</pre><pre><span
+style='mso-tab-count:1'>        </span>OLECHAR * rgchHello = L&quot;Hello World! This is a view&quot;;</pre><pre><span
+style='mso-tab-count:1'>        </span>int encEng = StrUtil::ParseEnc(&quot;ENG&quot;);</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qtsf-&gt;MakeStringRgch(rgchHello, wcslen(rgchHello), encEng, &amp;qtss));</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Now
+we tell the data object that this string is to be the value of the ktagProp
+property of our root object. (The ktagProp constant is given an arbitrary value
+in an enumeration in the header. In real views based on a database, you will
+usually use constants that identify a particular property of a particular
+object class, such as kflidStTxtPara_Contents.)</p>
+
+<pre><span style='mso-tab-count:1'>        </span>CheckHr(qcda-&gt;CacheStringProp(hvoRoot, ktagProp, qtss));</pre>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>3.5
+A view constructor</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>OK,
+we have some data. Next we have to tell the view what to do with it. What to do
+with it is often quite complex, though in this case it will be simple; but to
+allow for the complexity, the layout is specified by writing a piece of code
+called a &quot;view constructor&quot;. You need to make a new class. Ours looks
+like this:</p>
+
+<pre>/*----------------------------------------------------------------------------------------------</pre><pre><span
+style='mso-tab-count:1'>        </span>Our Hello View view constructor.</pre><pre><span
+style='mso-tab-count:1'>        </span>Hungarian: hvvc</pre><pre>----------------------------------------------------------------------------------------------*/</pre><pre>class HvVc : public VwBaseVc</pre><pre>{</pre><pre><span
+style='mso-tab-count:1'>        </span>typedef VwBaseVc SuperClass;</pre><pre><o:p>&nbsp;</o:p></pre><pre>public:</pre><pre><span
+style='mso-tab-count:1'>        </span>STDMETHOD(Display)(IVwEnv* pvwenv, HVO vwobj, int frag);</pre><pre>};</pre><pre><o:p>&nbsp;</o:p></pre><pre>DEFINE_COM_PTR(HvVc);</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>We
+inherit from VwBaseVc so as to get a standard implementation of IUnknown and
+trivial implementations of a number of methods that are in the interface but
+which won't be used in this case. Almost all view constructor implementations
+do this. The one actual method we write is Display(). It looks like this:</p>
+
+<pre>/*----------------------------------------------------------------------------------------------</pre><pre><span
+style='mso-tab-count:1'>        </span>This is the main interesting method of displaying objects and fragments of them.</pre><pre>----------------------------------------------------------------------------------------------*/</pre><pre>STDMETHODIMP HvVc::Display(IVwEnv* pvwenv, HVO hvo, int frag)</pre><pre>{</pre><pre><span
+style='mso-tab-count:1'>        </span>switch(frag)</pre><pre><span
+style='mso-tab-count:1'>        </span>{</pre><pre><span style='mso-tab-count:
+1'>        </span>default:</pre><pre><span style='mso-tab-count:2'>               </span>Assert(false);</pre><pre><span
+style='mso-tab-count:2'>               </span>break;</pre><pre><span
+style='mso-tab-count:1'>        </span>case kfrText:</pre><pre><span
+style='mso-tab-count:2'>               </span><span style='color:red'>CheckHr(pvwenv-&gt;AddStringProp(ktagProp, this));</span></pre><pre><span
+style='mso-tab-count:2'>               </span>break;</pre><pre><span
+style='mso-tab-count:1'>        </span>}</pre><pre><span style='mso-tab-count:
+1'>        </span>return S_OK;</pre><pre>}</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+only really important line in this is the red one, the AddStringProp call. For
+a case this simple, that could have been the whole method. This is because our
+view constructor only knows how to display one kind of object (one that has a
+string property identified by ktagProp) in one way (by showing the string). A
+typical view constructor, however, may know how to display several kinds of
+objects, perhaps in several ways each. To distinguish the different things it
+can do, a Display method takes an argument called a &quot;fragment
+identifier.&quot; Think of it as telling the Display method which
+&quot;fragment&quot; of a more complex view is to be dealt with at present.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Thus,
+the method above illustrates the usual structure of a Display method: a switch
+on the frag argument. In this case, we have made a constant kfrText to identify
+the &quot;text&quot; fragment, even though it is the only one we have. Again,
+this is given an arbitrary value by an enumeration.</p>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>3.6
+Finishing off MakeRoot</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Now
+we are ready to go back to the SetRootObjects method. The second argument is a
+view constructor, which will be asked to Display the root object. The third
+argument tells the root box which fragment identifier to pass to the Display
+method. So, we need an HvVc, and we need to pass the kfrText fragment. The
+balance of the method looks like this:</p>
+
+<pre><span style='mso-tab-count:1'>        </span>int frag = kfrText;</pre><pre><span
+style='mso-tab-count:1'>        </span>HvVcPtr qhvvc;</pre><pre><span
+style='mso-tab-count:1'>        </span>qhvvc.Attach(NewObj HvVc());</pre><pre><span
+style='mso-tab-count:1'>        </span>IVwViewConstructor * pvvc = qhvvc;</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>(Note
+that it will <i>not</i> work to leave out the last line above, and instead pass
+&amp;qhvvc to SetRootObjects. The &amp; operator on a smart pointer is designed
+for <i>returning</i> a value, not passing one as a simulated array. The &amp;
+operator <i>clears</i> the smart pointer--this is occasionally annoying, but it
+is a necessary part of the smart pointer's main task of managing reference
+counting.)</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>To
+put it all together, here is the entire MakeRoot method:</p>
+
+<pre><a name="Simple_MakeRoot"></a>/*----------------------------------------------------------------------------------------------</pre><pre><span
+style='mso-tab-count:1'>        </span>Make the root box.</pre><pre>----------------------------------------------------------------------------------------------*/</pre><pre>void HvClientWnd::MakeRoot(IVwGraphics * pvg, ILgEncodingFactory * pencf, IVwRootBox ** pprootb)</pre><pre>{</pre><pre><span
+style='mso-tab-count:1'>        </span>*pprootb = NULL;</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>IVwRootBoxPtr qrootb;</pre><pre><span
+style='mso-tab-count:1'>        </span>qrootb.CreateInstance(CLSID_VwRootBox);</pre><pre><span
+style='mso-tab-count:1'>        </span>// SetSite takes an IVwRootSite, which this class implements.</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qrootb-&gt;SetSite(this));</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>// We're going to simulate an &quot;object&quot; by giving it a dummy handle of 1</pre><pre><span
+style='mso-tab-count:1'>        </span>HVO<span style='mso-spacerun:yes'>  </span>hvoRoot = 1;</pre><pre><span
+style='mso-tab-count:1'>        </span>// Which fragment of the root object we're going to display. Needs to be a variable</pre><pre><span
+style='mso-tab-count:1'>        </span>// so we can simulate an array using &amp;.</pre><pre><span
+style='mso-tab-count:1'>        </span>int frag = kfrText;</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>// We need our special view constructor</pre><pre><span
+style='mso-tab-count:1'>        </span>HvVcPtr qhvvc;</pre><pre><span
+style='mso-tab-count:1'>        </span>qhvvc.Attach(NewObj HvVc());</pre><pre><span
+style='mso-tab-count:1'>        </span>// We need a pointer to the pointer, and we can't use &amp;qhvvc because that clears the</pre><pre><span
+style='mso-tab-count:1'>        </span>// pointer!!</pre><pre><span
+style='mso-tab-count:1'>        </span>IVwViewConstructor * pvvc = qhvvc;</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>// We need a data source. We can use the in-memory VwCacheDa.</pre><pre><span
+style='mso-tab-count:1'>        </span>VwCacheDaPtr qcda;</pre><pre><span
+style='mso-tab-count:1'>        </span>qcda.Attach(NewObj VwCacheDa());</pre><pre><span
+style='mso-tab-count:1'>        </span>if (pencf)</pre><pre><span
+style='mso-tab-count:2'>               </span>CheckHr(qcda-&gt;putref_EncodingFactory(pencf));</pre><pre><span
+style='mso-tab-count:1'>        </span>else</pre><pre><span style='mso-tab-count:
+1'>        </span>{</pre><pre><span style='mso-tab-count:2'>               </span>ILgEncodingFactoryPtr qencf;</pre><pre><span
+style='mso-tab-count:2'>               </span>qencf.CreateInstance(CLSID_LgEncodingFactory);<span
+style='mso-tab-count:1'>        </span>// Get the registry-based factory.</pre><pre><span
+style='mso-tab-count:2'>               </span>CheckHr(qcda-&gt;putref_EncodingFactory(qencf));</pre><pre><span
+style='mso-tab-count:1'>        </span>}</pre><pre><span style='mso-tab-count:
+1'>        </span>CheckHr(qrootb-&gt;putref_DataAccess(qcda));</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>// Put some data in it. Make a TsString. To do so we need a string factory.</pre><pre><span
+style='mso-tab-count:1'>        </span>ITsStrFactoryPtr qtsf;</pre><pre><span
+style='mso-tab-count:1'>        </span>qtsf.CreateInstance(CLSID_TsStrFactory);</pre><pre><span
+style='mso-tab-count:1'>        </span>ITsStringPtr qtss;</pre><pre><span
+style='mso-tab-count:1'>        </span>OLECHAR * rgchHello = L&quot;Hello World! This is a view&quot;;</pre><pre><span
+style='mso-tab-count:1'>        </span>int encEng = StrUtil::ParseEnc(&quot;ENG&quot;);</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qtsf-&gt;MakeStringRgch(rgchHello, wcslen(rgchHello), encEng, &amp;qtss));</pre><pre><span
+style='mso-tab-count:1'>        </span>// Put the string in the data source as the value of ktagProp.</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qcda-&gt;CacheStringProp(hvoRoot, ktagProp, qtss));</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qrootb-&gt;SetRootObjects(&amp;hvoRoot, &amp;pvvc, &amp;frag, NULL, 1));</pre><pre><span
+style='mso-tab-count:1'>        </span>*pprootb = qrootb.Detach();</pre><pre>}</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>That's
+it! Make these changes to HelloWorld and you get a working program which
+displays the string (and even allows you to edit it, though the changes won't
+be saved anywhere).</p>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>3.7
+How is a real view different?</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Configuring
+a more serious view is much like the code above. In nearly every case, you will
+create a new View Constructor class. You will make a new Window class
+inheriting from AfVwWnd or a similar class. You will write a MakeRoot method
+with the same basic components as above:</p>
+
+<ul type=disc>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l0 level1 lfo9;tab-stops:list .5in'>Creating a root box.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l0 level1 lfo9;tab-stops:list .5in'>Connecting it to its site.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l0 level1 lfo9;tab-stops:list .5in'>Creating or locating a data
+	 source.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l0 level1 lfo9;tab-stops:list .5in'>Initializing the data source
+	 with the appropriate data.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l0 level1 lfo9;tab-stops:list .5in'>Hooking the data source to
+	 the view.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l0 level1 lfo9;tab-stops:list .5in'>Creating an instance of the
+	 appropriate view constructor.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l0 level1 lfo9;tab-stops:list .5in'>Identifying the root object
+	 you want to display by an appropriate handle.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l0 level1 lfo9;tab-stops:list .5in'>Identifying the
+	 &quot;fragment code&quot; that should be used initially to display that
+	 object.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l0 level1 lfo9;tab-stops:list .5in'>Hooking things up using
+	 SetRootObjects.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l0 level1 lfo9;tab-stops:list .5in'>Returning the root (and a
+	 reference count) to the code that calls MakeRoot.</li>
+</ul>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Now
+that we've worked through an example, we can go on to examine the data source
+and the view constructor in more detail.</p>
+
+<h1 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>4
+Configuring a view: data source</h1>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>A
+view displays data which is conceptually organized as a network of objects that
+have properties. The view doesn't care what the objects are; in most of our
+current work they are groups of rows in several tables of a relational
+database, linked by a shared ID. But they can also be lines in an XML or SF
+file. As far as the view is concerned, an object is simply represented by a
+handle. (For database work the ID of the table rows serves as the value of the
+handle. When working with text files we usually assign arbitrary IDs based on
+the sequence of items in the file.) This handle is the widely used typedef HVO
+(Handle to a Viewable Object), currently a long. A pointer to a C++ object
+could also be used as an HVO. You just have to be consistent within any one
+data source and in initializing the root box.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+view generally needs to be able to find out what properties a particular HVO
+has. An HVO can have both simple properties (strings, numbers, dates, etc.) and
+properties that link it to one or a sequence of other HVOs. For example, an HVO
+that represents a lexicon entry might have a headword string property, a
+property that links it to the HVO of the dictionary it is part of, and a
+property that links it to a sequence of HVOs for objects representing its
+senses.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+interface ISilDataAccess is used to provide the view with this information. It
+has a collection of methods to support different property data types, but
+basically it just allows you to read or write the value of a particular
+property. Which property is identified by an HVO and a tag or flid. (Tag is a
+completely generic term used in the view code, which doesn't care how a tag
+identifies a property. A lot of our client code uses database field identifiers
+or flids to identify properties.)</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+most commonly used implementation of ISilDataAccess is the CustViewDa class.
+This allows you to efficiently pre-load a bunch of properties for a network of
+objects from the database, and writes changes back to the database immediately.
+Also available are VwCacheDa, a very simple implementation that allows you to
+simply pre-load the data you want to view and lets you (or the view) read back
+the current value of any property. There is also a base class which trivially
+implements all methods to fail; this is useful if you want to make a very
+simple ISilDataAccess that only implements methods for the particular property
+types that a particular view uses.</p>
+
+<p align=center style='text-align:center;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><img
+border=0 width=513 height=376 id="_x0000_i1027"
+src="../Architecture/Diagrams/View_Data_Sources.gif"></p>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>4.1
+VwCacheDa</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Simple
+views are most often set up using VwCacheDa. (The name comes from its function
+of caching data from some other source; it has no built-in way of persisting
+the data.)</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>VwCacheDa
+is built into the Views DLL and can be created using CoCreateInstance.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>VwCacheDa
+has a rudimentary way of telling whether the user changed something using the
+view. To support this, there is an additional interface, IVwCacheDa, a set of
+methods whose names begin with &quot;Cache&quot;. These methods are used to
+load data into the cache. At this point, the data is considered
+&quot;clean,&quot; that is, not modified by the user. There is another set of
+methods which the View code will use if the user modifies the data; these
+methods mostly begin with &quot;Set&quot;. You can use a method called <span
+class=GramE>IsDirty(</span>) to tell whether any of the modification methods
+has been used. Unfortunately, this method is not in the interface…we should add
+it.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>At
+present there is no interface method to tell what properties of what objects
+have changed. This could easily be added but we have not yet needed it; current
+code using VwCacheDa just makes a complete new file, or something similar, when
+anything changes. The data it would depend on is recorded. Another oversight is
+the lack of a method to clear the dirty flag when changes are saved. This needs
+to be added.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>A
+simple example of using VwCacheDa was provided above. A more complex one (using
+a subclass) may be found as the main data access object in WorldPad (WpDa).
+Another good example is in the AfDeFeTags class, and yet another in the
+Interlin sample.</p>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>4.2
+CustViewDa</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+name of this class is obsolete and will probably change; it refers to the
+original application of the class, providing the data that a &quot;customizable
+view&quot; requires.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>CustViewDa
+reads and writes data from a database that can be accessed using OLEDB. You
+initialize it with an OleDbEncap object which encapsulates a connection to the
+database.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>CustViewDa
+allows you to specify that data for a whole network of objects should be
+loaded. You start by giving it the HVOs and class identifiers of one or more
+top-level objects (it can help you load this information, too). By default, it
+then proceeds to load information about all the objects that are
+&quot;parts&quot; of the top-level ones (technically all the owning properties
+of those objects).</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+result of this process is a more complete list of HVOs for a whole network of
+objects, and properties indicating how they are connected and what the class of
+each object is.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+remaining step is to tell the CustViewDa what other properties of the objects
+your view requires. You do this on a class-by-class basis, creating a list of
+properties to load for each class. You can distinguish between the properties
+that should be loaded for an object in the original list, versus those that
+should be loaded for an object of the same class that occurs somewhere further
+down the hierarchy.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Todo
+JohnT: get someone to create a working example, say of an editor for structured
+texts in the database.</p>
+
+<h1 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>5
+Configuring a view: layout</h1>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>5.1
+Overview</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Layout
+is the part of hooking up a view that you usually have to write your own code
+for. Some of the simpler controls don't require this, as they just edit a
+single string, or a &quot;<a href="../fieldworks_glossary.htm#StText">structured
+text</a>&quot; for which there is a standard layout. Anything more complex
+means writing code to specify the layout.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>This
+begins by your specifying a root object, by passing an <a
+href="../fieldworks_glossary.htm#HVO">HVO</a> for a root object to the <span
+class=GramE>SetRootObjects(</span>) method of the root box.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+view then makes calls back to your code to ask you how exactly you want the
+root object displayed. This may lead to your telling the view to display other
+objects that are parts of the root object or otherwise related to it. The view
+then turns around and asks you how to display each of those, and so forth. The
+back and forth process is designed to give you control over the layout while
+allowing the view to keep track of the relationship between what is on the
+screen and the underlying data. Also, it is designed to be modular: you don't
+have to construct the whole layout in one go, and in fact, the view code may
+not ask you to lay out certain parts until the user scrolls them into view. It
+is also modular in that a layout for a certain kind of object can be re-used in
+various places where that kind of object shows up.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>For
+the views code to call your code, you have to implement some interface, since
+interfaces are the only way COM objects communicate. The particular interface
+you need to implement is defined in the Views subsystem; it is called
+IVwViewConstructor. Typically, the code you actually write is a switch, with at
+least one case for each type of object you need to display. Depending on the
+complexity of the view, you may need only one method, or several. To help,
+especially with the simpler cases, there is a base class, VwBaseVc, which
+trivially implements all the methods to fail (returning E_NOTIMPL). Thus, you
+only have to write the methods you need. The one required method is Display().
+It is passed an HVO, initially identifying the root object, and two other
+arguments, which I will explain in a moment. Other methods only have to be
+implemented if you use particular capabilities of the system.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+first argument to Display is an IVwEnv. This name is short for View
+Environment, a slightly awkward term borrowed from functional programming and
+meaning an object that represents the state of an incomplete computation (in
+this case, the incomplete construction of the view layout). This interface is
+provided in order to allow you, in turn, to make call-backs to the view
+subsystem to tell it what to do about displaying the object. It has methods for
+telling the view to make a paragraph or table, to change various style
+properties, to insert some literal text, and so forth. You can also tell it to
+insert some property of the current object.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>&quot;Property&quot;
+is used here in a technical sense. The view code considers an object to be a
+bundle of properties. Some of them are simple, holding a number or a string. In
+that case, you just tell the IVwEnv to display a string or number property,
+passing a tag to indicate which property. Some properties are more complex,
+holding a reference to another object or a sequence of them.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>When
+you tell the IVwEnv to display a property that contains objects, it turns
+around and calls your Display method again (typically...there are a couple of
+other options, depending on just how you told it to display the property). For
+a sequence property, it will call Display repeatedly, passing the HVO of each
+of the objects in the property.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><a
+name=Fragment></a>Now, it is possible that your view constructor recognizes
+each of the HVO's for each object in your data and knows what to do with each.
+It is more usual, however, that you are going by the structure of the data. You
+know what kind of root object your view is going to display, so you know what
+properties to display for that kind of object. For each of its properties, you
+know the sorts of objects that could be stored there, so when you tell the IVwEnv
+to display property X, you know what kind of objects they will be, at least
+roughly.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>This
+brings us to the third argument to Display, which is a &quot;fragment
+identifier.&quot; Usually, this is the control argument for your switch
+statement. When you initialize the root box, you pass a fragment identifier (to
+SetRootObjects), which is passed on to you in the first Display call. You can
+use it to select the proper case for your root object. When you ask the view to
+display an object-containing property, you specify a fragment, which is then
+passed back to you in the resulting Display calls, and typically used to select
+an appropriate case for the type of objects in that property. Of course, by
+passing different fragment identifiers, you can display the same object in
+different ways.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>In
+either case, the view remembers what part of the screen is displaying the value
+of a particular property. If that property changes, the view reads the new
+value, and repeats whatever it did with the value originally to obtain a display
+of the updated value. (For example, it may call your Display method again,
+passing the current HVOs stored in the property, and the fragment you
+originally told it to use for that display of that property.) In certain cases,
+the view is also able to recognize user actions as editing a particular
+property, and will make calls to the ISilDataAccess to update the property
+value.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Why
+not just let you look up the values of properties, loop through the HVOs, and
+do whatever is appropriate with each? The reason is that the view code wants to
+keep certain kinds of control over the process. It wants to know where a
+particular property starts and ends. It wants to be able to replace the display
+of a property, or a few objects within a property, without rebuilding the whole
+view from the top down. It wants to be able to postpone some parts of the
+display generation until the results will actually be visible at the current
+scroll position. This architecture gives the view enough control to do these
+kinds of things.&nbsp;</p>
+
+<p align=center style='text-align:center;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><img
+border=0 width=609 height=340 id="_x0000_i1028"
+src="../Architecture/Diagrams/View_Layout.gif"></p>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>5.2
+A fuller example</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Let's
+now build a quite complex view constructor that does some relatively
+interesting tricks. It shows off a few other View subsystem capabilities too.
+You can find the full code in fw\samples\Interlin. Let's start with a look at
+what it produces:</p>
+
+<p align=center style='text-align:center;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><img
+border=0 width=819 height=749 id="_x0000_i1029" src="Diagrams/Interlin.gif"></p>
+
+<p align=center style='text-align:center;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Figure
+3. The Interlin display</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>You
+can see that we are demonstrating colors, font sizes, interlinear text, and
+tables. What may be less obvious is that the example also demonstrates style
+sheets and displaying the same data in multiple places.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Let's
+think first about the underlying data. Our schema is pretty simple: an
+interlinear text object which consists of a sequence of word objects and a
+freeform translation. Each word has a baseform and an annotation. The
+&quot;freeform translation&quot; field is a fairly complex string with named
+styles applied to it. It gets created like this (see IeClientWnd::Init).<o:p></o:p></p>
+
+<pre align=left><span style='mso-tab-count:1'>        </span>ITsIncStrBldrPtr qtisb;</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qtsf-&gt;GetIncBldr(&amp;qtisb));</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qtisb-&gt;SetIntPropValues(ktptEncAndWs, 0, enc1)); // arbitrary, set to &quot;FRN&quot;</pre><pre><span
+style='mso-tab-count:1'>        </span>StrUni stuStyle1 = &quot;style1&quot;;</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qtisb-&gt;SetStrPropValue(kspNamedStyle, stuStyle1.Bstr()));</pre><pre><span
+style='mso-tab-count:1'>        </span>OLECHAR * pszData1 = L&quot;This is quite a long piece of test data used to try wrapping. &quot;;</pre><pre><span
+style='mso-tab-count:1'>        </span>int cchData1 = wcslen(pszData1);</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qtisb-&gt;AppendRgch(pszData1, cchData1));</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>StrUni stuStyle2 = &quot;style2&quot;;</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qtisb-&gt;SetStrPropValue(kspNamedStyle, stuStyle2.Bstr()));</pre><pre><span
+style='mso-tab-count:1'>       </span>OLECHAR * pszData2 = L&quot;This is another sentence which should wrap right along with it. &quot;;</pre><pre><span
+style='mso-tab-count:1'>        </span>int cchData2 = wcslen(pszData2);</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qtisb-&gt;AppendRgch(pszData2, cchData2));</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>StrUni stuStyle3 = &quot;style3&quot;;</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qtisb-&gt;SetStrPropValue(kspNamedStyle, stuStyle3.Bstr()));</pre><pre><span
+style='mso-tab-count:1'>        </span>OLECHAR * pszData3 = L&quot;This third sentence should be on a red background&quot;;</pre><pre><span
+style='mso-tab-count:1'>        </span>int cchData3 = wcslen(pszData3);</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qtisb-&gt;AppendRgch(pszData3, cchData3));</pre><pre><span
+style='mso-tab-count:1'>        </span></pre><pre><span style='mso-tab-count:
+1'>        </span>CheckHr(qtisb-&gt;GetString(&amp;qtss));</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Note
+that we haven't done anything yet to make the stuff about a red background and
+so forth true. We make a style sheet object to represent this. Our standard
+stylesheet object initializes itself from the database, but this example doesn't
+have one, so we have to make a subclass (IeStylesheet) and initialize the style
+definitions by hand. It looks like this (one&nbsp; style out of several in
+IeStylesheet::Init):<o:p></o:p></p>
+
+<pre align=left><span style='mso-tab-count:1'>        </span>ITsTextPropsBldrPtr qtpb;</pre><pre><span
+style='mso-tab-count:1'>        </span>StrUni stuSerif(L&quot;Serif&quot;);</pre><pre><span
+style='mso-tab-count:1'>        </span>qtpb.CreateInstance(CLSID_TsPropsBldr);</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qtpb-&gt;SetStrPropValue(ktptFontFamily, stuSerif.Bstr()));</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qtpb-&gt;SetIntPropValues(ktptBold, ktpvEnum, kttvOn));</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qtpb-&gt;SetIntPropValues(ktptFontSize, ktpvMilliPoint, 30000));</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qtpb-&gt;SetIntPropValues(ktptForeColor, ktpvDefault, RGB(0, 255, 255)));</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qtpb-&gt;SetIntPropValues(ktptBackColor, ktpvDefault, RGB(255,0,0)));</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qtpb-&gt;GetTextProps(&amp;qttp));</pre><pre><span
+style='mso-tab-count:1'>        </span>HVO hvoStyle3;</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(GetNewStyleHVO(&amp;hvoStyle3));</pre><pre><span
+style='mso-tab-count:1'>        </span>StrUni stuStyle3(L&quot;style3&quot;);</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(PutStyleRgch(stuStyle3.Length(), const_cast&lt;OLECHAR *&gt;(stuStyle3.Chars()),</pre><pre><span
+style='mso-tab-count:2'>               </span>hvoStyle3, hvoNormal, hvoStyle3, kstCharacter, qttp));</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+const cast is needed because our StrUni class does not allow modification of
+the characters pointed to by the value returned by Chars(). PutStyleRgch will
+not do so, but because it is a COM interface, there is no way to promise this
+to the compiler. So we have to cast away the const-ness of the pointer.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Our
+MakeRoot method looks like this:<o:p></o:p></p>
+
+<pre align=left>void IeClientWnd::MakeRoot(IVwGraphics * pvg, IVwRootBox ** pprootb)</pre><pre>{</pre><pre><span
+style='mso-tab-count:1'>        </span>*pprootb = NULL;</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>Init(); // basic initialization of data.</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>IVwRootBoxPtr qrootb;</pre><pre><span
+style='mso-tab-count:1'>        </span>qrootb.CreateInstance(CLSID_VwRootBox);</pre><pre><span
+style='mso-tab-count:1'>        </span>// SetSite takes an IVwRootSite, which this class implements.</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qrootb-&gt;SetSite(this));</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>// Which fragment of the root object we're going to display. Needs to be a variable</pre><pre><span
+style='mso-tab-count:1'>        </span>// so we can simulate an array using &amp;.</pre><pre><span
+style='mso-tab-count:1'>        </span>int frag = kfrSentence;</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>// We need a pointer to the pointer, and we can't use &amp;qhvvc because that clears the</pre><pre><span
+style='mso-tab-count:1'>        </span>// pointer!!</pre><pre><span
+style='mso-tab-count:1'>        </span>IVwViewConstructor * pvvc = m_qievc;</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qrootb-&gt;putref_DataAccess(m_qcda));</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qrootb-&gt;SetRootObjects(&amp;m_hvoRoot, &amp;pvvc, &amp;frag, m_qiest, 1));</pre><pre><span
+style='mso-tab-count:1'>        </span>*pprootb = qrootb.Detach();</pre><pre>}</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>This
+is actually simpler than the example given <a href="#Simple_MakeRoot">earlier</a>,
+because the various objects we create do some of the work for us. The main new
+thing is that we are passing a style sheet as the fourth argument of
+SetRootObjects. The Init() method creates the test data. Creating the freeform
+annotation was shown above. The individual words just involve creating a simple
+ITsString for each baseform and annotation, and inserting them into the
+VwCacheDa as the value of the appropriate property. The Init method is also
+responsible to actually create the VwCacheDa, and also to create and initialize
+the stylesheet:<o:p></o:p></p>
+
+<pre align=left><span style='mso-tab-count:1'>        </span>// Create a data access object.</pre><pre><span
+style='mso-tab-count:1'>        </span>m_qcda.Attach(NewObj VwCacheDa());</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>// Create a style sheet and initialize it.</pre><pre><span
+style='mso-tab-count:1'>        </span>m_qiest.Attach(NewObj IeStylesheet());</pre><pre><span
+style='mso-tab-count:1'>        </span>m_qiest-&gt;Init(m_qcda);</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>// Create a view constructor</pre><pre><span
+style='mso-tab-count:1'>        </span>m_qievc.Attach(NewObj IeVc());</pre><pre><span
+style='mso-tab-count:1'>        </span>m_qievc-&gt;Init();</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Finally
+the Init() code creates a view constructor. As before, we make a new class to
+describe how we want the data laid out: in this case I've called it IeVc (for
+Interlinear Example View Constructor). The code of this method is the really
+interesting part of the example.</p>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>5.3
+Having multiple top-level fragments</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+View constructor has its own IeVc::Init() method, which just creates a number
+of fixed strings (the table headings). Then we get to the Display method. It is
+a very long method, consisting as usual of a switch on the fragment identifier.
+It starts out like this:<o:p></o:p></p>
+
+<pre align=left>STDMETHODIMP IeVc::Display(IVwEnv* pvwenv, HVO hvoObj, int frag)</pre><pre>{</pre><pre><span
+style='mso-tab-count:1'>        </span>try</pre><pre><span style='mso-tab-count:
+1'>        </span>{</pre><pre><span style='mso-tab-count:2'>               </span>switch(frag)</pre><pre><span
+style='mso-tab-count:2'>               </span>{</pre><pre><span
+style='mso-tab-count:2'>               </span>case kfrSentence:</pre><pre><span
+style='mso-tab-count:3'>                       </span>// the whole thing (this is the top level)</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(Display(pvwenv, hvoObj, kfrSentInterlin));</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(Display(pvwenv, hvoObj, kfrSentTable));</pre><pre><span
+style='mso-tab-count:3'>                       </span>break;</pre><pre><span
+style='mso-tab-count:1'>        </span>//...</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+kfrSentence &quot;fragment&quot; (which is actually the whole view) is slightly
+unusual. Instead of directly adding things to the VwEnv, it makes two recursive
+calls. This helps to make the view constructor more flexible. It is actually
+capable of displaying just the interlinear view of the sentence object or just
+the table. These are just different &quot;fragments&quot; of the whole view.
+The kfrSentence &quot;fragment&quot; consists of the two smaller fragments
+concatenated.</p>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>5.4
+Flow objects and display properties</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+interlinear display is quite simple at the top level. We make a paragraph,
+display the words, end the paragraph, and add the freeform property. (It is a
+paragraph, too, but when a paragraph contains only one string you don't have to
+say so. The view subsystem automatically creates a paragraph for it.)<o:p></o:p></p>
+
+<pre align=left><span style='mso-tab-count:1'>        </span>case kfrSentInterlin:</pre><pre><span
+style='mso-tab-count:3'>                      </span>// Display paragaph of annotated word bundles followed by the freeform.</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;OpenParagraph());</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;AddObjVecItems(ktagWords, this, kfrAnnWordBundle));</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;CloseParagraph());</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;AddStringProp(ktagFreeform));</pre><pre><span
+style='mso-tab-count:3'>                       </span>break;</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Next,
+let's take a look at the fragment that displays an individual annotated word.
+Notice how the AddObjVecItems above passed a fragment identifier of
+kfrAnnWordBundle; the same magic number comes back to us as the fragment
+identifier in an indirectly recursive call to Display.<o:p></o:p></p>
+
+<pre align=left><span style='mso-tab-count:2'>               </span>case kfrAnnWordBundle:</pre><pre><span
+style='mso-tab-count:3'>                       </span>{ // Block</pre><pre><span
+style='mso-tab-count:4'>                               </span>// Display an annotated word as an inner pile of word, annotation.</pre><pre><span
+style='mso-tab-count:4'>                               </span>// put 10 points between adjacent piles</pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(pvwenv-&gt;put_IntProperty(kspMarginRight, ktpvMilliPoint, 10000));</pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(pvwenv-&gt;OpenInnerPile());</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:4'>                               </span>StrUni stuBase(L&quot;baseline&quot;);</pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(pvwenv-&gt;put_StringProperty(kspNamedStyle, stuBase.Bstr()));</pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(pvwenv-&gt;AddStringProp(ktagBase));</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:4'>                               </span>StrUni stuAnn(L&quot;ann&quot;);</pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(pvwenv-&gt;put_StringProperty(kspNamedStyle, stuAnn.Bstr()));</pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(pvwenv-&gt;AddStringProp(ktagAnn));</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(pvwenv-&gt;CloseInnerPile());</pre><pre><span
+style='mso-tab-count:3'>                       </span>}</pre><pre><span
+style='mso-tab-count:3'>                       </span>break;</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+interlinear bundle is an &quot;inner pile,&quot; one of the few &quot;flow
+objects&quot; in the View subsystem that does not owe its origin to anything in
+HTML. An &quot;inner pile&quot; is a vertical arrangement of components that
+can itself be arranged into paragraphs. The interlinear pile consists mainly of
+the ktagBase and ktagAnn properties of the word.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>In
+addition to this, we see setting of formatting properties. The inner pile has a
+&quot;margin&quot; of 10 points on the right. This keeps the piles a reasonable
+distance apart. Also, the base text is displayed using the named style
+&quot;baseline&quot; and the annotation using the named style &quot;ann.&quot;
+(In real life we would probably make this a little more efficient by making
+these strings member variables.)</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Note
+that this is different from creating the base and annotation strings so that
+they have these styles internally, as we did with the freeform annotation
+string. The freeform annotation string will use those named styles (however the
+style sheet may define them) wherever it is displayed. But the base property
+will be displayed using the baseline style only when it is part of this sort of
+interlinear bundle. (Notice how the same string is displayed quite differently
+below in the table.)</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>It
+is important to understand the scope of such property settings. The view code
+uses the concept of a &quot;flow object,&quot; borrowed from the literature on
+document formatting. A &quot;flow object&quot; is some identifiable part of the
+display on the screen. In View code it is usually identified by calling&nbsp;
+method that starts with &quot;Open,&quot; such as OpenParagraph or OpenTable. A
+single string (added with AddStringProp) is also a flow object.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>A
+property setting is defined to apply to the next flow object opened. Thus, it
+is the inner pile that has a 10-point right margin, and the ktagBase string
+property that has the &quot;baseline&quot; named style property. (Sorry about
+the overloading of the word &quot;property.&quot; The roots are historical.
+Unfortunately, the word &quot;properties&quot; is deeply entrenched in both the
+object/data world and the screen/layout world.)</p>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>5.5
+Tables</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Specifying
+a table is a good deal more complex, especially one this fancy. It starts out
+like this:<o:p></o:p></p>
+
+<pre align=left><span style='mso-tab-count:1'>        </span>case kfrSentTable:</pre><pre><span
+style='mso-tab-count:2'>               </span>// Display table where each row is word, annotation, letter count for each.</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:2'>               </span>// Initialize the table and its column dimensions</pre><pre><span
+style='mso-tab-count:2'>               </span>VwLength vlen;</pre><pre><span
+style='mso-tab-count:2'>               </span>vlen.nVal = 10000; // 100 %</pre><pre><span
+style='mso-tab-count:2'>               </span>vlen.unit = kunPercent100;</pre><pre><span
+style='mso-tab-count:2'>               </span>CheckHr(pvwenv-&gt;OpenTable(5, // columns</pre><pre><span
+style='mso-tab-count:3'>                       </span>&amp;vlen, // 100% of available width</pre><pre><span
+style='mso-tab-count:3'>                       </span>2000, // 2 point border</pre><pre><span
+style='mso-tab-count:3'>                      </span>kvaLeft,<span style='mso-spacerun:yes'>  </span>// align cell contents left (only supported option currently)</pre><pre><span
+style='mso-tab-count:3'>                       </span>kvfpBox,<span style='mso-spacerun:yes'>  </span>// frame table on all sides</pre><pre><span
+style='mso-tab-count:3'>                       </span>kvrlAll,<span style='mso-spacerun:yes'>   </span>// rule between cells on all sides</pre><pre><span
+style='mso-tab-count:3'>                       </span>2000,<span
+style='mso-tab-count:2'>          </span>// spacing between cells 2 pt</pre><pre><span
+style='mso-tab-count:3'>                       </span>3000));<span
+style='mso-tab-count:2'>        </span>// padding within them 3 pt</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:2'>               </span>//first two columns take 30% and 20% of the space</pre><pre><span
+style='mso-tab-count:2'>               </span>vlen.nVal = 3000;</pre><pre><span
+style='mso-tab-count:2'>               </span>CheckHr(pvwenv-&gt;MakeColumnGroup(1,vlen));</pre><pre><span
+style='mso-tab-count:2'>               </span>vlen.nVal = 2000;</pre><pre><span
+style='mso-tab-count:2'>               </span>CheckHr(pvwenv-&gt;MakeColumnGroup(1,vlen));</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:2'>               </span>//next two columns are fixed, 0.6 inch wide</pre><pre><span
+style='mso-tab-count:2'>               </span>vlen.nVal = 72*1000*6/10;</pre><pre><span
+style='mso-tab-count:2'>               </span>vlen.unit = kunPoint1000;</pre><pre><span
+style='mso-tab-count:2'>               </span>CheckHr(pvwenv-&gt;MakeColumnGroup(2,vlen));</pre><pre><span
+style='mso-tab-count:2'>               </span>//use rest of space</pre><pre><span
+style='mso-tab-count:2'>               </span>vlen.unit = kunRelative; // value does not matter for just one relative column</pre><pre><span
+style='mso-tab-count:2'>               </span>CheckHr(pvwenv-&gt;MakeColumns(1,vlen));</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+OpenTable call takes a lot of arguments. First we specify that it is to have
+five columms, and that it should use 100% of the available width: it fills the
+window (or page). A VwLength can also specify an absolute dimension.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Next,
+we specify that it should have a 2-point border. (Most dimensions in Views are
+specified in MilliPoints, one thousandth of a point, or one 72,000th of an inch.)
+We specify a default cell alignment, that we want a border all around the
+table, and that we want borders between the cells. We specify a spacing between
+the cells and a padding within them (between the border and the contents).
+These values can be overridden for individual cells.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Next
+we specify the column layout. The view code is not yet able to adjust column
+widths to optimize the overall table size based on cell contents, but it does
+give you a good bit of control. To illustrate, in this table the first column
+occupies 30% of the available width, the second 20%, the next two a fixed 0.6
+inches, and the final column is left to take all the space left over. Note that
+the first argument to MakeColumnGroup is a column <i>count</i>, not an index.
+Thus, here, all of them are 1 except for the two fixed width columns, which are
+both specified at once.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Now
+we want to construct a table heading. To illustrate how cells can span rows and
+columns, I've made it a fairly complex heading.<o:p></o:p></p>
+
+<pre align=left><span style='mso-tab-count:1'>        </span>CheckHr(pvwenv-&gt;OpenTableHeader());</pre><pre><span
+style='mso-tab-count:2'>               </span>CheckHr(pvwenv-&gt;OpenTableRow());</pre><pre><span
+style='mso-tab-count:3'>                       </span>// Heading cell two rows high saying &quot;Main word&quot;</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;OpenTableCell(2,1));</pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(pvwenv-&gt;AddString(m_qtssMainWord));</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;CloseTableCell());</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:3'>                       </span>// Heading cell two rows high saying &quot;gram. cat.&quot;</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;OpenTableCell(2,1));</pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(pvwenv-&gt;AddString(m_qtssGramCat));</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;CloseTableCell());</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:3'>                       </span>// Heading cell two columns wide saying &quot;letters&quot;</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;OpenTableCell(1,2));</pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(pvwenv-&gt;AddString(m_qtssLetters));</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;CloseTableCell());</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:3'>                       </span>// Heading cell 2 rows high for last column saying &quot;free translation&quot;</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;OpenTableCell(2,1));</pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(pvwenv-&gt;AddString(m_qtssFree));</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;CloseTableCell());</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:2'>               </span>CheckHr(pvwenv-&gt;CloseTableRow());</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+first row of the heading contains the &quot;Main word&quot;, &quot;Gram.
+cat.&quot;, &quot;Letters&quot;, and &quot;Free translation&quot; labels. Note
+that all but the &quot;Letters&quot; cells are two rows high, so that these
+cells will include the vertical space needed for the two subheadings under
+&quot;Letters&quot;. The &quot;Letters&quot; cell is two columns wide.<o:p></o:p></p>
+
+<pre align=left><span style='mso-tab-count:2'>               </span>CheckHr(pvwenv-&gt;OpenTableRow());</pre><pre><span
+style='mso-tab-count:3'>                       </span>// heading for &quot;word&quot; letters</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;OpenTableCell(1,1));</pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(pvwenv-&gt;AddString(m_qtssWord));</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;CloseTableCell());</pre><pre><span
+style='mso-tab-count:3'>                       </span>// heading for &quot;cat&quot; letters</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;OpenTableCell(1,1));</pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(pvwenv-&gt;AddString(m_qtssCat));</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;CloseTableCell());</pre><pre><span
+style='mso-tab-count:2'>               </span>CheckHr(pvwenv-&gt;CloseTableRow());</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+second row of headings just has two cells, containing &quot;Word&quot; and
+&quot;Cat.&quot; Because the first two cells of the second row are taken up by
+the double-height cells in the row above, these cells occupy the third and
+fourth positions on the row.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+third row of heading is just more of the same. All the cells (like most cells)
+are one row by one column. You can check out the code in the full example if
+you wish.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Finally,
+the table is completed like this:</p>
+
+<pre><span style='mso-tab-count:1'>        </span>CheckHr(pvwenv-&gt;CloseTableHeader());</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>// Main part of table.</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(pvwenv-&gt;OpenTableBody());</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(pvwenv-&gt;AddObjVecItems(ktagWords, this, kfrAnnWordRow));</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(pvwenv-&gt;CloseTableBody());</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(pvwenv-&gt;CloseTable());</pre><pre><span
+style='mso-tab-count:1'>        </span>break;</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>We
+close off the table header, start the body, and insert the ktagWords property.
+Each word will be displayed using the kfrAnnWordRow fragment. (Note again the
+power of the fragment mechanism. This is a completely different way of
+displaying an annotated word from the one identified by kfrAnnWordBundle above,
+though we are displaying the same properties of the same objects.)</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+main part of kfrAnnWordRow looks like this:</p>
+
+<pre><span style='mso-tab-count:1'>        </span>case kfrAnnWordRow:</pre><pre><span
+style='mso-tab-count:2'>               </span>{ // BLOCK (so we can have smart pointers defined in it.)</pre><pre><span
+style='mso-tab-count:3'>                       </span>// Display annotated word as row in table.</pre><pre><span
+style='mso-tab-count:3'>                       </span>// If first word in sentence, display fifth cell with freeform ann.</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;OpenTableRow());</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;OpenTableCell(1,1));</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;AddStringProp(ktagBase));</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;CloseTableCell());</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;OpenTableCell(1,1));</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;AddStringProp(ktagAnn));</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;CloseTableCell());</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;OpenTableCell(1,1));</pre><pre><span
+style='mso-tab-count:3'>                       </span>// AddProp needs this even though AddStringProp doesn't..at least to make it editable.</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;OpenParagraph());</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;AddProp(ktagBase, this, kfrStrLength));</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;CloseParagraph());</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;CloseTableCell());</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;OpenTableCell(1,1));</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;OpenParagraph());</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;AddProp(ktagAnn, this, kfrStrLength));</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;CloseParagraph());</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;CloseTableCell());</pre><pre><span
+style='mso-tab-count:3'>                       </span>//... make the fifth column (see below)...</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;CloseTableRow());</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>By
+itself this just defines a four-cell row, as used in most of the table. All is
+bracketed with the OpenTableRow and CloseTableRow calls. The first two cells
+are simple: each just contains a string property of the annotated word object.
+The next two cells repeat the same two properties, but display them quite
+differently: using a mechanism that allows the view constructor to specify what
+the display of these properties will look like. Calling AddProp in this way
+results in a call back to the view constructor, but actually to a different
+method, which we will discuss later.</p>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>5.6
+Getting context information</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Before
+we get on to that, there is one more part of the kfrAnnWordRow case. It goes
+just before the CloseTableRow call, and is responsible for the fifth column. It
+looks like this:</p>
+
+<pre><span style='mso-tab-count:3'>                       </span>int lev;</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(pvwenv-&gt;get_EmbeddingLevel(&amp;lev));</pre><pre><span
+style='mso-tab-count:3'>                       </span><span lang=DE
+style='mso-ansi-language:DE'>HVO hvoOuter;<o:p></o:p></span></pre><pre><span
+lang=DE style='mso-ansi-language:DE'><span style='mso-tab-count:3'>                       </span>int ihvoItem;<o:p></o:p></span></pre><pre><span
+lang=DE style='mso-ansi-language:DE'><span style='mso-tab-count:3'>                       </span>PropTag tagOuter;<o:p></o:p></span></pre><pre><span
+lang=DE style='mso-ansi-language:DE'><span style='mso-tab-count:3'>                       </span></span>CheckHr(pvwenv-&gt;GetOuterObject(lev - 1, &amp;hvoOuter, &amp;tagOuter, &amp;ihvoItem));</pre><pre><span
+style='mso-tab-count:3'>                       </span>if (ihvoItem == 0)</pre><pre><span
+style='mso-tab-count:3'>                       </span>{</pre><pre><span
+style='mso-tab-count:4'>                               </span>// Add a fifth cell containing the freeform annotation.</pre><pre><span
+style='mso-tab-count:4'>                               </span>// It is the full height of the table.</pre><pre><span
+style='mso-tab-count:4'>                               </span>ISilDataAccessPtr qsda;</pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(pvwenv-&gt;get_DataAccess(&amp;qsda));</pre><pre><span
+style='mso-tab-count:4'>                               </span>int cannword;</pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(qsda-&gt;get_VecSize(hvoOuter, tagOuter, &amp;cannword));</pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(pvwenv-&gt;OpenTableCell(cannword,1));</pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(pvwenv-&gt;AddObj(hvoOuter, this, kfrSentFreeform));</pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(pvwenv-&gt;CloseTableCell());</pre><pre><span
+style='mso-tab-count:3'>                       </span>}</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+first part of this code determines whether we are showing the first annotated
+word. This is a bit clumsy; it is the price we pay for the necessary
+independence between the different fragments. If the loop over the words were
+in our own code, we could easily detect the first iteration. As it is, we have
+to make some special requests of the VwEnv to find it out. Even this is perhaps
+more complex than is needed for a simple case like this, because these &quot;context
+finding&quot; methods are designed for a lot of generality. It is possible to
+find out about all the containing objects and properties in the view that our
+fragment is part of. In this case, we need to know how deeply embedded our
+fragment is only so as to pass the correct argument to
+&quot;GetOuterObject&quot;, thus obtaining the HVO of the object of which the
+annotated word is a part (the overall sentence object), the tag (which we
+actually know is ktagWords), and the index of the current word. If that index
+is zero, we go ahead and add a fifth cell.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>There
+is some more trickery needed. We want this cell to occupy the whole table
+height, so its height (in cells) needs to equal the number of annotated words.
+To get this we obtain the data access object from the VwEnv, and ask it for the
+size of the vector. (Note that, in this example, we know the tag is ktagWords.
+It is cleaner, however, to use tagOuter, as is done here. By doing so, this
+fragment could more easily be re-used for a different type of object that
+stores a sequence of annotated words...though in this case, it would also have
+to possess a freeform annotation property.)</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Note,
+too, that the data we are inserting into the fifth cell is not a property of
+the annotated word. Thus, we are not adding one of its properties, although we
+are adding a display of another object using another fragment. This is what the
+AddObj method does: insert a display of an object, where the view mechanism
+does not keep track of the relationship between the objects. In fact, there is
+no property of the annotated word that could change to force a redraw of this
+contained object. The only thing that could happen would be for the annotated
+word to be moved to another sentence (if we had one). But in that case, the
+ktagWords property of the sentence would change, and the whole table would be
+regenerated.</p>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>5.7
+Making custom property displays</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Recall
+that we still need to tell the system how to display a string property as a
+letter count. This is sufficiently unusual that it is not provided as a
+built-in capability, but there is an extension mechanism that gets invoked by
+the AddProp call.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>First,
+since AddProp does not give the view code any clue about what kind of property
+ktagBase is, it goes to the ISilDataAccess method and calls its get_Prop(HVO,
+tag, VARIANT *) method. The data access object must stuff something--in this
+case an ITsString--into the variant, representing the value of the property.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Now,
+the Views code wants to call back to the view constructor, to ask it how to
+display this value using the kfrStrLength fragment. However, it can't call the
+Display method to do this, because Display is defined to display an HVO, not a
+VARIANT. Therefore, the IVwViewConstructor interface has another
+(rarely-implemented) method, DisplayVariant. Here is IeVc's implementation:</p>
+
+<pre>STDMETHODIMP IeVc::DisplayVariant(IVwEnv * pvwenv, VARIANT v, int frag,</pre><pre><span
+style='mso-tab-count:1'>        </span>ITsString ** pptss)</pre><pre>{</pre><pre><span
+style='mso-tab-count:1'>        </span>try</pre><pre><span style='mso-tab-count:
+1'>        </span>{</pre><pre><span style='mso-tab-count:2'>               </span>switch(frag)</pre><pre><span
+style='mso-tab-count:2'>               </span>{</pre><pre><span
+style='mso-tab-count:2'>               </span>case kfrStrLength:</pre><pre><span
+style='mso-tab-count:3'>                       </span>{ // BLOCK, for smart pointers</pre><pre><span
+style='mso-tab-count:4'>                               </span>// Display the length of the string in the variant</pre><pre><span
+style='mso-tab-count:4'>                               </span>SmartVariant svar(v);</pre><pre><span
+style='mso-tab-count:4'>                               </span>ITsStringPtr qtss;</pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(svar.GetObject(IID_ITsString, (void **) &amp;qtss));</pre><pre><span
+style='mso-tab-count:4'>                               </span>int cch;</pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(qtss-&gt;get_Length(&amp;cch));</pre><pre><span
+style='mso-tab-count:4'>                               </span>StrUni stuNumber;</pre><pre><span
+style='mso-tab-count:4'>                               </span>stuNumber.Format(L&quot;%d&quot;, cch);</pre><pre><span
+style='mso-tab-count:4'>                               </span>ITsStrFactoryPtr qtsf;</pre><pre><span
+style='mso-tab-count:4'>                               </span>qtsf.CreateInstance(CLSID_TsStrFactory);</pre><pre><span
+style='mso-tab-count:4'>                               </span>CheckHr(qtsf-&gt;MakeString(stuNumber.Bstr(), StrUtil::ParseEnc(&quot;ENG&quot;), pptss));</pre><pre><span
+style='mso-tab-count:3'>                       </span>}</pre><pre><span
+style='mso-tab-count:3'>                       </span>break;</pre><pre><span
+style='mso-tab-count:2'>               </span>default:</pre><pre><span
+style='mso-tab-count:3'>                       </span>Assert(false);</pre><pre><span
+style='mso-tab-count:3'>                       </span>return WarnHr(E_UNEXPECTED);</pre><pre><span
+style='mso-tab-count:2'>               </span>}</pre><pre><span
+style='mso-tab-count:1'>        </span>}</pre><pre><span style='mso-tab-count:
+1'>        </span>catch (Throwable &amp; thr)</pre><pre><span style='mso-tab-count:
+1'>        </span>{</pre><pre><span style='mso-tab-count:2'>               </span>return thr.Error();</pre><pre><span
+style='mso-tab-count:1'>        </span>}</pre><pre><span style='mso-tab-count:
+1'>        </span>catch (...)</pre><pre><span style='mso-tab-count:1'>        </span>{</pre><pre><span
+style='mso-tab-count:2'>               </span>return WarnHr(E_FAIL);</pre><pre><span
+style='mso-tab-count:1'>        </span>}</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>return S_OK;</pre><pre>}</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>In
+this view constructor we only have one fragment that is displayed as a variant,
+but we keep the usual structure for clarity.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>First,
+we make a smart variant out of the variant argument, which makes it easier to
+work with. We expect the variant to contain an ITsString. (If it doesn't, we'll
+throw an exception...which will get caught and turned back into the COM error
+reporting mechanism by the try/catch block.) We get the length, format it as a
+decimal number, and convert it into an ITsString in English. This string,
+returned to the view mechanism in the pptss argument, is what actually shows up
+in the view.</p>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>5.8
+Editing custom property displays</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>A
+final point illustrated by this sample program is rather contrived. It arises
+out of asking, what should happen if someone attempts to <i>edit</i> the number
+of characters in a word? In a real view, one would probably make this number
+uneditable (though still regenerating when the text of the word changed). But
+for this example we've made it bidirectional. If you compile and run this
+program, you will find that if you edit a number and reduce it, the
+corresponding word gets shorter. If you increase the number, the word gets
+longer (by adding asterisks).</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Now,
+of course, only the view constructor knows what the relationship is between the
+value obtained from the data access object as a variant and the string
+displayed in the view. The View subsystem can't have any built-in idea of how
+to update the data access object to correspond to a change in the string. So,
+to handle editing of variant strings, the view constructor interface has
+another, even more rarely-used method. Here is our sample implementation. (To
+save space I've left out the try/catch block and the switch statement. The
+latter is optional here anyway because we have only one fragment of this
+type..)</p>
+
+<pre>STDMETHODIMP IeVc::UpdateProp(ISilDataAccess * psda, HVO hvoObj, int tag, int frag, ITsString * ptssVal,</pre><pre><span
+style='mso-tab-count:1'>        </span>ITsString ** pptssRepVal)</pre><pre>{</pre><pre><span
+style='mso-tab-count:1'>        </span>pptssRepVal = NULL;</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>// Truncate the string or extend with asterisks.</pre><pre><span
+style='mso-tab-count:1'>        </span>const wchar * pch;</pre><pre><span
+style='mso-tab-count:1'>        </span>int cch;</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(ptssVal-&gt;LockText(&amp;pch, &amp;cch));</pre><pre><span
+style='mso-tab-count:1'>        </span>int cchAttr = _wtoi(pch);</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(ptssVal-&gt;UnlockText(pch));</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>ITsStringPtr qtssAttr;</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(psda-&gt;get_StringProp(hvoObj, tag, &amp;qtssAttr));</pre><pre><span
+style='mso-tab-count:1'>        </span>int cchCur;</pre><pre><span
+style='mso-tab-count:1'>        </span>CheckHr(qtssAttr-&gt;get_Length(&amp;cchCur));</pre><pre><span
+style='mso-tab-count:1'>        </span>// Don't allow outrageous length</pre><pre><span
+style='mso-tab-count:1'>        </span>int cchAttrFix;</pre><pre><span
+style='mso-tab-count:1'>        </span>cchAttrFix = min(cchAttr, 200);</pre><pre><span
+style='mso-tab-count:1'>        </span>cchAttrFix = max(cchAttrFix, 0);</pre><pre><span
+style='mso-tab-count:1'>        </span>if (cchCur != cchAttrFix)</pre><pre><span
+style='mso-tab-count:1'>        </span>{</pre><pre><span style='mso-tab-count:
+2'>               </span>ITsStrBldrPtr qtsb;</pre><pre><span style='mso-tab-count:
+2'>               </span>CheckHr(qtssAttr-&gt;GetBldr(&amp;qtsb));</pre><pre><span
+style='mso-tab-count:2'>               </span>if (cchCur &lt; cchAttr)</pre><pre><span
+style='mso-tab-count:2'>               </span>{</pre><pre><span
+style='mso-tab-count:3'>                       </span>// Add asterisks</pre><pre><span
+style='mso-tab-count:3'>                       </span>int cchExtra = cchAttrFix - cchCur;</pre><pre><span
+style='mso-tab-count:3'>                       </span>wchar rgbuf[201];</pre><pre><span
+style='mso-tab-count:3'>                       </span>for (wchar * pchBuf = rgbuf; pchBuf &lt; rgbuf + cchExtra; pchBuf++)</pre><pre><span
+style='mso-tab-count:4'>                               </span><span lang=DE
+style='mso-ansi-language:DE'>*pchBuf = '*';<o:p></o:p></span></pre><pre><span
+lang=DE style='mso-ansi-language:DE'><span style='mso-tab-count:3'>                       </span>ITsTextPropsPtr qttp;<o:p></o:p></span></pre><pre><span
+lang=DE style='mso-ansi-language:DE'><span style='mso-tab-count:3'>                       </span></span>CheckHr(qtssAttr-&gt;get_PropertiesAt(cchCur, &amp;qttp));</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(qtsb-&gt;ReplaceRgch(cchCur, cchCur, rgbuf, cchExtra, qttp));</pre><pre><span
+style='mso-tab-count:2'>               </span>}</pre><pre><span
+style='mso-tab-count:2'>               </span>else</pre><pre><span
+style='mso-tab-count:2'>               </span>{</pre><pre><span
+style='mso-tab-count:3'>                       </span>// truncate string</pre><pre><span
+style='mso-tab-count:3'>                       </span>CheckHr(qtsb-&gt;ReplaceRgch(cchAttrFix, cchCur, NULL, 0, NULL));</pre><pre><span
+style='mso-tab-count:2'>               </span>}</pre><pre><span
+style='mso-tab-count:2'>               </span>ITsStringPtr qtssNew;</pre><pre><span
+style='mso-tab-count:2'>               </span>CheckHr(qtsb-&gt;GetString(&amp;qtssNew));</pre><pre><span
+style='mso-tab-count:2'>               </span>CheckHr(psda-&gt;SetString(hvoObj, tag, qtssNew));</pre><pre><span
+style='mso-tab-count:1'>        </span>}</pre><pre><span style='mso-tab-count:
+1'>        </span>else if (cchAttr != cchAttrFix)</pre><pre><span
+style='mso-tab-count:1'>        </span>{</pre><pre><span style='mso-tab-count:
+2'>               </span>// If we updated the attr, the length will get updated automatically.</pre><pre><span
+style='mso-tab-count:2'>               </span>// If we didn't, and it was out of range, need to fix.</pre><pre><span
+style='mso-tab-count:2'>               </span>wchar_t buf[20];</pre><pre><span
+style='mso-tab-count:2'>               </span>swprintf(buf, L&quot;%d&quot;, cchAttrFix);</pre><pre><span
+style='mso-tab-count:2'>               </span>ITsStrFactoryPtr qtsf;</pre><pre><span
+style='mso-tab-count:2'>               </span>qtsf.CreateInstance(CLSID_TsStrFactory);</pre><pre><span
+style='mso-tab-count:2'>               </span>CheckHr(qtsf-&gt;MakeStringRgch(buf, wcslen(buf), StrUtil::ParseEnc(&quot;ENG&quot;), pptssRepVal));</pre><pre><span
+style='mso-tab-count:1'>        </span>}</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:1'>        </span>return S_OK;</pre><pre>}</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+method is passed the ISilDataAccess, which typically we will update as a result
+of the edit. It also gets the HVO and tag that are being edited, and the new
+value of the string (the edited number). It begins by getting the characters of
+the string and parsing them to determine what new length the user is proposing.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Next,
+we read the old string property, and obtain its current length. If they are not
+the same we have to fix things. Before doing anything else we check for an
+outrageous length...we don't want to generate a string that has tens of
+thousands of characters.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Then,
+if the string needs to get shorter, we truncate it. Because ITsStrings are
+immutable, this involves getting a string builder and using it to create a new
+string object. If the string needs to get longer we add some asterisks.
+Finally, we write the new string value back into the ISilDataAccess. This
+automatically updates the display, including the display of the length.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Suppose,
+however, that the string was already at the length limit and the user tried to
+increase it. The program will reduce the length back to 200, and the string
+will not change. Therefore there is no change to the property to cause a
+display update. To keep things consistent, we need to change the displayed
+length back to the limit. The last block of code does this by taking advantage
+of the opportunity of passing back to the Views system a string that ought to
+replace the one that resulted from the user's editing.</p>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>5.9
+Displaying sequences</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>There
+is one more method of IVwViewConstructor that we have not yet illustrated. It
+is the DisplayVec method. In the examples above, when we want to display a
+property that contains a sequence (sometimes called a vector) of objects, we
+used AddObjVecItems. This results in a call to Display() for each item. The
+views code handles retrieving the items and looping through them. But it is
+also possible to call AddObjVec, which tells the Views code that you want to
+deal with the vector as a whole. This will instead result in a call to
+DisplayVec, which is passed the VwEnv, the HVO, the tag, and the fragment
+identifier which you passed to AddObjVec. To get equivalent behavior to
+AddObjVecItems, you would implement DisplayVec to obtain the ISilDataAccess
+object from the VwEnv, obtain the count of items in the vector, then enter a
+loop retrieving the objects and displaying each of them. (To produce the exact
+effect, you would call Display.)</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Why
+would you want to do all this work yourself? Typically because you don't want
+to display the sequence of objects by just generating a particular view of each
+object in turn. For example, you might want to</p>
+
+<ul type=disc>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l6 level1 lfo12;tab-stops:list .5in'>Select only some of the
+	 items to display.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l6 level1 lfo12;tab-stops:list .5in'>Change the order of the
+	 items.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l6 level1 lfo12;tab-stops:list .5in'>Show some items more than
+	 once. (For example, you might have a list of dictionary entries, and
+	 organize them by the glosses of their senses, resulting in a given entry
+	 appearing several times.)</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l6 level1 lfo12;tab-stops:list .5in'>Insert separators, such as
+	 commas in a sub-paragraph list, or a special heading between letters of
+	 the alphabet in a paragraph sequence.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l6 level1 lfo12;tab-stops:list .5in'>Do something special that
+	 depends on the length of the list; the most common example is to display
+	 some indication of an empty list.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l6 level1 lfo12;tab-stops:list .5in'>Make a context-sensitive display,
+	 where the display of one item depends on others. For example, in the
+	 display of a word's morphemes, you might choose to bold the root, but only
+	 if there is at least one affix.</li>
+</ul>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>You
+should <i>not</i> use AddObjVec unless there is some definite reason for it.
+Apart from the extra work involved, the views code implements optimizations
+where a small change to a vector (such as inserting an object) only recomputes
+the part of the display that corresponds to that object. This optimization can
+be done with AddObjVecItems, because the program knows exactly where objects
+start and end and that there are no dependencies between them.&nbsp; With
+AddObjVec, the views code must recompute the display of the whole vector.</p>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>5.10
+What else is there?</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>We've
+covered the most commonly used features of the IVwEnv interface that you need
+to know for creating view constructors, and several of the less commonly used
+ones. Here is a brief summary of some others you might use.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><span
+class=GramE>AddLazyVecItems.</span> This supports &quot;lazy&quot; computation
+of view layout. Appropriate use of this function allows a document that may be
+hundreds of pages long to be quickly brought onto the screen, because only the
+part that is visible gets fully computed.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>NoteDependency.
+Use this method to tell the View that part of your display depends on the value
+of a property that the view code would not otherwise know about. For example,
+if you tell the view code to AddObjVec and pass arguments indicating a
+particular property of a particular object is to be displayed, then the view
+code automatically knows that if that property changes, the display needs to
+change. But, suppose you are displaying only those lex entries in the sequence
+that have more than one sense. If the senses property of any of the entries
+changes, your display needs to update! But the view code does not know this.
+Using this mechanism, you can tell the Views code to recompute the display of
+this property if any of the senses properties changes.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>AddStringAltMember.
+Use this in place of AddStringProp for &quot;multilingual&quot; properties,
+where you need to specify which encoding of the property value you want to
+show. (The interface has other methods for dealing with multilingual
+properties, but only this one is currently implemented.)</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>AddWindow.
+This is intended to allow you to embed an arbitrary window (with contents and
+behavior under your control) in the middle of a view. It is not yet
+implemented.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>AddSeparatorBar.
+This inserts the standard &quot;separator bar&quot; used in FieldWorks data
+entry views to separate items in a list of references.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>AddSimpleRect.
+This just inserts a colored rectangle. It is currently used to help create
+previews, where the rectangles stand for arbitrary text.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Open/CloseDiv
+and Open/CloseSpan. A Division is a group of paragraphs, while a span is a
+group of strings within a paragraph. Grouping them in divisions and spans makes
+it easier to specify common properties. (The flow object names are taken from
+HTML.)</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>OpenTaggedPara.
+This creates a paragraph which supports the kind of overlay tagging used in the
+Data Notebook. This probably deserves a whole section of this document to
+itself, but I'm not going to write it until someone else wants to use it.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>OpenMappedPara.
+This is used for an even smarter kind of paragraph that can replace an object
+character with information computed from a reference attached to it. We use it
+for hot links and in displaying object references within a filter.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>OpenConcPara.
+This is used to make concordance lines: paragraphs that always occupy a single
+line, and align a keyword at a particular position, and can bold the keyword.
+They should normally be used inside table cells, which clip their contents,
+since there is no guarantee that a concordance paragraph will draw only within
+the space allocated to it. We may well add more options to this feature.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>StringWidth.
+(Actually get_StringWidth.) This allows you to measure the space that a
+particular string will take up in the display. A typical use is to adjust table
+column widths.</p>
+
+<h1 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>6
+IVwSelection</h1>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Selections
+in the Views code can happen in one of two ways. The most usual is that some
+user action is interpreted by the views code as creating a selection. Clicks,
+shift-clicks, double-clicks, and drags have their usual effects. Text editing
+moves the selection around in the expected ways. It is also possible for a
+selection to be created under the control of the client program. For example,
+you may wish to select at the start of a particular record, or to select the
+text of a word that has been &quot;found&quot;.</p>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>6.1
+The information in a selection</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Conceptually,
+a selection is represented as two positions in the text displayed in a window.
+One of these is considered to be the &quot;anchor&quot; (the place the user
+clicked) and the other the &quot;end-point&quot; (where he dragged to).
+Sometimes the two positions are the same (this is called an insertion point).
+We can represent this information as character offsets into paragraphs, but
+that is often not very useful.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Consider
+this diagram, which represents some quite complex information represented as a
+paragraph:</p>
+
+<p align=center style='text-align:center;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'><img
+border=0 width=701 height=334 id="_x0000_i1030"
+src="../Architecture/Diagrams/Views_Notifier_Hierarchy.gif"></p>
+
+<p align=center style='text-align:center;tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Figure
+4: A paragraph with an indication of how it breaks down into objects and
+properties.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Suppose
+we have selected the &quot;is&quot; in &quot;that is correct.&quot; That is,
+characters 40 and 41 in the overall paragraph. That doesn't tell you much.
+However, knowing that it is characters 5 and 6 of the translation of example
+1.1 is likely to be more useful. To that we can add the information that
+example 1.1 is item 0 in the examples of sense 1, which is sense 0 in the
+senses of the top level entry.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>We
+can also reverse this process: ask the system to create a selection that is
+characters 5 and 6 of the translation of sentence 0 in the examples of sense 0
+of the root entry.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>In
+general, then, the information we use to describe a selection consists of a
+path from the root object down to a particular string property of a particular
+object. Each step in the path involves a tag which identifies the property, and
+if it is a sequence property, the position in the sequence.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>(Note:
+there are also picture selections. These have some of the same behaviors.)</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>In
+this simple example, it would actually be enough to just say that we have
+selected characters 5-6 of the translation of example 1.1. However, in general,
+a display could contain the same property of the same object in more than one
+place. So an unambiguous specification of the selection needs to include the
+full path. Also, in a large display, searching the whole thing for the display
+of example 1.1 could be expensive, particularly if example 1.1 happens to be
+data that we have not yet loaded. (It's even worse if we want something in
+example 1.2, but have to load example 1.1 in order to search through it.) For
+all these reasons, when specifying a selection, it is necessary to give a full
+path.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>There
+are three complications to the process of specifying the path to a selection
+that we have not yet considered.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>First,
+it is possible for a view to have more than one top-level, or root, object.
+Thus, in general, the path to a selection includes an index into the list of
+root objects.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Next,
+the terminal property, containing the actual characters selected, might be a
+multlingual one. In that case, it is important to know which alternative the
+selection is part of (especially if more than one is visible).</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Finally,
+it is possible that a property is displayed more than once. Consider a display
+of a document which first displays its sections using a fragment identifier
+that produces just the title of a section (thus producing a table of contents),
+and then displays the sections again using a different fragment identifier to
+produce the actual content. Now it is not enough just to know that the
+selection is in the title of section 4 of the document; we have to know whether
+it is in the first or second occurrence of the sections property in the display
+of the document.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Thus,
+in general, one step in the path from the root down to the actual selection
+consists of a property tag, a count indicating how many previous occurrences of
+that property there have been in the display of the parent object (usually 0),
+and an index into the property (in case it is a sequence one). Thus, the
+complete specification of the 'Which' above looks like this:</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>0
+(indicates the first and only root object Entry)</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>kflidLexEntry_Senses,
+0 (the first occurrence of senses in the entry), 0 (first sense in the
+property)</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>kflidLexSense_Examples,
+0 (first occurrence of examples property), 1 (second example)</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>kflidLexExampleSentence_Translation,
+0 (first occurrence of property), 0 (a dummy, basic properties can't be
+sequence)</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>740664001
+(indicates the English alternative of the translation)</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>0,
+5 (indicates the range of characters within the property)</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>If
+this seems clumsy, you might consider that it will continue to work even if one
+or more of the preceding strings in the paragraph is edited.</p>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>6.2
+Setting a selection programmatically</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Often,
+you don't have to give the complete path. For example, if the user has
+performed an action that should result in placing the insertion point at the
+start of the second example of the first sense, only the first two steps in the
+above path are needed.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>For
+example, the following code selects at the start of a particular item at
+position (ihvoCurr) from a sequence of records in the research notebook:</p>
+
+<pre><span style='mso-tab-count:1'>        </span>VwSelLevInfo vsli;</pre><pre><span
+style='mso-tab-count:1'>        </span>vsli.tag = kflidRnResearchNotebook_Records;</pre><pre><span
+style='mso-tab-count:1'>        </span>vsli.cpropPrevious = 0;</pre><pre><span
+style='mso-tab-count:1'>        </span>vsli.ihvo = ihvoCurr;</pre><pre><span
+style='mso-tab-count:1'>        </span>// DO NOT CheckHr. This can legitimately fail, e.g., if there are no editable fields.</pre><pre><span
+style='mso-tab-count:1'>        </span>prbvw-&gt;m_qrootb-&gt;MakeTextSelInObj(</pre><pre><span
+style='mso-tab-count:2'>               </span>0, // index of the one and only root object in this view</pre><pre><span
+style='mso-tab-count:2'>               </span>1, // the object we want is one level down</pre><pre><span
+style='mso-tab-count:2'>               </span>&amp;vsli, // and here's how to find it there</pre><pre><span
+style='mso-tab-count:2'>               </span>true, // select at the start of it</pre><pre><span
+style='mso-tab-count:2'>               </span>true, // Find an editable field</pre><pre><span
+style='mso-tab-count:2'>               </span>false); // and don't select a range.</pre><pre><span
+style='mso-tab-count:1'>        </span>prbvw-&gt;MakeSelectionVisible();</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>You
+can think of a VwSelLevelInfo as one triple in the lists above. It indicates a
+particular property of the next higher object, a particular occurrence of that
+property, and a particular object within it.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>A
+considerably more complex example of the sorts of tricks you can do with
+selections may be found in the AfDeFeTags class.</p>
+
+<h2 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>6.3
+Getting information about a selection</h2>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Here
+is a real-life example of getting information about a selection:</p>
+
+<pre>/*----------------------------------------------------------------------------------------------</pre><pre><span
+style='mso-tab-count:1'>        </span>Overridden to track the current record in order to update the status bar and keep things</pre><pre><span
+style='mso-tab-count:1'>        </span>synchronized if the user changes view.</pre><pre>----------------------------------------------------------------------------------------------*/</pre><pre>STDMETHODIMP RnBrowseSplitChild::SelectionChanged(IVwSelection * pvwselNew)</pre><pre>{</pre><pre><span
+style='mso-tab-count:1'>        </span>try</pre><pre><span style='mso-tab-count:
+1'>        </span>{</pre><pre><span style='mso-tab-count:2'>               </span>if (!pvwselNew)</pre><pre><span
+style='mso-tab-count:3'>                       </span>return S_OK;</pre><pre><span
+style='mso-tab-count:2'>               </span>int cvsli;</pre><pre><span
+style='mso-tab-count:2'>               </span>CheckHr(pvwselNew-&gt;CLevels(false, &amp;cvsli));</pre><pre><span
+style='mso-tab-count:2'>               </span>// CLevels includes the string property itself, but AllTextSelInfo doesn't need it.</pre><pre><span
+style='mso-tab-count:2'>               </span>cvsli--;</pre><pre><span
+style='mso-tab-count:2'>               </span>if (cvsli == -1)</pre><pre><span
+style='mso-tab-count:2'>               </span>{</pre><pre><span
+style='mso-tab-count:3'>                       </span>// NOTE: This means that clicking on the &quot;date created&quot; field in the browse view</pre><pre><span
+style='mso-tab-count:3'>                       </span>// does not change the setting of the &quot;current record&quot;, which can lead to seemingly</pre><pre><span
+style='mso-tab-count:3'>                       </span>// unpredictable results in cursor placement by TAB or Shift-TAB.</pre><pre><span
+style='mso-tab-count:3'>                       </span>// HOW CAN WE DETERMINE THE PROPER VALUE OF ihvoCurr???</pre><pre><span
+style='mso-tab-count:3'>                       </span>return S_OK;</pre><pre><span
+style='mso-tab-count:2'>               </span>}</pre><pre><span
+style='mso-tab-count:2'>               </span>if (cvsli &lt;= 0)</pre><pre><span
+style='mso-tab-count:2'>               </span>{</pre><pre><span
+style='mso-tab-count:3'>                       </span>// Some strange selection, perhaps a literal string, can't handle as yet.</pre><pre><span
+style='mso-tab-count:3'>                       </span>return S_OK;</pre><pre><span
+style='mso-tab-count:2'>               </span>}</pre><pre><span
+style='mso-tab-count:2'>               </span>VwSelLevInfo * prgvsli;</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:2'>               </span>prgvsli = NewObj VwSelLevInfo[cvsli];</pre><pre><span
+style='mso-tab-count:2'>               </span>int ihvoRoot;</pre><pre><span
+style='mso-tab-count:2'>               </span>PropTag tagTextProp;</pre><pre><span
+style='mso-tab-count:2'>               </span>int cpropPrevious;</pre><pre><span
+style='mso-tab-count:2'>               </span>int ichAnchor;</pre><pre><span
+style='mso-tab-count:2'>               </span>int ichEnd;</pre><pre><span
+style='mso-tab-count:2'>               </span>int enc;</pre><pre><span
+style='mso-tab-count:2'>               </span>ComBool fAssocPrev;</pre><pre><span
+style='mso-tab-count:2'>               </span>int ihvoEnd;</pre><pre><span
+style='mso-tab-count:2'>               </span>CheckHr(pvwselNew-&gt;AllTextSelInfo(&amp;ihvoRoot, cvsli, prgvsli, &amp;tagTextProp,</pre><pre><span
+style='mso-tab-count:3'>                       </span>&amp;cpropPrevious, &amp;ichAnchor, &amp;ichEnd, &amp;enc, &amp;fAssocPrev, &amp;ihvoEnd));</pre><pre><span
+style='mso-tab-count:2'>               </span>int ihvoCurr = prgvsli[cvsli - 1].ihvo;</pre><pre><span
+style='mso-tab-count:2'>               </span>delete[] prgvsli;</pre><pre><o:p>&nbsp;</o:p></pre><pre><span
+style='mso-tab-count:2'>               </span>RnMainWnd * prmw = dynamic_cast&lt;RnMainWnd *&gt;(m_prdwParent-&gt;MainWindow());</pre><pre><span
+style='mso-tab-count:2'>               </span>prmw-&gt;SetCurRecIndex(ihvoCurr);</pre><pre><span
+style='mso-tab-count:2'>               </span>prmw-&gt;UpdateCaptionBar();</pre><pre><span
+style='mso-tab-count:2'>               </span>prmw-&gt;UpdateStatusBar();</pre><pre><span
+style='mso-tab-count:1'>        </span>}<span style='mso-tab-count:1'>       </span></pre><pre><span
+style='mso-tab-count:1'>        </span>catch (Throwable &amp; thr)</pre><pre><span
+style='mso-tab-count:1'>        </span>{</pre><pre><span style='mso-tab-count:
+2'>               </span>return thr.Error();</pre><pre><span style='mso-tab-count:
+1'>        </span>}</pre><pre><span style='mso-tab-count:1'>        </span>catch (...)</pre><pre><span
+style='mso-tab-count:1'>        </span>{</pre><pre><span style='mso-tab-count:
+2'>               </span>return WarnHr(E_FAIL);</pre><pre><span
+style='mso-tab-count:1'>        </span>}</pre><pre><span style='mso-tab-count:
+1'>        </span>return S_OK;<span style='mso-tab-count:1'>   </span></pre><pre>}</pre>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>The
+basis of this method is that RnBrowseSplitChild inherits from
+AfBrowseSplitChild, and hence from IVwRootSite, and is thus the
+&quot;site&quot; with which the browse view communicates when something
+interesting happens. One of the methods in this interface is SelectionChanged,
+which is used to notify the site of selection changes. By overriding it, the
+browse view arranges to get such notifications.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>If
+there is no selection, of course we can't do anything. But in most cases, we
+can successfully retrieve the depth of nesting of the selection. We need this
+in order to make sure that we allocate enough memory for the list of
+VwSelLevInfo objects. Note especially the decrement: the total number of
+&quot;levels&quot; of property nesting is one more than the number of VwSelInfo
+objects, because we don't have a VwSelInfo for the last property, the actual
+string.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>We
+allocate memory for the VwSelInfo objects. By taking advantage of knowledge of
+the maximum depth of a particular view, we could instead create an array on the
+stack; but this code is not performance-critical, and allocating the correct
+amount as determined by the view itself guarantees that our code will continue
+to work even if the view changes, making things more robust.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>AllTextSelInfo
+returns absolutely everything about the selection: enough, in the case of any
+selection that allows editing, to re-create it. It tells us which of the
+top-level root objects the selection is in (ihvoRoot), fills in VwSelLevelInfo
+objects to give a path from the root down to the object that most directly
+contains the anchor, tells us what occurrence (cpropPrevious) of what encoding
+(enc) of what property (tagTextProp) of that object contains the anchor, and
+what character position within that property is the anchor position and end
+point. If the selection is an insertion point, it tells us whether it is more
+closely associated with the previous or following character (fAssocPrev). If
+the selection is not within a single property, currently the only way it can be
+editable is if it spans a range of objects one level up from the string
+property, and only one string property from each object is displayed. In this
+case the information is completed with the index of the object containing the
+end point. (We need eventually to generalize this yet more...)</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>In
+this case, we only want to know what object is selected at the level
+immediately below the root. This comes from prgvsli[cvsli - 1].ihvo. Once we
+have that, we free the memory we allocated. (Note: as the method stands, a
+memory leak will happen if AllTextSelInfo returns an error code. This should be
+improved.) Having obtained the information, we use it to update a status bar.</p>
+
+<h1 style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>7
+Where next?</h1>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>This
+concludes the introduction to using views. Where do you go for more
+information?</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>There
+are many real-life examples of using views in the Data Notebook and WorldPad.
+The Document and Browse views offer some complex examples of customizable views.
+The data entry framework (see AfDe classes in AppCore) uses views extensively.
+WorldPad offers a real-life example of using View code without a database
+connection.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>You
+should note that, if you use the AfVwWnd classes, you get the standard
+FieldWorks format dialogs almost for free. Basically you just have to put the
+appropriate commands in your menu bar with the correct command codes. If you
+want the format toolbar there is a little more work to do, especially keeping
+it up to date as the selection changes. You can find the code to do this in the
+Data Notebook or WorldPad. I won't explain it in detail here as it may change
+as we improve encapsulation yet further.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>You
+can study the interfaces in Views.idh to get the more formal documentation of
+what the various methods do. You will probably also need to study the
+interfaces in TextServe.idh (FwKernel) to learn how to use ITsString and
+ITsTextProps and related classes.</p>
+
+<p style='tab-stops:45.8pt 91.6pt 137.4pt 183.2pt 229.0pt 274.8pt 320.6pt 366.4pt 412.2pt 458.0pt 503.8pt 549.6pt 595.4pt 641.2pt 687.0pt 732.8pt'>Please
+feel free to suggest topics that should be covered in more depth here or elsewhere.</p>
+
+</div>
+
+</body>
+
+</html>

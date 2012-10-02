@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!-- This include file modifies the path variable for use with VS 2003 when installed in the
+default location.-->
+<project name="VS2003Paths" default="dummy">
+	<readregistry property="environment-path" key="SYSTEM\CurrentControlSet\Control\Session Manager\Environment\Path"
+		hive="LocalMachine"/>
+	<regex pattern="(?'start'.*;|^)(?'mypath'.*)C:\\HEREITIS;.*;C:\\THEEND(?'end'.*)"
+		input="${environment-path}" failonerror="false"/>
+	<ifnot propertyexists="mypath">
+		<property name="start" value="${environment-path};"/>
+		<property name="end" value=""/>
+	</ifnot>
+
+	<setenv name="Path" value="${start}C:\HEREITIS;C:\Program Files\Microsoft Visual Studio .NET 2003\Common7\IDE;C:\Program Files\Microsoft Visual Studio .NET 2003\VC7\BIN;C:\Program Files\Microsoft Visual Studio .NET 2003\Common7\Tools;C:\Program Files\Microsoft Visual Studio .NET 2003\Common7\Tools\bin;C:\Program Files\Microsoft Visual Studio .NET 2003\SDK\v1.1\bin;C:\WINDOWS\Microsoft.NET\Framework\v1.1.4322;${fwroot}\bin;${fwroot}\bin\nant\bin;C:\THEEND${end}"
+		global="true"/>
+	<setenv name="INCLUDE" value="C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\Include;C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\Include;C:\Program Files\Microsoft Visual Studio .NET 2003\SDK\v1.1\include\;C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\atlmfc\Include"
+		 global="true"/>
+	<setenv name="LIB" value="C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\Lib;C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\Lib;C:\Program Files\Microsoft Visual Studio .NET 2003\SDK\v1.1\Lib\;C:\Program Files\Microsoft Visual Studio .NET 2003\Vc7\atlmfc\lib"
+		 global="true"/>
+</project>

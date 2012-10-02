@@ -1,0 +1,1377 @@
+MIME-Version: 1.0
+Content-Location: file:///C:/2869C635/MigratetoVS2005.htm
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="us-ascii"
+
+<html xmlns:v=3D"urn:schemas-microsoft-com:vml"
+xmlns:o=3D"urn:schemas-microsoft-com:office:office"
+xmlns:w=3D"urn:schemas-microsoft-com:office:word"
+xmlns=3D"http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=3DContent-Type content=3D"text/html; charset=3Dus-ascii">
+<meta name=3DProgId content=3DWord.Document>
+<meta name=3DGenerator content=3D"Microsoft Word 11">
+<meta name=3DOriginator content=3D"Microsoft Word 11">
+<link rel=3DFile-List href=3D"MigratetoVS2005_files/filelist.xml">
+<title>Setting up Visual Studio 2005</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Alistair Imrie</o:Author>
+  <o:LastAuthor>John Thomson</o:LastAuthor>
+  <o:Revision>9</o:Revision>
+  <o:TotalTime>386</o:TotalTime>
+  <o:Created>2006-06-06T14:38:00Z</o:Created>
+  <o:LastSaved>2006-07-21T19:49:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>1271</o:Words>
+  <o:Characters>7251</o:Characters>
+  <o:Company>SIL International</o:Company>
+  <o:Lines>60</o:Lines>
+  <o:Paragraphs>17</o:Paragraphs>
+  <o:CharactersWithSpaces>8505</o:CharactersWithSpaces>
+  <o:Version>11.6568</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:View>Print</w:View>
+  <w:Zoom>150</w:Zoom>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:PunctuationKerning/>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SnapToGridInCell/>
+   <w:WrapTextWithPunct/>
+   <w:UseAsianBreakRules/>
+   <w:DontGrowAutofit/>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState=3D"false" LatentStyleCount=3D"156">
+ </w:LatentStyles>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Helvetica;
+	panose-1:2 11 6 4 2 2 2 2 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:536902279 -2147483648 8 0 511 0;}
+@font-face
+	{font-family:"Tms Rmn";
+	panose-1:2 2 6 3 4 5 5 2 3 4;
+	mso-font-alt:"Times New Roman";
+	mso-font-charset:0;
+	mso-generic-font-family:roman;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:3 0 0 0 1 0;}
+@font-face
+	{font-family:Helv;
+	panose-1:2 11 6 4 2 2 2 3 2 4;
+	mso-font-alt:Arial;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-format:other;
+	mso-font-pitch:variable;
+	mso-font-signature:3 0 0 0 1 0;}
+@font-face
+	{font-family:SimSun;
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-alt:\5B8B\4F53;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 135135232 16 0 262145 0;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:1627421319 -2147483648 8 0 66047 0;}
+@font-face
+	{font-family:"\@SimSun";
+	panose-1:2 1 6 0 3 1 1 1 1 1;
+	mso-font-charset:134;
+	mso-generic-font-family:auto;
+	mso-font-pitch:variable;
+	mso-font-signature:3 135135232 16 0 262145 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:Arial;
+	mso-fareast-font-family:SimSun;
+	mso-bidi-font-family:"Times New Roman";}
+h1
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:16.0pt;
+	font-family:Arial;
+	mso-font-kerning:16.0pt;}
+h2
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:2;
+	font-size:14.0pt;
+	font-family:Arial;
+	font-style:italic;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;
+	text-underline:single;}
+p.TOCHeading, li.TOCHeading, div.TOCHeading
+	{mso-style-name:"TOC Heading";
+	mso-style-update:auto;
+	mso-style-parent:"";
+	mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:.5in;
+	text-indent:-.25in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-list:l4 level1 lfo2;
+	tab-stops:list .5in left .6in;
+	background:#FFFF99;
+	font-size:12.0pt;
+	font-family:Tahoma;
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	font-variant:small-caps;
+	color:#333399;
+	mso-font-kerning:16.0pt;
+	font-weight:bold;}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:.5in .5in .5in .5in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:-2;
+	mso-list-type:simple;
+	mso-list-template-ids:-311628322;}
+@list l0:level1
+	{mso-level-start-at:0;
+	mso-level-number-format:bullet;
+	mso-level-text:*;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	margin-left:0in;
+	text-indent:0in;}
+@list l1
+	{mso-list-id:1018577838;
+	mso-list-type:hybrid;
+	mso-list-template-ids:149428652 67698703 67698713 67698715 67698703 676987=
+13 67698715 67698703 67698713 67698715;}
+@list l1:level1
+	{mso-level-tab-stop:.25in;
+	mso-level-number-position:left;
+	margin-left:.25in;
+	text-indent:-.25in;}
+@list l1:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l1:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l2
+	{mso-list-id:1279029089;
+	mso-list-template-ids:1779077042;}
+@list l3
+	{mso-list-id:1314216084;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-865722496 1891921938 67698713 67698715 67698703 676=
+98713 67698715 67698703 67698713 67698715;}
+@list l3:level1
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;
+	font-family:Helv;
+	mso-bidi-font-family:Helv;}
+@list l3:level2
+	{mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level3
+	{mso-level-tab-stop:1.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l3:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4
+	{mso-list-id:1932734400;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1266050094 -820639040 67698713 67698715 67698703 676=
+98713 67698715 67698703 67698713 67698715;}
+@list l4:level1
+	{mso-level-style-link:"TOC Heading";
+	mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level3
+	{mso-level-number-format:roman-lower;
+	mso-level-tab-stop:1.5in;
+	mso-level-number-position:right;
+	text-indent:-9.0pt;}
+@list l4:level4
+	{mso-level-tab-stop:2.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level5
+	{mso-level-tab-stop:2.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level6
+	{mso-level-tab-stop:3.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level7
+	{mso-level-tab-stop:3.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level8
+	{mso-level-tab-stop:4.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l4:level9
+	{mso-level-tab-stop:4.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level1 lfo6
+	{mso-level-numbering:continue;
+	mso-level-text:\2022;
+	mso-level-tab-stop:none;
+	mso-level-number-position:left;
+	mso-level-legacy:yes;
+	mso-level-legacy-indent:0in;
+	mso-level-legacy-space:0in;
+	margin-left:0in;
+	text-indent:0in;
+	font-family:Helv;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";
+	mso-ansi-language:#0400;
+	mso-fareast-language:#0400;
+	mso-bidi-language:#0400;}
+</style>
+<![endif]-->
+</head>
+
+<body lang=3DEN-US link=3Dblue vlink=3Dpurple style=3D'tab-interval:.5in'>
+
+<div class=3DSection1>
+
+<h1 align=3Dcenter style=3D'text-align:center'>Setting up Visual Studio 200=
+5</h1>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;mso-layout-grid-align:none;
+text-autospace:none'><span style=3D'mso-bidi-font-family:Arial;color:black'=
+><o:p>&nbsp;</o:p></span></p>
+
+<p class=3DMsoNormal style=3D'mso-layout-grid-align:none;text-autospace:non=
+e'><i
+style=3D'mso-bidi-font-style:normal'><span style=3D'mso-bidi-font-family:Ar=
+ial;
+color:black'>The most recent version of this document is checked in to Perf=
+orce
+as <a href=3D"file:///C:\fw\Doc\FieldWorks%20Setup\Migrate%20to%20VS%202005=
+.mht"><span
+class=3DSpellE>fw\Doc\FieldWorks</span> Setup\Migrate to VS 2005.mht</a>.<o=
+:p></o:p></span></i></p>
+
+<p class=3DMsoNormal style=3D'mso-layout-grid-align:none;text-autospace:non=
+e'><span
+style=3D'mso-bidi-font-family:Arial;color:black'><o:p>&nbsp;</o:p></span></=
+p>
+
+<p class=3DMsoNormal style=3D'mso-layout-grid-align:none;text-autospace:non=
+e'><span
+style=3D'mso-bidi-font-family:Arial;color:black'>These instructions tell yo=
+u how
+to set up your machine for Visual Studio 2005 to build </span>the Perforce
+trunk of<span style=3D'mso-bidi-font-family:Arial;color:black'> FieldWorks =
+which
+will have a VS 2005 version after Monday, June 12, 2006. It assumes you are
+starting with a working FW build on VS 2003. Several of these steps can be =
+run
+concurrently &#8211; use common sense: it&#8217;s not a good idea to run
+anything else while Windows Installer is installing something, and you simp=
+ly
+can&#8217;t run more than one instance of Windows Installer at once.<o:p></=
+o:p></span></p>
+
+<p class=3DMsoNormal style=3D'mso-layout-grid-align:none;text-autospace:non=
+e'><span
+style=3D'mso-bidi-font-family:Arial;color:black'><o:p>&nbsp;</o:p></span></=
+p>
+
+<p class=3DMsoNormal style=3D'mso-layout-grid-align:none;text-autospace:non=
+e'><b
+style=3D'mso-bidi-font-weight:normal'><span style=3D'mso-bidi-font-family:A=
+rial;
+color:black'>Estimated time to complete: 2 to 3 hours</span></b><span
+style=3D'mso-bidi-font-family:Arial;color:black'>. <o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;mso-layout-grid-align:none;
+text-autospace:none'><span style=3D'mso-bidi-font-family:Arial;color:black'=
+><o:p>&nbsp;</o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;text-indent:-.25in;mso-list=
+:l1 level1 lfo4;
+tab-stops:list .25in;mso-layout-grid-align:none;text-autospace:none'><![if =
+!supportLists]><span
+style=3D'mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;color:bla=
+ck'><span
+style=3D'mso-list:Ignore'>1.<span style=3D'font:7.0pt "Times New Roman"'>&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style=3D'mso-bidi-font-family:Arial;
+color:black'>Remove <span class=3DSpellE>NUnit</span> from GAC: in a cmd wi=
+ndow,
+run </span><span style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-f=
+amily:
+"Courier New";color:black'>gacutil /u nunit.core</span><span style=3D'mso-b=
+idi-font-family:
+Arial;color:black'>. Don&#8217;t worry if NUnit was never there in the first
+place.<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;text-indent:-.25in;mso-list=
+:l1 level1 lfo4;
+tab-stops:list .25in;mso-layout-grid-align:none;text-autospace:none'><![if =
+!supportLists]><span
+style=3D'mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;color:bla=
+ck'><span
+style=3D'mso-list:Ignore'>2.<span style=3D'font:7.0pt "Times New Roman"'>&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style=3D'mso-bidi-font-family:Arial;
+color:black'>Install Visual Studio 2005 &#8211; default options are OK.<o:p=
+></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;text-indent:-.25in;mso-list=
+:l1 level1 lfo4;
+tab-stops:list .25in;mso-layout-grid-align:none;text-autospace:none'><![if =
+!supportLists]><span
+style=3D'mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;color:bla=
+ck'><span
+style=3D'mso-list:Ignore'>3.<span style=3D'font:7.0pt "Times New Roman"'>&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style=3D'mso-bidi-font-family:Arial;
+color:black'>Install MSDN.<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;text-indent:-.25in;mso-list=
+:l1 level1 lfo4;
+tab-stops:list .25in;mso-layout-grid-align:none;text-autospace:none'><![if =
+!supportLists]><span
+style=3D'mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;color:bla=
+ck'><span
+style=3D'mso-list:Ignore'>4.<span style=3D'font:7.0pt "Times New Roman"'>&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span class=3DSpellE><span style=3D'mso-bidi=
+-font-family:
+Arial;color:black'>Resync</span></span><span style=3D'mso-bidi-font-family:=
+Arial;
+color:black'> the <span class=3DSpellE>FieldWorks</span> trunk<o:p></o:p></=
+span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;text-indent:-.25in;mso-list=
+:l1 level1 lfo4;
+tab-stops:list .25in;mso-layout-grid-align:none;text-autospace:none'><![if =
+!supportLists]><span
+style=3D'mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;color:bla=
+ck'><span
+style=3D'mso-list:Ignore'>5.<span style=3D'font:7.0pt "Times New Roman"'>&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style=3D'mso-bidi-font-family:Arial;
+color:black'>Unzip </span><span style=3D'font-size:10.0pt;font-family:"Cour=
+ier New";
+color:black'>\<span class=3DSpellE>fw\doc\FieldWorks</span> Setup\<span
+class=3DSpellE>PlatformSDKInclude.zip</span></span><span style=3D'mso-bidi-=
+font-family:
+Arial;color:black'> (this is already in the trunk before 6/12/06) to </span=
+><span
+style=3D'font-size:10.0pt;font-family:"Courier New";color:black'>c:\Program
+Files\PlatformSDK</span><span style=3D'mso-bidi-font-family:Arial;color:bla=
+ck'>.
+You may need to create this destination folder yourself.<o:p></o:p></span><=
+/p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;text-indent:-.25in;mso-list=
+:l1 level1 lfo4;
+tab-stops:list .25in;mso-layout-grid-align:none;text-autospace:none'><![if =
+!supportLists]><span
+style=3D'mso-fareast-font-family:Arial;mso-bidi-font-family:Arial'><span
+style=3D'mso-list:Ignore'>6.<span style=3D'font:7.0pt "Times New Roman"'>&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style=3D'mso-bidi-font-family:Arial;
+color:black'>If you connect to the Internet through a proxy server, additio=
+nal
+steps are necessary. See below (<a href=3D"#Proxy_Server">Modify VS setting=
+s for
+proxy server</a>).</span><span style=3D'mso-bidi-font-family:Arial'><o:p></=
+o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;text-indent:-.25in;mso-list=
+:l1 level1 lfo4;
+tab-stops:list .25in;mso-layout-grid-align:none;text-autospace:none'><![if =
+!supportLists]><span
+style=3D'mso-fareast-font-family:Arial;mso-bidi-font-family:Arial'><span
+style=3D'mso-list:Ignore'>7.<span style=3D'font:7.0pt "Times New Roman"'>&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style=3D'mso-bidi-font-family:Arial'>I=
+nstall
+the new NAnt add-in: </span><span style=3D'font-size:10.0pt;mso-bidi-font-s=
+ize:
+12.0pt;font-family:"Courier New"'>C:\FW\Bin\VS Addins\FwNantAddin.msi</span=
+><span
+style=3D'mso-bidi-font-family:Arial;color:black'>.</span><span style=3D'mso=
+-bidi-font-family:
+Arial'><o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;text-indent:-.25in;mso-list=
+:l1 level1 lfo4;
+tab-stops:list .25in;mso-layout-grid-align:none;text-autospace:none'><![if =
+!supportLists]><span
+style=3D'mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;color:bla=
+ck'><span
+style=3D'mso-list:Ignore'>8.<span style=3D'font:7.0pt "Times New Roman"'>&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style=3D'mso-bidi-font-family:Arial;
+color:black'>(optional) </span><span style=3D'mso-bidi-font-family:Arial'>I=
+ns<span
+style=3D'color:black'>tall GhostDoc from <u><a
+href=3D"http://www.roland-weigelt.de/ghostdoc/">http://www.roland-weigelt.d=
+e/ghostdoc/</a></u></span></span>
+(Tip: check option to install for &#8220;Everyone&#8221;)<span
+style=3D'mso-bidi-font-family:Arial;color:black'><o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;text-indent:-.25in;mso-list=
+:l1 level1 lfo4;
+tab-stops:list .25in;mso-layout-grid-align:none;text-autospace:none'><![if =
+!supportLists]><span
+style=3D'mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;color:bla=
+ck'><span
+style=3D'mso-list:Ignore'>9.<span style=3D'font:7.0pt "Times New Roman"'>&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style=3D'mso-bidi-font-family:Arial;
+color:black'>(optional) Install Testdriven.Net from <a
+href=3D"http://www.testdriven.net/_">http://www.testdriven.net/</a> </span>=
+(Tip:
+check option to install for &#8220;Everyone&#8221;)<span style=3D'mso-bidi-=
+font-family:
+Arial;color:black'><o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;text-indent:-.25in;mso-list=
+:l1 level1 lfo4;
+tab-stops:list .25in;mso-layout-grid-align:none;text-autospace:none'><![if =
+!supportLists]><span
+style=3D'mso-fareast-font-family:Arial;mso-bidi-font-family:Arial'><span
+style=3D'mso-list:Ignore'>10.<span style=3D'font:7.0pt "Times New Roman"'> =
+</span></span></span><![endif]>Run
+VS 05. If <span class=3DSpellE>GhostDoc</span> prompts you, click Skip when
+defining a hotkey, and click Create to create default rules. If prompted for
+Updates for FW developer tools, install them and don&#8217;t do step <span
+style=3D'mso-field-code:" REF _Ref137453645 \\r \\h "'>14<!--[if gte mso 9]=
+><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F005200=
+650066003100330037003400350033003600340035000000</w:data>
+</xml><![endif]--></span> below.</p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;text-indent:-.25in;mso-list=
+:l1 level1 lfo4;
+tab-stops:list .25in;mso-layout-grid-align:none;text-autospace:none'><![if =
+!supportLists]><span
+style=3D'mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;color:bla=
+ck'><span
+style=3D'mso-list:Ignore'>11.<span style=3D'font:7.0pt "Times New Roman"'> =
+</span></span></span><![endif]><span
+style=3D'mso-bidi-font-family:Arial;color:black'>Configure <span class=3DSp=
+ellE>NAnt</span>
+add-in: in VS 05, go to </span><span style=3D'font-size:10.0pt;mso-bidi-fon=
+t-size:
+12.0pt;font-family:"Courier New";color:black'>Tools/Add-in Manager</span><s=
+pan
+style=3D'mso-bidi-font-family:Arial;color:black'>, and verify that the </sp=
+an><span
+style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier Ne=
+w";
+color:black'>Available Add-ins</span><span style=3D'mso-bidi-font-family:Ar=
+ial;
+color:black'> and </span><span style=3D'font-size:10.0pt;mso-bidi-font-size=
+:12.0pt;
+font-family:"Courier New";color:black'>Startup</span><span style=3D'mso-bid=
+i-font-family:
+Arial;color:black'> columns are checked for the </span><span style=3D'font-=
+size:
+10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier New";color:black'>FW =
+Nant
+Addin</span><span style=3D'mso-bidi-font-family:Arial;color:black'>. <o:p><=
+/o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;text-indent:-.25in;mso-list=
+:l1 level1 lfo4;
+tab-stops:list .25in;mso-layout-grid-align:none;text-autospace:none'><![if =
+!supportLists]><span
+style=3D'mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;color:bla=
+ck'><span
+style=3D'mso-list:Ignore'>12.<span style=3D'font:7.0pt "Times New Roman"'> =
+</span></span></span><![endif]><span
+style=3D'mso-bidi-font-family:Arial;color:black'>Now go to </span><span
+style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier Ne=
+w";
+color:black'>Tools/Options</span><span style=3D'font-size:10.0pt;mso-bidi-f=
+ont-size:
+12.0pt;mso-bidi-font-family:Arial;color:black'>, </span><span style=3D'font=
+-size:
+10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier New";color:black'>Env=
+ironment/FwNantAddin</span><span
+style=3D'mso-bidi-font-family:Arial;color:black'> category. Add all trunk a=
+nd
+branch folders you intend to use with the new Visual Studio. </span><span
+style=3D'font-family:Helvetica;color:black'>Move the branch that you're wor=
+king
+in most to the top. </span><span style=3D'mso-bidi-font-family:Arial;color:=
+black'>Add
+the path to NAnt (</span><span style=3D'font-size:10.0pt;mso-bidi-font-size=
+:12.0pt;
+font-family:"Courier New";color:black'>C:\</span><span style=3D'font-size:1=
+0.0pt;
+mso-bidi-font-size:12.0pt;font-family:"Courier New"'>FW<span style=3D'color=
+:black'>\bin\nant\bin</span></span><span
+style=3D'mso-bidi-font-family:Arial;color:black'>)<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;text-indent:-.25in;mso-list=
+:l1 level1 lfo4;
+tab-stops:list .25in;mso-layout-grid-align:none;text-autospace:none'><![if =
+!supportLists]><span
+style=3D'mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;color:bla=
+ck'><span
+style=3D'mso-list:Ignore'>13.<span style=3D'font:7.0pt "Times New Roman"'> =
+</span></span></span><![endif]><span
+style=3D'mso-bidi-font-family:Arial;color:black'>Go to </span><span
+style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier Ne=
+w";
+mso-bidi-font-family:Arial'>Tools/Options, Projects and Solutions/VC++
+Directories</span><span style=3D'mso-bidi-font-family:Arial;color:black'>. =
+Select
+</span><span style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-famil=
+y:
+"Courier New";mso-bidi-font-family:Arial'>Include files</span><span
+style=3D'mso-bidi-font-family:Arial;color:black'> in the </span><span
+style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier Ne=
+w";
+mso-bidi-font-family:Arial'>Show directories for</span><span style=3D'mso-b=
+idi-font-family:
+Arial;color:black'> combo box. Add the include path </span><span
+style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier Ne=
+w";
+mso-bidi-font-family:Arial'>C:\Program Files\<span class=3DSpellE>PlatformS=
+DK</span>\Include</span><span
+style=3D'mso-bidi-font-family:Arial;color:black'>.<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;text-indent:-.25in;mso-list=
+:l1 level1 lfo4;
+tab-stops:list .25in;mso-layout-grid-align:none;text-autospace:none'><a
+name=3DFwVsUpdater></a><a name=3D"_Ref137453645"><span style=3D'mso-bookmar=
+k:FwVsUpdater'><![if !supportLists]><span
+style=3D'mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;color:bla=
+ck'><span
+style=3D'mso-list:Ignore'>14.<span style=3D'font:7.0pt "Times New Roman"'> =
+</span></span></span><![endif]><span
+style=3D'mso-bidi-font-family:Arial;color:black'>If you didn&#8217;t get the
+&#8220;Update FW developer tools&#8221; dialog in step 10, exit VS now. Run=
+ </span></span></a><span
+style=3D'mso-bookmark:_Ref137453645'><span style=3D'mso-bookmark:FwVsUpdate=
+r'><span
+style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier Ne=
+w";
+color:black'>C:\FW\Bin\VS Addins\FwVsUpdater.exe</span></span></span><span
+style=3D'mso-bookmark:_Ref137453645'><span style=3D'mso-bookmark:FwVsUpdate=
+r'><span
+style=3D'mso-bidi-font-family:Arial;color:black'>. This should bring up a d=
+ialog
+saying that there are updates available. Install those. If you get an error
+message or you don't get the updates-available dialog, please tell Eberhard.
+There may be no confirmation that the process is complete, but you can watch
+Task Manager for the disappearance of the </span></span></span><span
+style=3D'mso-bookmark:_Ref137453645'><span style=3D'mso-bookmark:FwVsUpdate=
+r'><span
+style=3D'font-family:"Courier New";color:black'>FwVsUpdater</span></span></=
+span><span
+style=3D'mso-bookmark:_Ref137453645'><span style=3D'mso-bookmark:FwVsUpdate=
+r'><span
+style=3D'mso-bidi-font-family:Arial;color:black'> process.</span></span></s=
+pan><span
+style=3D'mso-bookmark:FwVsUpdater'><span style=3D'mso-bidi-font-family:Aria=
+l;
+color:black'><o:p></o:p></span></span></p>
+
+<span style=3D'mso-bookmark:FwVsUpdater'></span>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;text-indent:-.25in;mso-list=
+:l1 level1 lfo4;
+tab-stops:list .25in;mso-layout-grid-align:none;text-autospace:none'><![if =
+!supportLists]><span
+style=3D'mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;color:bla=
+ck'><span
+style=3D'mso-list:Ignore'>15.<span style=3D'font:7.0pt "Times New Roman"'> =
+</span></span></span><![endif]><span
+style=3D'mso-bidi-font-family:Arial;color:black'>Load default settings for
+FieldWorks development: in VS, go to </span><span style=3D'font-size:10.0pt;
+mso-bidi-font-size:12.0pt;font-family:"Courier New";color:black'>Tools/Impo=
+rt
+and Export Settings</span><span style=3D'mso-bidi-font-family:Arial;color:b=
+lack'>.
+Import </span><span style=3D'font-size:10.0pt;font-family:"Courier New";
+color:black'>C:\FW\bin\VS Addins\FwSettings.vssettings</span><span
+style=3D'color:black'>. </span><span style=3D'mso-bidi-font-family:Arial;
+color:black'>For detailed instructions, see below (<a href=3D"#Import_Setti=
+ngs">Import
+settings for FW development</a>).<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;text-indent:-.25in;mso-list=
+:l1 level1 lfo4;
+tab-stops:list .25in;mso-layout-grid-align:none;text-autospace:none'><![if =
+!supportLists]><span
+style=3D'mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;color:bla=
+ck'><span
+style=3D'mso-list:Ignore'>16.<span style=3D'font:7.0pt "Times New Roman"'> =
+</span></span></span><![endif]><span
+style=3D'mso-bidi-font-family:Arial;color:black'>Modify your path environme=
+nt
+variable (check both system and user). Remove all paths that point to any
+version of VS (i.e. Visual Studio .NET 2003 and Visual Studio 8). Remove any
+path that points to a NUnit or NAnt directory. Remove any path pointing to =
+the
+.NET framework 1.1/2.0. (In some cases, this last one has no terminating
+semi-colon.) Make sure your <span class=3DSpellE>Distfiles</span> directory=
+ (<span
+class=3DSpellE>fw\Distfiles</span>) is in the path. (If for some reason you=
+ want
+to run <span class=3DSpellE>Nant</span> from the command line before runnin=
+g it
+from the <span class=3DSpellE>Nant</span> <span class=3DSpellE>addin</span>=
+, you
+also need to put the <span class=3DSpellE>Nant</span> bin directory (<span
+class=3DSpellE>fw\bin\nant\bin</span>) in your path.)<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;text-indent:-.25in;mso-list=
+:l1 level1 lfo4;
+tab-stops:list .25in;mso-layout-grid-align:none;text-autospace:none'><![if =
+!supportLists]><span
+style=3D'mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;color:bla=
+ck'><span
+style=3D'mso-list:Ignore'>17.<span style=3D'font:7.0pt "Times New Roman"'> =
+</span></span></span><![endif]><span
+style=3D'mso-bidi-font-family:Arial;color:black'>Add a system environment
+variable </span><span style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;
+font-family:"Courier New";color:black'>VSVERSION</span><span style=3D'mso-b=
+idi-font-family:
+Arial;color:black'> (all caps) and set it to </span><span style=3D'font-siz=
+e:
+10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier New";color:black'>200=
+5 </span>(if
+you do it after 6/12), or <span style=3D'font-size:10.0pt;mso-bidi-font-siz=
+e:
+12.0pt;font-family:"Courier New";mso-bidi-font-family:"Times New Roman"'>20=
+03</span>
+(if you do it before 6/12 and still need to build with VS.NET 2003 in the
+trunk)<span style=3D'mso-bidi-font-family:Arial;color:black'>. Remove the <=
+/span><span
+style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier Ne=
+w";
+color:black'>fwroot</span><span style=3D'mso-bidi-font-family:Arial;color:b=
+lack'>
+environment variable, if you have it.<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;text-indent:-.25in;mso-list=
+:l1 level1 lfo4;
+tab-stops:list .25in;mso-layout-grid-align:none;text-autospace:none'><![if =
+!supportLists]><span
+style=3D'mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;color:bla=
+ck'><span
+style=3D'mso-list:Ignore'>18.<span style=3D'font:7.0pt "Times New Roman"'> =
+</span></span></span><![endif]><span
+style=3D'mso-bidi-font-family:Arial;color:black'>Copy </span><span
+style=3D'font-size:10.0pt;font-family:"Courier New";color:black'>pathinclud=
+e.2003.xml</span><span
+style=3D'mso-bidi-font-family:Arial;color:black'> and </span><span
+style=3D'font-size:10.0pt;font-family:"Courier New";color:black'>pathinclud=
+e.2005.xml</span><span
+style=3D'mso-bidi-font-family:Arial;color:black'> from </span><span
+style=3D'font-size:10.0pt;font-family:"Courier New";color:black'>C:\fw\Doc\=
+FieldWorks
+<span class=3DGramE>Setup<span style=3D'font-size:12.0pt;font-family:"Tms R=
+mn";
+mso-bidi-font-family:"Tms Rmn"'> </span><span style=3D'font-size:12.0pt;
+font-family:Arial'><span style=3D'mso-spacerun:yes'>&nbsp;</span>to</span><=
+/span></span><span
+style=3D'mso-bidi-font-family:Arial;color:black'> </span><span style=3D'fon=
+t-size:
+10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier New";color:black'>C:\=
+FW\</span><span
+style=3D'font-size:10.0pt;font-family:"Courier New";color:black'>bld</span>=
+<span
+style=3D'mso-bidi-font-family:Arial;color:black'>, and also to the</span><s=
+pan
+style=3D'font-family:"Tms Rmn";mso-bidi-font-family:"Tms Rmn";color:black'>=
+ </span><span
+style=3D'font-size:10.0pt;font-family:"Courier New";color:black'>bld</span>=
+<span
+style=3D'mso-bidi-font-family:Arial;color:black'> folder in any local branc=
+hes.
+In each case, edit both these XML files to reflect location of the
+corresponding Visual Studio, unless you installed both VS 2005 and VS 2003 =
+to
+the default locations.<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;text-indent:-.25in;mso-list=
+:l1 level1 lfo4;
+tab-stops:list .25in;mso-layout-grid-align:none;text-autospace:none'><![if =
+!supportLists]><span
+style=3D'mso-fareast-font-family:Arial;mso-bidi-font-family:Arial;color:bla=
+ck'><span
+style=3D'mso-list:Ignore'>19.<span style=3D'font:7.0pt "Times New Roman"'> =
+</span></span></span><![endif]><span
+style=3D'mso-bidi-font-family:Arial;color:black'>Edit the XML file <a
+href=3D"file:///C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\CONFIG\machin=
+e.config">C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727\CONFIG\machine.conf=
+ig</a>.
+Search for the section </span><span style=3D'font-size:10.0pt;mso-bidi-font=
+-size:
+12.0pt;font-family:"Courier New";mso-bidi-font-family:Arial'>&lt;<span
+class=3DSpellE>system.diagnostics</span>&gt;</span><span style=3D'mso-bidi-=
+font-family:
+Arial;color:black'> (Note: you're looking for </span><span style=3D'font-si=
+ze:
+10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier New";mso-bidi-font-fa=
+mily:
+Arial'>&lt;<span class=3DSpellE>system.diagnostics</span>&gt;</span><span
+style=3D'mso-bidi-font-family:Arial;color:black'>, not </span><span
+style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier Ne=
+w";
+mso-bidi-font-family:Arial'>&lt;section name=3D&quot;<span class=3DSpellE>s=
+ystem.diagnostics</span>&quot;...&gt;</span><span
+style=3D'mso-bidi-font-family:Arial;color:black'>). If it exists, modify (o=
+r add)
+the </span><span style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-f=
+amily:
+"Courier New";mso-bidi-font-family:Arial'>&lt;assert&gt;</span><span
+style=3D'mso-bidi-font-family:Arial;color:black'> element, otherwise add the
+following lines before </span><span style=3D'font-size:10.0pt;mso-bidi-font=
+-size:
+12.0pt;font-family:"Courier New";mso-bidi-font-family:Arial'>&lt;/configura=
+tion&gt;</span><span
+style=3D'mso-bidi-font-family:Arial;color:black'>:<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style=3D'font-size:10.0pt;mso-bidi-font-size:12.=
+0pt;
+font-family:"Courier New";mso-bidi-font-family:Arial'><o:p>&nbsp;</o:p></sp=
+an></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style=3D'font-size:10.0pt;mso-bidi-font-size:12.=
+0pt;
+font-family:"Courier New";mso-bidi-font-family:Arial'><span
+style=3D'mso-spacerun:yes'>&nbsp;&nbsp;&nbsp; </span>&lt;<span class=3DSpel=
+lE>system.diagnostics</span>&gt;<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style=3D'font-size:10.0pt;mso-bidi-font-size:12.=
+0pt;
+font-family:"Courier New";mso-bidi-font-family:Arial'><span
+style=3D'mso-spacerun:yes'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span>&lt;assert <span class=3DSpellE>assertuienabled</span>=3D&quot;true&=
+quot; <span
+class=3DSpellE>logfilename</span>=3D&quot;.\<span class=3DSpellE>asserts.lo=
+g</span>&quot;
+/&gt;<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style=3D'font-size:10.0pt;mso-bidi-font-size:12.=
+0pt;
+font-family:"Courier New";mso-bidi-font-family:Arial'><span
+style=3D'mso-spacerun:yes'>&nbsp;&nbsp;&nbsp; </span>&lt;/<span class=3DSpe=
+llE>system.diagnostics</span>&gt;<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.5in;mso-layout-grid-align:none;
+text-autospace:none'><span style=3D'font-size:10.0pt;mso-bidi-font-size:12.=
+0pt;
+font-family:"Courier New";mso-bidi-font-family:Arial'>Note: it&#8217;s easy=
+ to
+get this in the wrong place; there are other elements that begin with &lt;<=
+span
+class=3DSpellE>config</span>&#8230;&gt; <span class=3DGramE>If</span> you g=
+et this
+wrong, <span class=3DSpellE>Nant</span> will crash with a stack dump. &lt;<=
+span
+class=3DSpellE>system.diagnostics</span>&gt; must be a child of
+&lt;configuration&gt;.<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;text-indent:-.25in;mso-list=
+:l1 level1 lfo4;
+tab-stops:list .25in'><![if !supportLists]><span style=3D'mso-bidi-font-siz=
+e:
+10.0pt;font-family:"Times New Roman";mso-fareast-font-family:"Times New Rom=
+an"'><span
+style=3D'mso-list:Ignore'>1.<span style=3D'font:7.0pt "Times New Roman"'>&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style=3D'mso-bidi-font-size:10.0pt;
+font-family:"Times New Roman";mso-bidi-font-family:Arial'>Using Notepad, ed=
+it: <br>
+</span><u><span style=3D'font-size:10.0pt;mso-bidi-font-family:Arial;color:=
+blue'><a
+href=3D"mhtml:file://C:\Documents%20and%20Settings\beilharz\Local%20Setting=
+s\Temp\p4win\ReadOnly-0-Rev-56-Fieldworks%20Setup.mht!file:///C:\Program%20=
+Files\Microsoft%20Visual%20Studio%20.NET\Common7\Packages\Debugger\Autoexp.=
+Dat">C:\Program
+Files\Microsoft Visual Studio 8\Common7\Packages\Debugger\Autoexp.Dat</a></=
+span></u><span
+style=3D'mso-bidi-font-size:10.0pt;font-family:"Times New Roman";mso-bidi-f=
+ont-family:
+Arial'><o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.75in;text-indent:-.25in;mso-list=
+:l4 level2 lfo2;
+tab-stops:list .75in 1.0in'><![if !supportLists]><span style=3D'mso-bidi-fo=
+nt-size:
+10.0pt;font-family:"Times New Roman";mso-fareast-font-family:"Times New Rom=
+an"'><span
+style=3D'mso-list:Ignore'>a.<span style=3D'font:7.0pt "Times New Roman"'>&n=
+bsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style=3D'mso-bidi-font-size:10.0pt;
+font-family:"Times New Roman";mso-bidi-font-family:Arial'>At end of [<span
+class=3DSpellE>AutoExpand</span>] section add:<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:1.5in'><span style=3D'mso-bidi-fo=
+nt-size:
+11.0pt;font-family:"Courier New"'>; FieldWorks help<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:1.5in;mso-layout-grid-align:none'=
+><span
+class=3DSpellE><span style=3D'mso-bidi-font-size:11.0pt;font-family:"Courie=
+r New"'>IUnknown</span></span><span
+style=3D'mso-bidi-font-size:11.0pt;font-family:"Courier New"'>=3D&lt;<span
+class=3DGramE>,t</span>&gt;<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:1.5in;mso-layout-grid-align:none'=
+><span
+class=3DSpellE><span style=3D'mso-bidi-font-size:11.0pt;font-family:"Courie=
+r New"'>TxtBufSingle</span></span><span
+style=3D'mso-bidi-font-size:11.0pt;font-family:"Courier New"'>=3D&lt;<span
+class=3DSpellE><span class=3DGramE>Prgch</span></span><span class=3DGramE>(=
+</span>),<span
+class=3DSpellE>su</span>&gt;<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:1.5in'><span class=3DSpellE><span
+style=3D'mso-bidi-font-size:11.0pt;font-family:"Courier New"'>TxtBufMulti</=
+span></span><span
+style=3D'mso-bidi-font-size:11.0pt;font-family:"Courier New"'>=3D&lt;<span
+class=3DSpellE><span class=3DGramE>Prgch</span></span><span class=3DGramE>(=
+</span>),<span
+class=3DSpellE>su</span>&gt;<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:1.5in'><span class=3DSpellE><span
+style=3D'mso-bidi-font-size:11.0pt;font-family:"Courier New"'>StrBase</span=
+></span><span
+style=3D'mso-bidi-font-size:11.0pt;font-family:"Courier New"'>&lt;char&gt;=
+=3D&lt;<span
+class=3DSpellE>m_pbuf</span>-&gt;<span class=3DSpellE>m_rgch<span class=3DG=
+ramE>,st</span></span>&gt;<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:1.5in'><span lang=3DDE style=3D'm=
+so-bidi-font-size:
+11.0pt;font-family:"Courier New";mso-ansi-language:DE'>StrBase&lt;</span><s=
+pan
+lang=3DDE style=3D'font-size:10.0pt;font-family:"Courier New";mso-ansi-lang=
+uage:
+DE;mso-no-proof:yes'>wchar_t</span><span lang=3DDE style=3D'mso-bidi-font-s=
+ize:
+11.0pt;font-family:"Courier New";mso-ansi-language:DE'>&gt;=3D&lt;m_pbuf-&g=
+t;m_rgch,su&gt;<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:1.5in'><span style=3D'mso-bidi-fo=
+nt-size:
+11.0pt;font-family:"Courier New"'>Vector&lt;*&gt;=3D&lt;<span class=3DSpell=
+E>m_ieLim<span
+class=3DGramE>,d</span></span>&gt;<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:1.5in'><span class=3DSpellE><span
+style=3D'mso-bidi-font-size:11.0pt;font-family:"Courier New"'>Hashmap</span=
+></span><span
+style=3D'mso-bidi-font-size:11.0pt;font-family:"Courier New"'>&lt;*&gt;=3D&=
+lt;<span
+class=3DSpellE>m_ihsndLim</span>&gt;<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:1.5in'><span class=3DSpellE><span
+lang=3DES-MX style=3D'mso-bidi-font-size:11.0pt;font-family:"Courier New";
+mso-ansi-language:ES-MX'>AfDbInfo</span></span><span lang=3DES-MX
+style=3D'mso-bidi-font-size:11.0pt;font-family:"Courier New";mso-ansi-langu=
+age:
+ES-MX'>=3D&lt;<span class=3DSpellE>m_stuSvrName<span class=3DGramE>,su</spa=
+n></span>&gt;
+&lt;<span class=3DSpellE>m_stuDbName,su</span>&gt;<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:1.5in'><span class=3DSpellE><span
+lang=3DES-MX style=3D'mso-bidi-font-size:11.0pt;font-family:"Courier New";
+mso-ansi-language:ES-MX'>AfLpInfo</span></span><span lang=3DES-MX
+style=3D'mso-bidi-font-size:11.0pt;font-family:"Courier New";mso-ansi-langu=
+age:
+ES-MX'>=3D&lt;<span class=3DSpellE>m_stuPrjName<span class=3DGramE>,su</spa=
+n></span>&gt;<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:1.5in'><span class=3DSpellE><span
+lang=3DES-MX style=3D'mso-bidi-font-size:11.0pt;font-family:"Courier New";
+mso-ansi-language:ES-MX'>ComBool</span></span><span lang=3DES-MX
+style=3D'mso-bidi-font-size:11.0pt;font-family:"Courier New";mso-ansi-langu=
+age:
+ES-MX'>=3D&lt;<span class=3DSpellE>m_f</span>&gt;<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:1.5in'><span class=3DSpellE><span
+style=3D'mso-bidi-font-size:11.0pt;font-family:"Courier New"'>ComSmartPtr</=
+span></span><span
+style=3D'mso-bidi-font-size:11.0pt;font-family:"Courier New"'>&lt;*&gt;=3D&=
+lt;<span
+class=3DSpellE>m_pobj</span>&gt; &lt;<span class=3DGramE>,t</span>&gt;<o:p>=
+</o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:1.5in'><span lang=3DDE style=3D'm=
+so-bidi-font-size:
+11.0pt;font-family:"Courier New";mso-ansi-language:DE'>GenSmartPtr&lt;*&gt;=
+=3D&lt;m_pobj&gt;
+&lt;,t&gt;<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:1.5in'><span class=3DSpellE><span
+lang=3DES-HN style=3D'mso-bidi-font-size:11.0pt;font-family:"Courier New";
+mso-ansi-language:ES-HN'>SmartBstr</span></span><span lang=3DES-HN
+style=3D'mso-bidi-font-size:11.0pt;font-family:"Courier New";mso-ansi-langu=
+age:
+ES-HN'>=3D&lt;<span class=3DSpellE>m_bstr<span class=3DGramE>,su</span></sp=
+an>&gt;<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'mso-layout-grid-align:none;text-autospace:non=
+e'><span
+style=3D'mso-bidi-font-family:Arial;color:black'><o:p>&nbsp;</o:p></span></=
+p>
+
+<p class=3DMsoNormal style=3D'mso-layout-grid-align:none;text-autospace:non=
+e'><span
+style=3D'mso-bidi-font-family:Arial;color:black'>That should be all! After =
+<span
+class=3DSpellE>resyncing</span> Perforce to the VS 2005 version and <b
+style=3D'mso-bidi-font-weight:normal'>setting the </b></span><b style=3D'ms=
+o-bidi-font-weight:
+normal'><span style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-fami=
+ly:
+"Courier New";mso-bidi-font-family:Arial'>VSVERSION</span></b><b
+style=3D'mso-bidi-font-weight:normal'><span style=3D'mso-bidi-font-family:A=
+rial;
+color:black'> environment variable to </span></b><b style=3D'mso-bidi-font-=
+weight:
+normal'><span style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-fami=
+ly:
+"Courier New";mso-bidi-font-family:Arial'>2005</span></b><span
+style=3D'mso-bidi-font-family:Arial;color:black'> (after 6/12/06) you shoul=
+d be
+able to build with VS 2005. <b style=3D'mso-bidi-font-weight:normal'>You pr=
+obably
+need to reboot first</b>, therefore it&#8217;s a good idea to do that anywa=
+y.<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'mso-layout-grid-align:none;text-autospace:non=
+e'><span
+style=3D'mso-bidi-font-family:Arial;color:black'><o:p>&nbsp;</o:p></span></=
+p>
+
+<p class=3DMsoNormal style=3D'mso-layout-grid-align:none;text-autospace:non=
+e'><span
+style=3D'mso-bidi-font-family:Arial;color:black'>If you're hard disk space =
+challenged,
+you can safely uninstall the previous version of MSDN. In Visual Studio.NET
+2003, go to options dialog and select the new MSDN as help.<o:p></o:p></spa=
+n></p>
+
+<p class=3DMsoNormal style=3D'mso-layout-grid-align:none;text-autospace:non=
+e'><span
+style=3D'mso-bidi-font-family:Arial;color:black'><o:p>&nbsp;</o:p></span></=
+p>
+
+<h2>How to switch between VS versions</h2>
+
+<p class=3DMsoNormal style=3D'mso-layout-grid-align:none;text-autospace:non=
+e'><span
+style=3D'mso-bidi-font-family:Arial;color:black'>To switch to a different b=
+ranch
+that requires the other version of Visual Studio:<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.5in;text-indent:-.25in;mso-list:=
+l0 level1 lfo6;
+mso-layout-grid-align:none;text-autospace:none'><![if !supportLists]><span
+style=3D'font-family:Helv;mso-fareast-font-family:Helv;mso-bidi-font-family=
+:Helv;
+color:black'><span style=3D'mso-list:Ignore'>&#8226;<span style=3D'font:7.0=
+pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style=3D'mso-bidi-font-family:Arial;
+color:black'>Simply set the </span><span style=3D'font-size:10.0pt;font-fam=
+ily:
+"Courier New";color:black'>VSVERSION</span><span style=3D'mso-bidi-font-fam=
+ily:
+Arial;color:black'> environment variable to the version of Visual Studio (i=
+.e.
+2005 or 2003).<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.5in;text-indent:-.25in;mso-list:=
+l0 level1 lfo6;
+mso-layout-grid-align:none;text-autospace:none'><![if !supportLists]><span
+style=3D'font-family:Helv;mso-fareast-font-family:Helv;mso-bidi-font-family=
+:Helv;
+color:black'><span style=3D'mso-list:Ignore'>&#8226;<span style=3D'font:7.0=
+pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style=3D'mso-bidi-font-family:Arial;
+color:black'>Start a build with NAnt. If you're building from outside of VS=
+ you
+may have to specify the full path to NAnt.<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.5in;text-indent:-.25in;mso-list:=
+l0 level1 lfo6;
+mso-layout-grid-align:none;text-autospace:none'><![if !supportLists]><span
+style=3D'font-family:Helv;mso-fareast-font-family:Helv;mso-bidi-font-family=
+:Helv;
+color:black'><span style=3D'mso-list:Ignore'>&#8226;<span style=3D'font:7.0=
+pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span></span><![endif]><span style=3D'mso-bidi-font-family:Arial;
+color:black'>If this fails, you might have to restart Visual Studio.<o:p></=
+o:p></span></p>
+
+<p class=3DMsoNormal style=3D'mso-layout-grid-align:none;text-autospace:non=
+e'><span
+style=3D'mso-bidi-font-family:Arial;color:black'>What this does:<o:p></o:p>=
+</span></p>
+
+<p class=3DMsoNormal style=3D'mso-layout-grid-align:none;text-autospace:non=
+e'><span
+style=3D'mso-bidi-font-family:Arial;color:black'>The build process includes=
+ the
+file </span><span style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-=
+family:
+"Courier New";color:black'>pathinclude.&lt;VSVERSION&gt;.xml</span><span
+style=3D'mso-bidi-font-family:Arial;color:black'>. This file modifies the <=
+/span><span
+style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier Ne=
+w";
+color:black'>PATH</span><span style=3D'mso-bidi-font-family:Arial;color:bla=
+ck'>, </span><span
+style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier Ne=
+w";
+color:black'>INCLUDE</span><span style=3D'mso-bidi-font-family:Arial;color:=
+black'>
+and </span><span style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-f=
+amily:
+"Courier New";color:black'>LIB</span><span style=3D'mso-bidi-font-family:Ar=
+ial;
+color:black'> environment variables so that VS and NAnt can find the right
+versions of the libraries and compiler...<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'mso-layout-grid-align:none;text-autospace:non=
+e'><span
+style=3D'mso-bidi-font-family:Arial;color:black'>Because of changing enviro=
+nment
+variables, it might be necessary to restart Visual Studio or the command
+window, so that the new settings are picked up.<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'mso-layout-grid-align:none;text-autospace:non=
+e'><span
+style=3D'mso-bidi-font-family:Arial;color:black'><o:p>&nbsp;</o:p></span></=
+p>
+
+<p class=3DMsoNormal style=3D'mso-layout-grid-align:none;text-autospace:non=
+e'><span
+style=3D'font-family:"Tms Rmn";mso-bidi-font-family:"Tms Rmn";color:black'>=
+<o:p>&nbsp;</o:p></span></p>
+
+<h2><a name=3D"Proxy_Server">Modify VS settings for proxy server</a></h2>
+
+<p class=3DMsoNormal style=3D'margin-top:12.0pt;mso-layout-grid-align:none;
+text-autospace:none'><span style=3D'mso-bidi-font-family:Arial;color:black'=
+>If
+you have to use a proxy server to connect to the internet, you have to modi=
+fy
+the Visual Studio 2005 configuration files (see <a
+href=3D"http://support.microsoft.com/?kbid=3D910804_"><span style=3D'font-s=
+ize:10.0pt'>http://support.microsoft.com/?kbid=3D910804</span></a>)
+since Microsoft forgot to put an option for that in the UI:<o:p></o:p></spa=
+n></p>
+
+<ol style=3D'margin-top:0in' start=3D1 type=3D1>
+ <li class=3DMsoNormal style=3D'color:black;mso-list:l3 level1 lfo9;tab-sto=
+ps:list .5in;
+	 mso-layout-grid-align:none;text-autospace:none'><span style=3D'mso-bid=
+i-font-family:
+	 Arial'>Edit </span><span style=3D'font-size:10.0pt;font-family:"Courie=
+r New"'>c:\Program
+	 Files\Common Files\Microsoft Shared\Help 8\Dexplore.exe.config</span><=
+span
+	 style=3D'font-size:10.0pt;mso-bidi-font-family:Arial'>.<o:p></o:p></sp=
+an></li>
+ <li class=3DMsoNormal style=3D'color:black;mso-list:l3 level1 lfo9;tab-sto=
+ps:list .5in;
+	 mso-layout-grid-align:none;text-autospace:none'><span style=3D'mso-bid=
+i-font-family:
+	 Arial'>Immediately before the </span><span style=3D'font-size:10.0pt;
+	 mso-bidi-font-size:12.0pt;font-family:"Courier New"'>&lt;/system.net&g=
+t;</span><span
+	 style=3D'mso-bidi-font-family:Arial'> closing tag, add the following 3=
+ lines
+	 (which assume that your proxy server is </span><span style=3D'font-siz=
+e:
+	 10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier New"'>msproxy</s=
+pan><span
+	 style=3D'mso-bidi-font-family:Arial'> port</span><span style=3D'font-s=
+ize:
+	 10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier New"'> 80</span>=
+<span
+	 style=3D'font-family:"Courier New"'> </span><span style=3D'mso-bidi-fo=
+nt-family:
+	 Arial'>&#8211; if your proxy is different, make the appropriate change=
+s):<br>
+	 </span><span style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-=
+family:
+	 "Courier New"'>&lt;defaultProxy enabled=3D&quot;true&quot;
+	 useDefaultCredentials=3D&quot;true&quot;&gt;<br>
+	 <span style=3D'mso-spacerun:yes'>&nbsp;&nbsp;&nbsp; </span>&lt;proxy
+	 bypassonlocal=3D&quot;True&quot;
+	 proxyaddress=3D&quot;http://msproxy:80&quot;/&gt;<br>
+	 &lt;/defaultProxy&gt;</span><span style=3D'mso-bidi-font-family:Arial'=
+><o:p></o:p></span></li>
+ <li class=3DMsoNormal style=3D'color:black;mso-list:l3 level1 lfo9;tab-sto=
+ps:list .5in;
+	 mso-layout-grid-align:none;text-autospace:none'><span style=3D'mso-bid=
+i-font-family:
+	 Arial'>Repeat step 2 with </span><span style=3D'font-size:10.0pt;font-=
+family:
+	 "Courier New"'>C:\Program Files\Microsoft Visual Studio
+	 8\Common7\IDE\Devenv.exe.config</span><span style=3D'font-size:10.0pt;
+	 mso-bidi-font-family:Arial'>.<o:p></o:p></span></li>
+</ol>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;mso-layout-grid-align:none;
+text-autospace:none'><span style=3D'font-size:10.0pt;mso-bidi-font-family:A=
+rial;
+color:black'><o:p>&nbsp;</o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.25in;mso-layout-grid-align:none;
+text-autospace:none'><span style=3D'font-size:10.0pt;mso-bidi-font-family:A=
+rial;
+color:black'><o:p>&nbsp;</o:p></span></p>
+
+<h2><a name=3D"Import_Settings">Import settings for FW development</a></h2>
+
+<span style=3D'mso-bookmark:Import_Settings'></span>
+
+<p class=3DMsoNormal style=3D'margin-left:.5in;text-indent:-.25in;mso-layou=
+t-grid-align:
+none;text-autospace:none'><span style=3D'font-size:10.0pt;font-family:Helv;
+mso-bidi-font-family:Helv;color:black'>1.<span style=3D'mso-tab-count:1'>&n=
+bsp;&nbsp; </span></span><span
+style=3D'mso-bidi-font-family:Arial;color:black'>Select </span><span
+style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier Ne=
+w";
+color:black'>Tools/Import and Export Settings</span><span style=3D'mso-bidi=
+-font-family:
+Arial;color:black'>.<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.5in;text-indent:-.25in;mso-layou=
+t-grid-align:
+none;text-autospace:none'><span style=3D'font-size:10.0pt;mso-bidi-font-fam=
+ily:
+Arial;color:black'>2.<span style=3D'mso-tab-count:1'>&nbsp;&nbsp; </span></=
+span><span
+style=3D'mso-bidi-font-family:Arial;color:black'>Select </span><span
+style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier Ne=
+w";
+color:black'>Import selected environment settings</span><span style=3D'mso-=
+bidi-font-family:
+Arial;color:black'>.<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.5in;text-indent:-.25in;mso-layou=
+t-grid-align:
+none;text-autospace:none'><span style=3D'font-size:10.0pt;mso-bidi-font-fam=
+ily:
+Arial;color:black'>3.<span style=3D'mso-tab-count:1'>&nbsp;&nbsp; </span></=
+span><span
+style=3D'mso-bidi-font-family:Arial;color:black'>Choose </span><span
+style=3D'font-size:10.5pt;mso-bidi-font-size:12.0pt;font-family:"Courier Ne=
+w";
+color:black'>No</span><span style=3D'mso-bidi-font-family:Arial;color:black=
+'>
+(i.e. don&#8217;t save) in the Save Current Settings dialog.<o:p></o:p></sp=
+an></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.5in;text-indent:-.25in;mso-layou=
+t-grid-align:
+none;text-autospace:none'><span style=3D'font-size:10.0pt;mso-bidi-font-fam=
+ily:
+Arial;color:black'>4.<span style=3D'mso-tab-count:1'>&nbsp;&nbsp; </span></=
+span><span
+style=3D'mso-bidi-font-family:Arial;color:black'>On the &#8220;Choose a
+Collection of Settings to Import&#8221; page press the Browse button and se=
+lect
+the file </span><span style=3D'font-family:"Courier New";color:black'>C</sp=
+an><span
+style=3D'font-size:10.0pt;mso-bidi-font-size:12.0pt;font-family:"Courier Ne=
+w";
+color:black'>:\FW\bin\VS Addins\FwSettings.vssettings</span><span
+style=3D'mso-bidi-font-family:Arial;color:black'>.</span><span style=3D'fon=
+t-size:
+10.0pt;mso-bidi-font-family:Arial;color:black'><o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.5in;text-indent:-.25in;mso-layou=
+t-grid-align:
+none;text-autospace:none'><span style=3D'font-size:10.0pt;mso-bidi-font-fam=
+ily:
+Arial;color:black'>5.<span style=3D'mso-tab-count:1'>&nbsp;&nbsp; </span></=
+span><span
+style=3D'mso-bidi-font-family:Arial;color:black'>Click Next. <o:p></o:p></s=
+pan></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.5in;text-indent:-.25in;mso-layou=
+t-grid-align:
+none;text-autospace:none'><span style=3D'font-size:10.0pt;mso-bidi-font-fam=
+ily:
+Arial;color:black'>6.<span style=3D'mso-tab-count:1'>&nbsp;&nbsp; </span></=
+span><span
+style=3D'mso-bidi-font-family:Arial;color:black'>Click Finish.</span><span
+style=3D'font-family:"Tms Rmn";mso-bidi-font-family:"Tms Rmn";color:black'>=
+<o:p></o:p></span></p>
+
+<p class=3DMsoNormal><o:p>&nbsp;</o:p></p>
+
+<p class=3DMsoNormal><span style=3D'mso-bidi-font-family:Arial;color:black'=
+>It is
+normal that you get a warning, but if you get an error message you should c=
+lose
+VS, repeat step <span style=3D'mso-field-code:" REF _Ref137453645 \\r \\h "=
+'>14<!--[if gte mso 9]><xml>
+ <w:data>08D0C9EA79F9BACE118C8200AA004BA90B02000000080000000E0000005F005200=
+650066003100330037003400350033003600340035000000</w:data>
+</xml><![endif]--></span> above and then try again to import the settings.<=
+/span></p>
+
+</div>
+
+</body>
+
+</html>
