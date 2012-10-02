@@ -1,0 +1,101 @@
+From:	fwdev@googlegroups.com on behalf of John Thomson
+[john_thomson@sil.org]
+Sent:	Thursday, October 07, 2010 11:40 AM
+To:	fwdev@googlegroups.com
+Subject:	[fwdev] Working with db4o
+
+I have just completed the integration of the db40 client-server functionality into the WW 7.0 trunk.
+There are a few things to be aware of.
+
+1. FwRemoteDatabaseConnectorService
+
+First, there is something called FwRemoteDatabaseConnectorService. This is normally running on
+every end-user’s machine. It is only really needed on servers, but we decided to run it everywhere so
+that turning a machine into a server would not require admin privileges. (Not sure we fully achieved
+that, but that’s the goal.) You can ignore it unless you want your machine to act as a server (or to test
+using the db4o backend, which requires turning your machine into a server or finding another one that
+is).
+
+If you want to do this, you must install the service, configure it, and start it. You need a command
+prompt that is running in admin mode in the code directory, typically ww\output\debug. First,
+
+installutil FwRemoteDatabaseConnectorService.exe
+
+This will prompt for user name and password (twice, for some reason). It wants your Windows logon
+user name in the form domain\user (or .\user for workgroups), for example, Dallas\Thomson, and your Windows logon password.
+
+Then, go to Control Panel -> Administrator tools -> Services. Right click
+FwRemoteDatabaseConnectorService and choose Properties. Choose "Log on" tab. Select the "Local
+System Account" radio button and check the box "Allow service to interact with desktop".
+
+Start the service: Right click it and choose Start, or click it and choose the Start link.
+
+This is enough to allow you to turn on “share projects on this computer” (a check box in a new dialog
+launched from Project Properties/Project Locations and Sharing).
+
+If you actually want other people to access your projects, you also need to
+-	Share your projects folder, at least with those people.
+-	Open some firewall holes by executing
+netsh firewall add allowedprogram FwRemoteDatabaseConnectorService.exe
+FwRemoteDatabaseConnectorService
+netsh firewall add allowedprogram FieldWorks.exe FieldWorks
+
+Share your 'Projects' directory, giving read/write access to the intended users. By default, the folder name is Projects, but if you choose some other directory as your default, use that directory name. When you share the projects folder, the share name must match the folder name exactly. From the other machine, you should be able to get to the folder in Windows Explorer by typing the path \\machine\Projects (assuming the default name).
+
+On Windows XP, in order to share, the system must be set to not use simple sharing. This can be changed in Windows Explorer by choosing Tools...Folder Options, go to the View tab, and scroll to the bottom of the Advanced settings. Make sure "Use simple file sharing (Recommended)" is unchecked.
+
+If you want your computer to be a client, you just need the second netsh command.
+
+Unfortunately it is necessary to turn off this service (again using Control Panel -> Administrator tools ->
+Services) in order to build FDO or anything it depends on, or to run the FDO unit tests successfully. For
+this reason developers not actively working on CS issues will probably prefer to leave it turned off.
+
+NOTE that turning your computer into a server will convert ALL the projects in your projects folder, and
+in the process, will migrate them to the latest version. If you don’t want this, you may prefer first to
+change your projects folder, and just move the projects you want into it.
+
+2. File open dialog. This is very much changed. (Sorry Michael.) The link in the bottom left must be
+used to open a local (fwdata) project that is not in your default projects file; one that IS in that file
+should show up in the list immediately.
+
+Note that you can still use the command line arguments to directly open a desired project. I think it’s
+even possible to open a remote one this way, but haven’t tried it. The –db argument should be
+host:projectname, and –type db4ocs. Host is the name of the computer (e.g., ls-thomson-0910), and
+project is the filename.db4o you want to open (I think without a path, but I’m not quite sure of this).
+(We are probably going to change the extension to .fwdb, BTW.)
+
+Hope this helps.
+
+JohnT
+--
+You received this message because you are subscribed to the Google Groups
+"FieldWorksDevelopment" group.
+To post to this group, send email to fwdev@googlegroups.com.
+To unsubscribe from this group, send email to fwdev+unsubscribe@googlegroups.com.
+For more options, visit this group at http://groups.google.com/group/fwdev?hl=en.
+
+******
+When you share a folder for db4o, you need to open a share for the Projects (or equivalent) directory) and it needs to have the same name as the folder name. It needs to have read/write access. In other words, you can't share a folder higher in the folder structure and have it work. You need an exact share named the same as your Projects folder.
+
+Another possible sharing problem for Windows NT is a default option in the View tab of the Folder Options dialog (in Windows Explorer choose Tools...Folder Options). At the bottom of the list is a checkbox for "Use simple file sharing (Recommended)." If this is checked, remote users will not be able to access projects on your machine. You need to have this unchecked for sharing to work.
+See screenshot of dialog at d:\dropbox\File sharing setting requiered for Fw sharing.jpg.
+******* 12-3-10 ****
+Hi Ken,
+
+I know you have to deal with a lot of FW support issues, so I thought I share a recent issues I had, in case you weren't already aware of it.
+
+Fieldworks has recently been changed to connect to it shared Projects Directory via a FQDN (fully qualified domain name) and not just its host name. While this probably makes sense in most situations, This can lead to issues if a user hasn't set up his computer DNS suffix to match the DNS server. This isn't likely to be an issue for users connected to a domain. This issue can manifest itself as generic permissions problems connecting to the shared folder.
+
+For example with FQDN host: strauss-xp.dhcp.cal.wycliffe.ca In XP: System Properties -> Computer Name -> Change -> More -> "Primary Dns suffix of this computer" : should be set to "dhcp.cal.wycliffe.ca"
+
+Thanks
+Tom
+***************
+Firewalls. FW installer adds FieldWorks.exe and FwRemoteDatabaseConnectorService.exe to the Windows firewall, but does not check them since some people may not want their databases accessable from other machines. So the user needs to finish allowing these two programs to share. (See e-mail from Marlon: 3-10-11 for a screenshot.)
+
+What seems to be true:
+Host: FwRemoteDatabaseConnectorService must be enabled for others to see your projects
+Client: FwRemoteDatabaseConnectorService is not needed to use projects on the host.
+Host/Client: FieldWorks needs to be enabled if you want the open window to automatically show projects from other computers. Without this, you can type the host name into the open window and it will still allow you to use the projects, but you won't see the projects automatically.
+
+**********************

@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!-- This include file modifies the path variable for use with VS 2008 when installed in the
+default location.-->
+<project name="VS2008Paths" default="dummy2008" xmlns="http://fieldworks.sil.org/nant/fwnant.xsd">
+	<readregistry property="environment-path" key="SYSTEM\CurrentControlSet\Control\Session Manager\Environment\Path"
+		hive="LocalMachine"/>
+	<regex pattern="(?'start'.*;|^)(?'mypath'.*)C:\\HEREITIS;.*;C:\\THEEND(?'end'.*)"
+		input="${environment-path}" failonerror="false"/>
+	<if test="${not property::exists('mypath')}">
+		<property name="start" value="${environment-path};"/>
+		<property name="end" value=""/>
+	</if>
+
+	<property name="oldInclude" value=""/>
+	<readregistry property="oldInclude" key="SYSTEM\CurrentControlSet\Control\Session Manager\Environment\INCLUDE"
+		hive="LocalMachine" failonerror="false"/>
+	<property name="oldLib" value=""/>
+	<readregistry property="oldLib" key="SYSTEM\CurrentControlSet\Control\Session Manager\Environment\LIB"
+		hive="LocalMachine" failonerror="false"/>
+	<property name="Path" value="${start}C:\HEREITIS;C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\IDE;C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\bin;C:\Program Files (x86)\Microsoft Visual Studio 9.0\Common7\Tools;C:\Program Files\Microsoft SDKs\Windows\v6.0A\bin;C:\WINDOWS\Microsoft.NET\Framework\v2.0.50727;${fwroot}\bin;${fwroot}\bin\nant\bin;C:\THEEND${end}" />
+	<property name="INCLUDE" value="C:\Program Files\Microsoft SDKs\Windows\v6.0A\Include;C:\Program Files (x86)\Microsoft SDKs\Windows\v5.0\Include;C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\Include;C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\atlmfc\Include"/>
+	<property name="LIB" value="C:\Program Files\Microsoft SDKs\Windows\v6.0A\Lib;C:\Program Files (x86)\Microsoft SDKs\Windows\v5.0\Lib;C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\Lib;C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\atlmfc\lib"/>
+	<setenv global="true" unless="${(environment-path == Path) and (oldInclude == INCLUDE) and (oldLib == LIB)}">
+		<variable name="Path" value="${Path}" />
+		<variable name="INCLUDE" value="${INCLUDE}"/>
+		<variable name="LIB" value="${LIB}"/>
+	</setenv>
+</project>
