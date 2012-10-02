@@ -1,0 +1,704 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 12 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-top:24.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Cambria","serif";
+	color:#365F91;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin-top:10.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:13.0pt;
+	font-family:"Cambria","serif";
+	color:#4F81BD;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-top:10.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:11.0pt;
+	font-family:"Cambria","serif";
+	color:#4F81BD;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Cambria","serif";
+	color:#4F81BD;
+	font-weight:bold;}
+p.Code, li.Code, div.Code
+	{mso-style-name:Code;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:.3in;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.CodeCxSpFirst, li.CodeCxSpFirst, div.CodeCxSpFirst
+	{mso-style-name:CodeCxSpFirst;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.3in;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.CodeCxSpMiddle, li.CodeCxSpMiddle, div.CodeCxSpMiddle
+	{mso-style-name:CodeCxSpMiddle;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.3in;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.CodeCxSpLast, li.CodeCxSpLast, div.CodeCxSpLast
+	{mso-style-name:CodeCxSpLast;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:.3in;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Calibri","sans-serif";}
+p.msopapdefault, li.msopapdefault, div.msopapdefault
+	{mso-style-name:msopapdefault;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;
+	font-size:12.0pt;
+	font-family:"Times New Roman","serif";}
+.MsoChpDefault
+	{font-size:10.0pt;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.Section1
+	{page:Section1;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+<div class=Section1>
+
+<h1>New skills for a new architecture</h1>
+
+<p class=MsoNormal>John Thomson, July 29 2009.</p>
+
+<p class=MsoNormal>This document outlines new skills and practices that I’m
+hoping we will increasingly adopt as we refactor FieldWorks to the new
+architecture. Feel free to add to it important ideas that you think we should
+be learning, and other books you think we should be studying.</p>
+
+<h1>Domain Driven Design</h1>
+
+<p class=MsoNormal>Core concept: the program should fit harmoniously with the
+domain it has been created for. It should incorporate the core concepts and
+elements, in an organized and selective way. It has to support the program as
+well as the domain: express the concepts in a way that can be implemented in
+code.</p>
+
+<p class=MsoNormal>Ubiquitous language: a common set of concepts developers and
+domain experts can share, closely based on an agreed model of the domain. All
+developers and experts actively involved in the project should understand the
+terminology.</p>
+
+<p class=MsoNormal>Layering: knowledge about the domain should be expressed in
+the domain layer (FDO assembly, for us) and kept separate from knowledge about
+infrastructure (how it is persisted) and UI (how it is presented). For us this
+means especially removing SQL (from everywhere); moving code that expresses
+knowledge about the domain down into the domain layer; and moving code that only
+supports the UI up out of the domain layer. It means being vigilant to keep
+knowledge of a particular persistence mechanism away from the other layers.</p>
+
+<p class=MsoNormal>Entities versus value objects. An entity has an identity
+which remains even if some of its properties change. Two entities might be
+distinct, though all the properties we model are the same. Entities must
+however have some unmistakable identity. Our entities have a GUID. A Person is
+the prototypical example. I am the same person, though my address, weight, hair
+color, height, conceivably even name might change. Someone else is a different
+person even if they have the same values for all those properties.</p>
+
+<p class=MsoNormal>Conversely a value object has no interesting identity apart
+from its properties. A prototypical example would be a Point. Two points with
+the same coordinates are typically for all practical purposes the same point.
+There is little meaning to claiming that a Point is ‘the same’ point when one
+of its coordinates has changed.</p>
+
+<p class=MsoNormal>Of course the hard thing is the boundary cases. If two
+senses have the same gloss, are they the same sense? If they also have the same
+definition? If the definition changes, is it still the same sense? Senses are
+pretty recognizable and may have a lot of properties that don’t change when another
+does; we are probably right to make them entities. There are cases that make it
+doubtful: if the user is so far ONLY recording a gloss, and if he swaps the
+glosses of the first and second sense, did he modify two existing senses (as
+our current implementation would suggest), or did he swap them? If his
+colleague moved the first sense after the second one (on paper it looks as if
+the end result is the same), do we have an editing conflict (entity
+interpretation: one person re-ordered the entities, the other edited them) or
+not (value objects: both paths lead to senses with the same properties in the
+same order).</p>
+
+<p class=MsoNormal>At a lower level we may have some entities that should be
+value objects. I haven’t thought of one I’m sure of yet above the level of a
+string. (Even that was a simplification made in FieldWorks…LinguaLinks
+considered strings to be mutable objects with identities.)</p>
+
+<p class=MsoNormal>Value objects should be immutable, at least if at all
+shareable. This removes the confusion introduced by ‘the same object’ having
+different properties at different times…something that should only be true of
+entities. If the properties are different, it’s a different value object.</p>
+
+<p class=MsoNormal>Actions in the domain which don’t naturally belong to any
+entity may be modeled as Services. A service models something that can happen;
+it has no (persistent?) state. It often involves changes to multiple objects.
+Note that some services may belong in the Application layer.</p>
+
+<p class=MsoNormal>Organize the model into modules with a high degree of
+cohesion.</p>
+
+<p class=MsoNormal>Aggregate is a difficult concept which, if it’s possible to
+apply it successfully, is supposed to limit the connectivity of the model.
+Aggregates are considered as a unit for data changes. The idea is that a group
+of objects hangs together and only the root object of the aggregate can be
+referred to by other aggregates. If there are entities inside, they have
+identity only in relation to the aggregate. If we chose to make a single
+Aggregate out of everything a LexSense owns, you could ask a sense for its
+first example, but you could not access the example directly from some outside
+object. One reason this is problematic for us is that we want to be able to
+annotate almost anything.</p>
+
+<p class=MsoNormal>It almost fits this model to think of a paragraph as an
+aggregate which contains segment and word annotations. However, the discourse
+chart breaks the pattern by being a separate entity and referring to word
+annotations. We are not free to re-organize the paragraph annotations and
+ignore the chart (though in practice we pretty much do, and patch up the chart
+as best we can. There may be a better way to model this.).</p>
+
+<p class=MsoNormal>I think we pretty clearly have a problem of a very highly
+connected model. Aggregates and value objects may be part of the solution, but
+I haven’t figured out how yet.</p>
+
+<p class=MsoNormal>Factories ideally encapsulate the knowledge about how to
+create complex aggregates in a consistent state satisfying all constraints. The
+current WW factories do not yet do this (for example, assigning object
+identities and ownership happens after returning from the factory); we will
+need to decide how carefully to follow the pattern here.</p>
+
+<p class=MsoNormal>Repositories take care of persistence of existing objects,
+allowing one to obtain important objects without requiring them all to be
+accessible from some single root (e.g., LangProject) or requiring the main
+domain or UI layer code to know how they are persisted and retrieved. It is an
+illusion of an in-memory collection of all objects of a type. It may have
+methods to retrieve individual objects or collections based on various
+criteria. Since its implementation may cross into the persistence layer, but
+its interface is pure domain, it should be kept simple: methods that retrieve
+instances of the appropriate class based on attribute values.</p>
+
+<p class=MsoNormal>The book also discusses the problems of teams working on related
+projects. One important idea is Bounded Context: the section of the model that
+one team is responsible for, and may change without reference to other teams.
+To help make this work, Continuous Integration constantly builds things to see
+whether one team’s changes broke the other team’s work (we almost have this
+with nightly builds). A Context Map outlines the different Bounded Contexts and
+gives the relationship. Sometimes it is helpful to build an Anti-corruption
+Layer so that undesirable features of one BC do not ‘leak’ into another.</p>
+
+<p class=MsoNormal>A Shared Kernel (our Cm domain?) can define what two BC’s
+have in common.</p>
+
+<p class=MsoNormal>It might also be good to take some time to learn the UML
+diagram techniques we use in our model documentation, and to go over parts of
+the model that many of us are not familiar with. This probably means we have
+some BC’s, by the way: lots of us get on fine without knowing large parts of
+our model.</p>
+
+<h1>C# 3.0 and DotNet 3.5</h1>
+
+<p class=MsoNormal>In the new architecture we are intending to make use of the
+capabilities of C# 3.0 and many of the capabilities of DotNet 3.5, particularly
+LINQ. (We won’t, of course, use LINQ-to-SqlServer, but LINQ has lots of elegant
+ways to express algorithms using POCOs (Plain Old C# Objects)). We do want to
+try to avoid DotNet 3.5 stuff which isn’t supported in Mono; Neil’s team will
+be responsible to let us know if we violate this.</p>
+
+<h2>Var</h2>
+
+<p class=MsoNormal>C# 3.0 allows a non-specific variable declaration. Instead
+of</p>
+
+<p class=Code>List&lt;ICmObject&gt; objects = new List&lt;ICmObject&gt;();</p>
+
+<p class=MsoNormal>You can have</p>
+
+<p class=Code>var objects = new List&lt;ICmObject&gt;();</p>
+
+<p class=MsoNormal>This means exactly the same thing to the compiler (‘objects’
+is strongly typed as List&lt;ICmObject&gt;, as intellisense can tell you,
+inferred from the type of the RHS expression), but it is shorter, and there is
+only one thing to change if you decide you need a different type.</p>
+
+<p class=MsoNormal>My recommendation is that we use this anywhere the type of
+the RHS is reasonably obvious. If you think an explicit type would make the
+code appreciably clearer, feel free to use one.</p>
+
+<h2>Object initialization and anonymous types</h2>
+
+<p class=MsoNormal>There’s an extension to the {} syntax for creating new
+objects that allows setting any public fields. You can also use it to define a
+temporary type you just need in a single method.</p>
+
+<p class=Code>var triple = new { First = anEntry.HomographNumber, &nbsp;Second
+= anEntry.LexemeForm.Form, Third = anEntry.Senses[0].Gloss };</p>
+
+<p class=MsoNormal>You can then use triple.First, triple.Second and so forth,
+without actually declaring a type.</p>
+
+<p class=MsoNormal>This proves most useful for various Linq tasks, and in
+contexts where you need to create an initialize an object but can’t have
+multiple statements.</p>
+
+<h2>Lambda expressions and anonymous delegates</h2>
+
+<p class=MsoNormal>Lambda expressions finally make it clean and comprehensible
+to have methods whose behavior is customized by passing them an anonymous
+delegate…basically a code fragment…to specify some detail of what they should
+do. This is especially useful with Linq, but I expect to see us using it also
+to specialize methods. An otherwise ordinary method that takes an anonymous
+delegate argument may be able to concisely express what would otherwise take a
+method object and subclasses.</p>
+
+<p class=Code>List&lt;string&gt; strings = …</p>
+
+<p class=Code>strings.Select(s =&gt; s.Length &gt; 0)</p>
+
+<p class=MsoNormal>will produce a list (actually an enumerable) of all the
+non-empty strings. Here “Select” is a method of List which takes a delegate,
+and the lambda expression is “s =&gt; s.Length &gt; 0”, which is short for
+something like delegate(string s) { return s &gt;= 0; }. Conventionally the
+=&gt; operator is read as “goes to” (“s goes to s.Length &gt; 0”).</p>
+
+<p class=MsoNormal>Todo: explain how to write a function that takes a delegate;
+come up with an example.</p>
+
+<h2>LINQ</h2>
+
+<p class=MsoNormal>Linq (Language-integrated query) is a library and language
+extensions that allow you to express SQL-like queries on (collections of)
+objects. While fancy optimizations can be done when querying an XML file or SQL
+database, ordinary Linq operations are not necessarily faster than ordinary
+code, just more concise and easier to understand.</p>
+
+<h3>Transforming collections</h3>
+
+<p class=Code>string[] strings = …;</p>
+
+<p class=Code>// strings are sorted by length, ones the same length are sorted
+alphabetically.</p>
+
+<p class=Code>var &nbsp;alphaByLength = strings.OrderBy(s =&gt; s.Length).ThenBy(s
+=&gt; s.ToLowerInvariant());</p>
+
+<p class=Code>// an enumerable&lt;int&gt; containing the lengths (note a
+different type)</p>
+
+<p class=Code>var lengths = strings.Select(s =&gt; s.Length);</p>
+
+<p class=Code>var forms = lexEntries.Select(entry =&gt;
+entry.LexemeForm.VernacularDefaultWritingSystem);</p>
+
+<p class=MsoNormal>There are far more powerful operators (group, join,
+aggregate, count, max, min, average, reverse, any, first). It’s also possible
+for select to create new objects, including new anonymous objects containing
+just the fields you want from the current query. There’s even a “pretty” syntax
+for many of the functions. <a
+href="http://msdn.microsoft.com/en-us/library/bb308959.aspx">http://msdn.microsoft.com/en-us/library/bb308959.aspx</a>
+is a good source of information.</p>
+
+<h1>Testing legacy code</h1>
+
+<p class=MsoNormal>Ideas from “Working effectively with legacy code” by Michael
+C. Feathers.</p>
+
+<h2>Definitions</h2>
+
+<p class=MsoNormal>Legacy code = code without adequate unit tests.</p>
+
+<p class=MsoNormal>Seam = a place where you can alter the behavior in your
+program [usually in order to test] without editing in that place. For example,
+interfaces which can be implemented by mocks or test stubs (if you can inject
+your own implementation). Virtual methods can be overridden (again, if you can
+control the class of object used).</p>
+
+<p class=MsoNormal>enabling point = what you can change (somewhere else) to get
+test behavior at a seam (e.g., passing a mock).</p>
+
+<p class=MsoNormal>SUT = system under test, the code you really want to test</p>
+
+<h2>Concepts</h2>
+
+<p class=MsoNormal>Clamp – to hold code in place, make sure certain behavior
+doesn’t change unintentionally. What unit tests are supposed to ensure.</p>
+
+<p class=MsoNormal>dependency-breaking – creating seams, so the code you really
+want to test can be tested without being forced to create undesirable things
+that code depends on.</p>
+
+<h2>Techniques (for dependency-breaking)</h2>
+
+<p class=MsoNormal>Break out method object – if you can’t create a test
+instance of the class you want to modify, maybe you can make a method object
+for the method you need to change, and make tests for the method object.</p>
+
+<p class=MsoNormal>Sprout method – if testing the whole of a complex method is
+too much, extract a method containing just the part you want to modify, and at
+least have tests for that.</p>
+
+<p class=MsoNormal>Adapt parameter – if it’s messy to mock a whole interface of
+a class you don’t want to depend on, define a new interface with just the
+function(s) the SUT needs. If you can’t modify the class you depend on to
+implement the new interface, make a façade, which just delegates to the
+original target object.</p>
+
+<p class=MsoNormal>Extract and override call – if there are just one or two
+places the SUT uses a particular dependency you don’t want, extract them to methods,
+and override the methods in a test-only subclass. (A special case: extract and
+override factory method, for stuff the SUT creates.)</p>
+
+<p class=MsoNormal>Extract interface – define an interface containing the
+(subset of) the dependency’s methods that you need, make the class implement
+the interface, and change the type declarations to the interface. Now you have
+something relatively simple to mock.</p>
+
+<p class=MsoNormal>Paramaterize constructor – if the constructor normally
+creates an object you depend on, and you want a different one in a test, make a
+new constructor that is passed the object. You can still have the old
+constructor, which creates the default dependency and calls the new one. (This
+concept is more generally called dependency injection.)</p>
+
+<p class=MsoNormal>Pull up feature – if the code you want to test doesn’t
+depend on the problem dependencies of the whole class, make an abstract
+superclass containing the functionality you want to test.</p>
+
+<p class=MsoNormal>subclass and override method – make a test-only subclass of
+the class you want to test or its dependency. Override a virtual method to
+avoid a problem dependency, control inputs to a test, or verify outputs from a
+test.</p>
+
+<p class=MsoNormal>Template redefinition – make the class you want to test into
+an …Impl class, which takes a template type for the problem dependency. Make a
+new class with the original name, which instantiates the template for the
+normal dependent type. Make a test class which instantiates it with a
+substitute dependent type.</p>
+
+<h1>Clean code</h1>
+
+<p class=MsoNormal>Ideas from <em><span style='font-family:"Calibri","sans-serif"'>Clean
+Code: a Handbook of Agile Software Craftmanship</span></em> by Robert C Martin</p>
+
+<p class=MsoNormal>Have no side effects. A method should not change the state
+of the system in a way not predictable from its name.</p>
+
+<p class=MsoNormal>Command Query separation. A single method should not both
+change the state of the system and return information.</p>
+
+<p class=MsoNormal>Use exceptions rather than error codes for exceptional
+situations.</p>
+
+<p class=MsoNormal>Don’t repeat yourself (DRY). Many other techniques
+contribute to this, but the basic idea is to get rid of all duplication,
+somehow.</p>
+
+<p class=MsoNormal>The need to comment indicates failure. The ideal is to write
+code so clear it doesn’t need comments.</p>
+
+<p class=MsoNormal>Don’t have comments just to keep the compiler happy, when
+there is nothing useful to say. At least, delete the generated argument
+comments when there is nothing (useful) to say about the arguments. I would
+personally favor turning off the compiler option that requires comments on
+public methods. For one thing, it isn’t working. We have an annoying
+multiplicity of classes that really need good comments but all they have is
+something like “Summary description for ChoiceGroupCollection.” In my
+experience, if the class has a good comment the constructor rarely needs one.</p>
+
+<p class=MsoNormal>Don’t return null. I’d like to see us move to where null
+checks are less and less necessary. For collections and strings, return an
+empty one rather than null. For other objects, consider whether you can define
+a special case object (the null object pattern) that will automatically give
+the right results for all or most things the client wants to do. (I don’t think
+we can make an absolute rule of this, certainly not any time soon, but it’s a
+good direction to move.)</p>
+
+<p class=MsoNormal>Single Responsibility Principle. Methods should do one
+thing. Classes should have one area of responsibility, a high degree of
+cohesion. Think that they should only have one reason to change.</p>
+
+<p class=MsoNormal>The job is not done when the code works, or even when you
+have tests (which two things should coincide). It’s done when it communicates
+your intent as clearly as possible. (Red-green-refactor = failing test, passing
+test, make it clean.)</p>
+
+<h1>From Agile Principles book</h1>
+
+<p class=MsoNormal><em><span style='font-family:"Calibri","sans-serif"'>Agile
+Principles, Patterns, and Practices in C#,</span></em> Robert C Martin</p>
+
+<p class=MsoNormal>Test-driven development improves design. The decoupling that
+aids good testing is helpful in other ways too.</p>
+
+<p class=MsoNormal>Design smells: rigidity (hard to change, one change affects
+many things), fragility (one change causes many problems), immobility (hard to
+reuse things that should be useful elsewhere), viscosity (changes that improve
+the design are harder than hacks; it’s easier to fix the wrong way than the
+right way), needless complexity, needless repetition, opacity (hard to
+understand).</p>
+
+<p class=MsoNormal>Fool me once, shame on you. Fool me twice, shame on me. We
+may accept that a certain kind of change will be difficult once, because we’d
+make needless complexity by anticipating it. After it happens once, we should
+be architected to easily handle more changes of the same kind.</p>
+
+<p class=MsoNormal>Single responsibility principle. A class should only have
+one reason to change. This can be subtle; it’s possible to over-engineer
+(needless complexity smell) anticipating changes that do not occur.</p>
+
+<p class=MsoNormal>Open-Closed principle: open to extension, closed to change.
+When a change is needed, try to refactor so that further changes of that type
+don’t require changing existing code. Typically use the strategy pattern to
+make the unchanging code call an interface which can have extra
+implementations. Note that you can’t be closed against all possible changes;
+intelligent anticipation must be combined with refactoring when needed.</p>
+
+<p class=MsoNormal>Liskov substitution principle: subtypes must be
+substitutable for their base types. Any code that is correct applied to the
+base should be when applied to a subclass. (Again, it’s hard to anticipate ALL
+the assumptions a user of the base class might make. It may work to consider a
+Square to be a kind of Rectangle…<em><span style='font-family:"Calibri","sans-serif"'>unless</span></em>
+some client assumes that changing the width won’t change the height. Avoid
+obvious violations and fix the design when fragility emerges.)</p>
+
+<p class=MsoNormal>Dependency-inversion principle: high level modules should
+not depend on low-level modules. Both should depend on abstractions.
+Abstractions should not depend on details; details should depend on
+abstractions. Lower-level modules provide the implementation for interfaces
+defined and used in high-level ones.</p>
+
+<h1>From the MS book on designing frameworks</h1>
+
+<p class=MsoNormal><em><span style='font-family:"Calibri","sans-serif"'>Framework
+Designs: Conventions, Idioms, and Patterns for reusable .NET libraries</span></em>.</p>
+
+<p class=MsoNormal>Naming: know the capitalization conventions (two-letter
+acronyms are capitalized, longer are not). Don’t use abbreviations (we allow a
+very few). Enumerations should have singular names unless you can combine
+values (bitfields).</p>
+
+<p class=MsoNormal>Interface versus abstract class: the book prefers abstract
+class if at all possible because of the difficulty of extending an interface
+without breaking all implementations. That is less of a problem for us as we
+don’t have clients we don’t control implementing our interfaces. (The book
+about legacy code, by contrast, loves interfaces, as they tend to make good
+seams.)</p>
+
+<p class=MsoNormal>They talk about low barriers to entry and designing simple
+APIs that cover common scenarios, built on top of a distinct layer that offers
+more power for specialized needs.</p>
+
+<p class=MsoNormal>Events: DO use EventHandler&lt;T&gt;, where T is your
+subclass of EventArgs, rather than making your own subclass of EventHandler.
+Use Raise (rather than Fire or Trigger or Invoke or whatever) for activating an
+event. Raise event X in a protected virtual method OnX(XEventArgs e).</p>
+
+<p class=MsoNormal>Structs: should be immutable (value objects). Should
+override Equals(object), and GetHashCode(); implement IEquatable&lt;T&gt;
+(Equals(T)).</p>
+
+<p class=MsoNormal>Overiding Equals to get value equality: comply with the
+Equals contract (x == x; x == y =&gt; y == x; x==y &amp;&amp; y == z =&gt; x ==
+z; successive invocations of x == y return the same answer as long as the
+objects are not modified; x == null returns false. Override GetHashCode(); if
+x==y, x.GetHashCode() must equal y.GetHashCode(). The value returned by
+GetHashCode() should not change, which usually means the class should be
+immutable; this is recommended anyway for classes implementing value equality.</p>
+
+<p class=MsoNormal>Never catch Exception or SystemException (unless you will
+rethrow, but such cases are usually better handled by finally). In general,
+only catch an exception if you understand exactly what went wrong to cause it,
+and can be sure of putting the system back into a good state. (Consider that,
+for example, an OutOfMemory exception can conceivably happen almost anywhere,
+and there is no sure way to recover; the problem should not be ignored.)</p>
+
+<p class=MsoNormal>Avoid catching a low-level exception and wrapping it in a
+high-level exception.  This usually just makes debugging more difficult. It is
+helpful only if the high-level exception is truly likely to be caught and
+handled. If you do it at all, be sure to save the original exception as an
+inner exception.</p>
+
+<p class=MsoNormal>Never throw a vanilla Exception or SystemException; throw
+the most specific subtype possible. Do not throw or derive from
+System.ApplicationException; this was apparently an idea that didn’t work out
+and is now deprecated.</p>
+
+<p class=MsoNormal>Don’t throw NullReferenceException,
+IndexOutOfRangeException, or AccessViolationException (these should all be
+considered to represent bugs in the code). StackOverflowException,
+OutOfMemoryException, ComException, SEHException, and ExecutionEngineException
+are reserved.</p>
+
+<p class=MsoNormal>Consider</p>
+
+<p class=MsoNormal>InvalidOperationException if the call is not appropriate in
+the current state of the receiver</p>
+
+<p class=MsoNormal>ArgumentException (or if appropriate ArgumentNullException
+or ArgumentOutOfRangeException) if something is wrong with an argument. (Set
+the ParamName property.)</p>
+
+<p class=MsoNormal>Consider a new subclass of System.Exception or some more
+appropriate class, but generally only if there is a real expectation that some
+client will want to catch just that one kind of problem.</p>
+
+<p class=MsoNormal>Avoid methods that return error codes. Prefer tester-doer
+pattern (if (!collection.IsReadOnly) collection.Add(x);). If throwing is really
+inappropriate, consider the Try pattern (like TryParse, TryGetValue).</p>
+
+<p class=MsoNormal>Never implement ICloneable. It’s acceptable to have a
+Clone() method, as long as you specify whether it makes a deep or shallow copy,
+but the interface does not specify this and is therefore useless and
+deprecated.</p>
+
+<p class=MsoNormal>There’s also interesting material on serialization, LINQ,
+synchronization and threading, and lots of other stuff. It’s worth a read, even
+if you don’t think your primary work is designing frameworks.</p>
+
+<p class=MsoNormal>An appendix describes FxCop, an MS tool which verifies that
+as many of these guidelines as possible are being followed. We should seriously
+consider the goal of getting our code to pass FxCop.</p>
+
+<h1>Design patterns</h1>
+
+<p class=MsoNormal>From <i>Design patterns: Elements of reusable
+Object-Oriented Software</i> by Erich Gamma et al.</p>
+
+<p class=MsoNormal>Some especially important patterns:</p>
+
+<p class=MsoNormal>Factory – isolates clients from knowing exactly what class
+of object gets created</p>
+
+<p class=MsoNormal>Singleton – ensure a class has only one instance</p>
+
+<p class=MsoNormal>Façade – Provide a different interface to a service (the GOF
+book might actually consider this merely an Adapter unless it is a higher-level
+interface shared by several implementations).</p>
+
+<p class=MsoNormal>Decorator – Attach additional responsibilities to an object
+or otherwise change its behavior. Implements the same interface as the object
+decorated, mostly by delegation to a wrapped instance of the same interface.</p>
+
+<p class=MsoNormal>Command – encapsulate a request as an object, allowing you
+to parameterize clients with different requests, support Undo/Redo, etc.</p>
+
+<p class=MsoNormal>Mediator – Encapsulates how a set of objects interact. Makes
+coupling looser and allows independent control of interaction. Consider the
+newer pattern Event aggregator.</p>
+
+<p class=MsoNormal>Observer – when one object changes state, others are
+notified. What Events implement.</p>
+
+<p class=MsoNormal>Strategy – Encapsulates the variable part of a larger
+algorithm in an object. Substituting different strategies allows different
+variations of the main algorithm</p>
+
+<p class=MsoNormal>Template method – Define the skeleton of an algorithm as a
+method, with variable steps calling virtual methods. Different subclasses implement
+the virtuals differently. It’s now sometimes possible to do something like this
+in a single class by passing a lambda expression to the template.</p>
+
+<p class=MsoNormal>Visitor – Represents an operation to be performed on each
+elements of a structure or collection. Allows you to separate the process of
+moving through the elements from the definition of the operation you perform on
+each.</p>
+
+<h1>Some other principles</h1>
+
+<p class=MsoNormal>Miscellaneous ideas I may have gotten from some book, but
+can’t identify which.</p>
+
+<p class=MsoNormal>Don’t use exceptions to report things that commonly and
+normally happen. (A common case of this in FieldWorks is making a selection
+where it may not be possible. These methods are gradually being changed to just
+make&nbsp;no selection.) It should be possible to run the program normally with
+the debugger set to catch all exceptions when first thrown, without getting all
+sorts of spurious exceptions. Unfortunately Microsoft doesn’t follow this
+perfectly.</p>
+
+</div>
+
+</body>
+
+</html>

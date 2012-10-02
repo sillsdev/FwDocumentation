@@ -1,0 +1,626 @@
+<?xml version="1.0" encoding="US-ASCII"?>
+
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+	"http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd">
+ <!-- "e:/docbook/docbookx.dtd"> -->
+<article class="techreport">
+	<title>Getting Started With The FwPort Project</title>
+	<articleinfo>
+		<releaseinfo>$Revision$</releaseinfo>
+		<pubdate>$Date$</pubdate>
+	</articleinfo>
+	<!--sidebar>
+
+		<inlinemediaobject>
+			<imageobject>
+				<imagedata fileref="http://docbook.sourceforge.net/graphics/created-with-docbook-black.png"/>
+			</imageobject>
+		</inlinemediaobject>
+		<inlinemediaobject>
+			<imageobject>
+				<imagedata fileref="http://docbook.sourceforge.net/graphics/created-with-libxslt.png"/>
+			</imageobject>
+		</inlinemediaobject>
+
+	</sidebar-->
+	<section id="Intro">
+		<title>Introduction</title>
+		<para>There are three main steps involved:</para>
+		<orderedlist>
+			<listitem>
+				<simpara>Get SSH connections working to our CVS server</simpara>
+			</listitem>
+			<listitem>
+				<simpara>Get <application>WinCVS</application> working</simpara>
+			</listitem>
+			<listitem>
+				<simpara>Build and run the <application>CodeGen</application> program</simpara>
+			</listitem>
+		</orderedlist>
+	</section>
+	<section id="Downloads">
+		<title>Downloads</title>
+		<para>You need to download and install the necessary software packages. The links and
+			versions are as of 25-Oct-04.</para>
+		<itemizedlist>
+			<listitem>
+				<simpara>
+					<ulink url="http://www.7-zip.org/">
+						<application>7Zip</application>
+					</ulink> (if you don't already have an unzip utility)</simpara>
+			</listitem>
+			<listitem>
+				<simpara>
+					<application>PuTTY</application> version 0.55 (putty-0.55-installer.exe) </simpara>
+				<simpara>
+					<ulink url="http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html">
+						http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html </ulink>
+				</simpara>
+			</listitem>
+			<listitem>
+				<simpara>
+					<application>WinCVS</application> version 1.3.17.2 (WinCvs13b17-2.zip) </simpara>
+				<simpara>
+					<ulink url="http://www.wincvs.org/download.html">
+						http://www.wincvs.org/download.htm </ulink>
+				</simpara>
+			</listitem>
+			<listitem>
+				<simpara>
+					<ulink url="http://expat.sourceforge.net/">
+						<application>Expat</application>
+					</ulink> (for <application>CodeGen</application>)</simpara>
+			</listitem>
+		</itemizedlist>
+	</section>
+	<section id="SSH">
+		<title>SSH</title>
+		<section id="PuTTY_Install">
+			<title>PuTTY Installation</title>
+			<itemizedlist>
+				<listitem>
+					<para>Run the putty-0.55-installer.exe</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty001.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Click "Yes"</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty002.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Click "Next"</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty003.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Change the install path to "C:\Utils\putty" (document assumes this is the
+						install location)</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty004.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Click "Next"</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty005.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Click "Next"</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty006.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Click "Install"</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty007.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Click "Finish"</para>
+				</listitem>
+			</itemizedlist>
+		</section>
+		<section id="PuTTY_Key_Generation">
+			<title>PuTTYGen Key Generation</title>
+			<itemizedlist>
+				<listitem>
+					<para>Start puttygen.exe and select the "SSH2 DSA option"</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty008.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Click on Generate and move the move the mouse around while the key is
+						being generated (part of the key generation process)</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty009.jpg"/>
+						</imageobject>
+					</mediaobject>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty010.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Once completed the screen will be similar to the above window.</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty011.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Right-Click in the blue highlighted public key area and if "Select All" is
+						available select it as it means that not all the public key is selected. If
+						"Select All" is not available that means that all is well and all the key is selected.</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty012.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Right-Click in the blue highlighted public key area and select "Copy" from
+						the pop-up menu. Then paste it into the email body of an email message to be
+						sent to the CVS administrator who will need this. You will not be able to
+						connect until the administrator installs your public key at his CVS server end.</para>
+				</listitem>
+				<listitem>
+					<para>Enter a password of your liking in "Key passphrase" and in "Confirm passphrase"</para>
+				</listitem>
+				<listitem>
+					<para>Click on "Save private key" and put the file in an easily accessible
+						location (because Pageant.exe will require it every time it starts up). A
+						good location is C:\utils\putty as that is the default folder that appears
+						when Pageant gives you a private key file open dialog. The document assumes
+						this is the location of the saved private key.</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty013.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Quit the PuTTY key generator</para>
+				</listitem>
+			</itemizedlist>
+		</section>
+		<section id="PuTTY_Config">
+			<title>PuTTY Configuration</title>
+			<para>We now make sure that <application>PuTTY</application> can connect you to a shell
+				prompt on the server.</para>
+			<itemizedlist>
+				<listitem>
+					<para>Start <application>PuTTY</application>. You are presented with a
+						configuration dialog, divided into panels which are navigated by the tree
+						control in the left pane.</para>
+				</listitem>
+				<listitem>
+					<para>At "Connection" set the following parameter:</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty019.jpg"/>
+						</imageobject>
+					</mediaobject>
+					<itemizedlist>
+						<listitem><para>Auto-login username = assigned username</para></listitem>
+					</itemizedlist>
+				</listitem>
+				<listitem>
+					<para>At "Connection - SSH - Auth" set the following parameter:</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty020.jpg"/>
+						</imageobject>
+					</mediaobject>
+					<itemizedlist>
+						<listitem><para>Private key file for authentication = C:\utils\putty\wycliffe_canada_private.ppk</para></listitem>
+					</itemizedlist>
+				</listitem>
+				<listitem>
+					<para>At "Session" set the following parameters:</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty021.jpg"/>
+						</imageobject>
+					</mediaobject>
+					<itemizedlist>
+						<listitem><para>Host Name = cvs.wycliffe.ca</para></listitem>
+						<listitem><para>Saved Sessions = CVS Canada</para></listitem>
+					</itemizedlist>
+				</listitem>
+				<listitem>
+					<para>Click on "Save".</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty022.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Double-clicking on "CVS Canada" or selecting it and clicking "Open" should
+						result in the following window if your setup is correct and your public key
+						has been stored at the CVS server end. At the "Passphrase for key" prompt
+						enter the passphrase you stored with your private key.</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty023.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+			</itemizedlist>
+		</section>
+		<section id="Pageant_Config">
+			<title>Pageant Configuration</title>
+			<itemizedlist>
+				<listitem>
+					<para>Start pageant.exe and it will show up in the Windows tray (an icon
+						displayed as a computer with a hat on).</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/pageant_tray_icon.gif"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Right-click on the pageant tray icon and select "Add Key"</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty014.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Select C:\utils\putty\wycliffe_canada_private.ppk and open it.</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty015.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Enter your password passphrase you save with your private key earlier and
+						select "OK"</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty016.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Optionally you can put a shortcut to pageant.exe in your "Startup" folder
+						or copy the following into a text file called pageant.reg, save it and then
+						double-click on it to store the registry information in your PC (note that
+						the registry location I chose you need normally to be an administrator of
+						your PC in order for the registry value to be stored):</para>
+					<para>REGEDIT4</para>
+					<para>[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Run]</para>
+					<para>"pageant"="C:\\utils\\putty\\pageant.exe"</para>
+				</listitem>
+				<listitem>
+					<para>Optionally you can download the following registry file and double-click
+						on it: <ulink url="pageant_startup.reg">pageant_startup.reg</ulink>
+					</para>
+				</listitem>
+			</itemizedlist>
+			<note><para>This is just to allow you access to the key, and is not transmitted to the remote
+				system. It is important for our security that you use a good key passphrase. You
+				will need to add you private key and supply your passphrase everytime you enter into
+				Windows and start Pageant.</para></note>
+		</section>
+		<section id="Test_SSH_PuTTY">
+			<title>Test SSH Using PuTTY</title>
+			<itemizedlist>
+				<listitem>
+					<para>Start PuTTY and at the opening window double-click on "CVS Canada" in the
+						"Saved Sessions" list.</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty022.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>The following screen should appear without prompting for a keyphrase. This
+						requires that pageant.exe is running and has your private key added (done in
+						an earlier step).</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty024.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+			</itemizedlist>
+		</section>
+		<section id="Test_SSH_Pageant">
+			<title>Test SSH Using Pageant</title>
+			<itemizedlist>
+				<listitem>
+					<para>This requires that pageant.exe is running and has your private key added
+						(done in an earlier step). Right-click on the Pageant tray icon and select
+						"Saved Sessions - CVS Canada".</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/pageant_saved_sessions.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>The following screen should appear without prompting for a keyphrase.</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/putty024.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+			</itemizedlist>
+		</section>
+	</section>
+	<section id="CVS">
+		<title>WinCVS</title>
+		<section id="WinCVS_Install">
+			<title>WinCVS Installation</title>
+			<itemizedlist>
+				<listitem>
+					<para>Unzip the WinCvs13b17-2.zip file and run the extracted setup.exe file.</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs001.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Click "Next".</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs002.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Read the license, select "I accept the agreement" and click "Next".</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs003.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Click "Next".</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs004.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Click "Next".</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs005.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Click "Next".</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs006.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Click "Next".</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs007.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Click "Install".</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs008.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Click "Launch WinCvs" and click "Finish".</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs010.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+			</itemizedlist>
+		</section>
+		<section id="WinCVS_Config">
+			<title>WinCVS Configuration</title>
+			<itemizedlist>
+				<listitem>
+					<para>WinCvs should be running otherwise launch it.</para>
+				</listitem>
+				<listitem>
+					<para>Close the "Tip of the Day" window.</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs011.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Enter the following at the ?WinCvs Preference? window:</para>
+					<itemizedlist>
+						<listitem><para>Authentication = ssh</para></listitem>
+						<listitem><para>Path = /var/lib/cvs/mdu/</para></listitem>
+						<listitem><para>Host Address = cvs.wycliffe.ca</para></listitem>
+						<listitem><para>User Name = your assigned user name</para></listitem>
+					</itemizedlist>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs012.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Click on "Settings" beside the "authentication" field</para>
+				</listitem>
+				<listitem>
+					<para>Enter the following at the "SSH Options" window:</para>
+					<itemizedlist>
+						<listitem><para>RSA Private key file (identity) (Checked) = C:\Utils\putty\wycliffe_canada_private.ppk</para></listitem>
+						<listitem><para>SSH Client (Checked) = C:\Utils\putty\plink.exe</para></listitem>
+					</itemizedlist>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs013.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Click on "OK"</para>
+				</listitem>
+				<listitem>
+					<para>At the "WinCVS Preferences" dialog window select the Globals tab and set
+						the following parameters:</para>
+					<itemizedlist>
+						<listitem><para>Supply control when adding files = checked</para></listitem>
+						<listitem><para>TCP/IP compression = checked and set to 9</para></listitem>
+						<listitem><para>Prune (remove) empty directories = checked</para></listitem>
+						<listitem><para>Disable splash screen = checked</para></listitem>
+					</itemizedlist>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs019.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Select the CVS tab and set the "HOME" parameter to "C:\Program
+						Files\WinCvs 1.3". It can be set to just about any directory but generally
+						this is the preferred location.</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs020.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Click on "OK"</para>
+				</listitem>
+				<listitem>
+					<para>At the main WinCVS window select "View ? Browse Location ? Change?"</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs014.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Select the previously created "C:\FWPort" location</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs015.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>At the toolbar location box highlight but DON?T click on "C:\" and then
+						press on the "Delete" key on your keyboard (this is counter-intuitive!).</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs016.jpg"/>
+						</imageobject>
+					</mediaobject>
+					<note>
+						<para> If you inadvertently clicked on "C:\" you will have to first reselect
+							"C:\Wycliffe_CVS" before you will be allowed to delete "C:\" as just
+							previously described.</para>
+					</note>
+				</listitem>
+				<listitem>
+					<para>At the remove confirmation prompt click "Yes"</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs017.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Right-Click on the "FwPort" folder on the left-hand window pane and select
+						"Checkout module?" from the pop-up menu.</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs018.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>At the "Checkout Settings" dialog window click on the "..." button beside
+						the "Module name and path on the server".</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs021.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>After a little while you will be presented a list of choices similar to
+						the following. Select the "FieldWorks" module and press "OK".</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs022.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>Press "OK" at the "Checkout Settings" window.</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs023.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+				<listitem>
+					<para>The end result should be something like this:</para>
+					<mediaobject>
+						<imageobject>
+							<imagedata fileref="images/cvs024.jpg"/>
+						</imageobject>
+					</mediaobject>
+				</listitem>
+			</itemizedlist>
+		</section>
+	</section>
+	<section id="CodeGen">
+		<title>CodeGen</title>
+		<para>
+			<remark>[To be supplied]</remark>
+		</para>
+	</section>
+</article>
