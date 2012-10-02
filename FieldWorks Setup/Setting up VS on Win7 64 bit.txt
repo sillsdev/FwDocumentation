@@ -1,0 +1,32 @@
+Notes on installing Fieldworks.
+
+These are JohnT's notes from setting up on the WW branch on Win 7 64-bit in Sep 2010, particularly for those migrating to new machines in Dallas. Numbers refer to the steps in the current "FieldWorks Setup.mht". We should eventually update the instructions, but some of the out-of-date stuff may still be relevant if setting up a different configuration or working on 6.0 or TE.
+
+2. Note the instructions for copying your Perforce setup from your old computer. This is a pretty good idea, especially if Windows Easy Transfer already copied the directories you need.
+3. No longer need SVN. Skip this step.
+4. No longer need SqlServer. Skip this step.
+5. No longer need MSXML4 or service packs. Skip this step.
+6. The ICU DLLs are now "40" rather than "36". I could not get any to register. Apparently this is no longer needed now we're doing reg-free COM?
+At least if using UAC you will need to run your cmd window as administrator.
+You may need to find a copy of regasm and paste the path in.
+We no longer use XCeedzip. Skip that step.
+7. Choose custom configuration and deselect SQLServer express.
+9. instead of pathinclude.2008.xml, use pathinclude.2008-64.xml. On my computer it's in the WW branch. Set VSVERSION to 2008-64.
+You should set Visual Studio to "run as administrator". Locate the exe, right-click, choose Properties, Compatibility tab.
+- step 8d: AutoExp.dat is in Program Files (x86)/...
+(If you have UAC turned on: won't let you save there from notepad, save somewhere else and copy it back. Explorer will ask you for admin permission.)
+- step e similarly (I THINK it should be in Program Files(x86)...).
+12: Skip. No longer using file cache.
+
+Extra: I had to set an environment variable FWROOT to c:\ww, and add some directories to my Path environment variable: c:\ww\bin;c:\ww\bin\nant\bin;c:\distfiles.
+Remember to restart VS and any cmd windows after editing environment variables.
+Editing path, it's helpful to copy to Notepad. Before copying back, turn wordwrap off so you don't get unwanted newlines.
+
+Use a command window for the first build (make it run as administrator if you have UAC on). CD to {ww}\bld and execute nant buildtest all.
+Then close and reopen the command window, CD to {ww}\bld and execute nant forcetests all.
+
+If both of these succeed you are good to go!
+
+You probably also want to install Resharper.
+
+Most people doing FieldWorks development on Windows 7 decide to turn UAC off. It's a good security precaution, but less necessary with all the firewall and proxy stuff we have on center. And it does nag you whenever you start VS or anything else that needs admin privilege. To do so, go to start, type msconfig<enter>, tools tab, Change UAC settings, Launch, and drag the slider down to 'None'.

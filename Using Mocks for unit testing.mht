@@ -1,0 +1,576 @@
+MIME-Version: 1.0
+Content-Location: file:///C:/D16BB227/UsingMocksforunittesting.htm
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/html; charset="us-ascii"
+
+<html xmlns:o=3D"urn:schemas-microsoft-com:office:office"
+xmlns:w=3D"urn:schemas-microsoft-com:office:word" xmlns:st1=3D"urn:schemas:=
+contacts"
+xmlns:st2=3D"urn:schemas-microsoft-com:office:smarttags"
+xmlns=3D"http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=3DContent-Type content=3D"text/html; charset=3Dus-ascii">
+<meta name=3DProgId content=3DWord.Document>
+<meta name=3DGenerator content=3D"Microsoft Word 10">
+<meta name=3DOriginator content=3D"Microsoft Word 10">
+<link rel=3DFile-List href=3D"UsingMocksforunittesting_files/filelist.xml">
+<title>Using Mocks for unit testing</title>
+<o:SmartTagType namespaceuri=3D"urn:schemas:contacts" name=3D"Sn"/>
+<o:SmartTagType namespaceuri=3D"urn:schemas:contacts" name=3D"GivenName"/>
+<o:SmartTagType namespaceuri=3D"urn:schemas-microsoft-com:office:smarttags"
+ name=3D"PersonName"/>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Eberhard Beilharz</o:Author>
+  <o:LastAuthor>Eberhard Beilharz</o:LastAuthor>
+  <o:Revision>2</o:Revision>
+  <o:TotalTime>109</o:TotalTime>
+  <o:Created>2003-12-15T14:13:00Z</o:Created>
+  <o:LastSaved>2003-12-15T16:02:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>769</o:Words>
+  <o:Characters>4386</o:Characters>
+  <o:Company>JAARS, Inc.</o:Company>
+  <o:Lines>36</o:Lines>
+  <o:Paragraphs>10</o:Paragraphs>
+  <o:CharactersWithSpaces>5145</o:CharactersWithSpaces>
+  <o:Version>10.4219</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:View>Print</w:View>
+  <w:Zoom>BestFit</w:Zoom>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SnapToGridInCell/>
+   <w:WrapTextWithPunct/>
+   <w:UseAsianBreakRules/>
+   <w:UseFELayout/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+ </w:WordDocument>
+</xml><![endif]--><!--[if !mso]><object
+ classid=3D"clsid:38481807-CA0E-42D2-BF39-B33AF135CC4D" id=3Dieooui></objec=
+t>
+<style>
+st1\:*{behavior:url(#ieooui) }st2\:*{behavior:url(#ieooui) }
+</style>
+<![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Batang;
+	panose-1:2 3 6 0 0 1 1 1 1 1;
+	mso-font-alt:\BC14\D0D5;
+	mso-font-charset:129;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:-1342176593 1775729915 48 0 524447 0;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;
+	mso-font-charset:0;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:1627421319 -2147483648 8 0 66047 0;}
+@font-face
+	{font-family:NewBaskerville-Italic;
+	panose-1:0 0 0 0 0 0 0 0 0 0;
+	mso-font-charset:0;
+	mso-generic-font-family:roman;
+	mso-font-format:other;
+	mso-font-pitch:auto;
+	mso-font-signature:3 0 0 0 1 0;}
+@font-face
+	{font-family:"\@Batang";
+	panose-1:2 3 6 0 0 1 1 1 1 1;
+	mso-font-charset:129;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:-1342176593 1775729915 48 0 524447 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:Tahoma;
+	mso-fareast-font-family:Batang;
+	mso-bidi-font-family:"Times New Roman";}
+h1
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	font-size:16.0pt;
+	font-family:Arial;
+	mso-font-kerning:16.0pt;}
+h2
+	{mso-style-next:Normal;
+	margin-top:12.0pt;
+	margin-right:0in;
+	margin-bottom:3.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:2;
+	font-size:14.0pt;
+	font-family:Arial;
+	font-style:italic;}
+p.MsoFootnoteText, li.MsoFootnoteText, div.MsoFootnoteText
+	{mso-style-noshow:yes;
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:6.0pt;
+	margin-left:0in;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:Tahoma;
+	mso-fareast-font-family:Batang;
+	mso-bidi-font-family:"Times New Roman";}
+span.MsoFootnoteReference
+	{mso-style-noshow:yes;
+	vertical-align:super;}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;
+	text-underline:single;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;
+	text-underline:single;}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:166331267;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-176265364 67698703 67698713 67698715 67698703 67698=
+713 67698715 67698703 67698713 67698715;}
+@list l0:level1
+	{mso-level-tab-stop:.5in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+@list l0:level2
+	{mso-level-number-format:alpha-lower;
+	mso-level-tab-stop:1.0in;
+	mso-level-number-position:left;
+	text-indent:-.25in;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Table Normal";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0in 5.4pt 0in 5.4pt;
+	mso-para-margin:0in;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman";}
+</style>
+<![endif]-->
+</head>
+
+<body lang=3DEN-US link=3Dblue vlink=3Dpurple style=3D'tab-interval:.5in'>
+
+<div class=3DSection1>
+
+<h1>Using Mocks for unit testing</h1>
+
+<p class=3DMsoNormal><st2:PersonName><st1:GivenName>Eberhard</st1:GivenName=
+> <st1:Sn>Beilharz</st1:Sn></st2:PersonName>,
+2003-12-15<o:p></o:p></p>
+
+<h2>Why mocks?</h2>
+
+<p class=3DMsoNormal>From the book &#8220;<span class=3DSpellE>JUnit</span>=
+ in
+action&#8221;<span class=3DMsoFootnoteReference> <a style=3D'mso-footnote-i=
+d:ftn1'
+href=3D"#_ftn1" name=3D"_ftnref1" title=3D""><span style=3D'mso-special-cha=
+racter:footnote'><![if !supportFootnotes]><span
+class=3DMsoFootnoteReference><span style=3D'font-size:10.0pt;mso-bidi-font-=
+size:
+12.0pt;font-family:Tahoma;mso-fareast-font-family:Batang;mso-bidi-font-fami=
+ly:
+"Times New Roman";mso-ansi-language:EN-US;mso-fareast-language:KO;mso-bidi-=
+language:
+AR-SA'>[1]</span></span><![endif]></span></a></span>:</p>
+
+<p class=3DMsoNormal><i>Testing in isolation offers strong benefits, such a=
+s the
+ability to test code that has not yet been written (as long as you at least
+have an interface to work with). In addition, testing in isolation helps <s=
+pan
+class=3DGramE>teams</span> unit-test one part of the code without waiting f=
+or all
+the other parts. <o:p></o:p></i></p>
+
+<p class=3DMsoNormal><i>But perhaps the biggest advantage is the ability to=
+ write
+focused tests that test only a single method, without side effects resulting
+from other objects being called from the method under test. &#8230; <o:p></=
+o:p></i></p>
+
+<p class=3DMsoNormal><i>Mock objects (or mocks for short) are perfectly sui=
+ted
+for testing a portion of code logic in isolation from the rest of the code.
+Mocks replace the objects with which your methods under test collaborate, t=
+hus
+offering a layer of isolation. In that sense, they are similar to stubs.
+However, this is where the similarity ends, because mocks do not implement =
+any
+logic: They are empty shells that provide methods to let the tests control =
+the
+behavior of all the business methods of the faked class.<o:p></o:p></i></p>
+
+<p class=3DMsoNormal style=3D'margin-left:.5in'><i>Definition: mock</i><i><=
+span
+style=3D'font-family:NewBaskerville-Italic;mso-bidi-font-family:NewBaskervi=
+lle-Italic'>
+</span>object</i><i><span style=3D'font-family:NewBaskerville-Italic;mso-bi=
+di-font-family:
+NewBaskerville-Italic'>&#8212;</span><span class=3DGramE>A</span> mock obje=
+ct (or
+mock</i><i><span style=3D'font-family:NewBaskerville-Italic;mso-bidi-font-f=
+amily:
+NewBaskerville-Italic'> </span>for short) is an object created to stand in =
+for
+an object that your code will be collaborating with. Your code can call met=
+hods
+on the mock object, which will deliver results as set up by your tests.</i>=
+<i><span
+style=3D'font-family:NewBaskerville-Italic;mso-bidi-font-family:NewBaskervi=
+lle-Italic'><o:p></o:p></span></i></p>
+
+<p class=3DMsoNormal>Using mocks allows our unit tests to run without the n=
+eed of
+an expensive setup, e.g. displaying a window, or the need to have <span
+class=3DSpellE>TestLangProj</span> in a certain state, and it allows faster=
+ test
+runs. The disadvantage is that it sometimes gets messy because a mocked
+interface returns another interface which has to be mocked&#8230; Another
+disadvantage is the need to specify the methods that get called on the mock
+object.</p>
+
+<p class=3DMsoNormal>More information about mocks can be found at <a
+href=3D"http://www.mockobjects.com/">http://www.mockobjects.com</a></p>
+
+<p class=3DMsoNormal>We use a modified version of the open source project <=
+span
+class=3DSpellE>NMock</span> (<a href=3D"http://nmock.truemesh.com/">http://=
+nmock.truemesh.com/</a>).
+Our version is heavily modified because the original mock couldn&#8217;t de=
+al
+with <span style=3D'mso-bidi-font-size:10.0pt;font-family:"Courier New";
+color:blue'>ref </span>or <span style=3D'mso-bidi-font-size:10.0pt;font-fam=
+ily:
+"Courier New";color:blue'>out </span>parameters. Unfortunately, <span
+class=3DSpellE>NMock</span> has hardly any documentation.</p>
+
+<h2>How to use Mocks</h2>
+
+<ol style=3D'margin-top:0in' start=3D1 type=3D1>
+ <li class=3DMsoNormal style=3D'mso-list:l0 level1 lfo1;tab-stops:list .5in=
+'>Create
+	 a dynamic mock, e.g. for a <span class=3DSpellE>IVwSelection</span>:</=
+li>
+</ol>
+
+<p class=3DMsoNormal style=3D'margin-left:1.0in'><span class=3DSpellE><span
+style=3D'mso-bidi-font-size:10.0pt;font-family:"Courier New"'>DynamicMock</=
+span></span><span
+style=3D'mso-bidi-font-size:10.0pt;font-family:"Courier New"'> <span
+class=3DSpellE>sel</span> =3D <span style=3D'color:blue'>new</span> <span
+class=3DSpellE><span class=3DGramE>DynamicMock</span></span><span class=3DG=
+ramE>(</span><span
+class=3DSpellE><span style=3D'color:blue'>typeof</span></span>(<span class=
+=3DSpellE>IVwSelection</span>));</span></p>
+
+<ol style=3D'margin-top:0in' start=3D2 type=3D1>
+ <li class=3DMsoNormal style=3D'mso-list:l0 level1 lfo1;tab-stops:list .5in=
+'>Set
+	 the expected calls and return values:</li>
+</ol>
+
+<p class=3DMsoNormal style=3D'margin-left:1.0in'><span class=3DSpellE><span
+class=3DGramE><span style=3D'mso-bidi-font-size:10.0pt;font-family:"Courier=
+ New"'>sel.ExpectAndReturn</span></span></span><span
+class=3DGramE><span style=3D'mso-bidi-font-size:10.0pt;font-family:"Courier=
+ New"'>(</span></span><span
+style=3D'mso-bidi-font-size:10.0pt;font-family:"Courier New";color:red;
+background:yellow;mso-highlight:yellow'>&quot;Commit&quot;</span><span
+style=3D'mso-bidi-font-size:10.0pt;font-family:"Courier New"'>, <span
+style=3D'color:blue'>true</span>);</span></p>
+
+<ol style=3D'margin-top:0in' start=3D3 type=3D1>
+ <li class=3DMsoNormal style=3D'mso-list:l0 level1 lfo1;tab-stops:list .5in=
+'>Get the
+	 proxy and pass it to the tested code, so that it gets used instead of a
+	 real <span class=3DSpellE>IVwSelection</span>:</li>
+</ol>
+
+<p class=3DMsoNormal style=3D'margin-left:1.0in'><span class=3DSpellE><span
+style=3D'mso-bidi-font-size:10.0pt;font-family:"Courier New"'>IVwSelection<=
+/span></span><span
+style=3D'mso-bidi-font-size:10.0pt;font-family:"Courier New"'> <span
+class=3DSpellE>vwSel</span> =3D (<span class=3DSpellE>IVwSelection</span><s=
+pan
+class=3DGramE>)<span class=3DSpellE>sel.MockInstance</span></span>;</span><=
+/p>
+
+<ol style=3D'margin-top:0in' start=3D4 type=3D1>
+ <li class=3DMsoNormal style=3D'mso-list:l0 level1 lfo1;tab-stops:list .5in=
+'>Perform
+	 the tests</li>
+ <li class=3DMsoNormal style=3D'mso-list:l0 level1 lfo1;tab-stops:list .5in=
+'>Optional:
+	 Verify that all methods got called</li>
+</ol>
+
+<p class=3DMsoNormal style=3D'margin-left:1.0in'><span class=3DSpellE><span
+class=3DGramE><span style=3D'mso-bidi-font-size:10.0pt;font-family:"Courier=
+ New"'>sel.Verify</span></span></span><span
+class=3DGramE><span style=3D'mso-bidi-font-size:10.0pt;font-family:"Courier=
+ New"'>(</span></span><span
+style=3D'mso-bidi-font-size:10.0pt;font-family:"Courier New"'>);<o:p></o:p>=
+</span></p>
+
+<p class=3DMsoNormal>A real example can be found in <span style=3D'font-fam=
+ily:
+"Courier New"'>Bin\<span class=3DSpellE>nmock\src\sample\order</span></span=
+>. It
+shows a test for a method that processes an order. In production code, the
+order is loaded from a SQL database, and an email notification is sent to t=
+he
+customer. For the test, the order and the email notification are mocked.</p>
+
+<h2>Important methods of <span class=3DSpellE><span style=3D'font-style:nor=
+mal'>DynamicMock</span></span>
+class</h2>
+
+<p class=3DMsoNormal style=3D'margin-left:.5in;text-indent:-.5in'><span
+class=3DSpellE><span class=3DGramE><span style=3D'font-family:"Courier New"=
+'>SetupResult</span></span></span><span
+class=3DGramE><span style=3D'font-family:"Courier New"'>(</span></span><span
+style=3D'font-family:"Courier New"'>&#8220;<span class=3DSpellE>methodname<=
+/span>&#8221;,
+&#8230;):</span> <span class=3DSpellE><span style=3D'font-family:"Courier N=
+ew"'>Methodname</span></span>
+can be called any number of times with any arguments; no verification is do=
+ne
+on the calls.</p>
+
+<p class=3DMsoNormal style=3D'margin-left:.5in;text-indent:-.5in'><span
+class=3DGramE><span style=3D'font-family:"Courier New"'>Expect(</span></spa=
+n><span
+style=3D'font-family:"Courier New"'>&#8220;<span class=3DSpellE>methodname<=
+/span>&#8221;,
+&#8230;)</span>: We expect <span class=3DSpellE><span style=3D'font-family:=
+"Courier New"'>Methodname</span></span>
+to be called once, with exactly the specified arguments.</p>
+
+<p class=3DMsoNormal style=3D'margin-left:.5in;text-indent:-.5in'><span
+class=3DSpellE><span class=3DGramE><span style=3D'font-family:"Courier New"=
+'>ExpectAndReturn</span></span></span><span
+class=3DGramE><span style=3D'font-family:"Courier New"'>(</span></span><span
+style=3D'font-family:"Courier New"'>&#8220;<span class=3DSpellE>methodname<=
+/span>&#8221;,
+&#8230;)</span>: same as <span style=3D'font-family:"Courier New"'>Expect</=
+span>,
+but for methods with <span style=3D'mso-bidi-font-size:10.0pt;font-family:"=
+Courier New";
+color:blue'>out/ref</span> parameters</p>
+
+<p class=3DMsoNormal style=3D'margin-left:.5in;text-indent:-.5in'><span
+class=3DSpellE><span style=3D'font-family:"Courier New"'>MockInstance</span=
+></span>:
+Returns the proxy object</p>
+
+<p class=3DMsoNormal style=3D'margin-left:.5in;text-indent:-.5in'><span
+style=3D'font-family:"Courier New"'>Verify</span>: verify that all methods =
+got
+called</p>
+
+<p class=3DMsoNormal>If you don&#8217;t care about the value of a specific
+argument, you can use one of the constraints: e.g. <span class=3DSpellE><sp=
+an
+style=3D'mso-bidi-font-size:10.0pt;font-family:"Courier New"'>IsAnything</s=
+pan></span>
+(look in <span style=3D'font-family:"Courier New"'>Bin\<span class=3DSpellE=
+>nmock\src\src\NMock\Constraints\Constraints.cs</span></span>
+for more).</p>
+
+<p class=3DMsoNormal>For a method, that takes <span style=3D'mso-bidi-font-=
+size:
+10.0pt;font-family:"Courier New";color:blue'>ref</span> or <span
+style=3D'mso-bidi-font-size:10.0pt;font-family:"Courier New";color:blue'>ou=
+t</span>
+parameters, you have to use one of the methods that take <span class=3DSpel=
+lE><span
+style=3D'mso-bidi-font-size:10.0pt;font-family:"Courier New"'>outParams</sp=
+an></span>
+as parameter and specify the types of all arguments: </p>
+
+<p class=3DMsoNormal style=3D'margin-top:0in;margin-right:0in;margin-bottom=
+:0in;
+margin-left:.5in;margin-bottom:.0001pt;mso-layout-grid-align:none;text-auto=
+space:
+none'><span class=3DSpellE><span style=3D'mso-bidi-font-size:10.0pt;font-fa=
+mily:
+"Courier New"'>sel.ExpectAndReturn</span></span><span style=3D'mso-bidi-fon=
+t-size:
+10.0pt;font-family:"Courier New"'>(<br>
+/* method name */ <span style=3D'mso-spacerun:yes'>&nbsp;</span><span
+style=3D'color:red;background:yellow;mso-highlight:yellow'>&quot;<span
+class=3DSpellE>PropInfo</span>&quot;</span>, <br>
+/* return value */ <span style=3D'color:blue'>null</span>, <br>
+/* arguments */ <span style=3D'color:blue'>new</span> <span style=3D'color:b=
+lue'>object</span>[]
+{ <span style=3D'color:blue'>false</span>, 0, <span style=3D'color:blue'>nu=
+ll</span>,
+<span style=3D'color:blue'>null</span>, <span style=3D'color:blue'>null</sp=
+an>, <span
+style=3D'color:blue'>null</span>, <span style=3D'color:blue'>null</span>}, =
+<br>
+/* <span class=3DSpellE>arg</span> types */ <span style=3D'color:blue'>new<=
+/span> <span
+style=3D'color:blue'>string</span>[] { <span class=3DSpellE><span style=3D'=
+color:
+blue'>typeof</span></span>(<span class=3DSpellE><span style=3D'color:blue'>=
+bool</span></span>).<span
+class=3DSpellE>FullName</span>, <span style=3D'color:red;background:yellow;
+mso-highlight:yellow'>&quot;System.Int32&quot;</span>, <span style=3D'color=
+:red;
+background:yellow;mso-highlight:yellow'>&quot;System.Int32&amp;&quot;</span=
+>, <span
+style=3D'color:red;background:yellow;mso-highlight:yellow'>&quot;System.Int=
+32&amp;&quot;</span>,
+<span style=3D'color:red;background:yellow;mso-highlight:yellow'>&quot;Syst=
+em.Int32&amp;&quot;</span>,
+<span style=3D'color:red;background:yellow;mso-highlight:yellow'>&quot;Syst=
+em.Int32&amp;&quot;</span>,
+<span style=3D'color:red;background:yellow;mso-highlight:yellow'>&quot;<span
+class=3DSpellE>SIL.FieldWorks.Common.COMInterfaces.IVwPropertyStore</span>&=
+amp;&quot;</span>
+}, <br>
+/* out parameters */ <span style=3D'color:blue'>new</span> <span
+style=3D'color:blue'>object</span>[] { <span style=3D'color:blue'>false</sp=
+an>, 0,
+8001, (<span class=3DSpellE><span style=3D'color:blue'>int</span></span>)<s=
+pan
+class=3DSpellE>BaseScrBook.ScrBookTags.kflidTitle</span>, 0, 0, <span
+style=3D'color:blue'>null</span>});<o:p></o:p></span></p>
+
+<p class=3DMsoNormal style=3D'margin-top:6.0pt'><b>NOTE</b>: For <span
+style=3D'mso-bidi-font-size:10.0pt;font-family:"Courier New";color:blue'>ou=
+t</span>
+or <span style=3D'mso-bidi-font-size:10.0pt;font-family:"Courier New";color=
+:blue'>ref</span>
+parameters, you have to append a &#8220;&amp;&#8221; to the type name, e.g.=
+ <span
+style=3D'font-family:"Courier New"'>System.Int32&amp;</span></p>
+
+<p class=3DMsoNormal><b>NOTE</b>: always specify all parameters for both in=
+put
+and output arguments (Set irrelevant parameters simply to <span
+style=3D'mso-bidi-font-size:10.0pt;font-family:"Courier New";color:blue'>nu=
+ll</span>
+or 0). The mock simply copies the output parameters on the stack, so if the=
+re
+are parameters missing, an exception will most likely happen.</p>
+
+<p class=3DMsoNormal>The <span style=3D'mso-bidi-font-size:10.0pt;font-fami=
+ly:"Courier New"'>Expect</span>&#8230;
+methods have overrides that take the number of times this method with these
+parameters is expected to be called.</p>
+
+<p class=3DMsoNormal><span class=3DGramE>The order of the expectations matt=
+er.</span></p>
+
+<h2>How it works</h2>
+
+<p class=3DMsoNormal>Dynamic mocks work on any interface (.NET or originall=
+y COM),
+and on all virtual methods/properties of .NET classes. The <span class=3DSp=
+ellE>NMock</span>
+assembly at runtime dynamically derives a proxy class from the mocked
+interface/class and compiles it (to see the generated source code, break at=
+ line
+104 in <span class=3DSpellE>ClassGenerator.Generate</span>, [string source =
+=3D <span
+class=3DSpellE><span class=3DGramE>ImplementMethods</span></span><span clas=
+s=3DGramE>(</span>);]).
+When a method in the proxy gets called, it calls the Invoke method on the m=
+ock
+object, which then checks to see if the call is expected and what parameter=
+s should
+be returned.</p>
+
+<p class=3DMsoNormal><o:p>&nbsp;</o:p></p>
+
+</div>
+
+<div style=3D'mso-element:footnote-list'><![if !supportFootnotes]><br clear=
+=3Dall>
+
+<hr align=3Dleft size=3D1 width=3D"33%">
+
+<![endif]>
+
+<div style=3D'mso-element:footnote' id=3Dftn1>
+
+<p class=3DMsoFootnoteText><a style=3D'mso-footnote-id:ftn1' href=3D"#_ftnr=
+ef1"
+name=3D"_ftn1" title=3D""><span class=3DMsoFootnoteReference><span style=3D=
+'mso-special-character:
+footnote'><![if !supportFootnotes]><span class=3DMsoFootnoteReference><span
+style=3D'font-size:10.0pt;font-family:Tahoma;mso-fareast-font-family:Batang;
+mso-bidi-font-family:"Times New Roman";mso-ansi-language:EN-US;mso-fareast-=
+language:
+KO;mso-bidi-language:AR-SA'>[1]</span></span><![endif]></span></span></a> F=
+rom:
+<st1:Sn><st1:GivenName><st2:PersonName>http://www.manning.com/massol/massol=
+_chp7.pdf</st2:PersonName></st1:GivenName></st1:Sn><o:p></o:p></p>
+
+</div>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,1556 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+	<head>
+		<title>New Page 1</title>
+		<meta http-equiv="Content-Language" content="en-us">
+		<meta name="GENERATOR" content="Microsoft FrontPage 5.0">
+		<meta name="ProgId" content="FrontPage.Editor.Document">
+		<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+	</head>
+	<body>
+		<p>XmlViews User Guide</p>
+		<p>John Thomson, 28 September 2003. Updated and added DetailControl info, August
+			24, 2005.<br>
+		</p>
+		<p>Note: I took most of the examples from working code, but did not have time to
+			retry them in isolation. This was also written some months after the relevant
+			code changes. If something doesn't seem to work as described, it could be my
+			mistake rather than yours!<br>
+		</p>
+		<h1>Introduction</h1>
+		<p>XmlViews is a way of specifying FieldWorks Views using XML. See <a href="Views_User_Guide.htm">
+				Views_User_Guide.htm</a> for more information about the underlying Views
+			code.</p>
+		<p>In broad terms, Views are a way of specifying a relationship between objects
+			that have properties, typically stored in a database or file, with a display or
+			view of that data. The view is broadly organized into rectangular areas of the
+			screen, such as paragraphs or tables, generically called boxes. Object
+			properties include both simple properties, like strings and numbers, and object
+			properties, which represent relationships between objects.</p>
+		<p>The relationship between boxes and objects is complex but constrained. The
+			display of an object may consist of several boxes (for example, a document
+			section contains several paragraphs, each of which is a paragraph box). Even
+			without involving other objects this is so, for example, a sentence object
+			might contain both a text and a translation. These two strings could be
+			displayed in separate paragraphs, giving a two-paragraph display of a single
+			object.</p>
+		<p>A single box may also display a complex hierarchy of objects and properties. For
+			example, a dictionary entry could be formatted as a single paragraph,
+			displaying a form, a grammatical category (involving two properties, the
+			reference to the grammatical category object and the name property of that
+			object), a sequence of example sentences with their translations, and so forth.<br>
+		</p>
+		<h2>Layouts and parts</h2>
+		XmlViews are designed for a degree of user configurability (which is not yet
+		implemented). It is intended that the XML should, for each kind of object,
+		specify a collection of
+		<span style="FONT-STYLE: italic">parts</span>, elements describing a part
+		(typically, but not necessarily, a single field) of that object. Parts can be
+		almost arbitrarily complex. Also in XML, we specify
+		<span style="FONT-STYLE: italic">layouts</span>, which are collections of
+		parts. The organization of layouts is deliberately kept as simple and general
+		as possible, so that all it specifies is a sequence of parts, optionally a
+		parameter for each, and optionally a visibility rule for each. The intent is
+		that a fairly simple UI will allow the user to select, order, and parameterize
+		a sequence of parts to make a layout (a complete way of looking at) a type of
+		object. This notion should work well for detail views (and eventually browse
+		views), where there is a definite vertical (or horizontal) arrangement of the
+		parts of a layout; for a JtView, parts could be assembled into paragraphs,
+		divisions, interlinear arrangements, and so forth, so the configurability will
+		probably need to go a bit further eventually.<br>
+		<h2>The big picture<br>
+		</h2>
+		<p>There are actually three main types of view that can currently be specified
+			using XML in FieldWorks. Each of these starts out as parameters of a
+			&lt;control&gt; element in the overall xCore specification for the program as a
+			whole. (There is also a fourth, not currently used, that can display one object
+			from a sequence using a JtView).<br>
+		</p>
+		<h3>XmlDocView</h3>
+		<p>This class is used to display a sequence of objects. The critical attribute for
+			our purposes is the
+			<span style="FONT-STYLE: italic">layout</span>
+			attribute, which specifies the name of a layout. This view displays all the
+			objects in the sequence, looking up the appropriate (Jt) layout for each based
+			on its class.<br>
+		</p>
+		&lt;&gt;&nbsp;&nbsp;&nbsp; &lt;control assemblyPath="xWorks.dll"
+		class="SIL.FieldWorks.XWorks.XmlDocView"&gt;<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;parameters area="lexicon"
+		filterPath="LexEd\basicFilter.xml" persistContext="Dict"<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; backColor="White" layout="publication"
+		editable="false" msgBoxTrigger="DictView-SlowWarning"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;/control&gt;
+		<h3>RecordEditView</h3>
+		<p>This class is used to display a "detail" view. It displays one object at a time
+			from a sequence. Again the crucial attribute is the
+			<span style="FONT-STYLE: italic">layout</span>
+			attribute, which specifies the name of a<span style="FONT-STYLE: italic"></span>(detail)
+			layout that indicates which parts of the object to display.<br>
+		</p>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&lt;control assemblyPath="xWorks.dll"
+		class="SIL.FieldWorks.XWorks.RecordEditView"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &lt;parameters area="lexicon" clerk="entries"<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		filterPath="LexText\Configuration\Lexicon\Edit\DataEntryFilters\basicPlusFilter.xml"
+		persistContext="advancedEdit"<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; suppressInfoBar="ifNotFirst"
+		layout="Advanced"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;menuHandler
+		assemblyPath="LexEdDll.dll"
+		class="SIL.FieldWorks.XWorks.LexEd.LexEntryMenuHandler" /&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;virtuals&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;virtual
+		modelclass="LexSense" virtualfield="LexSenseOutline" assemblyPath="FDO.dll"
+		class="SIL.FieldWorks.FDO.OutlineNumberHandler"<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		ownerclass="LexSense" ownerfield="Senses" includetopowner="true"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/virtuals&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &lt;/parameters&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&lt;/control&gt;<br>
+		<h3>RecordBrowseView<br>
+		</h3>
+		This class contains a number of columns, each specifying a JtView for
+		displaying some aspect of the row object. The view can be specified either
+		inline or by referencing a layout.<br>
+		<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;control assemblyPath="xWorks.dll"
+		class="SIL.FieldWorks.XWorks.RecordBrowseView"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;parameters
+		area="lexicon" id="EntriesList" field="Entries" filterBar="true"<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; altTitleId="LexEntry-Plural"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&lt;columns&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &lt;column label="Headword" width="20%"
+		sortmethod="FullSortKey"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;span&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;properties&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&lt;bold value="on"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&lt;editable value="false"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/properties&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;virtual
+		class="LexEntry" field="obj.HeadWord"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/span&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &lt;/column&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &lt;column label="POS" width="20%" multipara="true"
+		layout="MsasOfSenses"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &lt;column label="Glosses" width="20%" multipara="true"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;seq field="Senses" layout="empty"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;para&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&lt;string field= "Gloss"ws="$ws=analysis"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/para&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/seq&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &lt;/column&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&lt;/columns&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/parameters&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/control&gt;<br>
+		<br>
+		Note the sortmethod attribute of the &lt;column&gt; element.&nbsp; It provides
+		the name of a C# method that takes one argument (specifying if the sort is from the end of the word) and
+		reeturns a string.&nbsp; This method is found for the actual
+		objects being sorted.&nbsp; If the name given by the sortmethod attribute does
+		not exist for the object's class, the standard CmObject SortKey and SortKey2
+		methods are called, and the concatenated result returned.<br>
+		<p>(CurtisH: The following notes should be accurate as of 7/27/2006 and are my findings of how the ws attribute is used while I was
+		making changes to how to Configure Columns dialog box uses the attribute)</p>
+		<p>The column element can have a ws attribute that contains a writing system identifier either by itself or preceded by <tt>$ws=</tt>.  Valid
+		choices that start with <tt>$ws=</tt> are <tt>vernacular</tt>, <tt>analysis</tt>, <tt>pronunciation</tt>, <tt>va</tt>, <tt>av</tt>, and <tt>reversal</tt> and will be
+		made user-selectable in the Configure Columns dialog box.  If a choice other than the ones just listed is put after <tt>$ws=</tt>, then the
+		Configure Columns dialog box will show all available Vernacular and Analysis writing systems.  If you don't want the writing system to be configurable in the Configure Columns
+		dialog box, leave off the <tt>$ws=</tt>.  Another thing to note about the Configure Columns dialog box behaivor is that it will look for a <tt>$ws=</tt> attribute in
+		any of the elements inside the column element.</p>
+		<p>This value is also used in the Bulk Edit view using the LanguageProject.GetWritingSystem method, which will just strip off the <tt>$ws=</tt> part of the attribute,
+		if it is present.  It then interprets the writing system using LanguageProject.InterpretWsLabel, which has quite a few more choices than
+		the Configure Columns dialog box understands.</p>
+		</p>
+		<h2>Where are the pieces?</h2>
+		Relative to
+		<span style="FONT-STYLE: italic">fw/distfiles</span>, or the Fieldworks root
+		directory in an end user installation, parts and layouts are found as follows:<br>
+		<ul>
+			<li>
+			distfiles\parts contains StandardParts.xml, StandardLayouts.xml,
+			GeneratedParts.xml, and GeneratedLayouts.xml. The first two contain a number of
+			important parts and layouts that are expected to be useful to all applications;
+			the last two contain a default part for each field of each object, and a
+			default layout for each class that contains all its fields.
+			<li>
+				distfiles\lextext\configuration\parts contains a collection of parts and
+				layouts that have been created by hand to produce more specialized effects for
+				Harvest tools.</li>
+		</ul>
+		You can add files to these collections by just putting them in the folders. A
+		file containing parts must have a name that ends in Parts.xml; one with layouts
+		must end in Layouts.xml.<br>
+		<h2>File organization</h2>
+		&nbsp;A part inventory file is organized like this:<br>
+		<br>
+		&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br>
+		&lt;!-- Manually created Parts for LexSense. --&gt;<br>
+		&lt;PartInventory&gt;<br>
+		&nbsp; &lt;bin class="LexSense"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;part id="LexSense-Detail-SenseSummary" type="detail"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&lt;slice id="LexSenseId" editor="jtview"
+		expansion="expanded" menu="mnuDataTree-Help"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;part id="LexSense-Detail-GlossAllA" type="detail"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&lt;slice field="Gloss" label="Gloss"
+		editor="multistring" ws="all analysis" menu="mnuDataTree-Help"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+		&nbsp; &lt;/bin&gt;<br>
+		&lt;/PartInventory&gt;<br>
+		<p>The
+			<span style="FONT-STYLE: italic">PartInventory</span>
+			element is the overall document element. The
+			<span style="FONT-STYLE: italic">bin</span>
+			elements are supposed to be used to group parts for a particular class;
+			currently this convention has not been followed, and parts are often in the
+			wrong 'bin'.<br>
+		</p>
+		<p>A layout inventory looks like this:<br>
+		</p>
+		<p>&lt;?xml version="1.0" encoding="UTF-8"?&gt;<br>
+			&lt;!-- Manually created Layouts for LexSense. --&gt;<br>
+			&lt;LayoutInventory&gt;<br>
+			&nbsp; &lt;layout class="LexSense" type="detail" name="Simple"&gt;<br>
+			&nbsp;&nbsp;&nbsp; &lt;part ref="HeavySummary" label="Sense" param="Summary"
+			expansion="expanded" menu="mnuDataTree-Sense"
+			hotlinks="mnuDataTree-Sense-Hotlinks"&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;indent&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;part
+			ref="GlossAllA"/&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;part
+			ref="DefinitionAllA"/&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;part
+			ref="MsaCombo"/&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/indent&gt;<br>
+			&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+			&nbsp; &lt;/layout&gt;<br>
+			&lt;/LayoutInventory&gt;<br>
+		</p>
+		<p>For no reason I can remember, there is no grouping element for layouts; they are
+			placed directly in the top-level
+			<span style="FONT-STYLE: italic">LayoutInventory</span>
+			element.<br>
+		</p>
+		<h1>Getting started</h1>
+		<p>Let's analyse further the Layout above. First,
+			<br>
+		</p>
+		<p>&nbsp; &lt;layout class="LexSense" type="detail" name="Simple"&gt;<br>
+		</p>
+		<p>specifies that it is a layout for displaying a LexSense object in a detail
+			control. Specifically, it is the detail layout called
+			<span style="FONT-STYLE: italic">Simple</span>. That name is used in the
+			<span style="FONT-STYLE: italic">layout</span>
+			attribute of a RecordEditView.<br>
+		</p>
+		<h2>A simple part<br>
+		</h2>
+		<p>Let's take one of the simpler parts next.<br>
+		</p>
+		<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;part
+			ref="GlossAllA"/&gt;<br>
+		</p>
+		<p>This causes the system to locate the part<br>
+		</p>
+		<p>&nbsp;&nbsp;&nbsp; &lt;part id="LexSense-Detail-GlossAllA" type="detail"&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;slice field="Gloss" label="Gloss"
+			abbr="gl" editor="multistring" ws="all analysis" menu="mnuDataTree-Help"/&gt;<br>
+			&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+			This part consists of a single slice--basically one labeled row of the detail
+			control--which displays the Gloss field of the sense, using a built-in editor
+			that can display multiple writing systems stored in the Gloss property.
+			Specifically, we want to see what the gloss is in all current analysis writing
+			systems. The label on the left of the slice will be
+			<span style="FONT-STYLE: italic">Gloss</span>, unless the user narrows the
+			labels down to where abbreviations are used, in which case
+			<span style="FONT-STYLE: italic">gl</span>
+			will be used instead.<br>
+		</p>
+		<h2>A complex part involving inheritance<br>
+		</h2>
+		<p>Now let's look at this one:<br>
+		</p>
+		<p>&nbsp;&nbsp;&nbsp; &lt;part ref="HeavySummary" label="Sense" param="Summary"
+			expansion="expanded" menu="mnuDataTree-Sense"
+			hotlinks="mnuDataTree-Sense-Hotlinks"&gt;<br>
+		</p>
+		<p>This locates a part<br>
+		</p>
+		<p>&nbsp;&nbsp;&nbsp; &lt;part id="CmObject-Detail-HeavySummary" type="detail"
+			paramType="JtLayoutsOfThisClass"&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;slice editor="summary"
+			layout="default" editable="no" weight="heavy" menu="mnuDataTree-Help"
+			header="true"/&gt;<br>
+			&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+		</p>
+		<p>Notice that this part is defined on CmObject. There is no part
+			LexSense-Detail-HeavySummary, so the system tries superclasses until it finds
+			one that has a Detail layout called HeavySummary.<br>
+		</p>
+		<p>A HeavySummary is always a single slice, and it may simply show the default "Jt"
+			view of the object. However, this part accepts a parameter, which is the name
+			of a Jt layout appropriate for the class of object. (The
+			<span style="FONT-STYLE: italic">paramType </span>attribute is supposed to
+			indicate this, though at present, this is the only type of parameter
+			supported.) The
+			<span style="FONT-STYLE: italic">param</span>
+			attribute of the "calling" part ref in the layout overrides the layout
+			specified in the slice, so that what we see is actually the
+			<span style="FONT-STYLE: italic">Summary</span>
+			Jt view of the sense:<br>
+		</p>
+		<p>&nbsp;&nbsp;&nbsp; &lt;part id="LexSense-Jt-Summary" type="jtview"&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;para&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;properties&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+			&lt;forecolor value="ControlDarkDark"/&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/properties&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;lit&gt;Sense
+			&lt;/lit&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;string
+			field="LexSenseOutline"&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/string&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/para&gt;<br>
+			&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+		</p>
+		<h2>Here be dragons!<br>
+		</h2>
+		<p>There are a couple of potential sources of confusion here, and some things I'd
+			like to rename. First, the element type
+			<span style="FONT-STYLE: italic">part</span>
+			is overused. It occurs both as an element of a layout (&lt;part
+			ref="HeavySummary".../&gt;) and as an element of a part inventory (&lt;part
+			id="CmObject-Detail-HeavySummary".../&gt;). These are quite different and it
+			would make both this document and the implementation code easier to read if we
+			renamed one of them. One possibility is to use
+			<span style="FONT-STYLE: italic">call</span>
+			or
+			<span style="FONT-STYLE: italic">use</span>
+			or
+			<span style="FONT-STYLE: italic">invoke</span>
+			for the elements that are children of the
+			<span style="FONT-STYLE: italic">layout</span>
+			elements, which are essentially instructions to use parts rather than the parts
+			themselves. Even &lt;partref target=.../&gt; would be better. I will try to
+			consistently refer to these layout child part elements as
+			<span style="FONT-STYLE: italic">part ref</span>
+			elements.<br>
+		</p>
+		<p>In this particular example,
+			<span style="FONT-STYLE: italic">summary</span>
+			is also overused. It occurs as the value of the
+			<span style="FONT-STYLE: italic">editor</span>
+			attribute of the slice, the
+			<span style="FONT-STYLE: italic">param</span>
+			attribute of the part ref, and part of the
+			<span style="FONT-STYLE: italic">id</span>
+			of another part. The first of these is quite independent of the other two. It
+			just happens that one kind of editor (one that displays a Jt view along with
+			hot link commands) is identified by
+			<span style="FONT-STYLE: italic">editor="summary"</span>. On the other hand,
+			<span style="FONT-STYLE: italic">param="Summary"</span>
+			in the part ref overrides
+			<span style="FONT-STYLE: italic">layout="default"</span>
+			in the HeavySummary part, and matches with the
+			<span style="FONT-STYLE: italic">id="...-Summary"</span>
+			in the LexSense-Jt-Summary part.<br>
+		</p>
+		<p>(To further confuse things, the system is really looking for a
+			<span style="FONT-STYLE: italic">layout</span>
+			&lt;layout class="LexSense"&nbsp; type="jtview" name="Summary"&gt;. Since it
+			doesn't find that, it goes looking for the part, since a part is allowed to
+			'stand for' a layout containing only that part.)<br>
+		</p>
+		<p>Why are parts identified with a three-part hyphenated ID, and layouts using
+			three distinct attributes? If there was ever a good reason, I've forgotten it.
+			Possibly I was thinking of being easily able to find all the layouts applicable
+			to a particular class, while with parts, I was more concerned about efficiently
+			finding a particular one.<br>
+		</p>
+		<p>No real excuse for all this, except that it grew gradually, under considerable
+			time pressure, and each decision seemed to make sense at the time, sometimes
+			for reasons having to do with stuff we haven't yet implemented.<br>
+		</p>
+		<h2>More part attributes</h2>
+		Getting back to<br>
+		<p>&nbsp;&nbsp;&nbsp; &lt;part ref="HeavySummary" label="Sense" param="Summary"
+			expansion="expanded" menu="mnuDataTree-Sense"
+			hotlinks="mnuDataTree-Sense-Hotlinks"&gt;<br>
+		</p>
+		we have seen that the
+		<span style="FONT-STYLE: italic">ref</span>
+		attribute identifies the CmObject-detail-HeavySummary part, and the
+		<span style="FONT-STYLE: italic">param</span>
+		specifies a layout to use for a
+		<span style="FONT-STYLE: italic">slice</span>
+		within that part. The
+		<span style="FONT-STYLE: italic">expansion</span>
+		attribute is a historical artifact...it used to be the case that the parts
+		specified within the
+		<span style="FONT-STYLE: italic">indent</span>
+		element would be collapsed until the user expanded them, unless this
+		<span style="FONT-STYLE: italic">expansion<span style="FONT-STYLE: italic">
+				<span style="FONT-STYLE: italic"></span>
+			</span></span>attribute was present. Currently, we could drop it with no
+		effect. For now I'm leaving them in, partly just to minimize changes, and
+		partly in case we decide to reintroduce an option to have ways of collapsing
+		parts of the view.<br>
+		<p>The
+			<span style="FONT-STYLE: italic">menu</span>
+			and
+			<span style="FONT-STYLE: italic">hotlinks</span>
+			attributes specify xCore menus. The
+			<span style="FONT-STYLE: italic">menu</span>
+			one is used to determine what items to display in a context menu if the user
+			right-clicks the slice or clicks on the context menu icon (the blue
+			down-arrow-in-a-circle). The
+			<span style="FONT-STYLE: italic">hotlinks</span>
+			menu specifies the items (usually a subset) that should be made into hotlink
+			buttons within the summary slice, as space permits; if it is missing, the
+			<span style="FONT-STYLE: italic">menu</span>
+			menu is reused for this purpose also.<br>
+		</p>
+		<p>(As I write, it occurs to me that this is the wrong place for these menu and
+			hotlink attributes. The part ref element is supposed to only have information
+			we expect the user to configure using a simple dialog. The set of possible menu
+			options that are applicable here is probably not so configurable. However, we
+			don't want to put this on the slice, because it's in a CmObject part that is
+			useful for all kinds of things besides Senses. So where does it belong? Maybe
+			there should be an explicit LexSense-Detail-HeavySummary part?)<br>
+		</p>
+		<h2>Slices, editors, and object weights<br>
+		</h2>
+		Detail parts are mainly made up of
+		<span style="FONT-STYLE: italic">slice</span>
+		elements, often only one in a part, though there can be more. We've seen a
+		couple of examples:<br>
+		<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;slice field="Gloss" label="Gloss"
+		abbr="gl" editor="multistring" ws="all analysis" menu="mnuDataTree-Help"/&gt;<br>
+		&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;slice editor="summary" layout="default"
+		editable="no" weight="heavy" menu="mnuDataTree-Help" header="true"/&gt;<br>
+		<br>
+		&nbsp; Some attributes are common to all slices, while some are specific to a
+		particular kind. Of special importance is the
+		<span style="FONT-STYLE: italic">editor</span>
+		attribute, which determines the type of slice to be created. So far we've see a
+		<span style="FONT-STYLE: italic">multistring</span>
+		slice, which displays multiple writing systems of a single field, and a
+		<span style="FONT-STYLE: italic">summary</span>
+		slice, which displays a specified 'jtview' layout of the object. There are
+		several other types which we will describe systematically below.<br>
+		<p>We've noted that a slice usually has a
+			<span style="FONT-STYLE: italic">label</span>
+			and an
+			<span style="FONT-STYLE: italic">abbr</span>
+			to control what is displayed to identify the slice contents. (Well, at the time
+			of writing, very few have
+			<span style="FONT-STYLE: italic">abbr</span>, but we expect to fix this soon).
+			A slice can also specify a context menu, and a summary slice can specify a
+			<span style="FONT-STYLE: italic">hotlink</span>
+			menu to indicate the things to show as hotlink buttons.<br>
+		</p>
+		<p>Detail controls indicate in fairly subtle ways to the user how the underlying
+			data is organized into objects. This is mostly done using the lines between one
+			field and the next. If two adjacent slices are displaying different fields of
+			the same object, we use a short line, that just divides the data part of the
+			slice. If they belong to different objects, we use a longer line that extends
+			to the left of the label.<br>
+		</p>
+		<p>Some objects are considered 'heavyweight', meaning that they are major groupings
+			of data that it will be helpful to mark off more clearly. A slice that begins
+			such a heavyweight object may be identified by the attribute/value
+			<span style="FONT-STYLE: italic">weight=heavy</span>. A thicker line is drawn
+			above a slice that has this property.<br>
+		</p>
+		<p>Some objects are considered 'lightweight', meaning that we expect the user to
+			perceive them more as if their fields were part of the containing object. We
+			want to suppress the longer line between a field that really belongs to a
+			parent object and one that belongs to the first field of a lightweight object.
+			This can be done by specifying
+			<span style="FONT-STYLE: italic">weight=light</span>
+			on the first slice of the lightweight object.<br>
+		</p>
+		<p>The summary slice does not have a
+			<span style="FONT-STYLE: italic">label</span>. This is valid, and causes the
+			data part of the slice to occupy the full width (out to where the label would
+			normally start on the left). It actually looks to most users as if the summary
+			JtView was just a label.<br>
+		</p>
+		<h2>JtViews</h2>
+		A JtView (yes, my initials, we couldn't think of a better name that wasn't
+		already used for something) displays data in more varied ways than a detail
+		view, which always arranges slices vertically and labels each bit of
+		information. It can assemble the fields of an object in a great variety of
+		ways. Here's a fairly simple example:<br>
+		<p>&nbsp;&nbsp;&nbsp; &lt;part id="LexSense-Jt-Summary" type="jtview"&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;para&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;properties&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+			&lt;forecolor value="ControlDarkDark"/&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/properties&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;lit&gt;Sense
+			&lt;/lit&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;string
+			field="LexSenseOutline"/&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/para&gt;<br>
+			&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+		</p>
+		<p>As we noted before, this part can also stand for a layout consisting only of
+			itself. It displays one paragraph of information (&lt;para&gt;), all the
+			contents of which use the 'ControlDarkDark' color (part of the .NET KnownColor
+			enumeration, this can change with different window color schemes), as specified
+			by the child. It contains literally the text
+			<span style="FONT-STYLE: italic">Sense</span>
+			as specified by the
+			<span style="FONT-STYLE: italic">lit</span>
+			element, followed by the contents of a string field of the sense called
+			<span style="FONT-STYLE: italic">LexSenseOutline</span>. (That's a 'virtual'
+			property, by the way...we'll get into that later.)<br>
+		</p>
+		<h1>JtViews full doc</h1>
+		<h2>Basic properties</h2>
+		<h3>&lt;string&gt;<br>
+		</h3>
+		Basic properties are ones that do not involve a relationship to another object:
+		strings, numbers, and so forth.<br>
+		<br>
+		&lt;part id="MoMorphoSyntaxAnalysis-Jt-Gloss"&gt;
+		<br>
+		&nbsp;&nbsp;&nbsp; &lt;string field="GlossString"/&gt;<br>
+		&lt;/part&gt;<br>
+		<p>This part describes how to display one object, a MoMorphoSyntaxAnalysis (MSA).</p>
+		<p>The &lt;string&gt; element specifies what should be displayed when this part is
+			referenced: a string property of the object. The particular property wanted is
+			specified by name. Sometimes you will see also
+			<span style="FONT-STYLE: italic">class="MorphoSyntaxAnalysis".</span>
+			This used to be required, but is no longer...the system will use the class of
+			the actual object it is displaying to determine exactly which field is meant.</p>
+		<p>Next, look at the part for the gloss of a LexSense:</p>
+		<pre>    &lt;part id="LexSense-Jt-Gloss" type="JtView"&gt;<br>      &lt;string field="Gloss" ws="analysis"&gt;<br>      &lt;/string&gt;<br>    &lt;/part&gt;<br><br></pre>
+		<p>The main thing that is new here is that the LexSense.Gloss property is
+			multilingual: it can store several parallel alternatives, each in a different
+			writing system. Here only one writing system is wanted, the primary analysis
+			writing system. Currently the two options supported for ws are "analysis" and
+			"vernacular". We may eventually support specifying individual writing systems
+			by name and/or abbreviation. (Currently it is possible to specify wsid and give
+			an integer value, but this is not be useful as writing system IDs are not
+			consistent across different databases.)</p>
+		<h3>&lt;int&gt;</h3>
+		<p>The other element types supported for basic properties (not involving a
+			relationship between objects) are as follows:</p>
+		<pre>&lt;int field="FieldName"/&gt; Inserts an integer-valued field.<br></pre>
+		<h3>&lt;lit&gt;</h3>
+		<p>&lt;lit&gt;text&lt;/lit&gt; Inserts the specified literal text. Currently it is
+			displayed using the English writing system. That's ethnocentric, so we may
+			switch to using the default user writing system, or the default analysis
+			writing system.<br>
+		</p>
+		<h2>Bringing in other objects</h2>
+		<p>Objects often have relationships with other objects. These elements bring in the
+			Description of a data notebook record.</p>
+		<pre>&lt;part id="RnGenericRecord-Jt-Description"&gt;<br>    &lt;obj field="Description" layout="Text"/&gt;<br>&lt;/part&gt;<br><br>&lt;part id="StText-Jt-Text"&gt;<br>    &lt;seq field="Paragraphs" layout="ParaContents"/&gt;<br>&lt;/part&gt;<br><br>&lt;part id="StTxtPara-Jt-ParaContents"&gt;<br>    &lt;para&gt;<br>        &lt;string field="Contents"/&gt;<br>    &lt;/para&gt;<br>&lt;/part&gt;<br></pre>
+		<p>The Description part says that what we want to see of the RnGenericRecord is
+			it's description. However, the description is an object of some complexity in
+			its own right, so we further need to say how to display an StText, which is the
+			kind of object stored in the Description property. In principle, of course, we
+			could embed the instructions on how to display the StText right here. However,
+			such chunks (or fragments) of display instructions are often reusable. So
+			instead, we create a new
+			<span style="FONT-STYLE: italic">part </span>element that describes how to
+			display an StText. This is the
+			<span style="FONT-STYLE: italic">part </span>with
+			<span style="FONT-STYLE: italic">id="StText-Jt-Text"</span>. The attribute
+			<span style="FONT-STYLE: italic">layout="ParaContents"</span>
+			in the
+			<span style="FONT-STYLE: italic">obj </span>element tells us which fragment to
+			use to display the StText that is the contents of the Description.</p>
+		<p>The StText is made up of a sequence of other objects, of type StTxtPara.
+			Therefore the
+			<span style="FONT-STYLE: italic">Text </span>part uses a
+			<span style="FONT-STYLE: italic">seq </span>element to tell the XmlView to
+			display the whole sequence. Each item in the sequence is displayed using the
+			layout/part named
+			<span style="FONT-STYLE: italic">ParaContents</span>. Finally, the
+			<span style="FONT-STYLE: italic">ParaContents </span>part displays the contents
+			of each paragraph.</p>
+		<p>Note that we have not specified how to arrange the paragraphs. At the top level
+			of a view, it is assumed that all items are arranged vertically, one underneath
+			the other. We could have ensured this by using a &lt;div&gt; element, described
+			below.<br>
+		</p>
+		<h3>More on sequences</h3>
+		Todo: Discuss numbering, separators, etc.<br>
+		<h2>Flow objects</h2>
+		<h3>Paragraphs</h3>
+		<p>We've already seen the &lt;para&gt; element used to create a paragraph in the
+			display.</p>
+		<p>(Potentially available, but not yet hooked up through XmlViews, is a mapped
+			paragraph that can contain embedded hotlinks to named objects. See also a
+			special kind of paragraph under Concordances, below.)<br>
+		</p>
+		<h3>Display properties</h3>
+		<p>Many properties of a flow object may be specified to control its exact
+			appearance. Suppose we wanted to display the title of our record as well as the
+			description. We could change the fragment like this:</p>
+		<pre>&lt;part id="RnGenericRecord-Jt-TitleAndDescription"&gt;<br>    &lt;para&gt;&lt;properties&gt;&lt;bold value="on"/&gt;&lt;fontsize value="18000"/&gt;&lt;/properties&gt;<br>        &lt;string field = "title"/&gt;<br>    &lt;/para&gt;<br>    &lt;obj field="Description" layout="Text"/&gt;<br>&lt;/part&gt;<br></pre>
+		<p>This inserts the title as a paragraph before the Description. It also specifies
+			that the title is to be displayed using 18-point bold text. (The value of
+			fontsize, as in many other measurements, is in thousandths of a point, or
+			72000ths of an inch.)</p>
+		<p>Here are the properties that can be set like this:</p>
+		<table style="BORDER-COLLAPSE: collapse" id="AutoNumber1" border="1" bordercolor="#111111"
+			cellpadding="0" cellspacing="0" width="100%">
+			<tbody>
+				<tr>
+					<td width="28%">Property</td>
+					<td width="72%">Value(s)</td>
+				</tr>
+				<tr>
+					<td width="28%">fontfamily</td>
+					<td width="72%">name of a font, or "default serif", or "default sans serif". (Note:
+						these may soon change to "default" and "default heading".)</td>
+				</tr>
+				<tr>
+					<td width="28%">italic</td>
+					<td width="72%">"on" or "off" or "invert". (Invert means the opposite of the
+						contextual value, for example, if a whole division is italic, a paragraph
+						inside it marked invert will not be italic.)</td>
+				</tr>
+				<tr>
+					<td width="28%">bold</td>
+					<td width="72%">"on" or "off" or "invert".</td>
+				</tr>
+				<tr>
+					<td width="28%">superscript</td>
+					<td width="72%">"off" or "super" or "sub". (It's a little odd to specify subscript
+						by saying superscript="sub", but that's how it's done for now. The three are
+						mutually exclusive so it's convenient to think of them as a single property.)</td>
+				</tr>
+				<tr>
+					<td width="28%">underline</td>
+					<td width="72%">"none" or "single" or "double" or "dotted" or "dashed" or
+						"squiggle". <i>("strikethrough" could also be added quite easily)</i></td>
+				</tr>
+				<tr>
+					<td width="28%">fontsize</td>
+					<td width="72%">Millipoints. (Decimal number, in thousandths of a point, or
+						72000ths of an inch). This is the size of the font, as you would normally see
+						it in a font dialog.</td>
+				</tr>
+				<tr>
+					<td width="28%">offset</td>
+					<td width="72%">Millipoints. Raises the text baseline by this amount (or lowers it,
+						if negative).</td>
+				</tr>
+				<tr>
+					<td width="28%">backcolor</td>
+					<td width="72%">(red, blue, green), where each is a number from 0 to 255. So (0, 0,
+						0) is black, (255, 255, 255) is white, (255, 0, 0) is the most intense possible
+						red. A considerable variety of color names may also be used, taken from the C#
+						KnownColor enumeration...for example, Aqua, Azure, Beige, Red, White,
+						ControlText, Desktop,... This property specifies the background color.</td>
+				</tr>
+				<tr>
+					<td width="28%">forecolor</td>
+					<td width="72%">Similarly specifies the foreground color (used to draw text and
+						lines).</td>
+				</tr>
+				<tr>
+					<td width="28%">underlinecolor</td>
+					<td width="72%">Similarly specifies the color used to draw underlines.</td>
+				</tr>
+				<tr>
+					<td width="28%">alignment</td>
+					<td width="72%">"left" or "right" or "center" or "leading" or "trailing" or
+						"justify". Leading aligns the paragraph to the left if the overall paragraph
+						direction is left-to-right, to the right if the overall direction is
+						right-to-left; trailing does the reverse. "justify" aligns both sides by
+						stretching the text as needed.</td>
+				</tr>
+				<tr>
+					<td width="28%">firstindent</td>
+					<td width="72%">Millipoints. The leading edge of the first line of the paragraph
+						has this much more (or less, if negative) indent than the remaining lines. If
+						negative, what actually happens is that the following lines get this much more
+						indent; the outermost line obeys the appropriate margin and padding.<br>
+					</td>
+				</tr>
+				<tr>
+					<td width="28%">marginleading or leadingindent</td>
+					<td width="72%">Millipoints. Indent of the leading side of the flow object (left
+						side by default, if the current overall direction is left to right.) This space
+						has the background color of the container flow object (or the control as a
+						whole).<br>
+					</td>
+				</tr>
+				<tr>
+					<td width="28%">margintrailing or trailingindent</td>
+					<td width="72%">Millipoints. Indent on the trailing side, usually the right.</td>
+				</tr>
+				<tr>
+					<td width="28%">spacebefore</td>
+					<td width="72%">Millipoints. Space above the flow object. Added to spaceafter the
+						previous flow object to determine the distance between them.</td>
+				</tr>
+				<tr>
+					<td width="28%">margintop</td>
+					<td width="72%">Millipoints. Space above the flow object. Distance from the
+						previous flow object to this is the maximum of this.margintop and
+						previous.marginbottom.</td>
+				</tr>
+				<tr>
+					<td width="28%">marginbottom or spaceafter</td>
+					<td width="72%">Millipoints. Space below the flow object.</td>
+				</tr>
+				<tr>
+					<td width="28%">lineheight</td>
+					<td width="72%">Millipoints. Minimum distance from one baseline to the next (extra
+						space will be added if necessary to accommodate superscripts, subscripts,
+						embedded objects and pictures, large font sizes). If negative, exact distance
+						from one baseline to the next, even if this causes some things to overlap.</td>
+				</tr>
+				<tr>
+					<td width="28%">borderleading, bordertrailing, bordertop, borderbottom</td>
+					<td width="72%">Millipoints. Thickness of the border to be drawn on the specified
+						side of the flow object (inside the margin, outside the padding).</td>
+				</tr>
+				<tr>
+					<td width="28%">padleading, padtrailing, padtop, padbottom</td>
+					<td width="72%">Millipoints. Additional space around the flow object inside any
+						border. This space has the flow object's background color.<br>
+					</td>
+				</tr>
+				<tr>
+					<td width="28%">editable</td>
+					<td width="72%">"noteditable", "no", or "false" to prevent editing; ""editable",
+						"iseditable", "yes", or "true" to allow it; "semi" (this is a special value
+						used in type-ahead edit boxes; typing is allowed but there are restrictions).</td>
+				</tr>
+			</tbody>
+		</table>
+		<p>Notes</p>
+		<p>If margintop and spacebefore are both specified, whichever produces the largest
+			gap between flow objects is used.</p>
+		<p>Padding, unlike margin, is considered part of the flow object and uses the
+			background color specified for the flow object. Margin is not considered part
+			of the flow object, and uses the background color of the containing flow
+			object.</p>
+		<p>Most properties are 'inheritable', meaning that embedded flow objects have the
+			same property as their containers, unless explicitly overridden. Some are not.
+			For example, when a border is placed around a division (a structure for
+			grouping paragraphs), it does not normally mean that a border is wanted around
+			each paragraph as well. You should find that the system pretty much always does
+			what you expect.</p>
+		<p>If two or more adjacent paragraphs have the exact same border properties, the
+			border is drawn around the whole group, not separately around each paragraph.
+			(I don't much like this...it's not consistent with HTML, and in most cases the
+			proper way to achieve it would be a div grouping the paragraphs...but our
+			customer insisted on matching the behavior of MS Word.)</p>
+		<p>The view system supports additional properties not yet exposed through XmlViews.
+			In particular I just noticed that bordercolor is missing, and there is no way
+			to specify the overall direction of text flow in a paragraph. There may be a
+			few others.</p>
+		<h2>Simple grouping</h2>
+		<p>&lt;div&gt; groups several things vertically so the same properties can readily
+			be applied to all of them</p>
+		<p>&lt;span&gt; groups one or more things within a paragraph so properties can be
+			applied to (all of) them. (We could allow the &lt;properties&gt; element on
+			elements like &lt;string&gt; and &lt;string&gt; but it seems rather clumsy.)</p>
+		<h2>Interlinear texts</h2>
+		<p>It is possible to create interlinear texts by inserting &lt;innerpile&gt;
+			elements within a paragraph. For example, suppose we have a class AnnSentence
+			which has a sequence of words, each an AnnWord, and each of them has a form and
+			a gloss. We can display this as an interlinear text like this:</p>
+		<pre>&lt;part id="AnnSentence-Jt-Interlinear"&gt;<br>    &lt;para&gt;<br>        &lt;obj field="Words" layout="Word"/&gt;<br>    &lt;/para&gt;<br>&lt;/part&gt;<br>&lt;part id="AnnWord-Jt-Word"&gt;<br>    &lt;innerpile&gt;<br>        &lt;string field="form"/&gt;<br>        &lt;string field="gloss"/&gt;<br>   &lt;/innerpile&gt;<br>&lt;/part&gt;</pre>
+		<p>(There is an implicit paragraph each for the form and gloss; when strings are
+			inserted into a flow object that is not a paragraph, an entire paragraph is
+			automatically created for each string.)</p>
+		<p>Inner piles should be designed so that there is a high probability that each
+			pile will fit on one line. The system will make some attempt to wrap individual
+			things within an innerpile if it must, but only for the last one on a line, and
+			the alignment will be messed up.<br>
+		</p>
+		<h3>tables</h3>
+		<span style="FONT-WEIGHT: bold">[This section not yet updated to
+current specs]</span><br>
+		<br>
+		<p>Tables are one of the most complex parts of the view code. Here is a simple
+			example, displaying our annotated sentence in a different way</p>
+		<p>&lt;frag root="true" name="Table of words and glosses"&gt;<br>
+			&nbsp;&nbsp;&nbsp; &lt;table columns="2"&gt;<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;body&gt;<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;objseq
+			class="AnnSentence" field="words" frag="wordrow"/&gt;<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;/body&gt;<br>
+			&nbsp;&nbsp;&nbsp; &lt;/table&gt;<br>
+			&lt;/frag&gt;<br>
+			&lt;frag name="wordrow"&gt;<br>
+			&nbsp;&nbsp;&nbsp; &lt;cell&gt;<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;string
+			class="AnnWord" field="form"/&gt;<br>
+			&nbsp;&nbsp;&nbsp; &lt;/cell&gt;<br>
+			&nbsp;&nbsp;&nbsp; &lt;cell&gt;<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;string
+			class="AnnWord" field="gloss"/&gt;<br>
+			&nbsp;&nbsp;&nbsp; &lt;/cell&gt;<br>
+			&lt;/frag&gt;<br>
+			<br>
+			This is probably the most typical form of a table, where each row is an item
+			from a sequence; however, it is quite possible to have a table of a fixed size
+			in both directions, where each cell is specified separately.</p>
+		<p>Currently it is not possible to make a table of other than a fixed number of
+			columns. (A somewhat similar effect could be produced if desired using the
+			interlinear text technique.) The columns attribute defaults to 2; it is
+			essential to specify it if that is not right. (<i>Enhancement: it should be
+				possible to figure out from the contained elements how many columns the table
+				has, but the most general cases are fairly tricky.)</i></p>
+		<p>There are a few additional elements that can occur in a table, and several
+			additional attributes, to produce special effects.</p>
+		<p>In addition to &lt;body&gt;, a table may have &lt;header&gt; and &lt;footer&gt;
+			elements. These contain rows just like the &lt;body&gt;. If present, both the
+			header and the footer must precede the body. The intent of this is that the
+			header and footer would be repeated on each page of a printout; however, this
+			is not currently implemented.</p>
+		<p>It is also possible to have multiple &lt;body&gt; elements. This is significant
+			only for certain ways of inserting rules (dividing lines) into a table, as
+			described below.</p>
+		<p>A &lt;cell&gt; element may have attributes "spanrows" and/or "spancols". These
+			cause it to occupy more than one row and/or column. The value is the number of
+			rows or columns that the cell should occupy. Note that if a cell spans multiple
+			columns, the number of cells in the row must be reduced accordingly. If it
+			spans multiple rows, the number of cells in the appropriate number of
+			subsequent rows must be reduced by the number of columns occupied by the
+			multi-row cell.</p>
+		<p>The first thing in a table element may be a &lt;columns&gt; element, which
+			contains a sequence of &lt;column&gt;&nbsp; nodes. A &lt;column&gt; node has
+			attributes count and width. Count allows it to specify several identical
+			columns; width is expressed in 100ths of a percent of the total available width
+			for the table. It is also possible to have a &lt;group&gt; element instead of a
+			&lt;column&gt; one. The only different is that the first column in the group is
+			treated specially for the purpose of drawing certain kinds of rules in the
+			table.</p>
+		<p>For example,</p>
+		<pre>&lt;columns&gt;<br>    &lt;column width="1000"/&gt;<br>    &lt;group count="2" width="500"/&gt;<br>    &lt;column count="2" width="1000"/&gt;<br>    &lt;group width=1500/&gt;<br>&lt;/columns&gt;</pre>
+		<p>This is an unusually complex column spec. It makes the first column 10% of the
+			available width, then creates a group of four columns, two that are each 5% of
+			the width, and two that are each 10% of the width. The final group contains a
+			single 15% column. If the table as a whole contains more than six columns, the
+			remaining ones will be part of the last group, and will divide the remaining
+			45% of the width evenly between them. (If the columns element is omitted, all
+			columns have the same width, and they form a single group.) (<i>Enhance: we could
+				allow specifying absolute column widths, and allow specified columns to occupy
+				a proportion of the space left after the absolute and percentage sizes have
+				been satisfied.)</i></p>
+		<p>Drawing of lines around a table and between cells can be very precisely
+			controlled by specifying the border, margin, and pad properties of each cell.
+			For convenience, a number of attributes may be specified on the table to
+			produce some commonly useful effects.</p>
+		<p>A "rules" attribute controls drawing rules, or lines, between cells.
+		</p>
+		<ul>
+			<li>
+			"none": draws no lines, the default.
+			<li>
+			"all": draws both horizontal and vertical lines around every cell.
+			<li>
+			"columns": draws vertical lines between columns.
+			<li>
+			"groups": draws vertical lines between column groups, and horizontal ones
+			between each &lt;body&gt; (or &lt;header&gt; or &lt;footer&gt;) and the next.
+			<li>
+				"rows": draws horizontal lines between rows.</li>
+		</ul>
+		<p>An "alignment" attribute, with values left, center, right, or justify (not
+			implemented yet) specifies the default alignment of text within cells.</p>
+		<p>A "frame" attribute specifies drawing a border on the outside of the table:</p>
+		<ul>
+			<li>
+			"none": no border, the default
+			<li>
+			"above": just on the top.
+			<li>
+			"below": just on the bottom.
+			<li>
+			"box":&nbsp; all four sides.
+			<li>
+			"hsides": top and bottom.
+			<li>
+			"left": just on the left.
+			<li>
+			"right": just on the right.
+			<li>
+				"vsides": left and right.</li>
+		</ul>
+		<p>A "border" attribute specifies the thickness of the border, in millipoints.</p>
+		<p>A "spacing" attribute specifies the spacing between cells, in millipoints.</p>
+		<p>A "padding" attribute specifies the padding inside each cell (inside any border
+			around the cell). The actual minimum white space between cells is therefore
+			spacing plus twice padding. The distinction is only important where there are
+			rules, cell borders, or the cell background color is different from the table
+			as a whole.<br>
+		</p>
+		<h3>Concording</h3>
+		<p>A special kind of paragraph is used in concordance displays. It is limited to a
+			single line, and a significant word in the paragraph is highlighted and
+			aligned, typicaly, with other occurrences of the word in other contexts.<br>
+		</p>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&lt;concpara min="BeginOffset" lim="EndOffset" align="144000"&gt;<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &lt;properties&gt;&lt;editable
+		value="false"/&gt;&lt;/properties&gt;<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &lt;obj class="CmBaseAnnotation" field="BeginObject"
+		layout="empty"&gt;<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;string class="StTxtPara"
+		field="Contents"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/obj&gt;<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		&lt;/concpara&gt;<br>
+		This specifies a concordance paragraph (showing the contents of an StTxtPara
+		referenced by the BeginObject field of the CmBaseAnnotation we are displaying).
+		The BeginOffset and EndOffset fields of the CmBaseAnnotation determine the
+		range of characters that will be highlighed as the keyword, and the left edge
+		of the keyword will be aligned 144 points from the left margin.<br>
+		<br>
+		<h3>Virtual properties</h3>
+		<p>&lt;virtual&gt;obj.Shortname&lt;/virtual&gt; Inserts as literal text the value
+			returned by the object's Shortname method. Note that this will not currently be
+			automatically updated if something happens to alter the object's shortname.<br>
+			(There are more of these, and a new way of doing arbitrary virtuals by writing
+			C# code and hooking it up. Todo: write these up.<br>
+		</p>
+		<h2>Conditionals</h2>
+		&lt;if condition&gt;...&lt;/if&gt; includes the embedded parts of the view if
+		the condition passes.<br>
+		&lt;ifnot condition&gt;...&lt;/ifnot&gt; includes the embedded parts of the
+		view if the condition fails.<br>
+		&lt;choice&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;where condition&gt;...&lt;/where&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;where condition&gt;...&lt;/where&gt;<br>
+		&nbsp;&nbsp;&nbsp; ...<br>
+		&nbsp;&nbsp;&nbsp; &lt;otherwise&gt;...&lt;/otherwise&gt;<br>
+		&lt;/choice&gt;<br>
+		&nbsp;includes the embedded parts of the view for the first &lt;where&gt; whose
+		condition passes, or the &lt;otherwise&gt; if none of the &lt;where&gt;
+		conditions pass.<br>
+		<br>
+		<p>The condition may use any combinarion of the following attributes. All must be
+			satisfied for a condition to pass:</p>
+		<p>is="classname" is satisfied if the current object being displayed is of the
+			specified class or one of its subclasses. (But consider whether you could
+			achieve the result by defining parts differently for different classes.)<br>
+		</p>
+		<p>lengthatmost="n" class="classname" field="fieldname" is satisfied if the
+			sequence property identified by the (optional) class and field attributes
+			contains at most the specified number of objects.</p>
+		<p>lengthatmost can also be used for atomic properties, which are considered to
+			have a length of 1 if non-null, zero if null.</p>
+		<p>lengthatleast can similarly be used for minimum lengths.</p>
+		<p>stringequals="target" specifies a (non-multilingual) string property (using
+			field and optionally class as above) that must contain exactly "target" to
+			match. This is currently an exact binary equality (sensitive to case,
+			diacritics, normalization, everything).</p>
+		<p>stringaltequals="target" ws="wsSpec" specifies a multilingual string property
+			(using flid or class and field as above). The 'wsSpec' may be any of "all
+			analysis", "all vernacular",&nbsp; "all analysis-vernacular", "all
+			vernacular-analysis", "vernacular", "analysis", or "current". For a successful
+			match, ALL specified writing systems must match (thus, specifying more than one
+			writing system is unlikely to be useful except for testing whether all
+			alternatives are empty).</p>
+		<p>boolequals="0" matches an integer field (specified as usual) to see whether its
+			value is zero (typically interpreted as false). May also use "1" (typically
+			interpreted as true). Todo: we should probably make this accept 'true' and
+			'false'.</p>
+		intequals="n" matches an integer field whose value is the one given. Similarly
+		intgreaterthan and intlessthan
+		<h2>Notes</h2>
+		<p>Fieldworks makes an important distinction between owning and reference
+			properties in specifying object relationships. This distinction is not yet
+			reflected in XmlViews because there is no built-in way for the user to edit
+			object properties, so it is not important for the views code to know which is
+			which.</p>
+		<p>It is also possible to follow a relationship in the opposite direction, to find
+			the owning object or the referring object. This is not yet supported in
+			XmlViews.<br>
+		</p>
+		<h1>Detail views full doc</h1>
+		<h2>Detail layouts</h2>
+		A detail view layout is basically a layout element containing a sequence of
+		part ref elements.<br>
+		<br>
+		&nbsp; &lt;layout class="LexSense" type="detail" name="Simple"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;part ref="HeavySummary" label="Sense"
+		param="Summary"&nbsp; menu="mnuDataTree-Sense"
+		hotlinks="mnuDataTree-Sense-Hotlinks"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;part ref="GlossAllA"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;part ref="DefinitionAllA"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;part ref="MsaCombo"/&gt;<br>
+		&nbsp; &lt;/layout&gt;<br>
+		<br>
+		<p>The layout element must have exactly these three attributes to identify it.
+			<span style="FONT-STYLE: italic">Class </span>is the name of the class of the
+			objects this layout can display,
+			<span style="FONT-STYLE: italic">type </span>is always 'Detail' for a detail
+			layout, and
+			<span style="FONT-STYLE: italic">name </span>identifies the specific layout.</p>
+		<p>&lt;&gt;A part ref element must have the
+			<span style="FONT-STYLE: italic">ref</span>
+			attribute to indicate which part is to be included in the layout. Note that it
+			does not give the full id of the part; the class of the part id is determined
+			from the actual class of object displayed, and it is implicitly a detail part.</p>
+		<p>&lt;&gt;A part ref may specify
+			<span style="FONT-STYLE: italic">label</span>,
+			<span style="FONT-STYLE: italic">menu</span>, or
+			<span style="FONT-STYLE: italic">hotlink </span>attributes in order to override
+			corresponding attributes of slices in the part. (This is often convenient,
+			especially if the part in question is a generated one on a base class, but I am
+			concerned that using it may complicate some of the more advanced kinds of view
+			customization we hope to do one day. I recommend not using it extensively.)</p>
+		<p>&lt;&gt;</p>
+		<p>A part ref may also specify a
+			<span style="FONT-STYLE: italic">param</span>
+			attribute. In theory, different kinds of part might recognize different kinds
+			of parameter. Currently the only way this is used is to override the
+			<span style="FONT-STYLE: italic">layout</span>
+			attribute in slices of the part which display jtviews (editor="jtview" or
+			editor="summary"), or in &lt;seq&gt; or &lt;obj&gt; elements. Note that this
+			may be of limited usefulness if there is more than one slice in the invoked
+			part, since
+			<span style="FONT-STYLE: italic">all</span>
+			of them will be overridden the same way. (Then again, this might be just what
+			you want, if you are defining a collection of compatible layouts all with the
+			same name.)<br>
+		</p>
+		<p>A part ref may have two kinds of children (but not both). Neither is
+			particularly useful at present, but they are used in places, so it is helpful
+			to have at least some understanding.<br>
+		</p>
+		<P>A part ref may specify
+			<span style="FONT-STYLE: italic">visibility</span>
+			as
+			<span style="FONT-STYLE: italic">always</span>,
+			<span style="FONT-STYLE: italic">ifdata</span>, or
+			<span style="FONT-STYLE: italic">never</span>. (The last is of course useful
+			only in the expectation that some customization interface will eventually allow
+			the user to change it!)</P>
+		<P>There is also a special kind of part to indicate a specific placement of custom
+			fields in the layout. This part should have an attribute called
+			"customFields" that is set to some non-null value (it doesn't matter what the
+			value is). If no part like this is found, the custom fields will not be displayed.
+			</P>
+		<p>&nbsp; &lt;part customFields="here" /&gt;
+		</p>
+		<P>&nbsp;</P>
+		<h3><span style="FONT-STYLE: italic">indent</span>
+			element provide additional part refs for the same object</h3>
+		<p>Currently, the Simple view of a LexSense is not quite like the above, but looks
+			like this:<br>
+		</p>
+		&nbsp; &lt;layout class="LexSense" type="detail" name="Simple"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;part ref="HeavySummary" label="Sense" param="Summary"
+		expansion="expanded" menu="mnuDataTree-Sense"
+		hotlinks="mnuDataTree-Sense-Hotlinks"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;indent&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;part
+		ref="GlossAllA"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;part
+		ref="DefinitionAllA"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;part
+		ref="MsaCombo"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/indent&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+		&nbsp; &lt;/layout&gt;<br>
+		<p>In the current implementation, this produces the exact same result as the layout
+			in the previous section. Once, it would have produced a layout in which slices
+			produced by the three parts referenced inside the
+			<span style="FONT-STYLE: italic">indent</span>
+			element were actually indented relative to the "heavy summary" slice, and a
+			plus/minus icon on the heavy summary slice could be used to hide them. It is
+			possible that we may wish to reintroduce this behavior in places at some point,
+			which is why I changed the behavior of the
+			<span style="FONT-STYLE: italic">indent</span>
+			element rather than simply removing all occurrences. It is possible to force
+			the indenting behavior (though not, at present, the appearance of the
+			expand/contract control) by adding the attribute
+			<span style="FONT-STYLE: italic">indent="true"</span>.<br>
+		</p>
+		<h3>Direct
+			<span style="FONT-STYLE: italic">part ref</span>
+			children unify with related object layouts</h3>
+		<p>Let's go back to our slightly simpler layout for a sense:</p>
+		&nbsp; &lt;layout class="LexSense" type="detail" name="Simple"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;part ref="HeavySummary" label="Sense"
+		param="Summary"&nbsp; menu="mnuDataTree-Sense"
+		hotlinks="mnuDataTree-Sense-Hotlinks"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;part ref="GlossAllA"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;part ref="DefinitionAllA"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;part ref="MsaCombo"/&gt;<br>
+		&nbsp; &lt;/layout&gt;<br>
+		<p>This can be invoked by a part that displays the senses of a lex entry:</p>
+		<p>&nbsp;&nbsp;&nbsp; &lt;part id="LexEntry-Detail-Senses" type="Detail"&gt;<br>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;seq field="Senses"/&gt;<br>
+			&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+		</p>
+		<p>Which in turn can be invoked by a layout of LexEntry:</p>
+		<p>&nbsp; &lt;layout class="LexEntry" type="detail" name="Simple"&gt;<br>
+			&nbsp;&nbsp;&nbsp; &lt;part ref="ChangeHandler"/&gt;<br>
+			&nbsp;&nbsp;&nbsp; &lt;part ref="CitationFormAllV"/&gt;<br>
+			&nbsp;&nbsp;&nbsp; &lt;part ref="Senses" param="Simple"/&gt;<br>
+			&nbsp;&nbsp;&nbsp; &lt;part ref="SenseInserter"/&gt;<br>
+			&nbsp; &lt;/layout&gt;<br>
+		</p>
+		<p>Here the third part ref invokes the LexEntry-Detail-Senses part, which inserts a
+			layout of each sense of the entry. The
+			<span style="FONT-STYLE: italic">param</span>
+			specifies that each sense will be displayed using its own
+			<span style="FONT-STYLE: italic">Simple</span>
+			layout. (We could also have done this using the
+			<span style="FONT-STYLE: italic">layout</span>
+			attribute of the
+			<span style="FONT-STYLE: italic">seq</span>
+			element, but then we'd have to have distinct parts for "senses displayed using
+			Simple layout" and "senses displayed using Advanced layout" and so forth.)<br>
+		</p>
+		<p>Now, as well as specifying the name of the layout that will be used for each
+			Sense, the calling layout can
+			<span style="FONT-STYLE: italic">modify</span>
+			it. If we insert part refs as direct children of the part ref for senses, the
+			system produces a composite of the original Simple layout and the modifications
+			specified in the calling part ref. Here are some examples:<br>
+		</p>
+		<p>&nbsp;&nbsp;&nbsp; &lt;part ref="Senses" param="Simple"&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;part ref="Bibliography"&gt;<br>
+			&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+		</p>
+		<p>This causes a part showing the Sense's Bibliography to be added after the parts
+			normally displayed for a Simple layout of a sense. Notice:<br>
+		</p>
+		<ul>
+			<li>
+				the nested part ref is a part of the LexSense class, not of the LexEntry class,
+				even though it is an element of a LexEntry layout. (Contrast this with part
+				refs in an
+				<span style="FONT-STYLE: italic">indent</span>
+				element, which invoke additional parts of the
+				<span style="FONT-STYLE: italic">same</span>
+			object as the parent part ref.)
+			<li>
+				we are not specifying everything to show for the sense, just something to add.</li>
+		</ul>
+		<p>&nbsp;&nbsp;&nbsp; &lt;part ref="Senses" param="Simple"&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;part ref="DefinitionAllA"
+			visibility="never"&gt;<br>
+			&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+		</p>
+		<p>This
+			<span style="FONT-STYLE: italic">prevents</span>
+			the display of the Definition of the sense; all the other parts of the Simple
+			layout will be shown normally. You can override any attribute of the matching
+			part ref (in this case, the default<span style="FONT-STYLE: italic"> visibility="always"</span>
+			is overridden) to modify the layout you are adapting, except of course the
+			<span style="FONT-STYLE: italic">ref</span>
+			attribute which identifies the one you are messing with.<br>
+		</p>
+		<p>&nbsp;&nbsp;&nbsp; &lt;part ref="Senses" param="Simple" reorder="true"&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;part ref="GlossAllA"&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;part ref="DefinitionAllA"&gt;<br>
+			&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &lt;part ref="Bibliography"&gt;<br>
+			&nbsp;&nbsp; &lt;/part&gt;<br>
+		</p>
+		<p>This will display Sense parts in the order Gloss, Definition,
+			Bibliography,&nbsp; HeavySummary, MsaCombo. The idea is that (with
+			<span style="FONT-STYLE: italic">reorder="true"</span>) the parts specified in
+			the calling part ref come first, in the order specified, followed by any of the
+			original parts that don't match. If you don't specify this, the order of the
+			parts in the named, original layout is used, followed by any parts in the
+			calling part ref's children that don't occur in the original.<br>
+		</p>
+		<p>All this capability is mainly intended to be useful when we build a UI that
+			allows the end user to customize layouts. Developers with full XML editing
+			capabilities will usually be better advised to simply create another layout for
+			the destination class.<br>
+		</p>
+		<p>One way this is used in a few places in our existing layouts is to take
+			advantage of the layout CmObject-Detail-Empty. This is a layout that contains
+			no parts at all. Thus,<br>
+		</p>
+		<p>&nbsp;&nbsp;&nbsp; &lt;part ref="Senses" param="Empty"&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;part ref="GlossAllA"&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &lt;part ref="DefinitionAllA"&gt;<br>
+			&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; &lt;part ref="Bibliography"&gt;<br>
+			&nbsp;&nbsp; &lt;/part&gt;<br>
+		</p>
+		<p>Simply displays the specified three parts for each sense.<br>
+		</p>
+		<p>This has the advantage that more of the information about the containing layout
+			is gathered together in one place; looking at the LexEntry layout, one can see
+			at once what will be shown for each sense, rather than having to go and look up
+			another layout. On the other hand, it means that this particular layout for a
+			sense can't be reused, and it may complicate some aspects of the customization
+			code when we get around to doing it.<br>
+		</p>
+		<p></p>
+		<h2>Detail parts</h2>
+		Now we need to describe the actual part elements that can be created to make up
+		layouts.<br>
+		<h3>Basics</h3>
+		<p>A part always has an ID made up of classname hyphen "Detail" hyphen partname.
+			Ones for detail controls always have type="Detail". (This is not currently
+			used, but intended to help us collect relevant parts for customizing.)</p>
+		&lt;&gt;&nbsp;&nbsp;&nbsp; &lt;part id="LexEntry-Detail-Senses"
+		type="Detail"&gt;<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;seq field="Senses" layout="Simple"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+		<h3>&lt;seq&gt;</h3>
+		<p>An
+			<span style="FONT-STYLE: italic">seq</span>
+			element, such as the Senses one above, specifies that the indicated sequence or
+			collection property of the current object should be displayed. Specifically,
+			slices are created for each item in the sequence by making use of the specified
+			layout (or the "default" layout if none is specified or the one specified does
+			not exist). The layout to use for each item may also be specified as the
+			<span style="FONT-STYLE: italic">param</span>
+			element of the invoking part ref.<br>
+		</p>
+		<p>Note that polymorphism can be involved here. If the objects in the sequence are
+			of different classes, each will display the version of the named layout that is
+			appropriate for it.<br>
+		</p>
+		<p>(Note: in an earlier version of the detail controls, the default parts generated
+			for sequence properties had a header slice whose label matched the name of the
+			property. This provided a natural place to put a menu with an item to insert
+			into the sequence. We are generally no longer doing this, so some other way
+			needs to be found. If the sequence is empty, no slices at all are produced.)<br>
+		</p>
+		<p>By default the objects in the sequence are not indented relative to the other
+			slices of the container; if they are 'heavyweight' objects, our convention is
+			to mark the first slice
+			<span style="FONT-STYLE: italic">weight="heavy"</span>
+			to indicate this. To force indentation (e.g., for hierarchical objects of a
+			common type), add
+			<span style="FONT-STYLE: italic">indent="true".</span><br>
+		</p>
+		<h3>&lt;obj&gt;<br>
+		</h3>
+		&nbsp;&nbsp;&nbsp; &lt;part id="LexEntry-Detail-Senses" type="Detail"&gt;<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;obj field="EntryType" layout="Name"/&gt;
+		<br>
+		&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+		<p>In exactly the same way, an
+			<span style="FONT-STYLE: italic">obj</span>
+			element causes the insertion of the slices produced by applying the specified
+			layout to the object referred to (unless the property is empty, in which case
+			nothing is inserted). Again, indent may be forced if desired.<br>
+		</p>
+		<h3>conditionals</h3>
+		Much as in jtviews, &lt;if&gt; and &lt;choice&gt; elements may be used to
+		conditionally include groups of slices produced by other elements. (One
+		reservation: we haven't yet implemented anything to get the slice sequence
+		updated if the data changes in a way that would affect the condition.)<br>
+		<br>
+		<h3>&lt;RecordChangeHandler&gt;</h3>
+		Todo: figure out details of this. It's something to do with configuring the
+		view by creating an object using reflection. I don't think it actually produces
+		any slices.<br>
+		<br>
+		<h3>&lt;slice&gt;</h3>
+		<p>This is where the real action is. Each &lt;slice&gt; element normally results in
+			the creation of a single slice in the detail control. We already discussed one
+			example in the Getting Started section above:</p>
+		&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;slice editor="summary" layout="default"
+		editable="no" weight="heavy" menu="mnuDataTree-Help" header="true"/&gt;<br>
+		<p>&nbsp; A slice always has an
+			<span style="FONT-STYLE: italic">editor</span>
+			attribute which specifies the basic type of slice that will be created.
+			Following sections will detail the possible types. It frequently has attributes
+			<span style="FONT-STYLE: italic">label, abbr,</span>
+			and
+			<span style="FONT-STYLE: italic">menu</span>, indicating the text that will be
+			displayed when large and small amounts of space are available to label the
+			slice, and the ID of an xCore context menu that will be displayed when
+			appropriate.<br>
+		</p>
+		<p>Other possible attributes for any slice are:<br>
+		</p>
+		<ul>
+			<li>
+				weight. A slice with
+				<span style="FONT-STYLE: italic">weight="heavy"</span>
+				has a thicker bar and extra white space above it. One with
+				<span style="FONT-STYLE: italic">weight="light"</span>
+			has only a short line separating it from the previous slice, even if it belongs
+			to a different object.
+			<li>
+				header. A slice with
+				<span style="FONT-STYLE: italic">header="true"</span>
+				has no line dividing it from the following slice. This overrides whatever would
+				normally be determined by the weight of the following slice.</li>
+		</ul>
+		Many kinds of slice are designed to show a particular field of the containing
+		object. Such slices accept the attribute
+		<span style="FONT-STYLE: italic">field</span>
+		which contains the name of the property. Optionally you may also give the
+		<span style="FONT-STYLE: italic">class</span>
+		attribute, to specify locally the class that you expect to possess this field;
+		however, the system will determine the actual class of object being displayed
+		and use this if
+		<span style="FONT-STYLE: italic">class</span>
+		is not specified. It is also possible, though rather unreadable, to specify
+		<span style="FONT-STYLE: italic">flid</span>
+		and give the actual number that identifies the property.<br>
+		<h3>editor="jtview"</h3>
+		<p>These slices use the other kind of layout to display a particular property of
+			the object. The most commonly used one is this:<br>
+		</p>
+		&nbsp;&nbsp;&nbsp; &lt;part id="CmObject-Detail-Summary" type="detail"
+		paramType="JtLayoutsOfThisClass"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&lt;slice editor="jtview"
+		layout="default" editable="no" menu="mnuDataTree-Help"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+		<p>It can be invoked by something like this:<br>
+		</p>
+		&nbsp;&nbsp;&nbsp; &lt;part ref="Summary" label="Sub Item"
+		param="PossibilityName"&nbsp; menu="mnuDataTree-DeletePossibility"/&gt;<br>
+		<p>Notice that the caller supplies the label, overrides the menu, and (through the
+			<span style="FONT-STYLE: italic">param</span>
+			attribute) overrides the layout that will be used. The effect of this part ref
+			(which is part of a layout of a CmPossibility) is to create a slice which
+			contains the PossibilityName jtview layout of the CmPossibility. Note the
+			<span style="FONT-STYLE: italic">editable="no"</span>
+			attribute, which indicates that everything in this slice is intended to be
+			read-only; the user cannot edit in this slice.<br>
+		</p>
+		<h3>editor="summary"</h3>
+		This is like a jtview slice, but the context icon is moved to the right, and
+		beside it appear as many of the context menu&nbsp; items as will fit, presented
+		as hot links. If the first several items in the context menu are not
+		appropriate choices for the hot links list, you can override by giving another
+		menu id in the
+		<span style="FONT-STYLE: italic">hotlinks</span>
+		attribute. To get any hot links, the jtview contents must be less than a line,
+		so something very short is usually appropriate.<br>
+		<p>[Check: will we even get the context menu icon if the view is more than a line?]<br>
+		</p>
+		<p>
+		</p>
+		<h3>editor="string"</h3>
+		<p>A
+			<span style="FONT-STYLE: italic">string</span>
+			editor displays a single string for editing. It may be a simple string
+			property, or one alternative of a multilingual one. If the latter, the
+			<span style="FONT-STYLE: italic">ws</span>
+			attribute is required to indicate which one. The value should be either
+			"analysis" or "vernacular" (indicating the first such writing system).<br>
+		</p>
+		&nbsp;&nbsp;&nbsp; &lt;part id="PhNaturalClass-Detail-Description"
+		type="Detail"&gt;<br>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;slice field="Description"
+		label="Description" editor="string" ws="analysis"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+		<h3>editor="multistring"</h3>
+		A multistring editor displays multiple alternatives (versions in different
+		writing systems) of its property. The
+		<span style="FONT-STYLE: italic">ws </span>attribute can be 'all vernacular',
+		'all analysis', 'analysis vernacular', or 'vernacular analysis'. (The last two
+		are implicitly "all" of both types of writing system.)<br>
+		<h3>editor="enumcombobox"</h3>
+		<p>This type sets an integer to a value based on choosing an item from a list. The
+			list is supplied in the
+			<span style="FONT-STYLE: italic">deParams</span>
+			child element.</p>
+		&nbsp;&nbsp;&nbsp; &lt;part id="CmPerson-Detail-Gender" type="Detail"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;slice field="Gender" label="Gender"
+		editor="enumComboBox"&nbsp; menu="mnuDataTree-Help"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;deParams&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&lt;stringList group="Gender" ids="Unknown, Male, Female"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/deParams&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/slice&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+		<h3>editor="referencecombobox"</h3>
+		<p>This sets the value of a reference property using a combo box. [Todo: where do
+			the items come from?? Not the XML, so it must be some standard C# method,
+			probably in FDO.]</p>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;part id="CmTranslation-Detail-Type"
+		type="Detail"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;slice field="Type"
+		label="Type" editor="ReferenceComboBox" menu="mnuDataTree-Help"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+		<h3>editor="lit"</h3>
+		This creates a slice that displays a fixed string, usually some critical
+		instructions for using a neighboring slice. The attribute
+		<span style="FONT-STYLE: italic">param1</span>
+		is required and its value is the literal text to display in the slice.<br>
+		<h3>editor="image"</h3>
+		This creates a slice that displays an image. The attribute
+		<span style="FONT-STYLE: italic">param1</span>
+		is required and provides the path from the FW install directory&nbsp; (or
+		fw/distfiles for developers) to the image file. This is often used to show
+		mockups of slices not yet developed.<br>
+		<h3>editor="checkbox"</h3>
+		This displays a checkbox, used for setting an integer property to one or zero.<br>
+		<h3>editor="time"</h3>
+		This displays a slice showing a date/time property.<br>
+		<h3>editor="int"</h3>
+		This displays an integer property, actually as a decimal number.<br>
+		<h3>editor="defaultatomicreference", "defaultvectorreference"<br>
+		</h3>
+		<p>This displays an object that is referred to, and a button that brings up a
+			chooser. The possible values are determined by an FDO method (todo: doc what it
+			is). the vector version is used for properties that hold multiple values.<br>
+		</p>
+		&lt;&gt;&nbsp; &nbsp;&nbsp;&nbsp; &lt;part id="LexEntry-Detail-EntryType"
+		type="Detail"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;slice field="EntryType" label="Entry
+		Type" editor="defaultAtomicReference" menu="mnuDataTree-Help"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;deParams ws="all
+		analysis" changeRequiresRefresh="true"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&lt;chooserInfo&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		&lt;chooserLink type="goto" label="Edit the Entry Types"
+		tool="entryTypeEdit"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/chooserInfo&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/slice&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+		<p>Note the
+			<span style="FONT-STYLE: italic">changeRequiresRefresh </span>attribute, which
+			means that choosing a different item requires the containing detail control to
+			be refreshed (e.g., because different slices should be visible).<br>
+		</p>
+		<h3>editor="sttext"</h3>
+		This is used for structured text properties (ones whose signature is StText).
+		It displays a standard word-processor-like view of the structured text.<br>
+		<h3>editor="command"</h3>
+		<p>This displays a button (planned to change to something looking like a hot link,
+			as in summary slices) which invokes an xCore command. The id of the command is
+			given in the deParams element as shown by the example. The text of the button
+			is obtained from the xCore command.<br>
+		</p>
+		&nbsp;&nbsp;&nbsp; &lt;part id="LexEntry-Detail-SenseInserter"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;slice label="Sense" editor="command"
+		menu="mnuDataTree-Sense"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;deParams&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;command
+		cmdID="CmdDataTree-Insert-Entry-Sense"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/deParams&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/slice&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+		<br>
+		<h3>editor="custom", customwithparams<br>
+		</h3>
+		These keywords allow other DLLs (even not developed in Dallas!) to define
+		slices and invoke them. The attributes
+		<span style="FONT-STYLE: italic">assemblyPath</span>
+		and
+		<span style="FONT-STYLE: italic">class</span>
+		are required, and specify where to find an assembly containing the
+		implementation of the slice (relative to the fw install directory, or more
+		specifically, the directory that contains the XmlUtils.dll assembly), and the (<span style="FONT-STYLE: italic">fully qualified!)</span>
+		name of the class to create.<br>
+		<br>
+		&nbsp;&nbsp;&nbsp; &lt;part id="LexEntry-Detail-MainEntriesOrSenses"
+		type="Detail"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;ifnot field="EntryType/Type"
+		intequals="0"&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;slice
+		field="MainEntriesOrSenses" label="Main Entries or Senses"<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		editor="Custom" assemblyPath="LexEdDll.dll"<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		class="SIL.FieldWorks.XWorks.LexEd.EntrySequenceReferenceSlice"<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+		menu="mnuDataTree-Help"/&gt;<br>
+		&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/ifnot&gt;<br>
+		&nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+		<p>The example above expects to call a default (no-argument) constructor for
+			EntrySequenceReferenceSlice. The customwithparams one passes a lot of
+			information to the constructor:</p>
+		<p>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;part id="CmAnnotation-Detail-Text"
+			type="Detail"&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;slice label="Text"
+			field="Text" editor="customWithParams"<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+			assemblyPath="NotesView.dll"<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+			class="SIL.FieldWorks.TE.NotesTextSlice" menu="ContextAnnotation"/&gt;<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &lt;/part&gt;<br>
+		</p>
+		<p>This invokes a constructor like this:</p>
+		<p>public NotesTextSlice(FdoCache cache, string editor, int flid, XmlNode node,
+			<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; CmObject obj,
+			StringTable stringTbl, IPersistenceProvider persistenceProvider,<br>
+			&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp; int ws)<br>
+		</p>
+		<p>Currently the 'editor' parameter will always be "customwithparams". The flid
+			will be the identifier of the field, which will have been determined as usual
+			if a or
+			<span style="FONT-STYLE: italic">field </span>or
+			<span style="FONT-STYLE: italic">flid</span>
+			attribute is present on the slice. The
+			<span style="FONT-STYLE: italic">node</span>
+			argument is the &lt;slice&gt; element itself, from which other attributes or
+			chidren may be retrieved. You also get the FDO object which this slice is
+			displaying, the FdoCache that connects it to the database, a string table and
+			persistence provider, and an indication of writing system if a relvant
+			attribute was found and interpreted.<br>
+		</p>
+		<h3>specialized slices</h3>
+		<ul>
+			<li>
+			atomicreferencepos - for part of speech property
+			<li>
+			derivmsareference - for derivational MSAs, I think.
+			<li>
+			msareferencecombobox - for MSAs, presumably
+			<li>
+				phoneenvreference - for editing phonological environments.<br>
+			</li>
+		</ul>
+		<br>
+		<br>
+		<p>
+		</p>
+	</body>
+</html>
