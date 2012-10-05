@@ -1,0 +1,11 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\SIL]
+"IcuDataDir"="c:\\fw\\distfiles\\icu"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\SIL\FieldWorks]
+"InitMSDE"=dword:00000000
+"RootDir"="c:\\fw\\DistFiles"
+"DbWarnConfigured"=hex:00
+"InstallLanguageLog"="c:\\fw\\distfiles\\languages\\InstallLanguage.log"
+"InstallLanguageUseLog"="N"
