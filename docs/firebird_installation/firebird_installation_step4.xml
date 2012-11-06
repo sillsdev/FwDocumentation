@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="Custom_UDF_Installation">
+  <title>Custom UDF Installation</title>
+
+  <itemizedlist>
+	<listitem>
+	  <para>Copy the custom UDF DLLs and their corresponding SQL declaration files into
+		C:\Firebird\UDF</para>
+	  <itemizedlist>
+		<listitem>
+		  <para>Copy the udf_SIL.dll from "C:\VCS\Wycliffe\projects\FieldWorks\Src\Sql\udfs\udf_SIL"
+			to "C:\Firebird\UDF".</para>
+		</listitem>
+	  </itemizedlist>
+	  <note>
+		<para>Don' copy udf_GUID.dll or udf_GUID.sql files into "C:\Firebird\UDF" as their functions
+		  have been incorporated into udf_SIL.dll.</para>
+	  </note>
+	</listitem>
+  </itemizedlist>
+</section>

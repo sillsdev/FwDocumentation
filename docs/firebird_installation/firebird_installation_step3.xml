@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="Firebird_Database_Container_Creation">
+  <title>Firebird Database Container Creation</title>
+
+  <itemizedlist>
+	<listitem>
+	  <para>Modify Password for Sysdba:</para>
+	  <itemizedlist>
+		<listitem>
+		  <para>Go into a command window under C:\firebird\bin</para>
+		</listitem>
+		<listitem>
+		  <para>At the shell (Windows or Unix) prompt type the following:</para>
+		  <itemizedlist>
+			<listitem>
+			  <para>gsec –user sysdba –password masterkey</para>
+			</listitem>
+		  </itemizedlist>
+		  <para>A "GSEC&gt;" prompt should now appear as your now logged into the database using
+			the default username/password that is used for newly created databases.</para>
+		  <para>At the "GSEC&gt;" prompt type the following:</para>
+		  <itemizedlist>
+			<listitem>
+			  <para>modify sysdba –pw inscrutable</para>
+			</listitem>
+			<listitem>
+			  <para>quit</para>
+			</listitem>
+		  </itemizedlist>
+		</listitem>
+	  </itemizedlist>
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/db001.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+	<listitem>
+	  <para>Create the following folder structure: "C:\Firebird\data\fieldworks".</para>
+	</listitem>
+	<listitem>
+	  <para>Start FlameRobin.</para>
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/flamerobin009.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+	<listitem>
+	  <para>From the "Database" menu select "Create new database...".<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_install/flamerobin010.jpg"/>
+		  </imageobject>
+		</mediaobject></para>
+	</listitem>
+	<listitem>
+	  <para>Enter the following values:</para>
+	  <itemizedlist>
+		<listitem>
+		  <para>Display name: FieldWorks</para>
+		</listitem>
+		<listitem>
+		  <para>Database path: C:\Firebird\data\fieldworks\fw01.db</para>
+		</listitem>
+		<listitem>
+		  <para>Username: sysdba</para>
+		</listitem>
+		<listitem>
+		  <para>Password: inscrutable</para>
+		</listitem>
+		<listitem>
+		  <para>Page size: 8192</para>
+		</listitem>
+		<listitem>
+		  <para>Charset: NONE</para>
+		</listitem>
+		<listitem>
+		  <para>Role: (leave empty)</para>
+		</listitem>
+		<listitem>
+		  <para>SQL Dialect: Dialect 3</para>
+		</listitem>
+	  </itemizedlist>
+	  <note> The selected Charset is NONE. Do not use UTF8 as this will cause problems when
+		registering UDFs with CSTRING(32767) parameters. Database can still be used with the Unicode
+		character set even if it was set with a default of NONE. The OCTETS setting was tried and
+		this turned out to have it's own set of problems when trying to use UTF8 parameters
+		in stored procedures, etc. </note>
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/flamerobin011.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+	<listitem>
+	  <para>FlameRobin will now display a "FieldWorks" icon in it's tree list.</para>
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/flamerobin012.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+	<listitem>
+	  <para>Double-click on the "FieldWorks" icon and the following should be displayed:</para>
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/flamerobin013.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+  </itemizedlist>
+
+  <section id="Firebird_Database_Verification">
+	<title>Firebird Database Container Creation Verification</title>
+	<itemizedlist>
+	  <listitem>
+		<para>The following few steps are used to confirm that you're base installation is as
+		  expected and functional.</para>
+	  </listitem>
+	  <listitem>
+		<para>Under the "Server" menu select "Retrieve server version"</para>
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_install/flamerobin014.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+	  <listitem>
+		<para>The following window should then be displayed to which you click the "OK" button:</para>
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_install/flamerobin024.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+	  <listitem>
+		<para>Under the "Database" menu select "Run a query...".</para>
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_install/flamerobin015.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+	  <listitem>
+		<para>Type in the query window <code>SELECT * FROM RDB$DATABASE;</code> and press "Execute
+		  (F4)".</para>
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_install/flamerobin016.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+	  <listitem>
+		<para>It should then return the following result after which you can close this window:</para>
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_install/flamerobin017.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+	  <listitem>
+		<para>When closing FlameRobin you will be presented with the following warning dialog window
+		  which can be ignored if you've committed any transactions you've been working with
+		  otherwise click the "Cancel" button. This dialog can also be disabled by selecting the
+		  "Always quit without asking" option.</para>
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_install/flamerobin022.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+	</itemizedlist>
+  </section>
+
+  <section id="FlameRobin_Misc">
+	<title>FlameRobin Miscellaneous Items</title>
+	<itemizedlist>
+	  <listitem>
+		<para>To connect to the database start FlameRobin and double-click on the "Localhost" icon
+		  followed by a double-click on the "FieldWorks" icon.</para>
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_install/flamerobin020.jpg"/>
+		  </imageobject>
+		</mediaobject>
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_install/flamerobin021.jpg"/>
+		  </imageobject>
+		</mediaobject>
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_install/flamerobin013.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+	  <listitem>
+		<para>Use the following preference settings when desiring to do some file logging such as
+		  when wanting to debug an issue and send some log files to another developer for help. The
+		  "Preferences" window is accessed via the "Preferences" item in the "View" menu.</para>
+		<itemizedlist>
+		  <listitem>
+			<para>Log DML statements: checked</para>
+		  </listitem>
+		  <listitem>
+			<para>Enable logging to file: checked</para>
+		  </listitem>
+		  <listitem>
+			<para>Log file name: C:\Firebird\logs\flamerobin.log</para>
+		  </listitem>
+		  <listitem>
+			<para>Add header to each statement</para>
+		  </listitem>
+		  <listitem>
+			<para>Add SET TERM when different terminator is used in editor</para>
+		  </listitem>
+		</itemizedlist>
+		<mediaobject>
+		  <imageobject>
+			<imagedata fileref="../images/fb_install/flamerobin023.jpg"/>
+		  </imageobject>
+		</mediaobject>
+	  </listitem>
+	</itemizedlist>
+  </section>
+
+</section>

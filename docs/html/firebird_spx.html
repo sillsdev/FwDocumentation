@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+	  <title>Firebird Support Stored Procedures</title>
+	  <link rel="stylesheet" href="fieldworks_db_port.css" type="text/css"/>
+	  <meta name="generator" content="DocBook XSL Stylesheets V1.68.1"/>
+   </head>
+   <body>
+	  <div class="article" lang="en">
+		 <div class="titlepage">
+			<div>
+			   <div>
+				  <h2 class="title">
+					 <a id="d0e2"/>Firebird Support Stored Procedures</h2>
+			   </div>
+			   <div>
+				  <p class="releaseinfo">$Revision$</p>
+			   </div>
+			   <div>
+				  <p class="pubdate">$Date$</p>
+			   </div>
+			</div>
+			<hr/>
+		 </div>
+		 <div class="toc">
+			<p>
+			   <b>Table of Contents</b>
+			</p>
+			<dl>
+			   <dt>
+				  <span class="section">
+					 <a href="#Intro">1. Introduction</a>
+				  </span>
+			   </dt>
+			   <dt>
+				  <span class="section">
+					 <a href="#spx_Stored_Procedures">2. spx Stored Procedures</a>
+				  </span>
+			   </dt>
+			   <dd>
+				  <dl>
+					 <dt>
+						<span class="section">
+						   <a href="#spx_Create_Or_Alter_Exception">2.1. spx_Create_Or_Alter_Exception</a>
+						</span>
+					 </dt>
+					 <dt>
+						<span class="section">
+						   <a href="#spx_Drop_Dependencies">2.2. spx_Drop_Dependencies</a>
+						</span>
+					 </dt>
+					 <dt>
+						<span class="section">
+						   <a href="#spx_Drop_External">2.3. spx_Drop_External</a>
+						</span>
+					 </dt>
+					 <dt>
+						<span class="section">
+						   <a href="#spx_Drop_Table">2.4. spx_Drop_Table</a>
+						</span>
+					 </dt>
+					 <dt>
+						<span class="section">
+						   <a href="#spx_Drop_Generator">2.5. spx_Drop_Generator</a>
+						</span>
+					 </dt>
+					 <dt>
+						<span class="section">
+						   <a href="#spx_Valid_New_Constraint_Name">2.6. spx_Valid_New_Constraint_Name</a>
+						</span>
+					 </dt>
+					 <dt>
+						<span class="section">
+						   <a href="#spx_Drop_All_Tables">2.7. spx_Drop_All_Tables</a>
+						</span>
+					 </dt>
+					 <dt>
+						<span class="section">
+						   <a href="#spx_Drop_All_Exceptions">2.8. spx_Drop_All_Exceptions</a>
+						</span>
+					 </dt>
+				  </dl>
+			   </dd>
+			   <dt>
+				  <span class="section">
+					 <a href="#spx_Obsolete">3. Obsolete spx Stored Procedures</a>
+				  </span>
+			   </dt>
+			</dl>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="Intro"/>1. Introduction</h2>
+				  </div>
+			   </div>
+			</div>
+			<p>Several stored procedures with a stored procedure name prefix of "spx" are present to
+			support the maintenance of Firebird database object. Firebird has numerous rules before
+			an object can be dropped or modified. Dependencies have to be dropped before the object
+			is dropped or under certain cases even modified. There are no object cascade delete
+			options in Firebird. You can have cascade delete between the parent table data and the
+			child table data but for example you cannot delete a table that has indexes before you
+			delete the indexes manually first.</p>
+			<p>Initially only information not immediately apparent from the source code will be
+			described here. For example the calling signatures (what parameters to pass and the
+			return value if any) will not be described.</p>
+			<p>The "drop all" spx procedures are mainly present to help manually wipe out a database
+			quickly.</p>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="spx_Stored_Procedures"/>2. spx Stored Procedures</h2>
+				  </div>
+			   </div>
+			</div>
+			<div class="section" lang="en">
+			   <div class="titlepage">
+				  <div>
+					 <div>
+						<h3 class="title">
+						   <a id="spx_Create_Or_Alter_Exception"/>2.1. spx_Create_Or_Alter_Exception</h3>
+					 </div>
+				  </div>
+			   </div>
+			   <div class="itemizedlist">
+				  <ul type="disc">
+					 <li>
+						<p>This procedure will allow you to create or modify a Firebird exception
+						object.</p>
+					 </li>
+					 <li>
+						<p>No dependencies are involved.</p>
+					 </li>
+				  </ul>
+			   </div>
+			</div>
+			<div class="section" lang="en">
+			   <div class="titlepage">
+				  <div>
+					 <div>
+						<h3 class="title">
+						   <a id="spx_Drop_Dependencies"/>2.2. spx_Drop_Dependencies</h3>
+					 </div>
+				  </div>
+			   </div>
+			   <div class="itemizedlist">
+				  <ul type="disc">
+					 <li>
+						<p>This procedure will drop all dependent objects that would prevent the
+						modifications or deletion of the reference object. </p>
+					 </li>
+					 <li>
+						<p>It is used by numerous other "spx" procedures.</p>
+					 </li>
+					 <li>
+						<p>The procedure is recursive and calls upon itself to effectively do a
+						cascade delete of all dependent objects.</p>
+					 </li>
+				  </ul>
+			   </div>
+			</div>
+			<div class="section" lang="en">
+			   <div class="titlepage">
+				  <div>
+					 <div>
+						<h3 class="title">
+						   <a id="spx_Drop_External"/>2.3. spx_Drop_External</h3>
+					 </div>
+				  </div>
+			   </div>
+			   <div class="itemizedlist">
+				  <ul type="disc">
+					 <li>
+						<p>This procedure will drop the specified UDF and all dependent
+					objects.</p>
+					 </li>
+					 <li>
+						<p>Caveat: there is a comment in this procedure that indicates that the
+						dependency dropping doesn't work. This has to be looked into in detail
+						later.</p>
+					 </li>
+				  </ul>
+			   </div>
+			</div>
+			<div class="section" lang="en">
+			   <div class="titlepage">
+				  <div>
+					 <div>
+						<h3 class="title">
+						   <a id="spx_Drop_Table"/>2.4. spx_Drop_Table</h3>
+					 </div>
+				  </div>
+			   </div>
+			   <div class="itemizedlist">
+				  <ul type="disc">
+					 <li>
+						<p>This procedure will drop the specified table and all dependent
+					objects.</p>
+					 </li>
+				  </ul>
+			   </div>
+			</div>
+			<div class="section" lang="en">
+			   <div class="titlepage">
+				  <div>
+					 <div>
+						<h3 class="title">
+						   <a id="spx_Drop_Generator"/>2.5. spx_Drop_Generator</h3>
+					 </div>
+				  </div>
+			   </div>
+			   <div class="itemizedlist">
+				  <ul type="disc">
+					 <li>
+						<p>This procedure will drop the specified generator and all dependent
+						objects. A generator is the equivalent of a sequence in Oracle
+					databases.</p>
+					 </li>
+				  </ul>
+			   </div>
+			</div>
+			<div class="section" lang="en">
+			   <div class="titlepage">
+				  <div>
+					 <div>
+						<h3 class="title">
+						   <a id="spx_Valid_New_Constraint_Name"/>2.6. spx_Valid_New_Constraint_Name</h3>
+					 </div>
+				  </div>
+			   </div>
+			   <div class="itemizedlist">
+				  <ul type="disc">
+					 <li>
+						<p>Main purpose currently is to determine an appropriate constraint name that
+						is unique when records are inserted into Class$. The trigger
+						T_BI1_Class$_Ins of Class$ calls this procedure.</p>
+					 </li>
+					 <li>
+						<p>This procedure will determine a name within 31 characters that will be
+						unique.</p>
+					 </li>
+					 <li>
+						<p>It automatically generates foreign keys, primary keys and
+					T_BU5_..._TStmp</p>
+					 </li>
+				  </ul>
+			   </div>
+			</div>
+			<div class="section" lang="en">
+			   <div class="titlepage">
+				  <div>
+					 <div>
+						<h3 class="title">
+						   <a id="spx_Drop_All_Tables"/>2.7. spx_Drop_All_Tables</h3>
+					 </div>
+				  </div>
+			   </div>
+			   <div class="itemizedlist">
+				  <ul type="disc">
+					 <li>
+						<p>This procedure will drop all of the tables and all dependent
+					objects.</p>
+					 </li>
+					 <li>
+						<p>This is currently not called by the build script.</p>
+					 </li>
+				  </ul>
+			   </div>
+			</div>
+			<div class="section" lang="en">
+			   <div class="titlepage">
+				  <div>
+					 <div>
+						<h3 class="title">
+						   <a id="spx_Drop_All_Exceptions"/>2.8. spx_Drop_All_Exceptions</h3>
+					 </div>
+				  </div>
+			   </div>
+			   <div class="itemizedlist">
+				  <ul type="disc">
+					 <li>
+						<p>This procedure will drop all of the exceptions and all dependent
+					objects.</p>
+					 </li>
+					 <li>
+						<p>This is currently not called by the build script.</p>
+					 </li>
+				  </ul>
+			   </div>
+			</div>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="spx_Obsolete"/>3. Obsolete spx Stored Procedures</h2>
+				  </div>
+			   </div>
+			</div>
+			<p>The following stored procedures exist in the source code but aren't used within the
+			FieldWorks Firebird database. They were created while trying to port the MSSQL objects
+			and code and weren't required by the final code. The source code is kept in case they
+			are needed in the future.</p>
+			<div class="itemizedlist">
+			   <ul type="disc">
+				  <li>spx_Valid_Name</li>
+				  <li>spx_Valid_New_Name</li>
+				  <li>spx_Valid_New_NonColumn_Name</li>
+			   </ul>
+			</div>
+		 </div>
+	  </div>
+   </body>
+</html>

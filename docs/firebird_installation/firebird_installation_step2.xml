@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="IBExpert_Installation">
+  <title>FlameRobin Installation</title>
+
+  <itemizedlist>
+	<listitem>
+	  <para>Launch the flamerobin-0.7.6-setup.exe installer.</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/flamerobin001.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Click "Next".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/flamerobin002.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Read the license agreement, select "I accept the agreement" and click "Next".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/flamerobin003.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Change the destination to "C:\Firebird\FlameRobin" and click "Next".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/flamerobin004.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Change the start menu folder to "FlameRobin" and click "Next".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/flamerobin005.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Check the "Create a desktop icon" and leave the "Create a Quick Launch icon" unchecked
+		and click "Next".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/flamerobin006.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Click "Install".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/flamerobin007.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Uncheck "Launch FlameRobin" and click "Finish".</para>
+	</listitem>
+
+	<listitem>
+	  <para>The first time you launch FlameRobin you will be presented with the following window.</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/flamerobin008.jpg"/>
+		</imageobject>
+	  </mediaobject>
+
+	  <note>
+		<para>The fr_databases.conf file is particularly useful to ease the configuration of
+		  FlameRobin if the database was created by some other means than described in the following
+		  section or to restore the connection settings. It is an XML file that stores the file path
+		  of the database, username, password, character set and network connection settings. If the
+		  database already exists you can copy the file provided by the following link into your
+		  "C:\Documents and Settings\YourWindowsUsername\Local Settings\Application Data\flamerobin"
+		  folder: <ulink url="../html/fr_databases.conf">fr_databases.conf</ulink></para>
+	  </note>
+	</listitem>
+  </itemizedlist>
+</section>

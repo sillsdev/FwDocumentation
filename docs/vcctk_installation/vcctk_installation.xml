@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="../docbook-html.xsl"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd" [
+  <!ENTITY step1 SYSTEM "vcctk_step1_download.xml">
+  <!ENTITY step2 SYSTEM "vcctk_step2_installation.xml">
+  <!ENTITY step3 SYSTEM "vcctk_step3_service_pack.xml">
+  <!ENTITY step4 SYSTEM "vcctk_step4_sdk.xml">
+  <!ENTITY step5 SYSTEM "vcctk_step5_configuration.xml">
+  ]>
+<article class="techreport">
+	<title>Windows Microsoft Visual C++ Express Installation and Setup</title>
+	<articleinfo>
+		<releaseinfo>$Revision$</releaseinfo>
+		<pubdate>$Date$</pubdate>
+	</articleinfo>
+	<section id="Intro">
+		<title>Introduction</title>
+		<para>This will show how to install the free Microsoft Visual C++ Express as an alternative
+			to the full Microsoft Visual C++. It provides the majority of the same command line
+			compiler tools as the full version.</para>
+		<para>The installation and setup of the Microsoft Visual C++ Express consists of these main
+			steps:</para>
+		<orderedlist>
+			<listitem>
+				<simpara>Dowloading the Microsoft Visual C++ Express files (free download)</simpara>
+			</listitem>
+			<listitem>
+				<simpara>Installing the Microsoft Visual C++ Express</simpara>
+			</listitem>
+			<listitem>
+				<simpara>Installing the Platform SDK</simpara>
+				<note>
+					<para>Microsoft Platform SDK is required to compile UDFs. For UDFs there are
+						some dependencies with the Microsoft Platform SDK (include files and
+						libraries). For SQL modules parsing/compilation the base Visual C++ Express
+						is sufficient.</para>
+				</note>
+			</listitem>
+			<listitem>
+				<simpara>Configuring the Microsoft Visual C++ Express</simpara>
+			</listitem>
+		</orderedlist>
+	</section> &step1; &step2; &step3; &step4; &step5;</article>

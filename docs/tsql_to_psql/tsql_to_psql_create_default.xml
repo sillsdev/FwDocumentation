@@ -1,0 +1,258 @@
+<section id="Default_Values">
+	<title>Default Values</title>
+	<section id="Constant_Defaults">
+		<title>Constant Values</title>
+		<orderedlist numeration="upperalpha">
+			<listitem id="Constant_Literals">
+				<para>Where TSQL-PSQL datatype mapping allows use of PSQL literals:</para>
+				<para id="Constant_Defaults_TSQLa">
+					<emphasis>TSQL</emphasis>
+					<itemizedlist id="Constant_Defaults_TSQL1">
+						<listitem override="none">
+							<programlisting>
+create table [Field$] (
+  [Custom]  smallint  not null  default 1, <co id="co-defaultconstants1T_1a" linkends="co-defaultconstants1T_1b"/>
+  [Big]     smallint            default 0 <coref linkend="co-defaultconstants1T_1a"/>
+)
+go
+							</programlisting>
+							<calloutlist>
+								<callout arearefs="co-defaultconstants1T_1a"
+									id="co-defaultconstants1T_1b">
+									<para>Constant or literal default value.</para>
+								</callout>
+							</calloutlist>
+						</listitem>
+					</itemizedlist>
+				</para>
+				<para id="Constant_Defaults_PSQLa">
+					<emphasis>PSQL</emphasis>
+					<itemizedlist id="Constant_Defaults_PSQL1">
+						<listitem override="none">
+							<programlisting>
+CREATE TABLE Field$
+(
+  "CUSTOM"  SMALLINT DEFAULT 1  NOT NULL, <co id="co-defaultconstants1P_1a" linkends="co-defaultconstants1P_1b"/>
+  "BIG"     SMALLINT DEFAULT 0 <coref linkend="co-defaultconstants1P_1a"/>
+);
+COMMIT;
+							</programlisting>
+							<calloutlist>
+								<callout arearefs="co-defaultconstants1P_1a"
+									id="co-defaultconstants1P_1b">
+									<para>Constant or literal default value.</para>
+								</callout>
+							</calloutlist>
+						</listitem>
+					</itemizedlist>
+				</para>
+			</listitem>
+			<listitem>
+				<para>Where TSQL-PSQL datatype mapping doesn't allow use of PSQL literals:</para>
+				<para id="Constant_Defaults_TSQLb">
+					<emphasis>TSQL</emphasis>
+					<itemizedlist id="Constant_Defaults_TSQL2">
+						<listitem override="none">
+							<programlisting>
+create table [Field$] (
+  [Custom]  tinyint  not null  default 1, <co id="co-defaultconstants2T_1a" linkends="co-defaultconstants2T_1b"/>
+  [Big]     bit                default 0 <coref linkend="co-defaultconstants2T_1a"/>
+)
+go
+							</programlisting>
+							<calloutlist>
+								<callout arearefs="co-defaultconstants2T_1a"
+									id="co-defaultconstants2T_1b">
+									<para>Constant or literal default value. The approach is the
+										same for TSQL whether the datatypes are directly mappable or
+										not.</para>
+								</callout>
+							</calloutlist>
+						</listitem>
+					</itemizedlist>
+				</para>
+				<para id="Constant_Defaults_PSQLb">
+					<emphasis>PSQL</emphasis>
+					<itemizedlist id="Constant_Defaults_PSQL2">
+						<listitem override="none">
+							<programlisting>
+CREATE TABLE Field$
+(
+  "CUSTOM"  CHAR(1) CHARACTER SET OCTETS  NOT NULL, <co id="co-defaultconstants2P_1a" linkends="co-defaultconstants2P_1b"/>
+  "BIG"     CHAR(2) CHARACTER SET OCTETS <coref linkend="co-defaultconstants2P_1a"/>
+);
+COMMIT;
+/* T_BI32767_Field$ Trigger */
+#include &lt;T_BI32767_Field$.trg&gt; <co id="co-defaultconstants2P_2a" linkends="co-defaultconstants2P_2b"/>
+							</programlisting>
+							<calloutlist>
+								<callout arearefs="co-defaultconstants2P_1a"
+									id="co-defaultconstants2P_1b">
+									<para>Constant or literal default value is not possible.</para>
+								</callout>
+								<callout arearefs="co-defaultconstants2P_2a"
+									id="co-defaultconstants2P_2b">
+									<para>A trigger is required to be defined to insert the default
+										values that can't be inserted using literals or
+									constants.</para>
+								</callout>
+							</calloutlist>
+							<para>Where T_BI32767_Field$.trg's content is:</para>
+							<programlisting>
+SET TERM !!;
+CREATE TRIGGER T_BI32767_Field$ FOR Field$
+  ACTIVE BEFORE INSERT POSITION 32767 <co id="co-defaultconstants3P_1a" linkends="co-defaultconstants3P_1b"/>
+AS
+BEGIN
+  /~
+	Following two field assignments return
+	a CHAR(1) and CHAR(2) values
+  ~/
+  IF (NEW.Custom IS NULL) THEN
+	NEW.Custom = udf_Tinyint(1); <co id="co-defaultconstants3P_2a" linkends="co-defaultconstants3P_2b"/>
+  IF (NEW.Big IS NULL) THEN
+	NEW.Big = udf_Bit(0); <co id="co-defaultconstants3P_3a" linkends="co-defaultconstants3P_3b"/>
+END !!
+SET TERM ; !!
+COMMIT;
+							</programlisting>
+							<calloutlist>
+								<callout arearefs="co-defaultconstants3P_1a"
+									id="co-defaultconstants3P_1b">
+									<para>Trigger needs to be declared with <command>BEFORE INSERT
+											POSITION 32767</command> so that the defaults will be
+										inserted after the other <command>BEFORE</command> triggers
+										running but before any of the <command>AFTER</command>
+										triggers.</para>
+								</callout>
+							</calloutlist>
+						</listitem>
+					</itemizedlist>
+				</para>
+			</listitem>
+		</orderedlist>
+	</section>
+	<section id="Function_Defaults">
+		<title>Function Defaults</title>
+		<para id="Function_Defaults_TSQL">
+			<emphasis>TSQL</emphasis>
+			<itemizedlist id="Function_Defaults_TSQL1">
+				<listitem override="none">
+					<programlisting>
+create table [Field$] (
+  [CustomId]  uniqueidentifier  default newid(), <co id="co-defaultfunction_1" linkends="co-defaultfunction_2"/>
+)
+go
+					</programlisting>
+					<calloutlist>
+						<callout arearefs="co-defaultfunction_1" id="co-defaultfunction_2">
+							<para>Function derived default value.</para>
+							<note>
+								<para>
+									<command>NEWID()</command> is a built-in TSQL function for which
+									PSQL has no equivalent. <command>UNIQUEIDENTIFIER</command> is a
+									TSQL type which stores a UUID (or sometimes referred to as
+									GUID).</para>
+							</note>
+						</callout>
+					</calloutlist>
+				</listitem>
+			</itemizedlist>
+		</para>
+		<para id="Function_Defaults_PSQL">
+			<emphasis>PSQL</emphasis>
+			<itemizedlist id="Function_Defaults_PSQL1">
+				<listitem override="none">
+					<programlisting>
+CREATE TABLE Field$
+(
+  "CUSTOMID"  CHAR(16) CHARACTER SET UTF8 <co id="co-defaultfunction_3" linkends="co-defaultfunction_4"/>
+);
+COMMIT;
+/* T_BI32767_Field$ Trigger */
+#include &lt;T_BI32767_Field$.trg&gt; <co id="co-defaultfunction_5" linkends="co-defaultfunction_6"/>
+					</programlisting>
+					<calloutlist>
+						<callout arearefs="co-defaultfunction_3" id="co-defaultfunction_4">
+							<para>Function default value is not possible.</para>
+						</callout>
+						<callout arearefs="co-defaultfunction_5" id="co-defaultfunction_6">
+							<para>A trigger is required to be defined to insert the default values
+								that can't be inserted using a function.</para>
+						</callout>
+					</calloutlist>
+					<para>Where T_BI32767_Field$.trg's content is:</para>
+					<programlisting>
+SET TERM !!;
+CREATE TRIGGER T_BI32767_Field$ FOR Field$
+  ACTIVE BEFORE INSERT POSITION 32767 <co id="co-defaultfunction_7" linkends="co-defaultfunction_8"/>
+AS
+BEGIN
+  IF (NEW."CUSTOMID" IS NULL) THEN
+  BEGIN
+	NEW."CUSTOMID" = udf_New_GUID();
+  END
+END !!
+SET TERM ; !!
+COMMIT;
+					</programlisting>
+					<calloutlist>
+						<callout arearefs="co-defaultfunction_7" id="co-defaultfunction_8">
+							<para>Trigger needs to be declared with <command>BEFORE INSERT POSITION
+									32767</command> so that the defaults will be inserted after the
+								other <command>BEFORE</command> triggers running but before any of
+								the <command>AFTER</command> triggers.</para>
+						</callout>
+					</calloutlist>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</section>
+	<section id="Null_Values">
+		<title>NULL Values</title>
+		<para id="Null_Values_TSQL">
+			<emphasis>TSQL</emphasis>
+			<itemizedlist id="Null_Values_TSQL1">
+				<listitem override="none">
+					<programlisting>
+create table [Field$] (
+  [DstCls]    int default null, <co id="co-defaultnull_1" linkends="co-defaultnull_2"/>
+  [Min]       int <coref linkend="co-defaultnull_1"/>
+)
+go
+					</programlisting>
+					<calloutlist>
+						<callout arearefs="co-defaultnull_1" id="co-defaultnull_2">
+							<para>"NULL" default value. If the default value isn't specified then
+								the default value is "NULL".</para>
+						</callout>
+					</calloutlist>
+				</listitem>
+			</itemizedlist>
+		</para>
+		<para id="Null_Values_PSQL">
+			<emphasis>PSQL</emphasis>
+			<itemizedlist id="Null_Values_PSQL1">
+				<listitem override="none">
+					<programlisting>
+CREATE TABLE Field$
+(
+  "DSTCLS"             INTEGER DEFAULT NULL, <co id="co-defaultnull_3" linkends="co-defaultnull_4"/>
+  "MIN"                INTEGER <coref linkend="co-defaultnull_3"/>
+);
+COMMIT;
+					</programlisting>
+					<calloutlist>
+						<callout arearefs="co-defaultnull_3" id="co-defaultnull_4">
+							<para>Specifying a "NULL" default value for a "NULLABLE" field is
+								redundant and doesn't need to be specified. The <command>DEFAULT
+									NULL</command> specifier for the "DSTCLS" field is not required.
+								The "MIN" field declaration achieves the same results as the
+								"DSTCLS" field declaration.</para>
+						</callout>
+					</calloutlist>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</section>
+</section>

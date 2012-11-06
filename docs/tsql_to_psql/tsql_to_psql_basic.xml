@@ -1,0 +1,141 @@
+<chapter id="Basic_Conversions">
+	<title>Basic Conversions</title>
+	<section id="Ignored_Statements">
+		<title>Ignored Statements</title>
+		<para>These either have no meaning in PSQL or can be safely ignored:</para>
+		<variablelist>
+			<varlistentry>
+				<term>
+					<para>
+						<command>Comments</command>
+					</para>
+				</term>
+				<listitem>
+					<example>
+						<title>Comments</title>
+						<programlisting>
+-- line comments <co id="co-comments_1" linkends="co-comments_2"/>
+/* Multi-line comments */ <coref linkend="co-comments_1"/>
+						</programlisting>
+						<calloutlist>
+							<callout arearefs="co-comments_1" id="co-comments_2">
+								<para>Comments can be preserved <emphasis>within</emphasis> a stored
+									procedure but in order for the comments not to be removed by the
+									preprocessor wherever a comment is desired rather than using
+										<command>/* ... */</command> use <command>/~ ...
+									~/</command>.</para>
+							</callout>
+						</calloutlist>
+					</example>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>
+					<command>CLUSTERED</command>
+				</term>
+			</varlistentry>
+			<varlistentry>
+				<term>
+					<command>NONCLUSTERED</command>
+				</term>
+			</varlistentry>
+			<varlistentry>
+				<term>
+					<command>ROWLOCK</command>
+				</term>
+			</varlistentry>
+			<varlistentry>
+				<term>
+					<command>SET NOCOUNT ON|OFF</command>
+				</term>
+			</varlistentry>
+		</variablelist>
+	</section>
+	<section id="Common_Simple_Statements">
+		<title>Common Simple Statements</title>
+		<variablelist>
+			<varlistentry>
+				<term>
+					<para>
+						<command>GO</command>
+					</para>
+				</term>
+				<listitem>
+					<para>The PSQL rough equivalent of <command>GO</command> is
+						<command>COMMIT</command>. <command>GO</command> is used to execute the
+						previous unexecuted TSQL statements. In PSQL data definition statements
+						(DDL) isn't automatically executed and requires a <command>COMMIT</command>
+						statement. There is a similar requirement for PSQL <command>EXECUTE
+							PROCEDURE ...</command> statements.</para>
+					<note>A <command>COMMIT</command> should be done between each
+						<emphasis>DDL</emphasis> (data definition language) statement and is
+						required after the last statement. The<command>SET AUTODDL ON;</command>
+						statement can be used to automatically have commits done after DDL
+						operations but as a "good measure" the code written here always does a
+							<command>COMMIT</command> after each <emphasis>DDL</emphasis>
+					statement.</note>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>
+					<para>
+						<command>SET SQL DIALECT 3;</command>
+					</para>
+				</term>
+				<listitem>
+					<para>This should be used under all circumstances at the beginning of a PSQL
+						session. It allows the use of the latest commands available to
+					Firebird.</para>
+				</listitem>
+			</varlistentry>
+			<varlistentry>
+				<term>
+					<command>Constants</command>
+				</term>
+				<listitem>
+					<example>
+						<title>Constants</title>
+						<variablelist>
+							<varlistentry>
+								<term>
+									<emphasis>TSQL</emphasis>
+								</term>
+								<listitem>
+									<programlisting>
+create table [Module$] (
+  [Name]    varchar(kcchMaxName) <co id="co-constants_1" linkends="co-constants_2"/>
+)
+go
+								</programlisting>
+								</listitem>
+							</varlistentry>
+							<varlistentry>
+								<term>
+									<emphasis>PSQL</emphasis>
+								</term>
+								<listitem>
+									<programlisting>
+
+CREATE TABLE Module$
+(
+  "NAME"  VARCHAR(kcchMaxName) <coref linkend="co-constants_1"/>
+);
+COMMIT;
+									</programlisting>
+									<calloutlist>
+										<callout arearefs="co-constants_1" id="co-constants_2">
+											<para>kcchMaxName is a constant placeholder that is
+												substituted by the preprocessor. The fact that the
+												variable starts with the lowercaseletter "k" is the
+												visual indicator that it is a constant.</para>
+										</callout>
+									</calloutlist>
+								</listitem>
+							</varlistentry>
+						</variablelist>
+					</example>
+				</listitem>
+			</varlistentry>
+		</variablelist>
+	</section>
+</chapter>

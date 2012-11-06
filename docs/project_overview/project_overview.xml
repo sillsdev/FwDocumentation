@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<?xml-stylesheet type="text/xsl" media="screen" href="../docbook-html.xsl"?>
+<?xml-stylesheet type="text/xsl" media="print"  href="../docbook-fo.xsl"?>
+
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+	"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+
+<article class="techreport">
+	<title>FieldWorks Database Port</title>
+	<subtitle>Project Overview</subtitle>
+	<articleinfo>
+		<releaseinfo>$Revision$</releaseinfo>
+		<pubdate>$Date$</pubdate>
+		<author>
+			<firstname>Neil</firstname>
+			<surname>Mayhew</surname>
+			<affiliation>
+				<jobtitle>Linux Development Manager</jobtitle>
+				<orgname>SIL Language Software Development</orgname>
+			</affiliation>
+			<email>neil_mayhew@sil.org</email>
+		</author>
+	</articleinfo>
+
+	<section id="introduction">
+		<title>Introduction</title>
+		<para>FieldWorks (<acronym>FW</acronym>) is a suite of applications for linguistics and
+			translation. It is built using a common infrastructure, which includes a database with
+			an object-relational mapping layer. All data are modelled as objects and persisted in
+			the database.</para>
+		<para>Currently, FieldWorks uses Microsoft SQL Server (<acronym>SS</acronym>) as its
+			database. We are porting FW to use the open-source Firebird database
+			(<acronym>FB</acronym>) as a replacement for SQL Server. This is in support of our
+			efforts to port FW to Linux and Mac, since Firebird is cross-platform, but may also have
+			advantages for the Windows version of FW. We do not plan to maintain multiple versions
+			of FW for different databases.</para>
+		<para>The porting work touches on three main areas of FieldWorks:</para>
+		<orderedlist>
+			<listitem>
+				<para><firstterm>DbAccess</firstterm>: a database interface layer, implemented in
+					C++, that forwards SQL queries to the database, and retrieves results, using
+					native database APIs.</para>
+			</listitem>
+			<listitem>
+				<para><firstterm>Stored procedures</firstterm>: FW uses over 17,000 lines of SQL in
+					the form of stored procedures, views and triggers.</para>
+			</listitem>
+			<listitem>
+				<para><firstterm>Embedded queries</firstterm>: over 750 SQL queries are spread
+					throughout the FW source code. Some of these are confined to the object cache
+					modules that provide object persistence, but others occur where the object cache
+					is bypassed to increase performance, for example when large tables need to be
+					searched and joined.</para>
+			</listitem>
+		</orderedlist>
+		<para>DbAccess is almost finished, the stored procedures are partially done, and not much
+			work has been done on the embedded queries. Current efforts are focussed on the stored
+			proedures.</para>
+	</section>
+
+	<section id="architecture">
+		<title>Database Architecture</title>
+		<para>FW uses a custom object-relational mapping layer on top of its relational database. In
+			addition, the bulk of the schema is machine-generated from object-oriented data models.
+			As a result, the organization and naming of tables within the database is very different
+			from a typical hand-crafted, purely relational database, which can be quite confusing at
+			first for someone experienced in database design and programming.</para>
+		<para>The database generaration and operation involves the following stages:</para>
+		<section>
+			<title>Object Modelling</title>
+			<para>Classes to represent all the data that FW uses are modelled using a UML tool
+				called MagicDraw. These object models have been developed and refined over many
+				years, with extensive input from domain experts in linguistics, translation,
+				anthropology and other academic discipines.</para>
+			<para>The resulting objects are highly interconnected. Relations between objects are
+				characterised by whether they are <firstterm>owning</firstterm> or
+					<firstterm>reference</firstterm> properties, and by their
+				<firstterm>cardinality</firstterm> (atomic, or belonging to one of several types of
+				collections). Owning properties delete their sub-objects when the parent object is
+				deleted, but reference properties do not. All relations are reversible (two-way).</para>
+			<para>MagicDraw saves its models using an XML schema called XMI, and the model files are
+				passed through an XSLT stylesheet to produce a FW-specific XML format called a
+					<firstterm>Conceptual Model</firstterm>. This groups classes into modules, and
+				defines properties within classes. Properties can be basic (integer, string, etc.)
+				or one of the several types of relations already mentioned.</para>
+		</section>
+		<section>
+			<title>Code Generation</title>
+			<para>The Conceptual Model files are passed through a process called <firstterm>Code
+					Generation</firstterm>. This turns the model into SQL code that creates in a
+				database schema that implements the model.</para>
+			<para>Previously, this process has been performed by a custom C++ tool called
+					<command>CodeGen</command>. However, as a part of the port, this tool has been
+				replaced by an XSLT stylesheet.</para>
+			<para>The SQL code that is generated is not DDL to create tables, however. It is a
+				series of <code>INSERT</code>s into <firstterm>Metadata Tables</firstterm>. For
+				every module, class or property in the model there is one row in the
+				<code>MODULE$</code>, <code>CLASS$</code> or <code>FIELD$</code> table respectively.
+				The definition of application data tables, columns and views is performed by
+				triggers on these Metadata Tables. At database initialization time, when the product
+				is first installed, the metadata tables are almost the only tables that are defined.
+				The rest of the system is bootstrapped by the triggers in response to
+				<code>INSERT</code>s on their respective tables.</para>
+			<para>Trigger operation is described in more detail in the following sections.</para>
+		</section>
+		<section>
+			<title>Table Generation</title>
+			<para/>
+		</section>
+		<section>
+			<title>View Generation</title>
+			<para/>
+		</section>
+		<section>
+			<title>Object Access</title>
+			<para/>
+		</section>
+		<section>
+			<title>Object Queries</title>
+			<para/>
+		</section>
+		<section>
+			<title>Stored Procedures</title>
+			<para/>
+		</section>
+
+	</section>
+
+	<section id="methodology">
+		<title>Porting Methodology</title>
+		<para/>
+	</section>
+
+	<section id="glossary">
+		<title>Glossary</title>
+		<glosslist>
+			<glossentry>
+				<glossterm>FieldWorks (<acronym>FW</acronym>)</glossterm>
+				<glossdef>
+					<para>A suite of applications for linguistics and translation based on a common
+						infrastructure.</para>
+				</glossdef>
+			</glossentry>
+			<glossentry>
+				<glossterm>Firebird (<acronym>FB</acronym>)</glossterm>
+				<glossdef>
+					<para>A cross-platform, open-source relational database; formerly a commercial
+						product from Borland known as Interbase.</para>
+				</glossdef>
+			</glossentry>
+			<glossentry>
+				<glossterm>SQL Server (<acronym>SS</acronym>)</glossterm>
+				<glossdef>
+					<para>A market-leading relational database from our friends in Redmond.</para>
+				</glossdef>
+			</glossentry>
+		</glosslist>
+	</section>
+
+</article>

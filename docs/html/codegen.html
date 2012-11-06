@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Working With CodeGen</title><link rel="stylesheet" href="fieldworks_db_port.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.68.1"/></head><body><div class="article" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="d0e2"/>Working With CodeGen</h2></div><div><p class="releaseinfo">$Revision$</p></div><div><p class="pubdate">$Date$</p></div></div><hr/></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#CodeGen">1. Building CodeGen</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e15">1.1. Windows</a></span></dt><dt><span class="section"><a href="#d0e56">1.2. Linux</a></span></dt></dl></dd><dt><span class="section"><a href="#d0e64">2. Using CodeGen</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e80">2.1. Conceptual Models</a></span></dt><dt><span class="section"><a href="#d0e90">2.2. Output from CodeGen</a></span></dt><dt><span class="section"><a href="#d0e120">2.3. Further Output</a></span></dt></dl></dd></dl></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="CodeGen"/>1. Building CodeGen</h2></div></div></div><p>Separate instructions are provided for Windows, and for Linux/Mac OS X.</p><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d0e15"/>1.1. Windows</h3></div></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="d0e18"/>1.1.1. Environment setup</h4></div></div></div><p>You will need to have the following installed:</p><div class="itemizedlist"><ul type="disc"><li><p><a href="../html/vcctk_installation.html" target="_top">Microsoft Visual C++</a></p></li><li><p><a href="../html/expat_installation.html" target="_top">Expat</a></p></li></ul></div><p>The above links also provide the required set up of the environment variables since we
+		  will be doing builds from the command-line, using Visual Studio's
+		  <span class="application">NMAKE</span>.</p></div><div class="section" lang="en"><div class="titlepage"><div><div><h4 class="title"><a id="d0e37"/>1.1.2. Building</h4></div></div></div><p>In the CodeGen directory, type the following:</p><div class="informalexample"><pre class="programlisting">nmake /nologo /f codegen.mak</pre></div><p>This should produce an executable, <code class="filename">CodeGen.exe</code>. Test it by typing
+			<strong class="userinput"><code>CodeGen</code></strong>. You should see output similar to this:</p><div class="informalexample"><pre class="programlisting">SIL (R) Conceptual Model Code Generator (Nov  3 2004; 16:35:28)
+Copyright (C) SIL 1999. All rights reserved.
+
+Missing source file name.
+
+Usage: cmcg [-p &lt;search path&gt;] [-t &lt;template dir&gt;] &lt;src&gt; &lt;sql&gt; &lt;sqh&gt;
+   &lt;src&gt; : Conceptual model (.cm) file.
+   &lt;sql&gt; : Output (.sql) file.
+   &lt;sqh&gt; : Output (.sqh) file.
+   -p&lt;path&gt; : specifies the search path for finding &lt;src&gt; and its class files.
+   -t&lt;dir&gt;  : specifies the directory holding the template files.
+   -v       : verbose output.
+   -q       : quiet output.
+</pre></div></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d0e56"/>1.2. Linux</h3></div></div></div><p>To build CodeGen on Linux, gcc and expat need to be installed. CodeGen can then be built
+		by typing <span><strong class="command">make</strong></span> at a shell prompt.</p></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d0e64"/>2. Using CodeGen</h2></div></div></div><p>The purpose of CodeGen is to convert the conceptual model files into SQL statements. The
+	  model files are XML, although they have a <code class="filename">.cm</code> suffix, and they reside in
+	  the <code class="filename">Models</code> subdirectory.</p><p>You will need to copy the CodeGen executable to the <code class="filename">Src/Sql</code>
+	  directory, or (on Linux/Mac OS X) you can make a sumbolic link there.</p><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d0e80"/>2.1. Conceptual Models</h3></div></div></div><p>A conceptual model file contains a list of classes for a module. There are currently six
+		modules. Each class contains a list of properties that the class has.</p><div class="informalexample"><pre class="programlisting">&lt;class num="4" id="LexExampleSentence" abstract="false" base="CmObject"&gt;
+  &lt;props&gt;
+	&lt;basic num="1" id="Example" sig="MultiString"/&gt;
+	&lt;rel num="2" id="SourceSegment" card="atomic" sig="TxtSegment"/&gt;
+	&lt;owning num="3" id="Translations" card="col" sig="CmTranslation"/&gt;
+  &lt;/props&gt;
+&lt;/class&gt;</pre></div><p>Properties come in several flavors: basic, owning and relational. Basic properties are
+		built-in types, such as integer or string. Owning properties contain other objects, which
+		are logically a part of the parent (owning) object. Relational properties are references to
+		other objects which are logically not a part of the referencing object. Each property has a
+		signature, which is the type of data that property is allowed to refer to. In the case of
+		owning and relational properties, these also have a cardinality, which can be atomic,
+		collection or sequence. Properties and classes also have a id number, which is used
+		internally by the object-relational mapping.</p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d0e90"/>2.2. Output from CodeGen</h3></div></div></div><p>These classes do eventually become tables in the database. However, CodeGen doesn't
+		generate SQL to define these tables directly. Instead, it generates
+		<span><strong class="command">INSERT</strong></span> statements that copy the class and property information into
+		metadata tables called <code class="filename">Class$</code> and <code class="filename">Field$</code> that are
+		used by the object-relational mapping. Triggers on these tables then define the tables
+		dynamically.</p><p>The output from the <code class="filename">LexExampleSentence</code> model shown above lookslike
+		this:</p><div class="informalexample"><pre class="programlisting">insert into Class$ ([Id], [Mod], [Base], [Abstract], [Name])
+	values(kclidLexExampleSentence, kmidLing, kclidCmObject, 0, 'LexExampleSentence')
+
+insert into [Field$]
+	([Id], [Type], [Class], [DstCls], [Name], [Custom], [CustomId], [Min], [Max], [Big])
+	values(kflidLexExampleSentence_Example, kcptMultiString, kclidLexExampleSentence,
+		null, 'Example',0,Null, null, null, null)
+insert into [Field$]
+	([Id], [Type], [Class], [DstCls], [Name], [Custom], [CustomId], [Min], [Max], [Big])
+	values(kflidLexExampleSentence_SourceSegment, kcptReferenceAtom, kclidLexExampleSentence,
+		kclidTxtSegment, 'SourceSegment',0,Null, null, null, null)
+insert into [Field$]
+	([Id], [Type], [Class], [DstCls], [Name], [Custom], [CustomId], [Min], [Max], [Big])
+	values(kflidLexExampleSentence_Translations, kcptOwningCollection, kclidLexExampleSentence,
+		kclidCmTranslation, 'Translations',0,Null, null, null, null)</pre></div><p>CodeGen also produces a C/C++ header file with a suffix of <code class="filename">.sqh</code>
+		that <code class="filename">#define</code>s symbolic identifiers corresponding to the raw id numbers
+		that appear in the model files. These identifiers are then used in all other SQL code
+		instead of numbers.</p></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d0e120"/>2.3. Further Output</h3></div></div></div><p>Although CodeGen itself doesn't produce any other output, the code generation process as
+		a whole does. The output from CodeGen, together with a large amount of hand-written SQL code
+		from the <code class="filename">Procedures</code> subdirectory, is passed through the C/C++
+		pre-processor. This serves two purposes: it allows a variety of files to be combined into a
+		single output file using <code class="filename">#include</code> statements, and it does the work of
+		substituting symbolic identifiers with real numbers.</p><p>Preprocessing is done on a module-by-module basis, and then the final output file is
+		produced by concatenating the module outputs together.</p><p>The code generation process can be performed with a single command,
+		  <code class="filename">Scripts\build.bat</code> (Windows) or <code class="filename">Scripts/build.sh</code>
+		(Unix). It is possible to perform all the steps using <span><strong class="command">make</strong></span>, but the
+		execution is so quick that the brute-force approach of a script is perfectly acceptable, and
+		simpler to maintain.</p><p>The final output is a file called <code class="filename">NewLangProj.sql</code> in the
+		  <code class="filename">Output</code> subdirectory. It is designed to be submitted to the database
+		in batch form, and sets up an empty database ready to receive data.</p></div></div></div></body></html>

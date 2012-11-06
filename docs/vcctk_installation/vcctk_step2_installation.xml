@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="VCC_Installation">
+  <title>Visual C++ Express Installation</title>
+
+  <itemizedlist>
+	<listitem>
+	  <para>Ensure that you've uninstalled any already installed Visual C++.
+	  These instructions are based on the Visual C++ Express downloaded
+	  installer vs the CD installer.</para>
+	</listitem>
+
+	<listitem>
+	  <para>Launch the VCSetup.exe setup file and click "Next".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/vcc_install_001.jpg" />
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Read the license agreement, select "I accept the agreement" and
+	  click "Next".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/vcc_install_002.jpg" />
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Select the "Graphical IDE" option and click "Next".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/vcc_install_003.jpg" />
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Change the install directory shown above to "C:\VS8" as shown
+	  below and click "Install":</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/vcc_install_004.jpg" />
+		</imageobject>
+	  </mediaobject>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/vcc_install_005.jpg" />
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Click "<ulink
+	  url="http://msdn.microsoft.com/vstudio/express/register/">Register
+	  Now</ulink>" link and follow the instructions to register. Once the
+	  registration process is started you can close this installer window by
+	  clicking "Exit".</para>
+
+	  <note>
+		<para>If you do a repair or reinstall via the "Add or Remove Programs"
+		control panel you will need to register again and it will be most
+		likely a different registration code as the original registration code
+		will not work.</para>
+	  </note>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/vcc_install_006.jpg" />
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>This completes the basic Visual C++ Express installation.</para>
+	</listitem>
+  </itemizedlist>
+</section>

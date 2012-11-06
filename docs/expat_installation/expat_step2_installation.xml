@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="Expat_Installation">
+  <title>Expat Installation</title>
+
+  <itemizedlist>
+	<listitem>
+	  <para>Launch the expat-win32bin-2.0.1.exe setup file and click
+	  "Next".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/expat/expat_001.jpg" />
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Set the path to C:\utils\expat and click "Next".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/expat/expat_002.jpg" />
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Click "Finish".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/expat/expat_003.jpg" />
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+  </itemizedlist>
+</section>

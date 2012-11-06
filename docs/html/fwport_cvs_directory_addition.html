@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+	  <title>FWPort Directory Addition</title>
+	  <link rel="stylesheet" href="fieldworks_db_port.css" type="text/css"/>
+	  <meta name="generator" content="DocBook XSL Stylesheets V1.68.1"/>
+   </head>
+   <body>
+	  <div class="article" lang="en">
+		 <div class="titlepage">
+			<div>
+			   <div>
+				  <h2 class="title">
+					 <a id="d0e2"/>FWPort Directory Addition</h2>
+			   </div>
+			   <div>
+				  <p class="releaseinfo">$Revision$</p>
+			   </div>
+			   <div>
+				  <p class="pubdate">$Date$</p>
+			   </div>
+			</div>
+			<hr/>
+		 </div>
+		 <div class="toc">
+			<p>
+			   <b>Table of Contents</b>
+			</p>
+			<dl>
+			   <dt>
+				  <span class="section">
+					 <a href="#Intro">1. Introduction</a>
+				  </span>
+			   </dt>
+			   <dt>
+				  <span class="section">
+					 <a href="#Import">2. Directory Import</a>
+				  </span>
+			   </dt>
+			</dl>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="Intro"/>1. Introduction</h2>
+				  </div>
+			   </div>
+			</div>
+			<p>This will explain what is required to be done to add a directory into the FWPort CVS
+	  repository. In the following example we want to add a newly created subdirectory of
+	  FWPort\docs called "fwport_cvs_directory_addition" to CVS. This basically consists of doing an
+	  import into CVS. Care has to be taken to import at the correct location as WinCVS will not
+	  supply the required path automatically.</p>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="Import"/>2. Directory Import</h2>
+				  </div>
+			   </div>
+			</div>
+			<div class="itemizedlist">
+			   <ul type="disc">
+				  <li>
+					 <p>Start WinCVS, ensure that Pageant is running and that your private key has been added
+		  to Pageant.</p>
+				  </li>
+				  <li>
+					 <p>Right-click on the directory that needs to be added to CVS and select the "Import
+		  module..." item.</p>
+					 <div class="mediaobject">
+						<img src="../images/cvs_dir_add/import001.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>You will be presented by the following import filter. In most circumstances you simply
+		  have to click "Continue". This dialog window indicates which files will be imported as
+		  "TEXT" and which one will be imported as "BINARY" into CVS.</p>
+					 <div class="mediaobject">
+						<img src="../images/cvs_dir_add/import002.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>In the "Import settings" tab of the "Import settings" window set the "Repository path"
+		  to the same directory name prefixed by "projects/FieldWorks/". For example in our case
+		  where the imported directory is:</p>
+					 <div class="itemizedlist">
+						<ul type="circle">
+						   <li>C:\FWPort\docs\fwport_cvs_directory_addition</li>
+						</ul>
+					 </div>
+					 <p>We would need to enter:</p>
+					 <div class="itemizedlist">
+						<ul type="circle">
+						   <li>projects/FieldWorks/docs/fwport_cvs_directory_addition</li>
+						</ul>
+					 </div>
+					 <div class="mediaobject">
+						<img src="../images/cvs_dir_add/import003.jpg"/>
+					 </div>
+					 <div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+						<table border="0" summary="Note">
+						   <tr>
+							  <td rowspan="2" align="center" valign="top" width="25">
+								 <img alt="[Note]" src="../images/admon/note.gif"/>
+							  </td>
+							  <th align="left">Note</th>
+						   </tr>
+						   <tr>
+							  <td align="left" valign="top">
+								 <div class="itemizedlist">
+									<ul type="circle">
+									   <li>The "Vendor Tag" is an initial branch tag and the "Release tag" is a "tag"
+				  tag.</li>
+									   <li>The path separators specified for the import repository location have to be
+				  the Unix ones "/" and not the DOS ones "\".</li>
+									</ul>
+								 </div>
+							  </td>
+						   </tr>
+						</table>
+					 </div>
+				  </li>
+				  <li>
+					 <p>In the "Import options" tab of the "Import settings" window check the "Create the
+		  CVS directories while importing" checkbox.</p>
+					 <div class="mediaobject">
+						<img src="../images/cvs_dir_add/import004.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Click "OK" to do the import process.</p>
+				  </li>
+			   </ul>
+			</div>
+			<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
+			   <table border="0" summary="Note">
+				  <tr>
+					 <td rowspan="2" align="center" valign="top" width="25">
+						<img alt="[Note]" src="../images/admon/note.gif"/>
+					 </td>
+					 <th align="left">Note</th>
+				  </tr>
+				  <tr>
+					 <td align="left" valign="top">
+						<p>From a remote location it was found that a more sure way to do an import when having
+		problems getting the process completed is to import an empty directory structure with a
+		small dummy text file in the deepest directory of each directory branch with no other files
+		present. This will create the CVS directory structure and then you can add the files using
+		the CVS add command rather than import. Once all of your files are added and committed you
+		can then delete the dummy files. This is more tedious but was found to be necessary at
+		times.</p>
+					 </td>
+				  </tr>
+			   </table>
+			</div>
+		 </div>
+	  </div>
+   </body>
+</html>

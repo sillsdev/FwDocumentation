@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" media="screen" href="../docbook-html.xsl"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.3//EN"
+"http://www.oasis-open.org/docbook/xml/4.3/docbookx.dtd">
+<article class="techreport">
+  <title>FieldWorks Database Port Documents Index</title>
+
+  <articleinfo>
+	<releaseinfo>$Revision$</releaseinfo>
+
+	<pubdate>$Date$</pubdate>
+  </articleinfo>
+
+  <section id="Intro">
+	<title>Introduction</title>
+
+	<para>This document is the index of the documents needed to facilitate the
+	FieldWorks Database Port.</para>
+  </section>
+
+  <section id="Index">
+	<title>Index</title>
+
+	<itemizedlist>
+	  <listitem>
+		<simpara><ulink url="../html/project_overview.html">Project
+		Overview</ulink></simpara>
+	  </listitem>
+
+	  <listitem>
+		<para><ulink url="../html/wincvs_installation.html">WinCVS
+		Installation</ulink></para>
+	  </listitem>
+
+	  <listitem>
+		<para><ulink url="../html/firebird_installation.html">Firebird
+		Database Installation</ulink></para>
+	  </listitem>
+
+	  <listitem>
+		<para><ulink url="../html/vcctk_installation.html">VC++
+		Installation</ulink></para>
+	  </listitem>
+
+	  <listitem>
+		<para><ulink url="../html/expat_installation.html">Expat
+		Installation</ulink></para>
+	  </listitem>
+
+	  <listitem>
+		<para><ulink url="../html/codegen.html">Building Codegen</ulink></para>
+	  </listitem>
+
+	  <listitem>
+		<para><ulink url="../html/test_build.html">Test Build</ulink></para>
+	  </listitem>
+
+	  <listitem>
+		<para><ulink url="../html/firebird_spx.html">Firebird Support Stored
+		Procedures</ulink></para>
+	  </listitem>
+
+	  <listitem>
+		<para><ulink url="../html/tsql_to_psql.html">TSQL to
+		PSQL</ulink></para>
+	  </listitem>
+
+	  <listitem>
+		<para><ulink url="../html/fb_odbc.html">Firebird ODBC
+		Installation</ulink></para>
+	  </listitem>
+
+	  <listitem>
+		<para><ulink url="../html/java_installation.html">Java JDK/JRE/JCE
+		Installation</ulink></para>
+	  </listitem>
+	</itemizedlist>
+  </section>
+</article>

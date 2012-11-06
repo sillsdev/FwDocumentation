@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<chapter id="Exceptions">
+  <title>Exceptions</title>
+
+  <para>Exceptions in PSQL are very different than in TSQL.</para>
+
+  <para>The following link gives a good generic treatment on TSQL error
+  handling. Main reason for including it due to the lack of thorough treatment
+  documents on TSQL error handling even on Microsoft sites.<itemizedlist>
+	  <listitem override="none">
+		<para><ulink
+		url="http://www.sommarskog.se/error-handling-II.html">http://www.sommarskog.se/error-handling-II.html</ulink></para>
+	  </listitem>
+	</itemizedlist></para>
+
+  <section id="Exceptions_Severity">
+	<title>Exceptions Severity</title>
+
+	<para>In TSQL exceptions can have an associated severity with it along
+	with other options.</para>
+
+	<para>In PSQL there are no severity property or other options associated
+	with an exception other than an exception name and an exception
+	message.</para>
+  </section>
+
+  <section id="Exceptions_Trapping">
+	<title>Exception Trapping</title>
+
+	<para>A major difference between TSQL and PSQL for exception handling is
+	in the trapping of the exceptions.</para>
+
+	<para>In TSQL when an exception is thrown (i.e. using
+	<command>RAISERROR</command>) all transactions are rolled back (even
+	committed ones that were part of the stored procedure!) and the stored
+	procedure or trigger is terminated. SQL Server 2005 (Yukon) will introduce
+	a <command>TRY ... CATCH</command> block. This appears to give a similar
+	behaviour to PSQL's <command>BEGIN ... WHEN ... END</command>
+	block.</para>
+
+	<para>In PSQL an exception can be thrown, caught and ignored if required
+	or rethrown.</para>
+  </section>
+
+  <section id="Exceptions_Value">
+	<title>Exceptions Value</title>
+
+	<para>In TSQL you can return an error number.</para>
+
+	<para>In PSQL you cannot return an error number.</para>
+  </section>
+
+  <section id="Exceptions_Example">
+	<title>Example</title>
+
+	<para>What follows is an example to demonstrate a simple exception
+	handling conversion from TSQL to PSQL.</para>
+
+	<para>The intent of the code snippet is to try and delete a record and if
+	it fails to do so then it will send a user defined error message back to
+	the user.<itemizedlist>
+		<listitem override="none">
+		  <programlisting>
+create proc [CleanObjInfoTbl$]
+  @uid uniqueidentifier
+as
+  declare @fIsNocountOn int, @Err int, @sUid nvarchar(50)
+
+  set @Err = 0 <co id="co-tsqlexcerr_1a" linkends="co-tsqlexcerr_1b" />
+
+  set @fIsNocountOn = @@options &amp; 512
+  if @fIsNocountOn = 0 set nocount on
+
+  -- remove the specified rows from the ObjInfoTbl$ table
+  delete [ObjInfoTbl$] with (rowlock)
+  where [uid] = @uid
+
+  set @Err = @@error <co id="co-tsqlexcerr_2a" linkends="co-tsqlexcerr_2b" />
+  if @Err &lt;&gt; 0 begin
+	set @sUid = convert(nvarchar(50), @Uid) <co id="co-tsqlexcuid_3a"
+			  linkends="co-tsqlexcuid_3b" />
+	raiserror (
+	  'CleanObjInfoTbl$: SQL Error %d; Unable to remove rows from the ObjInfoTbl$ table (UID=%s).',
+	  16, 1, @Err, @sUid)  <co id="co-tsqlexcraiserror_4a"
+			  linkends="co-tsqlexcraiserror_4b" />
+  end
+
+  if @fIsNocountOn = 0 set nocount off
+
+  return @Err
+go
+					</programlisting>
+
+		  <calloutlist>
+			<callout arearefs="co-tsqlexcerr_1a" id="co-tsqlexcerr_1b">
+			  <para>Zeroing the <command>@Err</command> user variable is
+			  conidered a good design practice.</para>
+			</callout>
+
+			<callout arearefs="co-tsqlexcerr_2a" id="co-tsqlexcerr_2b">
+			  <para>You need to copy the <command>@@Error</command> system
+			  variable into a user system variable immediately after the
+			  statement for which you want to check for an error.</para>
+			</callout>
+
+			<callout arearefs="co-tsqlexcuid_3a" id="co-tsqlexcuid_3b">
+			  <para>A UUID/GUID value needs to be converted to a string in
+			  order to be used later as part of a string.</para>
+			</callout>
+
+			<callout arearefs="co-tsqlexcraiserror_4a"
+					 id="co-tsqlexcraiserror_4b">
+			  <para><command>RAISERROR</command> raises an exception with the
+			  following options: <variablelist>
+				  <varlistentry>
+					<term><command>'CleanObjInfoTbl$: SQL Error %d; Unable to
+					remove rows from the ObjInfoTbl$ table
+					(UID=%s).'</command></term>
+
+					<listitem>
+					  The
+
+					  <command>%d</command>
+
+					   and
+
+					  <command>%s</command>
+
+					   placeholders will be substituted by the
+
+					  <command>@Err</command>
+
+					   and
+
+					  <command>@sUid</command>
+
+					   variables respectively.
+					</listitem>
+				  </varlistentry>
+
+				  <varlistentry>
+					<term><command>16</command></term>
+
+					<listitem>
+					  Severity of 16. Usual user range is 0-18.
+					</listitem>
+				  </varlistentry>
+
+				  <varlistentry>
+					<term><command>1</command></term>
+
+					<listitem>
+					  State of 1. Is an arbitrary integer from 1 through 127 that represents information about the invocation state of the error. Appears to be unused by FieldWorks.
+					</listitem>
+				  </varlistentry>
+				</variablelist></para>
+			</callout>
+		  </calloutlist>
+
+		  <programlisting>
+SET TERM !!;
+CREATE OR ALTER PROCEDURE CleanObjInfoTbl$ (
+	in_UID            CHAR(16) CHARACTER SET OCTETS)
+AS
+  DECLARE VARIABLE v_Str_UID        CHAR(36) CHARACTER SET OCTETS;
+  DECLARE VARIABLE v_ExcMsg         VARCHAR(78) CHARACTER SET UTF8;
+  DECLARE VARIABLE v_ExcSQLCode     INTEGER;
+BEGIN
+  DELETE FROM ObjInfoTbl$
+	WHERE
+	  "UID" = :in_UID;
+  WHEN ANY DO
+	BEGIN
+	  v_ExcSQLCode = SQLCODE;
+	  /~
+		CleanObjInfoTbl$ SQLErr ?
+		Unable to delete rows from ObjInfoTbl$ UID= ?
+	  ~/
+	  v_Str_UID = udf_GUID_To_Varchar(in_UID);
+	  v_ExcMsg = '3 ' ||
+		CASE
+		  WHEN (v_ExcSQLCode IS NULL) THEN
+			CAST(v_ExcSQLCode AS VARCHAR(78) CHARACTER SET UTF8)
+		  ELSE 'NA'
+		END
+		|| ' ' || v_Str_UID;
+	  EXCEPTION exc_FW_Base v_ExcMsg;
+	END
+END !!
+SET TERM ;!!
+COMMIT;
+					</programlisting>
+		</listitem>
+	  </itemizedlist></para>
+  </section>
+</chapter>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="Downloads">
+  <title>Downloads</title>
+
+  <para>You need to download and install the necessary software packages. The
+  links and versions are as of 8-Apr-07. The screen shots are based on version
+  2.0.1.</para>
+
+  <itemizedlist>
+	<listitem>
+	  <simpara><application>Firebird</application> version 2.0.1.12855
+	  (Firebird-2.0.1.12855-1-Win32.exe)</simpara>
+
+	  <simpara><ulink
+	  url="http://prdownloads.sourceforge.net/firebird/Firebird-1.5.3.4870-0-Win32.exe">http://sourceforge.net/project/showfiles.php?group_id=9028</ulink></simpara>
+
+	  <simpara><ulink
+	  url="http://firebird.sourceforge.net/index.php?op=files&amp;id=engine#v15">http://www.firebirdsql.org/index.php?op=files&amp;id=engine_201</ulink></simpara>
+	</listitem>
+
+	<listitem>
+	  <simpara>FlameRobin version 0.7.6 (flamerobin-0.7.6-setup.exe)</simpara>
+
+	  <simpara><ulink
+	  url="http://flamerobin.sourceforge.net/">http://flamerobin.sourceforge.net/</ulink></simpara>
+
+	  <simpara><ulink
+	  url="http://sourceforge.net/project/showfiles.php?group_id=124340&amp;package_id=136187">http://sourceforge.net/project/showfiles.php?group_id=124340&amp;package_id=136187</ulink></simpara>
+	</listitem>
+  </itemizedlist>
+</section>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+   <head>
+	  <title>FieldWorks Installation and Setup</title>
+	  <link rel="stylesheet" href="fieldworks_db_port.css" type="text/css"/>
+	  <meta name="generator" content="DocBook XSL Stylesheets V1.68.1"/>
+   </head>
+   <body>
+	  <div class="article" lang="en">
+		 <div class="titlepage">
+			<div>
+			   <div>
+				  <h2 class="title">
+					 <a id="d0e2"/>FieldWorks Installation and Setup</h2>
+			   </div>
+			   <div>
+				  <p class="releaseinfo">$Revision$</p>
+			   </div>
+			   <div>
+				  <p class="pubdate">$Date$</p>
+			   </div>
+			</div>
+			<hr/>
+		 </div>
+		 <div class="toc">
+			<p>
+			   <b>Table of Contents</b>
+			</p>
+			<dl>
+			   <dt>
+				  <span class="section">
+					 <a href="#Prerequisites">1. Introduction</a>
+				  </span>
+			   </dt>
+			   <dt>
+				  <span class="section">
+					 <a href="#Compilation">2. Compilation</a>
+				  </span>
+			   </dt>
+			</dl>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="Prerequisites"/>1. Introduction</h2>
+				  </div>
+			   </div>
+			</div>
+			<p>These instructions will guide you through a test build of the
+	FieldWorks database files to verify that all is setup properly.</p>
+		 </div>
+		 <div class="section" lang="en">
+			<div class="titlepage">
+			   <div>
+				  <div>
+					 <h2 class="title" style="clear: both">
+						<a id="Compilation"/>2. Compilation</h2>
+				  </div>
+			   </div>
+			</div>
+			<div class="itemizedlist">
+			   <ul type="disc">
+				  <li>
+					 <p>Launch the VC++ command window found in
+		C:\VCS\Wycliffe\projects\FieldWorks\Src\Sql\Scripts.</p>
+					 <div class="mediaobject">
+						<img src="../images/test_build/test001.jpg"/>
+					 </div>
+				  </li>
+				  <li>
+					 <p>There are two scripts</p>
+					 <div class="orderedlist">
+						<ol type="1">
+						   <li>testbuild.bat - used for test only purposes while the
+			development work is in progress. Note that the default path for
+			the Firebird base folder was modified to be C:\Firebird to
+			simplify development.</li>
+						   <li>build.bat - used to build the final and complete
+			version</li>
+						</ol>
+					 </div>
+				  </li>
+				  <li>
+					 <p>Ensure to revise the Firebird reference paths in testbuild.bat
+		if Firebird isn't installed at C:\Firebird on your system. For example
+		if you've installed Firebird at E:\Firebird then tesbuild.bat would be
+		revised as follows:</p>
+					 <pre class="programlisting">
+set FBBIN=E:\Firebird\bin
+set FBDB=E:\Firebird\Data\FieldWorks\FW01.DB
+				</pre>
+				  </li>
+				  <li>
+					 <p>Type testbuild.bat at the prompt.</p>
+					 <div class="mediaobject">
+						<img src="../images/test_build/test002.jpg"/>
+					 </div>
+				  </li>
+				  <li>Click on the following link to see a typical output results
+		of running testbuild.bat where there are no errors: <a href="testbuild.txt" target="_top">testbuild.txt</a>
+				  </li>
+			   </ul>
+			</div>
+		 </div>
+	  </div>
+   </body>
+</html>

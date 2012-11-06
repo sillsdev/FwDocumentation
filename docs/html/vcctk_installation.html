@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>Windows Microsoft Visual C++ Express Installation and Setup</title><link rel="stylesheet" href="fieldworks_db_port.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.68.1"/></head><body><div class="article" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="d0e2"/>Windows Microsoft Visual C++ Express Installation and Setup</h2></div><div><p class="releaseinfo">$Revision$</p></div><div><p class="pubdate">$Date$</p></div></div><hr/></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#Intro">1. Introduction</a></span></dt><dt><span class="section"><a href="#VCC_Downloads">2. Downloads</a></span></dt><dt><span class="section"><a href="#VCC_Installation">3. Visual C++ Express Installation</a></span></dt><dt><span class="section"><a href="#VCC_Service_Pack">4. Visual C++ Express Service Pack Installation</a></span></dt><dt><span class="section"><a href="#VCC_SDK">5. Windows Platform SDK Installation</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e250">5.1. Verify The Visual C++ Settings</a></span></dt><dt><span class="section"><a href="#d0e283">5.2. Update corewin_express.vsprops</a></span></dt><dt><span class="section"><a href="#d0e310">5.3. Generate And Build a Win32 Application To Test Your Paths</a></span></dt></dl></dd><dt><span class="section"><a href="#VCC_Configuration">6. Visual C++ Configuration</a></span></dt></dl></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="Intro"/>1. Introduction</h2></div></div></div><p>This will show how to install the free Microsoft Visual C++ Express as an alternative
+			to the full Microsoft Visual C++. It provides the majority of the same command line
+			compiler tools as the full version.</p><p>The installation and setup of the Microsoft Visual C++ Express consists of these main
+			steps:</p><div class="orderedlist"><ol type="1"><li>Dowloading the Microsoft Visual C++ Express files (free download)</li><li>Installing the Microsoft Visual C++ Express</li><li><p>Installing the Platform SDK</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/admon/note.gif"/></td><th align="left">Note</th></tr><tr><td align="left" valign="top"><p>Microsoft Platform SDK is required to compile UDFs. For UDFs there are
+						some dependencies with the Microsoft Platform SDK (include files and
+						libraries). For SQL modules parsing/compilation the base Visual C++ Express
+						is sufficient.</p></td></tr></table></div></li><li>Configuring the Microsoft Visual C++ Express</li></ol></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="VCC_Downloads"/>2. Downloads</h2></div></div></div><p>You need to download and install the necessary software packages. The links and versions are
+	as of 09-Jan-2005.</p><div class="itemizedlist"><ul type="disc"><li><p>Use the following link to download <span class="application">Microsoft Visual C++
+		Express</span> version 2005:</p><p><a href="http://msdn.microsoft.com/vstudio/express/downloads/default.aspx" target="_top">http://msdn.microsoft.com/vstudio/express/downloads/default.aspx</a></p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/admon/note.gif"/></td><th align="left">Note</th></tr><tr><td align="left" valign="top"> Visual C++ Express can also be downloaded as an ISO CD image (463 MB) from the MSDN
+		subscriber download site if you have a MSDN account. The download via the above link is very
+		slow. The download size for the above link which is approximately 68 MB took several hours
+		to download compared to less than an hour for the ISO MSDN download. </td></tr></table></div></li><li><p>Click on the "Go!" button beside the Visual C++ 2005 Express Edition language
+		selection.</p><div class="mediaobject"><img src="../images/vcc/vcc_download_001.jpg"/></div></li><li><p>From the link above there should be a link to download the latest
+		  <span class="application">Microsoft Visual C++ Express</span> version 2005 Service Pack. The
+		following link is <span class="application">Visual C++ Express</span> SP1:</p><p><a href="http://download.microsoft.com/download/7/7/3/7737290f-98e8-45bf-9075-85cc6ae34bf1/VS80sp1-KB926748-X86-INTL.exe" target="_top">http://download.microsoft.com/download/7/7/3/7737290f-98e8-45bf-9075-85cc6ae34bf1/VS80sp1-KB926748-X86-INTL.exe</a></p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/admon/note.gif"/></td><th align="left">Note</th></tr><tr><td align="left" valign="top"> The above download link is extremely slow (over an hour for 43.5 MB) but I could only
+		find a 4454 MB "Visual Studio 2005 Service Pack 1 - DVD (Multilanguage) " on the MSDN
+		Subscriber downloads. </td></tr></table></div></li><li><p>For the Windows Platform SDK you have several download links available:</p><div class="itemizedlist"><ul type="circle"><li><a href="http://msdn.microsoft.com/vstudio/express/visualc/usingpsdk/" target="_top">Using Visual
+			  C++ 2005 Express Edition with the Microsoft Platform SDK</a></li><li><a href="http://www.microsoft.com/downloads/details.aspx?familyid=484269E2-3B89-47E3-8EB7-1F2BE6D7123A&amp;displaylang=en" target="_top">Windows Server 2003 R2 Platform SDK Full Download</a></li><li><a href="http://www.microsoft.com/downloads/details.aspx?familyid=0BAF2B35-C656-4969-ACE8-E4C0C0716ADB&amp;displaylang=en" target="_top">Windows Server 2003 R2 Platform SDK Web Install</a></li><li><a href="http://www.microsoft.com/downloads/details.aspx?FamilyId=E15438AC-60BE-41BD-AA14-7F1E0F19CA0D&amp;displaylang=en" target="_top">Windows Server 2003 R2 Platform SDK ISO Install</a></li></ul></div><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/admon/note.gif"/></td><th align="left">Note</th></tr><tr><td align="left" valign="top"> The above download links are extremely slow and the Platform SDK can also be downloaded
+		as an ISO CD image (409 MB) from the MSDN subscriber download site if you have a MSDN
+		account at a substantianlly faster speed. </td></tr></table></div></li></ul></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="VCC_Installation"/>3. Visual C++ Express Installation</h2></div></div></div><div class="itemizedlist"><ul type="disc"><li><p>Ensure that you've uninstalled any already installed Visual C++.
+	  These instructions are based on the Visual C++ Express downloaded
+	  installer vs the CD installer.</p></li><li><p>Launch the VCSetup.exe setup file and click "Next".</p><div class="mediaobject"><img src="../images/vcc/vcc_install_001.jpg"/></div></li><li><p>Read the license agreement, select "I accept the agreement" and
+	  click "Next".</p><div class="mediaobject"><img src="../images/vcc/vcc_install_002.jpg"/></div></li><li><p>Select the "Graphical IDE" option and click "Next".</p><div class="mediaobject"><img src="../images/vcc/vcc_install_003.jpg"/></div></li><li><p>Change the install directory shown above to "C:\VS8" as shown
+	  below and click "Install":</p><div class="mediaobject"><img src="../images/vcc/vcc_install_004.jpg"/></div><div class="mediaobject"><img src="../images/vcc/vcc_install_005.jpg"/></div></li><li><p>Click "<a href="http://msdn.microsoft.com/vstudio/express/register/" target="_top">Register
+	  Now</a>" link and follow the instructions to register. Once the
+	  registration process is started you can close this installer window by
+	  clicking "Exit".</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/admon/note.gif"/></td><th align="left">Note</th></tr><tr><td align="left" valign="top"><p>If you do a repair or reinstall via the "Add or Remove Programs"
+		control panel you will need to register again and it will be most
+		likely a different registration code as the original registration code
+		will not work.</p></td></tr></table></div><div class="mediaobject"><img src="../images/vcc/vcc_install_006.jpg"/></div></li><li><p>This completes the basic Visual C++ Express installation.</p></li></ul></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="VCC_Service_Pack"/>4. Visual C++ Express Service Pack Installation</h2></div></div></div><div class="itemizedlist"><ul type="disc"><li><p>Launch the Visuall C++ Express service pack installer</p><div class="mediaobject"><img src="../images/vcc/vcc_install_008.jpg"/></div></li><li><p>Click "OK".</p><div class="mediaobject"><img src="../images/vcc/vcc_install_009.jpg"/></div></li><li><p>Read the license agreement and click "I accept".</p><div class="mediaobject"><img src="../images/vcc/vcc_install_010.jpg"/></div><div class="mediaobject"><img src="../images/vcc/vcc_install_011.jpg"/></div></li><li><p>Click "OK".</p><div class="mediaobject"><img src="../images/vcc/vcc_install_012.jpg"/></div></li></ul></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="VCC_SDK"/>5. Windows Platform SDK Installation</h2></div></div></div><div class="itemizedlist"><ul type="disc"><li><p>Launch the "Windows Platform SDK" installer and click "Next".
+	  These instructions are based on the CD version of the "Windows 2003
+	  Platform SDK R2".</p><div class="mediaobject"><img src="../images/vcc/platform_sdk_001.jpg"/></div></li><li><p>Read the license agreement, select "I agree" and click
+	  "Next".</p><div class="mediaobject"><img src="../images/vcc/platform_sdk_002.jpg"/></div></li><li><p>Select "Custom" and click "Next".</p><div class="mediaobject"><img src="../images/vcc/platform_sdk_003.jpg"/></div></li><li><p>Specify <code class="filename">C:\VS8\VC\PlatformSDK\</code> for the
+	  installation path and click "Next".</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/admon/note.gif"/></td><th align="left">Note</th></tr><tr><td align="left" valign="top"><p>Using this exact path will take simplify the configuration of
+		VC++ to use the Platform SDK as this path is preconfigured within
+		VC++.</p></td></tr></table></div><div class="mediaobject"><img src="../images/vcc/platform_sdk_004.jpg"/></div></li><li><p>Unselect all options except for the following and click
+	  "Next":</p><div class="itemizedlist"><ul type="circle"><li>
+		   Microsoft Windows Core SDK
+		</li><li>
+		   Microsoft Windows Installer SDK (optional but could prove useful)
+		</li><li>
+		   Debugging Tools for Windows
+		</li></ul></div><div class="mediaobject"><img src="../images/vcc/platform_sdk_005.jpg"/></div></li><li><p>Click "Next".</p><div class="mediaobject"><img src="../images/vcc/platform_sdk_006.jpg"/></div></li><li><p>Click "Finish".</p><div class="mediaobject"><img src="../images/vcc/platform_sdk_007.jpg"/></div></li><li><p>Visual C++ has to be configured for use of the Platform SDK which
+	  is described in the following subsections. An alternative to editing the
+	  files described in the following subsection is to use replace the files
+	  in <code class="filename">C:\VS8</code> with the following expanded archive
+	  <code class="filename"><a href="../html/VS8.zip" target="_top">VS8.zip</a></code>. This
+	  will only replace the following files and if you're setup is identical
+	  to the previous instructions this will work just fine:</p><div class="itemizedlist"><ul type="circle"><li><p><code class="filename">C:\VS8\VC\VCProjectDefaults\corewin_express.vsprops</code></p></li><li><p><code class="filename">C:\VS8\VC\VCWizards\AppWiz\Generic\Application\html\1033\AppSettings.htm</code></p></li></ul></div></li></ul></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d0e250"/>5.1. Verify The Visual C++ Settings</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li><p>Verify the Visual C++ directories in the Projects and
+		  Solutions section in the Options dialog box (via Options item in
+		  Tools menu) and add these directory entries if missing. Add the
+		  paths to the appropriate subsection:</p><div class="itemizedlist"><ul type="circle"><li><p>Executable files:
+			  <code class="filename">$(VCInstallDir)PlatformSDK\bin</code></p><div class="mediaobject"><img src="../images/vcc/platform_sdk_008.jpg"/></div></li><li><p>Include files:
+			  <code class="filename">$(VCInstallDir)PlatformSDK\include</code></p><div class="mediaobject"><img src="../images/vcc/platform_sdk_009.jpg"/></div></li><li><p>Library files:
+			  <code class="filename">$(VCInstallDir)PlatformSDK\lib</code></p><div class="mediaobject"><img src="../images/vcc/platform_sdk_010.jpg"/></div></li></ul></div></li></ul></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d0e283"/>5.2. Update corewin_express.vsprops</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li><p>Edit the <code class="filename">corewin_express.vsprops</code> file
+		(found in <code class="filename">C:\VS8\VC\VCProjectDefaults</code>) and Change
+		the string that reads:
+		<code class="code">AdditionalDependencies="kernel32.lib"</code> to
+		<code class="code">AdditionalDependencies="kernel32.lib user32.lib gdi32.lib
+		winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib
+		oleaut32.lib uuid.lib"</code>. The contents of the
+		<code class="filename">C:\VS8\VC\VCProjectDefaults\corewin_express.vsprops</code>
+		file should be:</p><pre class="programlisting">
+&lt;?xml version="1.0"?&gt;
+&lt;VisualStudioPropertySheet
+  ProjectType="Visual C++"
+  Version="8.00"
+  Name="Core Windows Libraries"&gt;
+  &lt;Tool
+	Name="VCLinkerTool"
+	AdditionalDependencies="kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib" /&gt;
+&lt;/VisualStudioPropertySheet&gt;
+		</pre></li><li><p>Save and close the file.</p></li></ul></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="d0e310"/>5.3. Generate And Build a Win32 Application To Test Your Paths</h3></div></div></div><div class="itemizedlist"><ul type="disc"><li><p>In Visual C++ Express, the Win32 Windows Application type is
+		disabled in the Win32 Application Wizard. To enable that type, you
+		need to edit the file <code class="filename">AppSettings.htm</code> file
+		located in the folder
+		<code class="filename">C:\VS8\VC\VCWizards\AppWiz\Generic\Application\html\1033\</code>.
+		In a text editor comment out lines 441 - 444 by putting a // in front
+		of them as shown here:</p><pre class="programlisting">
+if (window.external.FindSymbol("IS_EXPRESS_SKU"))
+{
+  SUPPORT_ATL.disabled = true;
+  support_atl_title.disabled = true;
+  SUPPORT_MFC.disabled = true;
+  support_mfc_title.disabled = true;
+  // WIN_APP.disabled = true;
+  // WIN_APP_LABEL.disabled = true;
+  // DLL_APP.disabled = true;
+  // DLL_APP_LABEL.disabled = true;
+}
+		</pre></li><li><p>Save and close the file.</p></li><li><p>From the File menu, click New Project. In the New Project dialog
+		box.</p></li><li><p>In the New Project dialog box, expand the Visual C++ node in the
+		Product Types tree and then click Win32.</p></li><li><p>Click on the Win32 Console Application template and then enter
+		TestApplication for your project a name and click OK. The location
+		path doesn't matter.</p><div class="mediaobject"><img src="../images/vcc/platform_sdk_011.jpg"/></div></li><li><p>Click "Next".</p><div class="mediaobject"><img src="../images/vcc/platform_sdk_012.jpg"/></div></li><li><p>In the Win32 Application Wizard dialog box, make sure that
+		Windows application is selected as the Application type and the ATL is
+		not selected. Click the Finish button to generate the project.</p><div class="mediaobject"><img src="../images/vcc/platform_sdk_013.jpg"/></div></li><li><p>As a final step, test your project by clicking the Start button
+		in the IDE or by pressing F5. Your Win32 application should build and
+		run.</p></li><li><p>At the following screen press "Yes".</p><div class="mediaobject"><img src="../images/vcc/platform_sdk_014.jpg"/></div></li><li><p>The following screen should then appear if all is well and you
+		can then exit the test application.</p><div class="mediaobject"><img src="../images/vcc/platform_sdk_015.jpg"/></div></li></ul></div></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="VCC_Configuration"/>6. Visual C++ Configuration</h2></div></div></div><div class="itemizedlist"><ul type="disc"><li><p>Open the System Control Panel via the "Start Menu - Settings - Control Panel". The
+		screen shot if for Windows 2000 and Windows XP has a different icon but the control panel
+		has the same name.</p><div class="mediaobject"><img src="../images/vcc/vcc_config_001.jpg"/></div></li><li><p>Check the environment variables settings.</p><div class="itemizedlist"><ul type="circle"><li><p>Windows 2000</p><div class="itemizedlist"><ul type="square"><li><p>Click the "Environment Variables..." button of the "Advanced" tab.</p><div class="mediaobject"><img src="../images/vcc/vcc_config_003.jpg"/></div></li></ul></div></li><li><p>Windows XP</p><div class="itemizedlist"><ul type="square"><li><p>Click the "Environment Variables." button of the "Advanced" tab.</p><div class="mediaobject"><img src="../images/vcc/vcc_config_007.jpg"/></div></li></ul></div></li></ul></div></li><li><p>Verify that the following setting is set under the "System Variables..." section:</p><div class="itemizedlist"><ul type="circle"><li><p><code class="systemitem">ComSpec = &lt;specific to each system&gt; i.e.
+			  C:\WINDOWS\system32\cmd.exe</code></p></li><li><p><code class="systemitem">VS80COMNTOOLS = C:\VS8\Common7\Tools</code></p></li></ul></div><div class="mediaobject"><img src="../images/vcc/vcc_config_004.jpg"/></div></li><li><p>Verify that the following setting is set under the "User Variables..." section:</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/admon/note.gif"/></td><th align="left">Note</th></tr><tr><td align="left" valign="top"> The variables may have additional paths to them depending on what else you have your
+		development system configured for. </td></tr></table></div><div class="itemizedlist"><ul type="circle"><li><p><code class="systemitem">LIB = C:\Utils\expat\bin;C:\VS8\VC\PlatformSDK\lib</code></p></li><li><p><code class="systemitem">INCLUDE =
+			C:\Utils\expat\Source\lib;C:\VS8\VC\PlatformSDK\Include</code></p></li></ul></div></li><li><p>You are now ready to run the Visual C++ command prompt (<code class="systemitem">VC8</code>
+		shortcut) located in the CVS FWPort Src\Sql\Scripts folder. The <code class="systemitem">VC8</code>
+		shortcut corresponds to Visual C++ Express 2005.</p><div class="mediaobject"><img src="../images/vcc/vcc_config_005.jpg"/></div></li><li><p>You can set the <span class="application">VS</span> environment variables manually. However,
+		doing this is tedious. <span class="application">VS</span> provides a batch file for doing it. The
+		variable called <code class="systemitem">VS80COMNTOOLS</code> (assuming VS 2005 or
+		equivalent) points to the directory where the <code class="filename">VSVARS32.BAT</code> batch file
+		resides. It is called by <span><strong class="command"> VCVARSALL.BAT x86</strong></span>.  The easiest way to get the
+		variables set up is to launch the batch file from the above <code class="systemitem">VC8</code>
+		shortcut. An alternate method is to type the following at a command prompt:</p><div class="informalexample"><pre class="programlisting">C:\VS8\VC\VCVARSALL.BAT x86</pre></div><p>at a command prompt.</p><p>The following didn't work in WinXP but it was retained in the document in case someone
+		figures out how to make it work.</p><div class="itemizedlist"><ul type="circle"><li><p>You can have this run automatically whenever you open a command window by setting up
+			an AutoRun registry entry, as follows:</p><div class="informalexample"><pre class="programlisting">[HKEY_CURRENT_USER\Software\Microsoft\Command Processor]
+		"AutoRun"="\"%USERPROFILE%\\AutoRun.BAT\""</pre></div><p>and then creating a file called <code class="filename">AutoRun.BAT</code> in your
+			  <code class="systemitem">Documents and Settings</code> folder that runs
+			  <span><strong class="command">VCVARSALL.BAT</strong></span>. The file might look like this:</p><div class="informalexample"><pre class="programlisting">
+@echo off
+REM Neil Mayhew's AutoRun.BAT
+%comspec% /k C:\VS8\VC\VCVARSALL.BAT x86</pre></div></li></ul></div></li></ul></div></div></div></body></html>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="VCC_Configuration">
+  <title>Visual C++ Configuration</title>
+
+  <itemizedlist>
+	<listitem>
+	  <para>Open the System Control Panel via the "Start Menu - Settings - Control Panel". The
+		screen shot if for Windows 2000 and Windows XP has a different icon but the control panel
+		has the same name.</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/vcc_config_001.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Check the environment variables settings.</para>
+
+	  <itemizedlist>
+		<listitem>
+		  <para>Windows 2000</para>
+
+		  <itemizedlist>
+			<listitem>
+			  <para>Click the "Environment Variables..." button of the "Advanced" tab.</para>
+
+			  <mediaobject>
+				<imageobject>
+				  <imagedata fileref="../images/vcc/vcc_config_003.jpg"/>
+				</imageobject>
+			  </mediaobject>
+			</listitem>
+		  </itemizedlist>
+		</listitem>
+
+		<listitem>
+		  <para>Windows XP</para>
+
+		  <itemizedlist>
+			<listitem>
+			  <para>Click the "Environment Variables." button of the "Advanced" tab.</para>
+
+			  <mediaobject>
+				<imageobject>
+				  <imagedata fileref="../images/vcc/vcc_config_007.jpg"/>
+				</imageobject>
+			  </mediaobject>
+			</listitem>
+		  </itemizedlist>
+		</listitem>
+	  </itemizedlist>
+	</listitem>
+
+	<listitem>
+	  <para>Verify that the following setting is set under the "System Variables..." section:</para>
+
+	  <itemizedlist>
+		<listitem>
+		  <para>
+			<systemitem>ComSpec = &lt;specific to each system&gt; i.e.
+			  C:\WINDOWS\system32\cmd.exe</systemitem>
+		  </para>
+		</listitem>
+
+		<listitem>
+		  <para>
+			<systemitem>VS80COMNTOOLS = C:\VS8\Common7\Tools</systemitem>
+		  </para>
+		</listitem>
+	  </itemizedlist>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/vcc_config_004.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Verify that the following setting is set under the "User Variables..." section:</para>
+
+	  <note> The variables may have additional paths to them depending on what else you have your
+		development system configured for. </note>
+
+	  <itemizedlist>
+		<listitem>
+		  <para>
+			<systemitem>LIB = C:\Utils\expat\bin;C:\VS8\VC\PlatformSDK\lib</systemitem>
+		  </para>
+		</listitem>
+
+		<listitem>
+		  <para>
+			<systemitem>INCLUDE =
+			C:\Utils\expat\Source\lib;C:\VS8\VC\PlatformSDK\Include</systemitem>
+		  </para>
+		</listitem>
+	  </itemizedlist>
+	</listitem>
+
+	<listitem>
+	  <para>You are now ready to run the Visual C++ command prompt (<systemitem>VC8</systemitem>
+		shortcut) located in the CVS FWPort Src\Sql\Scripts folder. The <systemitem>VC8</systemitem>
+		shortcut corresponds to Visual C++ Express 2005.</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/vcc/vcc_config_005.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>You can set the <application>VS</application> environment variables manually. However,
+		doing this is tedious. <application>VS</application> provides a batch file for doing it. The
+		variable called <systemitem class="macro">VS80COMNTOOLS</systemitem> (assuming VS 2005 or
+		equivalent) points to the directory where the <filename>VSVARS32.BAT</filename> batch file
+		resides. It is called by <command> VCVARSALL.BAT x86</command>.  The easiest way to get the
+		variables set up is to launch the batch file from the above <systemitem>VC8</systemitem>
+		shortcut. An alternate method is to type the following at a command prompt:</para>
+
+	  <informalexample>
+		<programlisting>C:\VS8\VC\VCVARSALL.BAT x86</programlisting>
+	  </informalexample>
+
+	  <para>at a command prompt.</para>
+
+	  <para>The following didn't work in WinXP but it was retained in the document in case someone
+		figures out how to make it work.</para>
+
+	  <itemizedlist>
+		<listitem>
+		  <para>You can have this run automatically whenever you open a command window by setting up
+			an AutoRun registry entry, as follows:</para>
+
+		  <informalexample>
+			<programlisting>[HKEY_CURRENT_USER\Software\Microsoft\Command Processor]
+		"AutoRun"="\"%USERPROFILE%\\AutoRun.BAT\""</programlisting>
+		  </informalexample>
+
+		  <para>and then creating a file called <filename>AutoRun.BAT</filename> in your
+			  <systemitem>Documents and Settings</systemitem> folder that runs
+			  <command>VCVARSALL.BAT</command>. The file might look like this:</para>
+
+		  <informalexample>
+			<programlisting>
+@echo off
+REM Neil Mayhew's AutoRun.BAT
+%comspec% /k C:\VS8\VC\VCVARSALL.BAT x86</programlisting>
+		  </informalexample>
+		</listitem>
+	  </itemizedlist>
+	</listitem>
+  </itemizedlist>
+</section>

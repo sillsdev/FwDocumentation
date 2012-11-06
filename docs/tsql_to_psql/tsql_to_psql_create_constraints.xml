@@ -1,0 +1,301 @@
+<section id="Constraints">
+	<title>Constraints</title>
+	<para>Most constraints can be declared with the table creation statement (one step) rather than
+		in separate statements (multiple steps) as shown further with the primary key constraints.
+		The preference used here is to use multiple steps to accomplish this. This is a stylistic
+		preference which is useful when porting code to make each aspect of the table definition
+		more clear. This method of declaring constraints in multiple steps is preferred for all
+		types of field and table constraints rather than inline with the field and table
+		definitions. All examples, except for primary keys where both ways are shown as an example,
+		will use the multiple steps method of declaring constraints. For either method it is much
+		preferred to control the name assigned to the primary key than use an arbitrarily system
+		generated name.</para>
+	<section id="Check_Constraints">
+		<title>Check Constraints</title>
+		<para id="Check_Constraints_TSQL">
+			<emphasis>TSQL</emphasis>
+			<itemizedlist id="Check_Constraints_TSQL1">
+				<listitem override="none">
+					<programlisting>
+create table [Module$] (
+  [Ver]     int                   not null,
+  [VerBack] int                   not null,
+
+  constraint [_CK_Module$_VerBack] check (0 &lt; [VerBack] and [VerBack] &lt;= [Ver]) <co id="co-constraint_1" linkends="co-constraint_2"/>
+)
+go
+					</programlisting>
+					<calloutlist>
+						<callout arearefs="co-constraint_1" id="co-constraint_2">
+							<para>
+								<command>CHECK</command> constraint.</para>
+						</callout>
+					</calloutlist>
+				</listitem>
+			</itemizedlist>
+		</para>
+		<para id="Check_Constraints_PSQL">
+			<emphasis>PSQL</emphasis>
+			<itemizedlist id="Check_Constraints_PSQL1">
+				<listitem override="none">
+					<programlisting>
+CREATE TABLE Module$
+(
+  "VER"                INTEGER NOT NULL,
+  "VERBACK"            INTEGER NOT NULL
+);
+COMMIT; <co id="co-checkcommit_1" linkends="co-checkcommit_2"/>
+ALTER TABLE Module$ ADD CONSTRAINT CK_MODULE$_VERBACK CHECK ("VERBACK" BETWEEN 1 AND "VER"); <co id="co-check_1" linkends="co-check_2"/>
+COMMIT; <coref linkend="co-checkcommit_1"/>
+					</programlisting>
+					<calloutlist>
+						<callout arearefs="co-checkcommit_1" id="co-checkcommit_2">
+							<para>A <command>COMMIT</command> should be done between each
+							statement.</para>
+						</callout>
+						<callout arearefs="co-check_1" id="co-check_2">
+							<para>
+								<command>CHECK</command> constraint. ("VERBACK" BETWEEN 1 AND "VER")
+								is equivalent to (0 &lt; [VerBack] and [VerBack] &lt;=
+								[Ver]).</para>
+						</callout>
+					</calloutlist>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</section>
+	<section id="Foreign_Keys">
+		<title>Foreign Keys</title>
+		<para id="Foreign_Keys_TSQL">
+			<emphasis>TSQL</emphasis>
+			<itemizedlist id="Foreign_Keys_TSQL1">
+				<listitem override="none">
+					<programlisting>
+create table [Class$] (
+  [Id]        int  primary key,
+  [Mod]       int  not null  references [Module$] ([Id]) <co id="co-fk_1" linkends="co-fk_2"/>
+)
+go
+					</programlisting>
+					<calloutlist>
+						<callout arearefs="co-fk_1" id="co-fk_2">
+							<para>Foreign key reference constraint between table
+									<emphasis>Class$.Mod</emphasis> field and the
+									<emphasis>Module$.ID</emphasis> field where the parent table is
+									<emphasis>Module$</emphasis> and the child table is
+									<emphasis>Class$</emphasis>.</para>
+						</callout>
+					</calloutlist>
+				</listitem>
+			</itemizedlist>
+		</para>
+		<para id="Foreign_Keys_PSQL">
+			<emphasis>PSQL</emphasis>
+			<itemizedlist id="Foreign_Keys_PSQL1">
+				<listitem override="none">
+					<programlisting>
+CREATE TABLE Class$
+(
+  "ID"                 INTEGER NOT NULL,
+  "MOD"                INTEGER NOT NULL
+);
+COMMIT;
+ALTER TABLE Class$ ADD CONSTRAINT PK_CLASS$ PRIMARY KEY ("ID");
+COMMIT;
+ALTER TABLE Class$ ADD CONSTRAINT FK_CLASS$_MODULE$ FOREIGN KEY ("MOD") REFERENCES Module$ ("ID"); <co id="co-fk_3" linkends="co-fk_4"/>
+COMMIT;
+					</programlisting>
+					<calloutlist>
+						<callout arearefs="co-fk_3" id="co-fk_4">
+							<para>Foreign key reference constraint between table
+									<emphasis>Class$.Mod</emphasis> field and the
+									<emphasis>Module$.ID</emphasis> field where the parent table is
+									<emphasis>Module$</emphasis> and the child table is
+									<emphasis>Class$</emphasis>.</para>
+						</callout>
+					</calloutlist>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</section>
+	<section id="Null_Constraints">
+		<title>NULL Contraints</title>
+		<para id="Null_Constraints_TSQL">
+			<emphasis>TSQL</emphasis>
+			<itemizedlist id="Null_Constraints_TSQL1">
+				<listitem override="none">
+					<programlisting>
+create table [Field$] (
+  [Id]        int       primary key, <co id="co-nonull_1" linkends="co-nonull_2"/>
+  [Type]      int       not null, <coref linkend="co-nonull_1"/>
+  [DstCls]    int       null, <co id="co-allownull_1" linkends="co-allownull_2"/>
+  [Min]       bigint    <coref linkend="co-allownull_1"/>
+)
+go
+					</programlisting>
+					<calloutlist>
+						<callout arearefs="co-nonull_1" id="co-nonull_2">
+							<para>"NULL" values aren't allowed. For primary keys by definition
+								"NULL" values aren't allowed.</para>
+						</callout>
+						<callout arearefs="co-allownull_1" id="co-allownull_2">
+							<para>Allow "NULL" values. If unspecified then this implies that the
+								field allows "NULL" values.</para>
+						</callout>
+					</calloutlist>
+				</listitem>
+			</itemizedlist>
+		</para>
+		<para id="Null_Constraints_PSQL">
+			<emphasis>PSQL</emphasis>
+			<itemizedlist id="Null_Constraints_PSQL1">
+				<listitem override="none">
+					<programlisting>
+CREATE TABLE Field$
+(
+  "ID"                 INTEGER NOT NULL, <co id="co-nonull_3" linkends="co-nonull_4"/>
+  "TYPE"               INTEGER NOT NULL, <coref linkend="co-nonull_3"/>
+  "DSTCLS"             INTEGER NULL, <co id="co-allownull_3" linkends="co-allownull_4"/>
+  "MIN"                BIGINT <coref linkend="co-allownull_3"/>
+);
+COMMIT;
+ALTER TABLE Field$ ADD CONSTRAINT PK_FIELD$ PRIMARY KEY ("ID"); <coref linkend="co-nonull_3"/>
+COMMIT;
+					</programlisting>
+					<calloutlist>
+						<callout arearefs="co-nonull_3" id="co-nonull_4">
+							<para>"NULL" values aren't allowed. For primary keys by definition
+								"NULL" values aren't allowed.</para>
+						</callout>
+						<callout arearefs="co-allownull_3" id="co-allownull_4">
+							<para>Allowing "NULL"s is the default behaviour and doesn't have to be
+								explicitly specified.</para>
+						</callout>
+					</calloutlist>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</section>
+	<section id="Primary_Keys">
+		<title>Primary Keys</title>
+		<para id="Primary_Keys_TSQL">
+			<emphasis>TSQL</emphasis>
+			<itemizedlist id="Primary_Keys_TSQL1">
+				<listitem override="none">
+					<programlisting>
+create table [Version$] (
+	[DbVer]             int primary key, <co id="co-pk_1" linkends="co-pk_2"/>
+	[Guid$]             uniqueidentifier  not null
+)
+go
+					</programlisting>
+					<calloutlist>
+						<callout arearefs="co-pk_1" id="co-pk_2">
+							<para>The keywords <command>primary key</command> is added to the field
+								definition. The primary key constraint as defined above will be
+								assigned an arbitrary name by the system.</para>
+						</callout>
+					</calloutlist>
+				</listitem>
+			</itemizedlist>
+		</para>
+		<para id="Primary_Keys_PSQL">
+			<phrase id="Primary_Keys_PSQL1a">
+				<emphasis>PSQL Method 1</emphasis> defines primary key in one step.</phrase>
+			<itemizedlist id="Primary_Keys_PSQL1b">
+				<listitem override="none">
+					<programlisting>
+CREATE TABLE Version$
+(
+  "DBVER"              INTEGER NOT NULL CONSTRAINT PK_VERSION$ PRIMARY KEY,
+  "GUID$"              CHAR(16) CHARACTER SET OCTETS NOT NULL
+);
+COMMIT;
+					</programlisting>
+				</listitem>
+			</itemizedlist>
+			<phrase id="Primary_Keys_PSQL2a">
+				<emphasis>PSQL Method 2</emphasis> defines the primary key in two steps.</phrase>
+			<itemizedlist id="Primary_Keys_PSQL2b">
+				<listitem override="none">
+					<programlisting>
+CREATE TABLE Version$
+(
+  "DBVER"              INTEGER NOT NULL, <co id="co-pka_1" linkends="co-pka_2"/>
+  "GUID$"              CHAR(16) CHARACTER SET OCTETS NOT NULL
+);
+COMMIT;
+ALTER TABLE Version$ ADD CONSTRAINT PK_VERSION$ PRIMARY KEY ("DBVER"); <co id="co-pkb_1" linkends="co-pkb_2"/>
+COMMIT;
+					</programlisting>
+					<calloutlist>
+						<callout arearefs="co-pka_1" id="co-pka_2">
+							<para>Create the table with the primary key field declared as
+									<command>NOT NULL</command>.</para>
+						</callout>
+						<callout arearefs="co-pkb_1" id="co-pkb_2">
+							<para>Add a <command>PRIMARY KEY</command> constraint to the table for
+								the desired PK field. The <command>PRIMARY KEY</command> field of a
+								table is not nullable.</para>
+						</callout>
+					</calloutlist>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</section>
+	<section id="Unique_Constraints">
+		<title>Unique Constraints</title>
+		<para id="Unique_Constraints_TSQL">
+			<emphasis>TSQL</emphasis>
+			<itemizedlist id="Unique_Constraints_TSQL1">
+				<listitem override="none">
+					<programlisting>
+create table [Module$] (
+  [Id]      int,
+  [Name]    nvarchar(40) unique <co id="co-uniqueconstraint_1" linkends="co-uniqueconstraint_2"/>
+)
+go
+					</programlisting>
+					<calloutlist>
+						<callout arearefs="co-uniqueconstraint_1" id="co-uniqueconstraint_2">
+							<para>
+								<command>UNIQUE</command> constraint.</para>
+						</callout>
+					</calloutlist>
+				</listitem>
+			</itemizedlist>
+		</para>
+		<para id="Unique_Constraints_PSQL">
+			<emphasis>PSQL</emphasis>
+			<itemizedlist id="Unique_Constraints_PSQL1">
+				<listitem override="none">
+					<programlisting>
+CREATE TABLE Module$
+(
+  "ID"                 INTEGER,
+  "NAME"               VARCHAR(40) CHARACTER SET UTF8
+);
+COMMIT;
+ALTER TABLE Module$ ADD CONSTRAINT UQ_MODULE$_NAME UNIQUE ("NAME"); <co id="co-uniqueconstraint_3" linkends="co-uniqueconstraint_4"/>
+COMMIT;
+					</programlisting>
+					<calloutlist>
+						<callout arearefs="co-uniqueconstraint_3" id="co-uniqueconstraint_4">
+							<para>
+								<command>UNIQUE</command> constraint. Because unique constraints are
+								implemented via indexes and because the <emphasis>NAME</emphasis>
+								field is unicode then the length is limited in Firebird to a maximum
+								of 84 unicode characters.</para>
+							<note>
+								<para>
+									<command>UNIQUE</command> constraint fields can be nullable if
+									required. This is a key differentition with <command>PRIMARY
+									KEY</command> fields which can not be nullable.</para>
+							</note>
+						</callout>
+					</calloutlist>
+				</listitem>
+			</itemizedlist>
+		</para>
+	</section>
+</section>

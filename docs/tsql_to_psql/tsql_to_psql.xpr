@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project>
+	<meta>
+		<filters directoryPatterns="" filePatterns=""
+			positiveFilePatterns="" showHiddenFiles="false"/>
+		<options/>
+	</meta>
+	<projectTree name="tsql_to_psql.xpr">
+		<file name="../docbook-html.xsl"/>
+		<file name="tsql_to_psql.xml"/>
+		<file name="tsql_to_psql_basic.xml"/>
+		<file name="tsql_to_psql_create_constraints.xml"/>
+		<file name="tsql_to_psql_create_default.xml"/>
+		<file name="tsql_to_psql_create_general.xml"/>
+		<file name="tsql_to_psql_dml.xml"/>
+		<file name="tsql_to_psql_exceptions.xml"/>
+		<file name="tsql_to_psql_indexes.xml"/>
+		<file name="tsql_to_psql_naming.xml"/>
+		<file name="tsql_to_psql_prerequisites.xml"/>
+		<file name="tsql_to_psql_triggers.xml"/>
+	</projectTree>
+</project>

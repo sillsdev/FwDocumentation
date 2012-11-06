@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section id="Firebird_Files_Installation">
+  <title>Firebird Database Server Installation</title>
+
+  <itemizedlist>
+	<listitem>
+	  <para>Ensure that you've uninstalled any already installed Firebird system.</para>
+	</listitem>
+
+	<listitem>
+	  <para>Launch the Firebird-2.0.1.12855-1-Win32.exe setup file.</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/firebird000.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Click "OK".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/firebird001.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Click "Next".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/firebird002.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Read the license agreement, select "I accept the agreement" and click "Next".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/firebird003.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Click "Next".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/firebird004.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Change the install directory to "C:\Firebird" as shown above.</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/firebird005.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>In Windows you have to choose the "Super Server" option. "Super Server" is the preferred
+		platform in general. Select the "Server components" and "Developer and admin tools
+		components" and then click "Next".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/firebird007.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Modify the start program menu item so that it doesn't have the version number in it by
+		naming it "Firebird".Click "Yes".</para>
+	</listitem>
+
+	<listitem>
+	  <para>At the "Select Additional Tasks" Window set the following properties:</para>
+
+	  <itemizedlist>
+		<listitem>
+		  <para>Use the Guardian to control the server = checked</para>
+		</listitem>
+
+		<listitem>
+		  <para>Run as a Service = checked</para>
+		</listitem>
+
+		<listitem>
+		  <para>Start Firebird automatically everytime you boot up = checked</para>
+		</listitem>
+
+		<listitem>
+		  <para>Copy Firebird client library to system directory = checked</para>
+		</listitem>
+
+		<listitem>
+		  <para>Create client library as GDS32.DLL for legacy app. support = checked</para>
+		</listitem>
+
+		<listitem>
+		  <para>Install Control Panel Applet (if present) = checked</para>
+		</listitem>
+	  </itemizedlist>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/firebird008.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Click "Next".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/firebird009.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Click "Install".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/firebird010.jpg"/>
+		</imageobject>
+	  </mediaobject>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/firebird011.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Click "Next".</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/firebird012.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Select "Start Firebird Service Now" and click "Finish".</para>
+	</listitem>
+
+	<listitem>
+	  <para>This completes the basic Firebird files installation.</para>
+	</listitem>
+
+	<listitem>
+	  <para>Verify using the Services Control Panel (shown below) that the Firebird Guardian and
+		Firebird Server are shown as running. Only the Firebird Guardian service needs to be set to
+		automatic if you want Firebird to startup on system startup. If not set both services to
+		manual.</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/firebird013.jpg"/>
+		</imageobject>
+	  </mediaobject>
+
+	  <note> The services control panel on Windows 2000 can be found by following this path Start -
+		Settings - Control Panel - Administrative Tools - Services or for Win2k and WinXP selecting
+		Start - Run and entering "services.msc /s" at the prompt. </note>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/firebird015.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Verify in the event viewer application log (shown below) for the following message with
+		no errors in either the application log or system log related to Firebird.</para>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/firebird017.jpg"/>
+		</imageobject>
+	  </mediaobject>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/firebird014.jpg"/>
+		</imageobject>
+	  </mediaobject>
+
+	  <note> The services control panel on Windows 2000 can be found by following this path Start -
+		Settings - Control Panel - Administrative Tools - Event Viewer or for Win2k and WinXP
+		selecting Start - Run and entering "eventvwr.msc /s" at the prompt. </note>
+
+	  <mediaobject>
+		<imageobject>
+		  <imagedata fileref="../images/fb_install/firebird016.jpg"/>
+		</imageobject>
+	  </mediaobject>
+	</listitem>
+
+	<listitem>
+	  <para>Create the following folder structure: "C:\Firebird\logs"</para>
+	</listitem>
+  </itemizedlist>
+</section>

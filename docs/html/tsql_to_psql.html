@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head><title>TSQL to PSQL</title><link rel="stylesheet" href="fieldworks_db_port.css" type="text/css"/><meta name="generator" content="DocBook XSL Stylesheets V1.68.1"/><meta name="description" content="This document will cover common approaches for converting Microsoft SQL-Server&#xA;                (MSSQL) procedural language (Transact SQL - TSQL) to Firebird procedural language&#xA;                (PSQL)."/></head><body><div class="book" lang="en"><div class="titlepage"><div><div><h1 class="title"><a id="d0e2"/>TSQL to PSQL</h1></div><div><p class="releaseinfo">$Revision$</p></div><div><p class="pubdate">$Date$</p></div><div><div class="abstract"><p class="title"><b>Abstract</b></p><p>This document will cover common approaches for converting Microsoft SQL-Server
+				(MSSQL) procedural language (Transact SQL - TSQL) to Firebird procedural language
+				(PSQL).</p></div></div></div><hr/></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="preface"><a href="#Prerequisites">Prerequisites</a></span></dt><dt><span class="chapter"><a href="#Naming_Conventions">1. Naming Conventions</a></span></dt><dd><dl><dt><span class="section"><a href="#Naming_General">1. General</a></span></dt><dt><span class="section"><a href="#Double_Quotes">2. Double-Quotes Delimiters</a></span></dt><dt><span class="section"><a href="#Naming_Constants">3. Constants</a></span></dt><dt><span class="section"><a href="#Naming_Constraints">4. Constraints</a></span></dt><dt><span class="section"><a href="#Naming_Indexes">5. Indexes</a></span></dt><dt><span class="section"><a href="#Naming_Triggers">6. Triggers</a></span></dt></dl></dd><dt><span class="chapter"><a href="#Basic_Conversions">2. Basic Conversions</a></span></dt><dd><dl><dt><span class="section"><a href="#Ignored_Statements">1. Ignored Statements</a></span></dt><dt><span class="section"><a href="#Common_Simple_Statements">2. Common Simple Statements</a></span></dt></dl></dd><dt><span class="chapter"><a href="#Exceptions">3. Exceptions</a></span></dt><dd><dl><dt><span class="section"><a href="#Exceptions_Severity">1. Exceptions Severity</a></span></dt><dt><span class="section"><a href="#Exceptions_Trapping">2. Exception Trapping</a></span></dt><dt><span class="section"><a href="#Exceptions_Value">3. Exceptions Value</a></span></dt><dt><span class="section"><a href="#Exceptions_Example">4. Example</a></span></dt></dl></dd><dt><span class="chapter"><a href="#Triggers">4. Triggers</a></span></dt><dd><dl><dt><span class="section"><a href="#Triggers_General">1. General</a></span></dt></dl></dd><dt><span class="chapter"><a href="#Table_Creation">5. Table Creation</a></span></dt><dd><dl><dt><span class="section"><a href="#General_Table_Notes">1. General Table Notes</a></span></dt><dd><dl><dt><span class="section"><a href="#Table_Deletion">1.1. Table Deletion</a></span></dt></dl></dd><dt><span class="section"><a href="#Constraints">2. Constraints</a></span></dt><dd><dl><dt><span class="section"><a href="#Check_Constraints">2.1. Check Constraints</a></span></dt><dt><span class="section"><a href="#Foreign_Keys">2.2. Foreign Keys</a></span></dt><dt><span class="section"><a href="#Null_Constraints">2.3. NULL Contraints</a></span></dt><dt><span class="section"><a href="#Primary_Keys">2.4. Primary Keys</a></span></dt><dt><span class="section"><a href="#Unique_Constraints">2.5. Unique Constraints</a></span></dt></dl></dd><dt><span class="section"><a href="#Default_Values">3. Default Values</a></span></dt><dd><dl><dt><span class="section"><a href="#Constant_Defaults">3.1. Constant Values</a></span></dt><dt><span class="section"><a href="#Function_Defaults">3.2. Function Defaults</a></span></dt><dt><span class="section"><a href="#Null_Values">3.3. NULL Values</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#Indexes">6. Indexes</a></span></dt><dd><dl><dt><span class="section"><a href="#d0e1041">1. Index Size Calculation</a></span></dt><dt><span class="section"><a href="#Regular_Indexes">2. Regular Indexes</a></span></dt><dt><span class="section"><a href="#Compound_Indexes">3. Compound Indexes</a></span></dt></dl></dd><dt><span class="chapter"><a href="#DML">7. Data Manipulation Language</a></span></dt><dd><dl><dt><span class="section"><a href="#DML_Inserts">1. Inserts (DML) Conversion</a></span></dt></dl></dd></dl></div><div class="list-of-examples"><p><b>List of Examples</b></p><dl><dt>2.1. <a href="#d0e262">Comments</a></dt><dt>2.2. <a href="#d0e356">Constants</a></dt></dl></div><div class="preface" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="Prerequisites"/>Prerequisites</h2></div></div></div><p>The following items have to be understood prior to reading this document:</p><div class="itemizedlist"><ul type="disc"><li><p>Datatype mapping between MSSQL and Firebird. This is covered by the following
+				document: ...to be added later...</p></li><li><p>Custom <span class="emphasis"><em>spx_...</em></span> stored procedures are already loaded into
+				Firebird.</p></li><li><p>Custom <span class="emphasis"><em>udf_...</em></span> user defined functions such as
+					<span class="emphasis"><em>udf_Varchar_To_GUID</em></span> are already loaded into
+			Firebird.</p></li></ul></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="Naming_Conventions"/>Chapter 1. Naming Conventions</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#Naming_General">1. General</a></span></dt><dt><span class="section"><a href="#Double_Quotes">2. Double-Quotes Delimiters</a></span></dt><dt><span class="section"><a href="#Naming_Constants">3. Constants</a></span></dt><dt><span class="section"><a href="#Naming_Constraints">4. Constraints</a></span></dt><dt><span class="section"><a href="#Naming_Indexes">5. Indexes</a></span></dt><dt><span class="section"><a href="#Naming_Triggers">6. Triggers</a></span></dt></dl></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="Naming_General"/>1. General</h2></div></div></div><p>When defining constraint names, index names, etc it may be required to abbreviate the
+			tablenames and fieldnames in order to remain within the maximum length of 31
+		characters.</p></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="Double_Quotes"/>2. Double-Quotes Delimiters</h2></div></div></div><p>Double-quotes are used to escape illegal or special characters and make the table
+			names or field names case-sensitive. In order to avoid problems with character case in
+			PSQL:</p><div class="orderedlist"><ol type="i"><li><p>Never enclose table names in double-quotes.</p></li><li><p>Make all field names uppercase and enclose them in double-quotes. The
+					double-quotes are required to escape keywords or special characters. However,
+					the combination of double quotes and the name being in uppercase makes the name
+					equivalent to a nondelimited and case insensitive name if it isn't a keyword or
+					doesn't contain special characters. In other words by putting a name in
+					uppercase negates the fact that it is delimited by double-quotes. Once the
+					fields are created using this convention then we have the flexibility of not
+					having to use double-quotes where not required (fields that don't contain
+					keywords or special characters) in Select, Insert, Update and Delete
+				statements.</p></li></ol></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="Naming_Constants"/>3. Constants</h2></div></div></div><p>Constants will start with a lower case "k" letter i.e
+			<span class="emphasis"><em>kcchMaxName</em></span>.</p></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="Naming_Constraints"/>4. Constraints</h2></div></div></div><div class="variablelist"><dl><dt><span class="term">Check Constraint</span></dt><dd><div class="variablelist"><dl><dt><span class="term">CK_<span class="emphasis"><em>tablename</em></span>_<span class="emphasis"><em>fieldname</em></span></span></dt><dd><div class="variablelist"><dl><dt><span class="term"><span class="emphasis"><em>tablename</em></span></span></dt><dd>Table name that the check constraint belongs
+										to.</dd><dt><span class="term"><span class="emphasis"><em>fieldname</em></span></span></dt><dd>Field name that the constraint is primarily
+											against (or any other field that is part of the
+											constraint if this would result in a duplicate
+										name).</dd></dl></div></dd></dl></div></dd><dt><span class="term">Foreign Key Constraint</span></dt><dd><div class="variablelist"><dl><dt><span class="term">FK_<span class="emphasis"><em>child-tablename</em></span>_<span class="emphasis"><em>parent-tablename</em></span></span></dt><dd><div class="variablelist"><dl><dt><span class="term"><span class="emphasis"><em>child-tablename</em></span></span></dt><dd>Child table name that the foreign key belongs
+										to.</dd><dt><span class="term"><span class="emphasis"><em>parent-tablename</em></span></span></dt><dd>Parent table name that the child is dependent upon
+											(or pointing to).</dd></dl></div></dd></dl></div></dd><dt><span class="term">Primary Key</span></dt><dd><div class="variablelist"><dl><dt><span class="term">PK_<span class="emphasis"><em>tablename</em></span></span></dt><dd><div class="variablelist"><dl><dt><span class="term"><span class="emphasis"><em>tablename</em></span></span></dt><dd>Table name that the primary key belongs
+										to.</dd></dl></div></dd></dl></div></dd><dt><span class="term">Unique Key Constraint</span></dt><dd><div class="variablelist"><dl><dt><span class="term">UQ_<span class="emphasis"><em>tablename</em></span>_<span class="emphasis"><em>fieldname</em></span></span></dt><dd><div class="variablelist"><dl><dt><span class="term"><span class="emphasis"><em>tablename</em></span></span></dt><dd>Table name that the unique key belongs
+										to.</dd></dl></div><div class="variablelist"><dl><dt><span class="term"><span class="emphasis"><em>fieldname</em></span></span></dt><dd>Field name that the unique key is enforcing a
+											uniqueness constraint upon (or one of them if on a
+											multi-field key).</dd></dl></div></dd></dl></div></dd></dl></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="Naming_Indexes"/>5. Indexes</h2></div></div></div><div class="variablelist"><dl><dt><span class="term">Regular Indexes</span></dt><dd><div class="variablelist"><dl><dt><span class="term">IX_<span class="emphasis"><em>tablename</em></span>_<span class="emphasis"><em>fieldname</em></span></span></dt><dd><div class="variablelist"><dl><dt><span class="term">tablename</span></dt><dd>Is the table name that the index belongs
+										to.</dd><dt><span class="term">fieldname</span></dt><dd>the field name that the index is primarily against
+											or the first field name in a multi-field index (compound
+											index).</dd></dl></div></dd></dl></div></dd></dl></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="Naming_Triggers"/>6. Triggers</h2></div></div></div><div class="variablelist"><dl><dt><span class="term">T_<span class="emphasis"><em>xy#_tablename</em></span></span></dt><dd><div class="variablelist"><dl><dt><span class="term">x</span></dt><dd> Is either B for <span><strong class="command">BEFORE</strong></span> or A for
+									<span><strong class="command">AFTER</strong></span> type trigger.</dd><dt><span class="term">y</span></dt><dd> Is either I, U or D for respectively
+								<span><strong class="command">INSERT</strong></span>, <span><strong class="command">UPDATE</strong></span> or
+									<span><strong class="command">DELETE</strong></span> DML type trigger. </dd><dt><span class="term">#</span></dt><dd>Is the <span><strong class="command">POSITION</strong></span> number of the trigger.
+							</dd><dt><span class="term">tablename</span></dt><dd>Is the table name the trigger belongs to.</dd></dl></div></dd></dl></div></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="Basic_Conversions"/>Chapter 2. Basic Conversions</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#Ignored_Statements">1. Ignored Statements</a></span></dt><dt><span class="section"><a href="#Common_Simple_Statements">2. Common Simple Statements</a></span></dt></dl></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="Ignored_Statements"/>1. Ignored Statements</h2></div></div></div><p>These either have no meaning in PSQL or can be safely ignored:</p><div class="variablelist"><dl><dt><span class="term"><p><span><strong class="command">Comments</strong></span></p></span></dt><dd><div class="example"><a id="d0e262"/><p class="title"><b>Example 2.1. Comments</b></p><pre class="programlisting">
+-- line comments <a id="co-comments_1" href="#co-comments_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+/* Multi-line comments */ <a id="co-comments_1" href="#co-comments_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a></pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-comments_2"/><a href="#co-comments_1"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>Comments can be preserved <span class="emphasis"><em>within</em></span> a stored
+									procedure but in order for the comments not to be removed by the
+									preprocessor wherever a comment is desired rather than using
+										<span><strong class="command">/* ... */</strong></span> use <span><strong class="command">/~ ...
+									~/</strong></span>.</p></td></tr></table></div></div></dd><dt><span class="term"><span><strong class="command">CLUSTERED</strong></span></span></dt><dd/><dt><span class="term"><span><strong class="command">NONCLUSTERED</strong></span></span></dt><dd/><dt><span class="term"><span><strong class="command">ROWLOCK</strong></span></span></dt><dd/><dt><span class="term"><span><strong class="command">SET NOCOUNT ON|OFF</strong></span></span></dt><dd/></dl></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="Common_Simple_Statements"/>2. Common Simple Statements</h2></div></div></div><div class="variablelist"><dl><dt><span class="term"><p><span><strong class="command">GO</strong></span></p></span></dt><dd><p>The PSQL rough equivalent of <span><strong class="command">GO</strong></span> is
+						<span><strong class="command">COMMIT</strong></span>. <span><strong class="command">GO</strong></span> is used to execute the
+						previous unexecuted TSQL statements. In PSQL data definition statements
+						(DDL) isn't automatically executed and requires a <span><strong class="command">COMMIT</strong></span>
+						statement. There is a similar requirement for PSQL <span><strong class="command">EXECUTE
+							PROCEDURE ...</strong></span> statements.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/admon/note.gif"/></td><th align="left">Note</th></tr><tr><td align="left" valign="top">A <span><strong class="command">COMMIT</strong></span> should be done between each
+						<span class="emphasis"><em>DDL</em></span> (data definition language) statement and is
+						required after the last statement. The<span><strong class="command">SET AUTODDL ON;</strong></span>
+						statement can be used to automatically have commits done after DDL
+						operations but as a "good measure" the code written here always does a
+							<span><strong class="command">COMMIT</strong></span> after each <span class="emphasis"><em>DDL</em></span>
+					statement.</td></tr></table></div></dd><dt><span class="term"><p><span><strong class="command">SET SQL DIALECT 3;</strong></span></p></span></dt><dd><p>This should be used under all circumstances at the beginning of a PSQL
+						session. It allows the use of the latest commands available to
+					Firebird.</p></dd><dt><span class="term"><span><strong class="command">Constants</strong></span></span></dt><dd><div class="example"><a id="d0e356"/><p class="title"><b>Example 2.2. Constants</b></p><div class="variablelist"><dl><dt><span class="term"><span class="emphasis"><em>TSQL</em></span></span></dt><dd><pre class="programlisting">
+create table [Module$] (
+  [Name]    varchar(kcchMaxName) <a id="co-constants_1" href="#co-constants_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+)
+go
+								</pre></dd><dt><span class="term"><span class="emphasis"><em>PSQL</em></span></span></dt><dd><pre class="programlisting">
+
+CREATE TABLE Module$
+(
+  "NAME"  VARCHAR(kcchMaxName) <a id="co-constants_1" href="#co-constants_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+);
+COMMIT;
+									</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-constants_2"/><a href="#co-constants_1"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>kcchMaxName is a constant placeholder that is
+												substituted by the preprocessor. The fact that the
+												variable starts with the lowercaseletter "k" is the
+												visual indicator that it is a constant.</p></td></tr></table></div></dd></dl></div></div></dd></dl></div></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="Exceptions"/>Chapter 3. Exceptions</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#Exceptions_Severity">1. Exceptions Severity</a></span></dt><dt><span class="section"><a href="#Exceptions_Trapping">2. Exception Trapping</a></span></dt><dt><span class="section"><a href="#Exceptions_Value">3. Exceptions Value</a></span></dt><dt><span class="section"><a href="#Exceptions_Example">4. Example</a></span></dt></dl></div><p>Exceptions in PSQL are very different than in TSQL.</p><p>The following link gives a good generic treatment on TSQL error
+  handling. Main reason for including it due to the lack of thorough treatment
+  documents on TSQL error handling even on Microsoft sites.</p><div class="itemizedlist"><ul type="disc"><li style="list-style-type: none"><p><a href="http://www.sommarskog.se/error-handling-II.html" target="_top">http://www.sommarskog.se/error-handling-II.html</a></p></li></ul></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="Exceptions_Severity"/>1. Exceptions Severity</h2></div></div></div><p>In TSQL exceptions can have an associated severity with it along
+	with other options.</p><p>In PSQL there are no severity property or other options associated
+	with an exception other than an exception name and an exception
+	message.</p></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="Exceptions_Trapping"/>2. Exception Trapping</h2></div></div></div><p>A major difference between TSQL and PSQL for exception handling is
+	in the trapping of the exceptions.</p><p>In TSQL when an exception is thrown (i.e. using
+	<span><strong class="command">RAISERROR</strong></span>) all transactions are rolled back (even
+	committed ones that were part of the stored procedure!) and the stored
+	procedure or trigger is terminated. SQL Server 2005 (Yukon) will introduce
+	a <span><strong class="command">TRY ... CATCH</strong></span> block. This appears to give a similar
+	behaviour to PSQL's <span><strong class="command">BEGIN ... WHEN ... END</strong></span>
+	block.</p><p>In PSQL an exception can be thrown, caught and ignored if required
+	or rethrown.</p></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="Exceptions_Value"/>3. Exceptions Value</h2></div></div></div><p>In TSQL you can return an error number.</p><p>In PSQL you cannot return an error number.</p></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="Exceptions_Example"/>4. Example</h2></div></div></div><p>What follows is an example to demonstrate a simple exception
+	handling conversion from TSQL to PSQL.</p><p>The intent of the code snippet is to try and delete a record and if
+	it fails to do so then it will send a user defined error message back to
+	the user.</p><div class="itemizedlist"><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+create proc [CleanObjInfoTbl$]
+  @uid uniqueidentifier
+as
+  declare @fIsNocountOn int, @Err int, @sUid nvarchar(50)
+
+  set @Err = 0 <a id="co-tsqlexcerr_1a" href="#co-tsqlexcerr_1b"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+
+  set @fIsNocountOn = @@options &amp; 512
+  if @fIsNocountOn = 0 set nocount on
+
+  -- remove the specified rows from the ObjInfoTbl$ table
+  delete [ObjInfoTbl$] with (rowlock)
+  where [uid] = @uid
+
+  set @Err = @@error <a id="co-tsqlexcerr_2a" href="#co-tsqlexcerr_2b"><img src="../images/callout/2.gif" alt="2" border="0"/></a>
+  if @Err &lt;&gt; 0 begin
+	set @sUid = convert(nvarchar(50), @Uid) <a id="co-tsqlexcuid_3a" href="#co-tsqlexcuid_3b"><img src="../images/callout/3.gif" alt="3" border="0"/></a>
+	raiserror (
+	  'CleanObjInfoTbl$: SQL Error %d; Unable to remove rows from the ObjInfoTbl$ table (UID=%s).',
+	  16, 1, @Err, @sUid)  <a id="co-tsqlexcraiserror_4a" href="#co-tsqlexcraiserror_4b"><img src="../images/callout/4.gif" alt="4" border="0"/></a>
+  end
+
+  if @fIsNocountOn = 0 set nocount off
+
+  return @Err
+go
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-tsqlexcerr_1b"/><a href="#co-tsqlexcerr_1a"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>Zeroing the <span><strong class="command">@Err</strong></span> user variable is
+			  conidered a good design practice.</p></td></tr><tr><td width="5%" valign="top" align="left"><a id="co-tsqlexcerr_2b"/><a href="#co-tsqlexcerr_2a"><img src="../images/callout/2.gif" alt="2" border="0"/></a> </td><td valign="top" align="left"><p>You need to copy the <span><strong class="command">@@Error</strong></span> system
+			  variable into a user system variable immediately after the
+			  statement for which you want to check for an error.</p></td></tr><tr><td width="5%" valign="top" align="left"><a id="co-tsqlexcuid_3b"/><a href="#co-tsqlexcuid_3a"><img src="../images/callout/3.gif" alt="3" border="0"/></a> </td><td valign="top" align="left"><p>A UUID/GUID value needs to be converted to a string in
+			  order to be used later as part of a string.</p></td></tr><tr><td width="5%" valign="top" align="left"><a id="co-tsqlexcraiserror_4b"/><a href="#co-tsqlexcraiserror_4a"><img src="../images/callout/4.gif" alt="4" border="0"/></a> </td><td valign="top" align="left"><p><span><strong class="command">RAISERROR</strong></span> raises an exception with the
+			  following options: </p><div class="variablelist"><dl><dt><span class="term"><span><strong class="command">'CleanObjInfoTbl$: SQL Error %d; Unable to
+					remove rows from the ObjInfoTbl$ table
+					(UID=%s).'</strong></span></span></dt><dd>
+					  The
+
+					  <span><strong class="command">%d</strong></span>
+
+					   and
+
+					  <span><strong class="command">%s</strong></span>
+
+					   placeholders will be substituted by the
+
+					  <span><strong class="command">@Err</strong></span>
+
+					   and
+
+					  <span><strong class="command">@sUid</strong></span>
+
+					   variables respectively.
+					</dd><dt><span class="term"><span><strong class="command">16</strong></span></span></dt><dd>
+					  Severity of 16. Usual user range is 0-18.
+					</dd><dt><span class="term"><span><strong class="command">1</strong></span></span></dt><dd>
+					  State of 1. Is an arbitrary integer from 1 through 127 that represents information about the invocation state of the error. Appears to be unused by FieldWorks.
+					</dd></dl></div></td></tr></table></div><pre class="programlisting">
+SET TERM !!;
+CREATE OR ALTER PROCEDURE CleanObjInfoTbl$ (
+	in_UID            CHAR(16) CHARACTER SET OCTETS)
+AS
+  DECLARE VARIABLE v_Str_UID        CHAR(36) CHARACTER SET OCTETS;
+  DECLARE VARIABLE v_ExcMsg         VARCHAR(78) CHARACTER SET UNICODE_FSS;
+  DECLARE VARIABLE v_ExcSQLCode     INTEGER;
+BEGIN
+  DELETE FROM ObjInfoTbl$
+	WHERE
+	  "UID" = :in_UID;
+  WHEN ANY DO
+	BEGIN
+	  v_ExcSQLCode = SQLCODE;
+	  /~
+		CleanObjInfoTbl$ SQLErr ?
+		Unable to delete rows from ObjInfoTbl$ UID= ?
+	  ~/
+	  v_Str_UID = udf_GUID_To_Varchar(in_UID);
+	  v_ExcMsg = '3 ' ||
+		CASE
+		  WHEN (v_ExcSQLCode IS NULL) THEN
+			CAST(v_ExcSQLCode AS VARCHAR(78) CHARACTER SET UNICODE_FSS)
+		  ELSE 'NA'
+		END
+		|| ' ' || v_Str_UID;
+	  EXCEPTION exc_FW_Base v_ExcMsg;
+	END
+END !!
+SET TERM ;!!
+COMMIT;
+					</pre></li></ul></div></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="Triggers"/>Chapter 4. Triggers</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#Triggers_General">1. General</a></span></dt></dl></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="Triggers_General"/>1. General</h2></div></div></div><p>General PSQL trigger notes: </p><div class="itemizedlist"><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+SET TERM !!; <a id="co-triggersTerm_1a" href="#co-triggersTerm_1b"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+CREATE TRIGGER T_BI2_Field$ FOR Field$
+  ACTIVE BEFORE INSERT POSITION 2 <a id="co-triggersPosition_1a" href="#co-triggersPosition_1b"><img src="../images/callout/2.gif" alt="2" border="0"/></a>
+AS
+BEGIN
+  /~  <a id="co-triggersComment_1a" href="#co-triggersComment_1b"><img src="../images/callout/3.gif" alt="3" border="0"/></a>
+	If Custom is NULL then insert a -1 value.
+  ~/ <a id="co-triggersComment_1a" href="#co-triggersComment_1b"><img src="../images/callout/3.gif" alt="3" border="0"/></a>
+  IF (NEW.Custom IS NULL) THEN
+	NEW.Custom = -1;
+END !! <a id="co-triggersTerm_2a"/><img src="../images/callout/4.gif" alt="4" border="0"/>
+SET TERM ; !! <a id="co-triggersTerm_3a" href="#co-triggersTerm_3b"><img src="../images/callout/5.gif" alt="5" border="0"/></a>
+COMMIT;
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-triggersTerm_1b"/><a href="#co-triggersTerm_1a"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p><span><strong class="command">SET TERM !!</strong></span> changes the command line ending from
+								";" to "!!" in order to be able to submit multiline statements as
+								when defining triggers or stored procedures.</p></td></tr><tr><td width="5%" valign="top" align="left"><a id="co-triggersPosition_1b"/><a href="#co-triggersPosition_1a"><img src="../images/callout/2.gif" alt="2" border="0"/></a> </td><td valign="top" align="left"><p><span><strong class="command">POSITION x</strong></span> identifies in which order the trigger
+								will occur. Positions 0-9 and 32750-32767 are reserved for emulating
+								TSQL features such as tinyint default value support. An example is
+								shown in the default section of this document. Positions 10-32749
+								can then be used for any other type of user triggers. Lower numbered
+								triggers occur prior to higher numbered triggers.</p></td></tr><tr><td width="5%" valign="top" align="left"><a id="co-triggersComment_1b"/><a href="#co-triggersComment_1a"><img src="../images/callout/3.gif" alt="3" border="0"/></a> </td><td valign="top" align="left"><p><span><strong class="command">/~ ... ~/</strong></span> is explained in the comments section of
+								this document.</p></td></tr><tr><td width="5%" valign="top" align="left"><a id="co-triggersComment_2b"/><a href="#co-triggersTerm_2a"><img src="../images/callout/4.gif" alt="4" border="0"/></a> </td><td valign="top" align="left"><p><span><strong class="command">END !!</strong></span> terminates the trigger declaration.</p></td></tr><tr><td width="5%" valign="top" align="left"><a id="co-triggersTerm_3b"/><a href="#co-triggersTerm_3a"><img src="../images/callout/5.gif" alt="5" border="0"/></a> </td><td valign="top" align="left"><p><span><strong class="command">SET TERM ;</strong></span> changes the command line ending back
+								to ";" from "!!".</p></td></tr></table></div></li></ul></div></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="Table_Creation"/>Chapter 5. Table Creation</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#General_Table_Notes">1. General Table Notes</a></span></dt><dd><dl><dt><span class="section"><a href="#Table_Deletion">1.1. Table Deletion</a></span></dt></dl></dd><dt><span class="section"><a href="#Constraints">2. Constraints</a></span></dt><dd><dl><dt><span class="section"><a href="#Check_Constraints">2.1. Check Constraints</a></span></dt><dt><span class="section"><a href="#Foreign_Keys">2.2. Foreign Keys</a></span></dt><dt><span class="section"><a href="#Null_Constraints">2.3. NULL Contraints</a></span></dt><dt><span class="section"><a href="#Primary_Keys">2.4. Primary Keys</a></span></dt><dt><span class="section"><a href="#Unique_Constraints">2.5. Unique Constraints</a></span></dt></dl></dd><dt><span class="section"><a href="#Default_Values">3. Default Values</a></span></dt><dd><dl><dt><span class="section"><a href="#Constant_Defaults">3.1. Constant Values</a></span></dt><dt><span class="section"><a href="#Function_Defaults">3.2. Function Defaults</a></span></dt><dt><span class="section"><a href="#Null_Values">3.3. NULL Values</a></span></dt></dl></dd></dl></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="General_Table_Notes"/>1. General Table Notes</h2></div></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="Table_Deletion"/>1.1. Table Deletion</h3></div></div></div><p>If table already exists before you recreate it you want to first delete it.</p><p><a id="Table_Deletion_TSQL"/><span><span class="emphasis"><em>TSQL</em></span></span></p><div class="itemizedlist"><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+if object_id('Version$') is not null begin <a id="co-object_exists_1" href="#co-object_exists_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+	drop table [Version$] <a id="co-bracket_1" href="#co-bracket_2"><img src="../images/callout/2.gif" alt="2" border="0"/></a>
+end
+go
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-object_exists_2"/><a href="#co-object_exists_1"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>"object_id" tests for the existence of the table.</p></td></tr><tr><td width="5%" valign="top" align="left"><a id="co-bracket_2"/><a href="#co-bracket_1"><img src="../images/callout/2.gif" alt="2" border="0"/></a> </td><td valign="top" align="left"><p>"[...]" brackets are used to escape illegal or special characters
+								so that they can be part of the name. These will also make the table
+								names or field names case-sensitive.</p></td></tr></table></div></li></ul></div><p><a id="Table_Deletion_PSQL"/><span><span class="emphasis"><em>PSQL</em></span></span></p><div class="itemizedlist"><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+EXECUTE PROCEDURE spx_Drop_Table('Version$'); <a id="co-case_1" href="#co-case_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+COMMIT;
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-case_2"/><a href="#co-case_1"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>"spx_Drop_Table" table name parameter is case insensitive.</p></td></tr></table></div></li></ul></div></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="Constraints"/>2. Constraints</h2></div></div></div><p>Most constraints can be declared with the table creation statement (one step) rather than
+		in separate statements (multiple steps) as shown further with the primary key constraints.
+		The preference used here is to use multiple steps to accomplish this. This is a stylistic
+		preference which is useful when porting code to make each aspect of the table definition
+		more clear. This method of declaring constraints in multiple steps is preferred for all
+		types of field and table constraints rather than inline with the field and table
+		definitions. All examples, except for primary keys where both ways are shown as an example,
+		will use the multiple steps method of declaring constraints. For either method it is much
+		preferred to control the name assigned to the primary key than use an arbitrarily system
+		generated name.</p><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="Check_Constraints"/>2.1. Check Constraints</h3></div></div></div><p><a id="Check_Constraints_TSQL"/><span class="emphasis"><em>TSQL</em></span></p><div class="itemizedlist"><a id="Check_Constraints_TSQL1"/><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+create table [Module$] (
+  [Ver]     int                   not null,
+  [VerBack] int                   not null,
+
+  constraint [_CK_Module$_VerBack] check (0 &lt; [VerBack] and [VerBack] &lt;= [Ver]) <a id="co-constraint_1" href="#co-constraint_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+)
+go
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-constraint_2"/><a href="#co-constraint_1"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p><span><strong class="command">CHECK</strong></span> constraint.</p></td></tr></table></div></li></ul></div><p><a id="Check_Constraints_PSQL"/><span class="emphasis"><em>PSQL</em></span></p><div class="itemizedlist"><a id="Check_Constraints_PSQL1"/><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+CREATE TABLE Module$
+(
+  "VER"                INTEGER NOT NULL,
+  "VERBACK"            INTEGER NOT NULL
+);
+COMMIT; <a id="co-checkcommit_1" href="#co-checkcommit_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+ALTER TABLE Module$ ADD CONSTRAINT CK_MODULE$_VERBACK CHECK ("VERBACK" BETWEEN 1 AND "VER"); <a id="co-check_1" href="#co-check_2"><img src="../images/callout/2.gif" alt="2" border="0"/></a>
+COMMIT; <a id="co-checkcommit_1" href="#co-checkcommit_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a></pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-checkcommit_2"/><a href="#co-checkcommit_1"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>A <span><strong class="command">COMMIT</strong></span> should be done between each
+							statement.</p></td></tr><tr><td width="5%" valign="top" align="left"><a id="co-check_2"/><a href="#co-check_1"><img src="../images/callout/2.gif" alt="2" border="0"/></a> </td><td valign="top" align="left"><p><span><strong class="command">CHECK</strong></span> constraint. ("VERBACK" BETWEEN 1 AND "VER")
+								is equivalent to (0 &lt; [VerBack] and [VerBack] &lt;=
+								[Ver]).</p></td></tr></table></div></li></ul></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="Foreign_Keys"/>2.2. Foreign Keys</h3></div></div></div><p><a id="Foreign_Keys_TSQL"/><span class="emphasis"><em>TSQL</em></span></p><div class="itemizedlist"><a id="Foreign_Keys_TSQL1"/><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+create table [Class$] (
+  [Id]        int  primary key,
+  [Mod]       int  not null  references [Module$] ([Id]) <a id="co-fk_1" href="#co-fk_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+)
+go
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-fk_2"/><a href="#co-fk_1"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>Foreign key reference constraint between table
+									<span class="emphasis"><em>Class$.Mod</em></span> field and the
+									<span class="emphasis"><em>Module$.ID</em></span> field where the parent table is
+									<span class="emphasis"><em>Module$</em></span> and the child table is
+									<span class="emphasis"><em>Class$</em></span>.</p></td></tr></table></div></li></ul></div><p><a id="Foreign_Keys_PSQL"/><span class="emphasis"><em>PSQL</em></span></p><div class="itemizedlist"><a id="Foreign_Keys_PSQL1"/><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+CREATE TABLE Class$
+(
+  "ID"                 INTEGER NOT NULL,
+  "MOD"                INTEGER NOT NULL
+);
+COMMIT;
+ALTER TABLE Class$ ADD CONSTRAINT PK_CLASS$ PRIMARY KEY ("ID");
+COMMIT;
+ALTER TABLE Class$ ADD CONSTRAINT FK_CLASS$_MODULE$ FOREIGN KEY ("MOD") REFERENCES Module$ ("ID"); <a id="co-fk_3" href="#co-fk_4"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+COMMIT;
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-fk_4"/><a href="#co-fk_3"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>Foreign key reference constraint between table
+									<span class="emphasis"><em>Class$.Mod</em></span> field and the
+									<span class="emphasis"><em>Module$.ID</em></span> field where the parent table is
+									<span class="emphasis"><em>Module$</em></span> and the child table is
+									<span class="emphasis"><em>Class$</em></span>.</p></td></tr></table></div></li></ul></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="Null_Constraints"/>2.3. NULL Contraints</h3></div></div></div><p><a id="Null_Constraints_TSQL"/><span class="emphasis"><em>TSQL</em></span></p><div class="itemizedlist"><a id="Null_Constraints_TSQL1"/><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+create table [Field$] (
+  [Id]        int       primary key, <a id="co-nonull_1" href="#co-nonull_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+  [Type]      int       not null, <a id="co-nonull_1" href="#co-nonull_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+  [DstCls]    int       null, <a id="co-allownull_1" href="#co-allownull_2"><img src="../images/callout/2.gif" alt="2" border="0"/></a>
+  [Min]       bigint    <a id="co-allownull_1" href="#co-allownull_2"><img src="../images/callout/2.gif" alt="2" border="0"/></a>
+)
+go
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-nonull_2"/><a href="#co-nonull_1"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>"NULL" values aren't allowed. For primary keys by definition
+								"NULL" values aren't allowed.</p></td></tr><tr><td width="5%" valign="top" align="left"><a id="co-allownull_2"/><a href="#co-allownull_1"><img src="../images/callout/2.gif" alt="2" border="0"/></a> </td><td valign="top" align="left"><p>Allow "NULL" values. If unspecified then this implies that the
+								field allows "NULL" values.</p></td></tr></table></div></li></ul></div><p><a id="Null_Constraints_PSQL"/><span class="emphasis"><em>PSQL</em></span></p><div class="itemizedlist"><a id="Null_Constraints_PSQL1"/><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+CREATE TABLE Field$
+(
+  "ID"                 INTEGER NOT NULL, <a id="co-nonull_3" href="#co-nonull_4"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+  "TYPE"               INTEGER NOT NULL, <a id="co-nonull_3" href="#co-nonull_4"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+  "DSTCLS"             INTEGER NULL, <a id="co-allownull_3" href="#co-allownull_4"><img src="../images/callout/2.gif" alt="2" border="0"/></a>
+  "MIN"                BIGINT <a id="co-allownull_3" href="#co-allownull_4"><img src="../images/callout/2.gif" alt="2" border="0"/></a>
+);
+COMMIT;
+ALTER TABLE Field$ ADD CONSTRAINT PK_FIELD$ PRIMARY KEY ("ID"); <a id="co-nonull_3" href="#co-nonull_4"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+COMMIT;
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-nonull_4"/><a href="#co-nonull_3"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>"NULL" values aren't allowed. For primary keys by definition
+								"NULL" values aren't allowed.</p></td></tr><tr><td width="5%" valign="top" align="left"><a id="co-allownull_4"/><a href="#co-allownull_3"><img src="../images/callout/2.gif" alt="2" border="0"/></a> </td><td valign="top" align="left"><p>Allowing "NULL"s is the default behaviour and doesn't have to be
+								explicitly specified.</p></td></tr></table></div></li></ul></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="Primary_Keys"/>2.4. Primary Keys</h3></div></div></div><p><a id="Primary_Keys_TSQL"/><span class="emphasis"><em>TSQL</em></span></p><div class="itemizedlist"><a id="Primary_Keys_TSQL1"/><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+create table [Version$] (
+	[DbVer]             int primary key, <a id="co-pk_1" href="#co-pk_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+	[Guid$]             uniqueidentifier  not null
+)
+go
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-pk_2"/><a href="#co-pk_1"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>The keywords <span><strong class="command">primary key</strong></span> is added to the field
+								definition. The primary key constraint as defined above will be
+								assigned an arbitrary name by the system.</p></td></tr></table></div></li></ul></div><p><a id="Primary_Keys_PSQL"/><span><a id="Primary_Keys_PSQL1a"/><span class="emphasis"><em>PSQL Method 1</em></span> defines primary key in one step.</span></p><div class="itemizedlist"><a id="Primary_Keys_PSQL1b"/><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+CREATE TABLE Version$
+(
+  "DBVER"              INTEGER NOT NULL CONSTRAINT PK_VERSION$ PRIMARY KEY,
+  "GUID$"              CHAR(16) CHARACTER SET OCTETS NOT NULL
+);
+COMMIT;
+					</pre></li></ul></div><p><span><a id="Primary_Keys_PSQL2a"/><span class="emphasis"><em>PSQL Method 2</em></span> defines the primary key in two steps.</span></p><div class="itemizedlist"><a id="Primary_Keys_PSQL2b"/><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+CREATE TABLE Version$
+(
+  "DBVER"              INTEGER NOT NULL, <a id="co-pka_1" href="#co-pka_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+  "GUID$"              CHAR(16) CHARACTER SET OCTETS NOT NULL
+);
+COMMIT;
+ALTER TABLE Version$ ADD CONSTRAINT PK_VERSION$ PRIMARY KEY ("DBVER"); <a id="co-pkb_1" href="#co-pkb_2"><img src="../images/callout/2.gif" alt="2" border="0"/></a>
+COMMIT;
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-pka_2"/><a href="#co-pka_1"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>Create the table with the primary key field declared as
+									<span><strong class="command">NOT NULL</strong></span>.</p></td></tr><tr><td width="5%" valign="top" align="left"><a id="co-pkb_2"/><a href="#co-pkb_1"><img src="../images/callout/2.gif" alt="2" border="0"/></a> </td><td valign="top" align="left"><p>Add a <span><strong class="command">PRIMARY KEY</strong></span> constraint to the table for
+								the desired PK field. The <span><strong class="command">PRIMARY KEY</strong></span> field of a
+								table is not nullable.</p></td></tr></table></div></li></ul></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="Unique_Constraints"/>2.5. Unique Constraints</h3></div></div></div><p><a id="Unique_Constraints_TSQL"/><span class="emphasis"><em>TSQL</em></span></p><div class="itemizedlist"><a id="Unique_Constraints_TSQL1"/><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+create table [Module$] (
+  [Id]      int,
+  [Name]    nvarchar(40) unique <a id="co-uniqueconstraint_1" href="#co-uniqueconstraint_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+)
+go
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-uniqueconstraint_2"/><a href="#co-uniqueconstraint_1"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p><span><strong class="command">UNIQUE</strong></span> constraint.</p></td></tr></table></div></li></ul></div><p><a id="Unique_Constraints_PSQL"/><span class="emphasis"><em>PSQL</em></span></p><div class="itemizedlist"><a id="Unique_Constraints_PSQL1"/><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+CREATE TABLE Module$
+(
+  "ID"                 INTEGER,
+  "NAME"               VARCHAR(40) CHARACTER SET UNICODE_FSS
+);
+COMMIT;
+ALTER TABLE Module$ ADD CONSTRAINT UQ_MODULE$_NAME UNIQUE ("NAME"); <a id="co-uniqueconstraint_3" href="#co-uniqueconstraint_4"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+COMMIT;
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-uniqueconstraint_4"/><a href="#co-uniqueconstraint_3"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p><span><strong class="command">UNIQUE</strong></span> constraint. Because unique constraints are
+								implemented via indexes and because the <span class="emphasis"><em>NAME</em></span>
+								field is unicode then the length is limited in Firebird to a maximum
+								of 84 unicode characters.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/admon/note.gif"/></td><th align="left">Note</th></tr><tr><td align="left" valign="top"><p><span><strong class="command">UNIQUE</strong></span> constraint fields can be nullable if
+									required. This is a key differentition with <span><strong class="command">PRIMARY
+									KEY</strong></span> fields which can not be nullable.</p></td></tr></table></div></td></tr></table></div></li></ul></div></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="Default_Values"/>3. Default Values</h2></div></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="Constant_Defaults"/>3.1. Constant Values</h3></div></div></div><div class="orderedlist"><ol type="A"><li><p><a id="Constant_Literals"/>Where TSQL-PSQL datatype mapping allows use of PSQL literals:</p><p><a id="Constant_Defaults_TSQLa"/><span class="emphasis"><em>TSQL</em></span></p><div class="itemizedlist"><a id="Constant_Defaults_TSQL1"/><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+create table [Field$] (
+  [Custom]  smallint  not null  default 1, <a id="co-defaultconstants1T_1a" href="#co-defaultconstants1T_1b"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+  [Big]     smallint            default 0 <a id="co-defaultconstants1T_1a" href="#co-defaultconstants1T_1b"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+)
+go
+							</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-defaultconstants1T_1b"/><a href="#co-defaultconstants1T_1a"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>Constant or literal default value.</p></td></tr></table></div></li></ul></div><p><a id="Constant_Defaults_PSQLa"/><span class="emphasis"><em>PSQL</em></span></p><div class="itemizedlist"><a id="Constant_Defaults_PSQL1"/><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+CREATE TABLE Field$
+(
+  "CUSTOM"  SMALLINT DEFAULT 1  NOT NULL, <a id="co-defaultconstants1P_1a" href="#co-defaultconstants1P_1b"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+  "BIG"     SMALLINT DEFAULT 0 <a id="co-defaultconstants1P_1a" href="#co-defaultconstants1P_1b"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+);
+COMMIT;
+							</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-defaultconstants1P_1b"/><a href="#co-defaultconstants1P_1a"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>Constant or literal default value.</p></td></tr></table></div></li></ul></div></li><li><p>Where TSQL-PSQL datatype mapping doesn't allow use of PSQL literals:</p><p><a id="Constant_Defaults_TSQLb"/><span class="emphasis"><em>TSQL</em></span></p><div class="itemizedlist"><a id="Constant_Defaults_TSQL2"/><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+create table [Field$] (
+  [Custom]  tinyint  not null  default 1, <a id="co-defaultconstants2T_1a" href="#co-defaultconstants2T_1b"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+  [Big]     bit                default 0 <a id="co-defaultconstants2T_1a" href="#co-defaultconstants2T_1b"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+)
+go
+							</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-defaultconstants2T_1b"/><a href="#co-defaultconstants2T_1a"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>Constant or literal default value. The approach is the
+										same for TSQL whether the datatypes are directly mappable or
+										not.</p></td></tr></table></div></li></ul></div><p><a id="Constant_Defaults_PSQLb"/><span class="emphasis"><em>PSQL</em></span></p><div class="itemizedlist"><a id="Constant_Defaults_PSQL2"/><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+CREATE TABLE Field$
+(
+  "CUSTOM"  CHAR(1) CHARACTER SET OCTETS  NOT NULL, <a id="co-defaultconstants2P_1a" href="#co-defaultconstants2P_1b"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+  "BIG"     CHAR(2) CHARACTER SET OCTETS <a id="co-defaultconstants2P_1a" href="#co-defaultconstants2P_1b"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+);
+COMMIT;
+/* T_BI32767_Field$ Trigger */
+#include &lt;T_BI32767_Field$.trg&gt; <a id="co-defaultconstants2P_2a" href="#co-defaultconstants2P_2b"><img src="../images/callout/2.gif" alt="2" border="0"/></a></pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-defaultconstants2P_1b"/><a href="#co-defaultconstants2P_1a"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>Constant or literal default value is not possible.</p></td></tr><tr><td width="5%" valign="top" align="left"><a id="co-defaultconstants2P_2b"/><a href="#co-defaultconstants2P_2a"><img src="../images/callout/2.gif" alt="2" border="0"/></a> </td><td valign="top" align="left"><p>A trigger is required to be defined to insert the default
+										values that can't be inserted using literals or
+									constants.</p></td></tr></table></div><p>Where T_BI32767_Field$.trg's content is:</p><pre class="programlisting">
+SET TERM !!;
+CREATE TRIGGER T_BI32767_Field$ FOR Field$
+  ACTIVE BEFORE INSERT POSITION 32767 <a id="co-defaultconstants3P_1a" href="#co-defaultconstants3P_1b"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+AS
+BEGIN
+  /~
+	Following two field assignments return
+	a CHAR(1) and CHAR(2) values
+  ~/
+  IF (NEW.Custom IS NULL) THEN
+	NEW.Custom = udf_Tinyint(1); <a id="co-defaultconstants3P_2a"/><img src="../images/callout/2.gif" alt="2" border="0"/>
+  IF (NEW.Big IS NULL) THEN
+	NEW.Big = udf_Bit(0); <a id="co-defaultconstants3P_3a"/><img src="../images/callout/3.gif" alt="3" border="0"/>
+END !!
+SET TERM ; !!
+COMMIT;
+							</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-defaultconstants3P_1b"/><a href="#co-defaultconstants3P_1a"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>Trigger needs to be declared with <span><strong class="command">BEFORE INSERT
+											POSITION 32767</strong></span> so that the defaults will be
+										inserted after the other <span><strong class="command">BEFORE</strong></span> triggers
+										running but before any of the <span><strong class="command">AFTER</strong></span>
+										triggers.</p></td></tr></table></div></li></ul></div></li></ol></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="Function_Defaults"/>3.2. Function Defaults</h3></div></div></div><p><a id="Function_Defaults_TSQL"/><span class="emphasis"><em>TSQL</em></span></p><div class="itemizedlist"><a id="Function_Defaults_TSQL1"/><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+create table [Field$] (
+  [CustomId]  uniqueidentifier  default newid(), <a id="co-defaultfunction_1" href="#co-defaultfunction_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+)
+go
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-defaultfunction_2"/><a href="#co-defaultfunction_1"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>Function derived default value.</p><div class="note" style="margin-left: 0.5in; margin-right: 0.5in;"><table border="0" summary="Note"><tr><td rowspan="2" align="center" valign="top" width="25"><img alt="[Note]" src="../images/admon/note.gif"/></td><th align="left">Note</th></tr><tr><td align="left" valign="top"><p><span><strong class="command">NEWID()</strong></span> is a built-in TSQL function for which
+									PSQL has no equivalent. <span><strong class="command">UNIQUEIDENTIFIER</strong></span> is a
+									TSQL type which stores a UUID (or sometimes referred to as
+									GUID).</p></td></tr></table></div></td></tr></table></div></li></ul></div><p><a id="Function_Defaults_PSQL"/><span class="emphasis"><em>PSQL</em></span></p><div class="itemizedlist"><a id="Function_Defaults_PSQL1"/><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+CREATE TABLE Field$
+(
+  "CUSTOMID"  CHAR(16) CHARACTER SET UNICODE_FSS <a id="co-defaultfunction_3" href="#co-defaultfunction_4"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+);
+COMMIT;
+/* T_BI32767_Field$ Trigger */
+#include &lt;T_BI32767_Field$.trg&gt; <a id="co-defaultfunction_5" href="#co-defaultfunction_6"><img src="../images/callout/2.gif" alt="2" border="0"/></a></pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-defaultfunction_4"/><a href="#co-defaultfunction_3"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>Function default value is not possible.</p></td></tr><tr><td width="5%" valign="top" align="left"><a id="co-defaultfunction_6"/><a href="#co-defaultfunction_5"><img src="../images/callout/2.gif" alt="2" border="0"/></a> </td><td valign="top" align="left"><p>A trigger is required to be defined to insert the default values
+								that can't be inserted using a function.</p></td></tr></table></div><p>Where T_BI32767_Field$.trg's content is:</p><pre class="programlisting">
+SET TERM !!;
+CREATE TRIGGER T_BI32767_Field$ FOR Field$
+  ACTIVE BEFORE INSERT POSITION 32767 <a id="co-defaultfunction_7" href="#co-defaultfunction_8"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+AS
+BEGIN
+  IF (NEW."CUSTOMID" IS NULL) THEN
+  BEGIN
+	NEW."CUSTOMID" = udf_New_GUID();
+  END
+END !!
+SET TERM ; !!
+COMMIT;
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-defaultfunction_8"/><a href="#co-defaultfunction_7"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>Trigger needs to be declared with <span><strong class="command">BEFORE INSERT POSITION
+									32767</strong></span> so that the defaults will be inserted after the
+								other <span><strong class="command">BEFORE</strong></span> triggers running but before any of
+								the <span><strong class="command">AFTER</strong></span> triggers.</p></td></tr></table></div></li></ul></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h3 class="title"><a id="Null_Values"/>3.3. NULL Values</h3></div></div></div><p><a id="Null_Values_TSQL"/><span class="emphasis"><em>TSQL</em></span></p><div class="itemizedlist"><a id="Null_Values_TSQL1"/><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+create table [Field$] (
+  [DstCls]    int default null, <a id="co-defaultnull_1" href="#co-defaultnull_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+  [Min]       int <a id="co-defaultnull_1" href="#co-defaultnull_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+)
+go
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-defaultnull_2"/><a href="#co-defaultnull_1"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>"NULL" default value. If the default value isn't specified then
+								the default value is "NULL".</p></td></tr></table></div></li></ul></div><p><a id="Null_Values_PSQL"/><span class="emphasis"><em>PSQL</em></span></p><div class="itemizedlist"><a id="Null_Values_PSQL1"/><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+CREATE TABLE Field$
+(
+  "DSTCLS"             INTEGER DEFAULT NULL, <a id="co-defaultnull_3" href="#co-defaultnull_4"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+  "MIN"                INTEGER <a id="co-defaultnull_3" href="#co-defaultnull_4"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+);
+COMMIT;
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-defaultnull_4"/><a href="#co-defaultnull_3"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>Specifying a "NULL" default value for a "NULLABLE" field is
+								redundant and doesn't need to be specified. The <span><strong class="command">DEFAULT
+									NULL</strong></span> specifier for the "DSTCLS" field is not required.
+								The "MIN" field declaration achieves the same results as the
+								"DSTCLS" field declaration.</p></td></tr></table></div></li></ul></div></div></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="Indexes"/>Chapter 6. Indexes</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#d0e1041">1. Index Size Calculation</a></span></dt><dt><span class="section"><a href="#Regular_Indexes">2. Regular Indexes</a></span></dt><dt><span class="section"><a href="#Compound_Indexes">3. Compound Indexes</a></span></dt></dl></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="d0e1041"/>1. Index Size Calculation</h2></div></div></div><p>In Firebird the size of the indexes are more limited than in MSSQL.
+	</p><p>Maximum index key size: Start at 256 bytes for a single-column key,
+	and 200 for multi-column keys. Subtract four bytes per column. For
+	example: a single-column CHAR key can be up to 256 - 4 = 252 bytes; a
+	three-column key must add up to 200 - 12 = 188 bytes. Note that multi-byte
+	character sets must fit within the key by counting bytes, not by counting
+	characters. For example, a single-column key using 3-byte UNICODE_FSS
+	characters can have a maximum of (256 - 4) / 3 = 84 characters. The
+	following page will help you calculate the index size <a href="../html/ip_ib_indexcalculator.htm" target="_top">Interbase/Firebird Index Size
+	Calculator</a> by <span class="emphasis"><em>Ivan Prenosil</em></span>
+	(Ivan.Prenosil@seznam.cz) found at <a href="http://www.volny.cz/iprenosil/interbase/ip_ib_indexcalculator.htm" target="_top">www.volny.cz/iprenosil/interbase/ip_ib_indexcalculator.htm</a>.
+	</p><p>When Firebird 2.0 is released the aggregate key length limit of 252
+	bytes is removed. The limit will depend on page size. Actual numbers and
+	more information to come.</p></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="Regular_Indexes"/>2. Regular Indexes</h2></div></div></div><p><span class="emphasis"><em>TSQL</em></span></p><div class="itemizedlist"><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+create table [Field$] (
+  [DstCls]    int
+)
+create index ind_Field$_DstCls on Field$(DstCls) <a id="co-index_1" href="#co-index_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+go
+					</pre><tr><td width="5%" valign="top" align="left"><a id="co-index_2"/><a href="#co-index_1"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>Index definition.</p></td></tr></li></ul></div><p><span class="emphasis"><em>PSQL</em></span></p><div class="itemizedlist"><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+CREATE TABLE Field$
+(
+  "DSTCLS"  INTEGER
+);
+COMMIT;
+CREATE INDEX IX_FIELD$_DSTCLS ON Field$("DSTCLS"); <a id="co-index_3" href="#co-index_4"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+COMMIT;
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-index_4"/><a href="#co-index_3"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>Regular single-field index. Use a naming convention that
+			  is as follows: IX_tablename_fieldname.</p></td></tr></table></div></li></ul></div></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="Compound_Indexes"/>3. Compound Indexes</h2></div></div></div><p><span class="emphasis"><em>TSQL</em></span></p><div class="itemizedlist"><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+create table [Field$] (
+  [Class]     int,
+  [Name]      nvarchar(80)
+
+  constraint [_UQ_Field$_Class_Fieldname] unique ([class], [name]), <a id="co-compoundkeys_1" href="#co-compoundkeys_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+)
+create index Ind_Field$_Class on Field$(Class) <a id="co-redundantindex_1" href="#co-redundantindex_2"><img src="../images/callout/2.gif" alt="2" border="0"/></a>
+go
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-compoundkeys_2"/><a href="#co-compoundkeys_1"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>Compound field (multiple fields) index will automatically
+			  be created to enforce the "UNIQUE" constraint.</p></td></tr><tr><td width="5%" valign="top" align="left"><a id="co-redundantindex_2"/><a href="#co-redundantindex_1"><img src="../images/callout/2.gif" alt="2" border="0"/></a> </td><td valign="top" align="left"><p>Index definition. It may be redundant because the "UNIQUE"
+			  constraint _UQ_Field$_Class_Fieldname declaration has "Class" as
+			  its first field of the compound fields constraint which
+			  automatically creates an index to enforce this constraint and
+			  therefore the unique index could be used by the optimizer when
+			  querying on the "Class" field.</p></td></tr></table></div></li></ul></div><p><span class="emphasis"><em>PSQL</em></span></p><div class="itemizedlist"><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+CREATE TABLE Field$
+(
+  "CLASS"              INTEGER,
+  "NAME"               VARCHAR(80) CHARACTER SET UNICODE_FSS
+);
+COMMIT;
+ALTER TABLE Field$ ADD CONSTRAINT UQ_FIELD$_CLASS_NAME UNIQUE ("CLASS", "NAME"); <a id="co-compoundkeys_3" href="#co-compoundkeys_4"><img src="../images/callout/1.gif" alt="1" border="0"/></a><a id="co-redundantindex_3" href="#co-redundantindex_4"><img src="../images/callout/2.gif" alt="2" border="0"/></a>
+COMMIT;
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-compoundkeys_4"/><a href="#co-compoundkeys_3"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>When declaring unique compound keys you overall length is
+			  more restricted than with regular unique keys. In this case the
+			  Unicode Varchar is restricted to a maximum length of 64 because
+			  it is combined with an Integer field. But if it was a single
+			  field Unicode Varchar uniques index it would be limited to 84 in
+			  length.</p></td></tr><tr><td width="5%" valign="top" align="left"><a id="co-redundantindex_4"/><a href="#co-redundantindex_3"><img src="../images/callout/2.gif" alt="2" border="0"/></a> </td><td valign="top" align="left"><p>A separate index on "CLASS" is redundant because the
+			  "UNIQUE" constraint UQ_FIELD$_CLASS_NAME declaration has "CLASS"
+			  as its first field of the compound fields constraint which
+			  automatically creates an index to enforce this constraint and
+			  therefore the unique index will be used by the optimizer when
+			  querying on the "CLASS" field. In Firebird having a separate
+			  index that only contains the desired field will not help queries
+			  and will have a negative performance impact during DML
+			  operations because of the additional index update that is
+			  required.</p></td></tr></table></div></li></ul></div></div></div><div class="chapter" lang="en"><div class="titlepage"><div><div><h2 class="title"><a id="DML"/>Chapter 7. Data Manipulation Language</h2></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#DML_Inserts">1. Inserts (DML) Conversion</a></span></dt></dl></div><div class="section" lang="en"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a id="DML_Inserts"/>1. Inserts (DML) Conversion</h2></div></div></div><p><span class="emphasis"><em>TSQL:</em></span></p><div class="itemizedlist"><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+insert into AppCompat$(
+	[AppGuid]
+  values(
+	'76230C21-7084-11D5-83CD-0050BA78F57C'); <a id="co-uidie_1" href="#co-uidie_2"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+go
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-uidie_2"/><a href="#co-uidie_1"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>TSQL doesn't require any special handling for UID values inserts
+								except it has to be in the character representation.</p></td></tr></table></div></li></ul></div><p><span class="emphasis"><em>PSQL:</em></span></p><div class="itemizedlist"><ul type="disc"><li style="list-style-type: none"><pre class="programlisting">
+INSERT INTO APPCOMPAT$(
+	"APPGUID",
+	"APPNAME",
+	"EARLIESTCOMPATVER",
+	"LASTKNOWNCOMPATVER")
+  VALUES(
+	udf_Varchar_To_GUID( <a id="co-uidie_3" href="#co-uidie_4"><img src="../images/callout/1.gif" alt="1" border="0"/></a>
+	  CAST('76230C21-7084-11D5-83CD-0050BA78F57C' AS VARCHAR(36) CHARACTER SET OCTETS))); <a id="co-uidie_5" href="#co-uidie_6"><img src="../images/callout/2.gif" alt="2" border="0"/></a>
+COMMIT;
+					</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><a id="co-uidie_4"/><a href="#co-uidie_3"><img src="../images/callout/1.gif" alt="1" border="0"/></a> </td><td valign="top" align="left"><p>PSQL requires the use of the udf_Varchar_To_GUID UDF to insert a
+								UID value.</p></td></tr><tr><td width="5%" valign="top" align="left"><a id="co-uidie_6"/><a href="#co-uidie_5"><img src="../images/callout/2.gif" alt="2" border="0"/></a> </td><td valign="top" align="left"><p>PSQL also requires the <span><strong class="command">CAST('...' AS VARCHAR(36)
+									CHARACTER SET OCTETS)</strong></span> syntax usage so that PSQL knows
+								to not do any transliteration and treat this insert as a binary data
+								insert.</p></td></tr></table></div></li></ul></div></div></div></div></body></html>

@@ -1,0 +1,19 @@
+<preface id="Prerequisites">
+	<title>Prerequisites</title>
+	<para>The following items have to be understood prior to reading this document:</para>
+	<itemizedlist>
+		<listitem>
+			<para>Datatype mapping between MSSQL and Firebird. This is covered by the following
+				document: ...to be added later...</para>
+		</listitem>
+		<listitem>
+			<para>Custom <emphasis>spx_...</emphasis> stored procedures are already loaded into
+				Firebird.</para>
+		</listitem>
+		<listitem>
+			<para>Custom <emphasis>udf_...</emphasis> user defined functions such as
+					<emphasis>udf_Varchar_To_GUID</emphasis> are already loaded into
+			Firebird.</para>
+		</listitem>
+	</itemizedlist>
+</preface>
