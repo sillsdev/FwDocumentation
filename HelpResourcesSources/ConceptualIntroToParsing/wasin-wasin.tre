@@ -1,0 +1,46 @@
+<LingTreeTree>
+  <Version>0.7.0.28794</Version>
+  <Description>(Word (Stem (Stem (root (\L wasi (\G house))) (suffix (\L -n (\G 3P)))) (Stem (root (\L wasi (\G house))) (suffix (\L -n (\G 3P))))))</Description>
+  <VerticalGap>300</VerticalGap>
+  <HorizontalGap>300</HorizontalGap>
+  <InitialXCoord>100</InitialXCoord>
+  <InitialYCoord>100</InitialYCoord>
+  <HorizontalOffset>7624</HorizontalOffset>
+  <LexGlossGapAdjustment>0</LexGlossGapAdjustment>
+  <TrySmoothing>False</TrySmoothing>
+  <TryPixelOffset>False</TryPixelOffset>
+  <ShowFlatView>False</ShowFlatView>
+  <GlossFontFace>Courier New</GlossFontFace>
+  <GlossFontSize>12</GlossFontSize>
+  <GlossFontStyle>Regular</GlossFontStyle>
+  <LexFontFace>Courier New</LexFontFace>
+  <LexFontSize>12</LexFontSize>
+  <LexFontStyle>Regular</LexFontStyle>
+  <NTFontFace>Courier New</NTFontFace>
+  <NTFontSize>12</NTFontSize>
+  <NTFontStyle>Regular</NTFontStyle>
+  <GlossColorArgb>-16744448</GlossColorArgb>
+  <LexColorArgb>-16776961</LexColorArgb>
+  <NTColorArgb>-65536</NTColorArgb>
+  <LinesColorArgb>-16777216</LinesColorArgb>
+  <BackgroundColorArgb>-1</BackgroundColorArgb>
+  <LineWidth>0</LineWidth>
+  <CustomColors>
+	<int>0</int>
+	<int>0</int>
+	<int>0</int>
+	<int>0</int>
+	<int>0</int>
+	<int>0</int>
+	<int>0</int>
+	<int>0</int>
+	<int>0</int>
+	<int>0</int>
+	<int>0</int>
+	<int>0</int>
+	<int>0</int>
+	<int>0</int>
+	<int>0</int>
+	<int>0</int>
+  </CustomColors>
+</LingTreeTree>
