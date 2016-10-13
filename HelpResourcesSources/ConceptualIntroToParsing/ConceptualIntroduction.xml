@@ -17,9 +17,14 @@ type="WordWorks"
 ><shortTitle
 >Parsing Conceptual Introduction</shortTitle
 ><author
->H. Andrew Black</author
+>H. Andrew Black<endnote
+id="nJonathanCoombs"
+><p
+>Thanks to Jonathan Coombs (personal communication, email of May 30, 2012) for reviewing a version of this document and making many suggestions for improving it.</p
+></endnote
+></author
 ><date
->18-November-2011</date
+>13-May-2014</date
 ><contents
 showLevel="5"
 ></contents
@@ -1368,7 +1373,7 @@ num="xCaquinteFuture"
 ><line
 ><langData
 lang="lCaquinte"
->intsavetacojitero</langData
+>intsavetakohitero</langData
 ></line
 ><line
 ><langData
@@ -1410,7 +1415,7 @@ author="yes"
 page="12-13"
 ref="rSpencer1991"
 ></citation
-> in <exampleRef
+>) in <exampleRef
 equal="no"
 letterOnly="no"
 num="xTagalogInfixation"
@@ -1828,9 +1833,11 @@ type="InFocus"
 letter="xCaquintePrefix0"
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lCaquinte"
 >oasanomahakemparime</langData
+></wrd
 ></line
 ><line
 ><wrd
@@ -2622,7 +2629,10 @@ lang="lNahuatl"
 ><td
 align="left"
 valign="top"
->‘Plural’</td
+><gloss
+lang="lGloss"
+>‘Plural’</gloss
+></td
 ></tr
 ></table
 ></td
@@ -2641,6 +2651,8 @@ letterOnly="no"
 num="xNahuatlNominalPossSingluar"
 ></exampleRef
 >. The number slot can be filled by the plural suffix.</p
+><p
+>Be aware that if you define a template that has no slots, then the parser will ignore that template. A template must have slots for the parser to use it. Similarly, if a slot has no affixes in it, that slot will also be ignored.</p
 ></section4
 ><section4
 id="sInflAffixOptionalSlots"
@@ -3267,14 +3279,18 @@ num="xCaquinteFuture"
 ></wrd
 ></line
 ><line
+><wrd
 ><langData
 lang="lCaquinte"
 >i-n-tsave-(t)-ako-hi-(t)-e-ro</langData
+></wrd
 ></line
 ><line
+><wrd
 ><gloss
 lang="lGloss"
 >3M-FUT-tell- -DAT-PAS- -F-3FO</gloss
+></wrd
 ></line
 ></lineGroup
 ><free
@@ -3617,7 +3633,7 @@ type="InFocus"
 >. For example, if all of your verbs share a common subject slot, then you can define this subject slot at the main <object
 type="category"
 >verb</object
-> category. This slot will then be available for all sub-categories of <object
+> category. This slot will then be available for any affix templates in all sub-categories of <object
 type="category"
 >verb</object
 >.<endnote
@@ -3652,7 +3668,9 @@ id="sInflAffixInflectionClasses"
 ><indexedItem
 term="iInflectionClass"
 ></indexedItem
->Now consider the <indexedItem
+>We now turn to something that is actually about morphophonemics, not morphotactics. We include it here, though, because it relates to inflectional affixes.</p
+><p
+>Consider the <indexedItem
 term="iYalalagZapotec"
 ></indexedItem
 >Yalálag Zapotec data given in <exampleRef
@@ -3771,7 +3789,7 @@ letter="xYalalagZapotecVerbClass1Limp"
 ><line
 ><langData
 lang="lYalalag"
->u-:ke'nia'cho</langData
+>u:ke'nia'cho</langData
 ></line
 ><line
 ><langData
@@ -3875,7 +3893,7 @@ term="iAllomorphy"
 >How do we handle this kind of allomorphy when the choice of allomorphs is not motivated by the phonological environment but by the choice of the lexical stem? The <object
 type="WordWorks"
 ></object
-> approach is to use inflection classes. An inflection class is “a set of lexemes whose members each have the same type of inflectional forms.” <citation
+> approach is to use inflection classes. An inflection class is “a set of lexemes whose members each have the same type of inflectional forms” <citation
 author="yes"
 page="64"
 ref="rAronoff1994"
@@ -4187,7 +4205,10 @@ begin="bDefaultInflectionClass"
 id="bInflClassesEnv"
 term="iInflClassEnvironments"
 ></indexedRangeBegin
->In addition, if an affix entry has inflection classes and at least some of the allomorphs are constrained with environments, one should be careful to tag all allomorphs in the entry with the inflection class(es) they go on. Otherwise, some allomorphs without environments may be incorrectly constrained.<indexedRangeEnd
+>In addition, if an affix entry has any inflection classes and at least some of the allomorphs are constrained with environments (as described in section <sectionRef
+sec="sEnvironments"
+></sectionRef
+>), one should be careful to tag all allomorphs in the entry with the inflection class(es) they go on. Otherwise, some allomorphs without environments may be incorrectly constrained.<indexedRangeEnd
 begin="bInflClassesEnv"
 ></indexedRangeEnd
 ></p
@@ -5140,7 +5161,7 @@ type="HowTo"
 >For the Habitual, Progressive, Unreal, and Future aspects, create the inflectional prefix entries, including their two allomorphs.<endnote
 id="nIZLexemeform"
 ><p
->You will need to decide which form to use as the lexeme form and which as the alternate form.</p
+>You will need to decide which form to use as the lexeme form and which as the affix allomorph form.</p
 ></endnote
 ><ol
 ><li
@@ -5236,7 +5257,7 @@ term="iInflSubClassEnvironments"
 id="bInflClassesEnvironmentsInSubclassSection"
 term="iInflClassEnvironments"
 ></indexedRangeBegin
->Finally, please recall that if an affix entry has inflection classes and at least some of the allomorphs are constrained with environments, one should be careful to tag all allomorphs in the entry with the inflection class(es) they go on. This may need to include subclasses. Otherwise, some allomorphs without environments may be incorrectly constrained. For example, if the allomorph conditioned with an environment goes on a subclass and an unconditioned allomorph is tagged with a main level inflection class, you will need to change the unconditioned one to go on all subclasses. This is because of condition 2b in <exampleRef
+>Finally, please recall that if an affix entry has any inflection classes and at least some of the allomorphs are constrained with environments, one should be careful to tag all allomorphs in the entry with the inflection class(es) they go on. This may need to include subclasses. Otherwise, some allomorphs without environments may be incorrectly constrained. For example, if the allomorph conditioned with an environment goes on a subclass and an unconditioned allomorph is tagged with a main level inflection class, you will need to change the unconditioned one to go on all subclasses. This is because of condition 2b in <exampleRef
 letter="xInflectionClassGeneral"
 num="xInflectionClassGeneral"
 ></exampleRef
@@ -5500,7 +5521,7 @@ equal="no"
 letterOnly="no"
 num="xSpanishGenderBad"
 ></exampleRef
->? The problem here is that there is mismatch between the gender of the root and the gender of the affix. If we can mark the root for the correct gender and also mark the suffixes for the gender they agree with, then the <object
+>? The problem here is that there is a mismatch between the gender of the root and the gender of the affix. If we can mark the root for the correct gender and also mark the suffixes for the gender they agree with, then the <object
 type="WordWorks"
 ></object
 > parser will only produce the correct parses.</p
@@ -5736,12 +5757,12 @@ valign="top"
 >How does one create and use an inflection feature in <object
 type="WordWorks"
 ></object
->?<comment
-><endnote
+>?<endnote
 id="nMovieOnNounGender"
 ><p
 >At the time of writing, there is a demo movie called "Specifying Gender" that illustrates this.</p
 ></endnote
+><comment
 >Note: this is repeated below in the xStemNamesHowTo example. Some of it is also repeated in the xDerivAffixInflectionFeaturesHowTo example.</comment
 ></p
 ><example
@@ -5789,7 +5810,19 @@ type="WordWorks"
 ><indexedItem
 term="iCategoryInflectableFeatures"
 ></indexedItem
->For each category which will use the feature, add the feature to the category's set of inflectable features.</li
+>For each category which will use the feature, <ol
+><li
+>Add the feature to the category's set of inflectable features.</li
+><li
+>Make sure that the category has appropriate affix templates (see section <sectionRef
+sec="sInflectionalAffixes"
+></sectionRef
+>). If there are no templates for the category, then the <object
+type="WordWorks"
+></object
+> parser will ignore the features.</li
+></ol
+></li
 ><li
 >For each root needing the feature, add the feature and its appropriate value to the stem's grammatical information details.</li
 ><li
@@ -6597,7 +6630,7 @@ letter="xTurkishPassiveWork"
 ><line
 ><langData
 lang="lTurkish"
->Bu iş yapımaya başlanıyor</langData
+>Bu iş yapılmaya başlanıyor</langData
 ></line
 ><line
 ><langData
@@ -6963,7 +6996,7 @@ num="xDervAffixInflectionClassChangeHowTo"
 type="HowTo"
 ><ol
 ><li
->Also indicate the resulting inflection class in the “to inflection class” piece of information.</li
+>Also indicate the resulting inflection class in the “to inflection class” piece of information in the lexical entry for the appropriate affix.</li
 ></ol
 ></chart
 ></example
@@ -7086,7 +7119,7 @@ letter="xPopoloca2a"
 ><line
 ><langData
 lang="lPopoloca"
->níncaon</langData
+>nínkaon</langData
 ></line
 ><line
 ><langData
@@ -7106,7 +7139,7 @@ letter="xPopoloca2b"
 ><line
 ><langData
 lang="lPopoloca"
->níncaconhen</langData
+>nínkakonhen</langData
 ></line
 ><line
 ><langData
@@ -7546,7 +7579,7 @@ sec="sUnclassifiedAffixes"
 >). If, on the other hand, you do not say what category it attaches to, but do say what the resulting category is, the <object
 type="WordWorks"
 ></object
-> parser will treat it as if you had said the derivational affix that can go on every category.</p
+> parser will treat it as if you had said that the derivational affix can go on every category.</p
 ></section4
 ></section3
 ><section3
@@ -7583,24 +7616,32 @@ num="xQuechua2"
 ><interlinear
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lQuechua"
->rikaykaamaanaykipaq <exampleRef
+>rikaykaamaanaykipaq</langData
+></wrd
+><wrd
+><exampleRef
 equal="yes"
 letterOnly="no"
 num="xQuechua"
 ></exampleRef
-></langData
+></wrd
 ></line
 ><line
+><wrd
 ><langData
 lang="lQuechua"
 >rika-yka:-ma:-na-yki-paq</langData
+></wrd
 ></line
 ><line
+><wrd
 ><gloss
 lang="lGloss"
 >to.see-Imp-1Obj-Nom-2Pos-Pur</gloss
+></wrd
 ></line
 ></lineGroup
 ><free
@@ -7645,7 +7686,7 @@ type="TreeNT"
 > node is a fully inflected noun, the <object
 type="TreeNT"
 >Infl[v]</object
-> is actually only a partially inflected verb - it lacks a required subject suffix. That is, a form such as <langData
+> is actually only a partially inflected verb: It lacks a required subject suffix. That is, a form such as <langData
 lang="lQuechua"
 >rikaykaamaa</langData
 > with the analysis of <gloss
@@ -7659,7 +7700,7 @@ equal="no"
 letterOnly="no"
 num="xQuechuaNonfinalInflTemplate"
 ></exampleRef
-> is a special kind of template - it does not represent a fully inflected form. Rather, it requires that there be a derivational affix attached outside of the template in order for the word to be well-formed. When you have such templates, you will need to mark them as requiring additional derivation. The default situation is for the <object
+> is a special kind of template. It does not represent a fully inflected form. Rather, it requires that there be a derivational affix attached outside of the template in order for the word to be well-formed. When you have such templates, you will need to mark them as requiring additional derivation. The default situation is for the <object
 type="WordWorks"
 ></object
 > to assume that an inflectional template does not require additional derivation outside of the template.</p
@@ -9189,9 +9230,11 @@ num="xYalalagAdverbIncorp1"
 letter="xYalalagAdverbIncorp1a"
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lYalalag"
 >sejpe'</langData
+></wrd
 ></line
 ><line
 ><wrd
@@ -9211,9 +9254,11 @@ lang="lGloss"
 letter="xYalalagAdverbIncorp1b"
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lYalalag"
 >sejtope'</langData
+></wrd
 ></line
 ><line
 ><wrd
@@ -9264,9 +9309,11 @@ lang="lGloss"
 letter="xYalalagAdverbIncorp2b"
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lYalalag"
 >chpip:cha:che'</langData
+></wrd
 ></line
 ><line
 ><wrd
@@ -9442,9 +9489,11 @@ lang="lGloss"
 letter="xNahuatlNounIncorporation1c"
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lNahuatl"
 >nipahtolova</langData
+></wrd
 ></line
 ><line
 ><wrd
@@ -9464,7 +9513,7 @@ type="InFocus"
 ></line
 ></lineGroup
 ><free
->‘I medicine-take’</free
+>‘I medicine-swallow’</free
 ></listInterlinear
 ></example
 ><example
@@ -9517,9 +9566,11 @@ lang="lGloss"
 letter="xNahuatlNounIncorporation2c"
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lNahuatl"
 >ninakakua</langData
+></wrd
 ></line
 ><line
 ><wrd
@@ -9703,7 +9754,7 @@ num="xWancaWasin-wasin"
 >, we must give it a morpheme type of “suffixing interfix”. This tells the Stage 1 <object
 type="WordWorks"
 ></object
-> parser that this suffix can appear either as a “regular” suffix (merely after a root) or as a suffix before another root in compound. Note that it is the leftmost instance of ‑<langData
+> parser that this suffix can appear either as a “regular” suffix (merely after a root) or as a suffix before another root in a compound. Note that it is the leftmost instance of ‑<langData
 lang="lWanca"
 >n</langData
 > that is crucial here.</p
@@ -9974,9 +10025,21 @@ num="xShipiboIBroughtAguajes"
 ><interlinear
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lShipibo"
->Enra binon beque.</langData
+>Enra</langData
+></wrd
+><wrd
+><langData
+lang="lShipibo"
+>binon</langData
+></wrd
+><wrd
+><langData
+lang="lShipibo"
+>beque.</langData
+></wrd
 ></line
 ><line
 ><wrd
@@ -10016,9 +10079,21 @@ num="xShipiboAguajesIBrought"
 ><interlinear
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lShipibo"
->Binonra en beque.</langData
+>Binonra</langData
+></wrd
+><wrd
+><langData
+lang="lShipibo"
+>en</langData
+></wrd
+><wrd
+><langData
+lang="lShipibo"
+>beque.</langData
+></wrd
 ></line
 ><line
 ><wrd
@@ -10085,9 +10160,21 @@ num="xShipiboTheTwoArmadillosHaveEaten"
 ><interlinear
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lShipibo"
->Yahuish rabecanra pique.</langData
+>Yahuish</langData
+></wrd
+><wrd
+><langData
+lang="lShipibo"
+>rabecanra</langData
+></wrd
+><wrd
+><langData
+lang="lShipibo"
+>pique.</langData
+></wrd
 ></line
 ><line
 ><wrd
@@ -10127,9 +10214,26 @@ num="xShipiboIWentIntoTheForestToday"
 ><interlinear
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lShipibo"
->Nii meranra ea catanhuanque.</langData
+>Nii</langData
+></wrd
+><wrd
+><langData
+lang="lShipibo"
+>meranra</langData
+></wrd
+><wrd
+><langData
+lang="lShipibo"
+>ea</langData
+></wrd
+><wrd
+><langData
+lang="lShipibo"
+>catanhuanque.</langData
+></wrd
 ></line
 ><line
 ><wrd
@@ -10175,9 +10279,21 @@ num="xShipiboWhenICameIAte"
 ><interlinear
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lShipibo"
->Caquinra en pique.</langData
+>Caquinra</langData
+></wrd
+><wrd
+><langData
+lang="lShipibo"
+>en</langData
+></wrd
+><wrd
+><langData
+lang="lShipibo"
+>pique.</langData
+></wrd
 ></line
 ><line
 ><wrd
@@ -10217,9 +10333,26 @@ num="xShipiboNowImThinkingOfFinishingIt"
 ><interlinear
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lShipibo"
->Ramabira en janquenhati shinanai.</langData
+>Ramabira</langData
+></wrd
+><wrd
+><langData
+lang="lShipibo"
+>en</langData
+></wrd
+><wrd
+><langData
+lang="lShipibo"
+>janquenhati</langData
+></wrd
+><wrd
+><langData
+lang="lShipibo"
+>shinanai.</langData
+></wrd
 ></line
 ><line
 ><wrd
@@ -10496,7 +10629,7 @@ valign="top"
 ></table
 ></example
 ><p
->Note that when there are two or more morphemes listed for “other morphemes,” their relative order is significant. They should be listed in the same linear order they have in a word.</p
+>Note that when there are two or more morphemes listed for “other morphemes,” their relative order is significant. They should be listed in the same linear order they occur in a word.</p
 ><p
 >How does one create a morpheme-oriented ad hoc rule in <object
 type="WordWorks"
@@ -10897,9 +11030,11 @@ type="InFocus"
 >-miki</wrd
 ></line
 ><line
+><wrd
 ><gloss
 lang="lGloss"
 >1SgSubj-to.die</gloss
+></wrd
 ></line
 ></lineGroup
 ></interlinear
@@ -10918,9 +11053,11 @@ type="InFocus"
 >-miki</wrd
 ></line
 ><line
+><wrd
 ><gloss
 lang="lGloss"
 >2SgSubj-to.die</gloss
+></wrd
 ></line
 ></lineGroup
 ></interlinear
@@ -10941,9 +11078,11 @@ type="InFocus"
 >-ahsi</wrd
 ></line
 ><line
+><wrd
 ><gloss
 lang="lGloss"
 >1SgSubj-to.arrive</gloss
+></wrd
 ></line
 ></lineGroup
 ></interlinear
@@ -10962,9 +11101,11 @@ type="InFocus"
 >-ahsi</wrd
 ></line
 ><line
+><wrd
 ><gloss
 lang="lGloss"
 >2SgSubj-to.arrive</gloss
+></wrd
 ></line
 ></lineGroup
 ></interlinear
@@ -11069,10 +11210,7 @@ term="iStage1"
 >Stage 1 does not allow for phonological rules is that we could then use a <indexedItem
 term="iXAmple"
 ></indexedItem
->modified form of an existing SIL tool (AMPLE) and not have to spend any time building a special phonological processor. We have done some research and it appears that the <indexedItem
-term="iXeroxParser"
-></indexedItem
->Xerox Parser will serve our purposes for a tool that allows a more generative style approach. Time will tell. Time will also tell whether there will be a cost per seat involved in using the Xerox Parser, something else we have been looking into and wishing to avoid.</p
+>modified form of an existing SIL tool (AMPLE) and not have to spend any time building a special phonological processor.</p
 ></endnote
 > As noted in section <sectionRef
 sec="sIntro"
@@ -11748,7 +11886,7 @@ type="TT"
 >, the /a/ and then the acute accent. Taking advantage of this, you could create a phoneme that is for the acute accent <langData
 lang="lEng"
 >ˊ</langData
-> and call it something like “High tone.” You could then condition the forms to occur only when preceded by this acute accent phoneme.<indexedRangeEnd
+> and call it something like “High tone.” You could then condition the forms to occur only when followed by this acute accent phoneme.<indexedRangeEnd
 begin="bTonePhoneme"
 ></indexedRangeEnd
 ></p
@@ -11807,7 +11945,7 @@ id="sEnvironments"
 ><indexedItem
 term="iAlloEnvironments"
 ></indexedItem
->Once the set of phonemes and natural classes are defined for the language you are modeling, you can define environments for allomorphs. You can add them either in the environment editor or with a given allomorph.</p
+>Once the set of phonemes and natural classes are defined for the language you are modeling, you can define environments for allomorphs. You can add them either in the environment editor or with a given lexeme form or allomorph.</p
 ><p
 >In <indexedItem
 term="iStage1"
@@ -11836,7 +11974,7 @@ type="TT"
 ><li
 >Any phonemes or natural classes that must come after the allomorph are typed in after this underscore character. Type them in the order in which they must appear.</li
 ><li
->Any phoneme is indicated by typing in the representation of the phoneme.</li
+>Any phoneme is indicated by typing in the representation/grapheme of the phoneme.</li
 ><li
 >Any natural classes are indicated by<ol
 ><li
@@ -13025,7 +13163,7 @@ sec="sReduplicationPartial"
 ><li
 >Mark it as derivational or inflectional according to what you determined.</li
 ><li
->Add an allomorph which contains the special full reduplication sequence indicator: <object
+>Add a form which contains the special full reduplication sequence indicator: <object
 type="TT"
 >[...]</object
 > (that's a left square bracket, three periods, and a right square bracket)<endnote
@@ -13036,7 +13174,7 @@ type="TT"
 >&lt;...&gt;</object
 >.</p
 ></endnote
-> in the lexeme form (or allomorph form). If there is constant segmental material that precedes or follows the reduplicated material, put that segmental material before or after the full reduplication pattern indicator. For example, for the Bahasa Indonesia data above, we would include a hyphen before the indicator<indexedRangeEnd
+> in the lexeme form or an allomorph form. If there is constant segmental material that precedes or follows the reduplicated material, put that segmental material before or after the full reduplication pattern indicator. For example, for the Bahasa Indonesia data above, we would include a hyphen before the indicator<indexedRangeEnd
 begin="bFullReduplication"
 ></indexedRangeEnd
 >.<endnote
@@ -13072,6 +13210,14 @@ lang="lGloss"
 >.’</p
 ></endnote
 ></li
+><li
+>Optionally label the morpheme using the Citation Form field (e.g., <object
+type="TT"
+>RDP-</object
+> or <object
+type="TT"
+>CVC-</object
+>).</li
 ></ol
 ></li
 ></ol
@@ -13111,6 +13257,14 @@ lang="lTagalog"
 ><gloss
 lang="lGloss"
 >‘to write (imperfective)’</gloss
+><gloss
+lang="lGloss"
+><exampleRef
+equal="yes"
+letter="xTagalogReduplication"
+num="xTagalogReduplication"
+></exampleRef
+></gloss
 ></listWord
 ><listWord
 letter="xMagpasulat2"
@@ -13151,7 +13305,7 @@ author="yes"
 page="41"
 ref="rTuggyCurso"
 ></citation
->.</p
+>. The hyphens are not part of the orthography but are included to clarify the relevant morphemes involved.</p
 ></endnote
 ></p
 ><example
@@ -13255,9 +13409,17 @@ sec="sEnvironments"
 ><li
 >Mark it as derivational or inflectional according to what you determined.</li
 ><li
->Add an allomorph which consists of the reduplication pattern.</li
+>In lexeme form (or in an allomorph form), type in the reduplication pattern.</li
 ><li
 >Condition that allomorph to use the environment you created above.</li
+><li
+>Optionally label the morpheme using the Citation Form field (e.g., <object
+type="TT"
+>RDP-</object
+> or <object
+type="TT"
+>CVC-</object
+>).</li
 ></ol
 ></li
 ></ol
@@ -13469,6 +13631,14 @@ lang="lTagalog"
 ><gloss
 lang="lGloss"
 >‘to write or writing (infinitive form)’</gloss
+><gloss
+lang="lGloss"
+><exampleRef
+equal="yes"
+letter="xTagalogInfixation"
+num="xTagalogInfixation"
+></exampleRef
+></gloss
 ></listWord
 ><listWord
 letter="xSumulat2"
@@ -13622,19 +13792,32 @@ num="xSilti2"
 ><interlinear
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lSilti"
 >wakaba</langData
+></wrd
+><wrd
+><exampleRef
+equal="yes"
+letter="xSilti"
+num="xSilti"
+></exampleRef
+></wrd
 ></line
 ><line
+><wrd
 ><langData
 lang="lSilti"
 >a-a-wkb-a</langData
+></wrd
 ></line
 ><line
+><wrd
 ><gloss
 lang="lGloss"
 >PERF-buy-3rdSgPERF</gloss
+></wrd
 ></line
 ></lineGroup
 ><free
@@ -13850,19 +14033,32 @@ num="xEpenthesis2"
 ><interlinear
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lCaquinte"
 >itsavetakohitiro</langData
+></wrd
+><wrd
+><exampleRef
+equal="yes"
+letter="xEpenthesis"
+num="xEpenthesis"
+></exampleRef
+></wrd
 ></line
 ><line
+><wrd
 ><langData
 lang="lCaquinte"
 >i-tsave-(t)-ako-hi-(t)-i-ro</langData
+></wrd
 ></line
 ><line
+><wrd
 ><gloss
 lang="lGloss"
 >3M-tell- -DAT-PAS- -NF-3FO</gloss
+></wrd
 ></line
 ></lineGroup
 ><free
@@ -13953,6 +14149,13 @@ lang="lCaquinte"
 type="InFocus"
 >ha</object
 >i</wrd
+><wrd
+><exampleRef
+equal="yes"
+letter="xCaquinteMetathesis"
+num="xCaquinteMetathesis"
+></exampleRef
+></wrd
 ></line
 ><line
 ><wrd
@@ -14057,6 +14260,13 @@ lang="lCaquinte"
 type="InFocus"
 >a</object
 >nehero</wrd
+><wrd
+><exampleRef
+equal="yes"
+letter="xCaquintePrefix"
+num="xCaquintePrefix"
+></exampleRef
+></wrd
 ></line
 ><line
 ><wrd
@@ -14113,9 +14323,11 @@ type="InFocus"
 letter="xCaquintePrefix20"
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lCaquinte"
 >oasanomahakemparime</langData
+></wrd
 ></line
 ><line
 ><wrd
@@ -14207,20 +14419,20 @@ type="HowTo"
 ><li
 >Create the lexical entries for the two prefixes.</li
 ><li
->In each one, create two allomorphs in this order:<ol
+>In each one, create two forms:<ol
 ><li
->one for the null allomorph (see section <sectionRef
+>Create one for the null allomorph (see section <sectionRef
 sec="sAllomorphsNull"
 ></sectionRef
->) and condition it as occurring before a vowel (i.e. use the “before a vowel” environment)</li
+>) and condition it as occurring before a vowel (i.e. use the “before a vowel” environment). This should be in an allomorph form.</li
 ><li
->one for the overt form (<langData
+>Create one for the overt form (<langData
 lang="lCaquinte"
 >a</langData
 > or <langData
 lang="lCaquinte"
 >o</langData
->); it does not need to be conditioned by an environment if it is listed second - i.e. it will be the “elsewhere” allomorph.</li
+>) in the lexeme form. It does not need to be conditioned by an environment if it is in the lexeme form because it will be the “elsewhere” allomorph.</li
 ></ol
 ></li
 ></ol
@@ -14228,9 +14440,18 @@ lang="lCaquinte"
 ></example
 ></section2
 ><section2
+id="sNonPhonologicallyConditionedAllomorphy"
+><secTitle
+>Non-phonologically Conditioned Allomorphy</secTitle
+><p
+>Sometimes there is unpredictable allomorphy in either stems or in affixes. How does one deal with these? We have already seen how to deal with affix allomorphy determined by inflection classes in section <sectionRef
+sec="sInflAffixInflectionClasses"
+></sectionRef
+>. The following two subsections explain how to use morpho-syntactic features to control both stem allomorphy and affix allomorphy.</p
+><section3
 id="sStemNames"
 ><secTitle
->Morphologically Conditioned Stem Variants</secTitle
+>Stem Allomorphs Conditioned by Morpho-syntactic Features</secTitle
 ><p
 ><indexedItem
 term="iStemNames"
@@ -14515,16 +14736,16 @@ type="TT"
 >In this example, what should we do with the <langData
 lang="lNahuatl"
 >neki</langData
-> allomorph? That is, we have tagged the <langData
+> allomorph? We have tagged the <langData
 lang="lNahuatl"
 >nek</langData
 > allomorph with the <object
 type="TT"
 >Truncates</object
-> Stem Name; do we need to do anything to tag the <langData
+> Stem Name so we do not need to do anything to tag the <langData
 lang="lNahuatl"
 >neki</langData
-> allomorph? The answer is, “No.” The <object
+> allomorph. The <object
 type="WordWorks"
 ></object
 > parser will automatically constrain the <langData
@@ -14539,7 +14760,7 @@ type="TT"
 type="WordWorks"
 ></object
 >?<comment
->Note: this is repeated above in the xInflectionFeaturesHowTo example. Some of it is also repeated in the xDerivAffixInflectionFeaturesHowTo example.</comment
+>Note: this is mostly repeated above in the xInflectionFeaturesHowTo example. Some of it is also repeated in the xDerivAffixInflectionFeaturesHowTo example.</comment
 ></p
 ><example
 num="xStemNamesHowTo"
@@ -14578,8 +14799,6 @@ note="nInflectionFeatureCatalog"
 ></li
 ><li
 >For each category which will use the feature, add the feature to the category's set of inflectable features.</li
-><li
->For each root needing the feature, add the feature and its appropriate value to the stem's grammatical information details.</li
 ><li
 >For each inflectional affix needing the feature, add the feature and its appropriate value to the inflectional affix's grammatical information details.</li
 ></ol
@@ -14634,8 +14853,8 @@ id="nStemNamesDerivAffix"
 >I do not have any data examples for this (yet), but our conceptual model allows for it. If you find it in your data, please let me know.</p
 ></endnote
 ></p
-></section2
-><section2
+></section3
+><section3
 id="sAffixAlloFeats"
 ><secTitle
 >Affix Allomorphs Conditioned by Morpho-syntactic Features</secTitle
@@ -14854,9 +15073,11 @@ num="xAxinincaCutNonFuturePerf"
 letter="xAxinincaCutNonFuturePerf1Obj"
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lAxinincaCampa"
 >itʃʰikakina</langData
+></wrd
 ></line
 ><line
 ><wrd
@@ -14869,9 +15090,11 @@ type="Bold"
 ></wrd
 ></line
 ><line
+><wrd
 ><gloss
 lang="lGloss"
 >3m-cut-prf-nf-1obj</gloss
+></wrd
 ></line
 ></lineGroup
 ><free
@@ -14881,9 +15104,11 @@ lang="lGloss"
 letter="xAxinincaCutNonFuturePerf2Obj"
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lAxinincaCampa"
 >itʃʰikakimi</langData
+></wrd
 ></line
 ><line
 ><wrd
@@ -14896,9 +15121,11 @@ type="Bold"
 ></wrd
 ></line
 ><line
+><wrd
 ><gloss
 lang="lGloss"
 >3m-cut-prf-nf-2obj</gloss
+></wrd
 ></line
 ></lineGroup
 ><free
@@ -14908,9 +15135,11 @@ lang="lGloss"
 letter="xAxinincaCutNonFuturePerf3mObj"
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lAxinincaCampa"
 >itʃʰikakiri</langData
+></wrd
 ></line
 ><line
 ><wrd
@@ -14923,9 +15152,11 @@ type="Bold"
 ></wrd
 ></line
 ><line
+><wrd
 ><gloss
 lang="lGloss"
 >3m-cut-prf-nf-3mobj</gloss
+></wrd
 ></line
 ></lineGroup
 ><free
@@ -14935,9 +15166,11 @@ lang="lGloss"
 letter="xAxinincaCutNonFuturePerf3fObj"
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lAxinincaCampa"
 >itʃʰikakiro</langData
+></wrd
 ></line
 ><line
 ><wrd
@@ -14950,9 +15183,11 @@ type="Bold"
 ></wrd
 ></line
 ><line
+><wrd
 ><gloss
 lang="lGloss"
 >3m-cut-prf-nf-3fobj</gloss
+></wrd
 ></line
 ></lineGroup
 ><free
@@ -15022,9 +15257,9 @@ type="HowTo"
 ><li
 >Assign the appropriate inflectional features to those affixes which bear them.</li
 ><li
->For those entries with allomorphy, create the alternate form(s).</li
+>For those entries with allomorphy, create the Allomorph Form(s).</li
 ><li
->For each alternate form,<ol
+>For each Allomorph Form,<ol
 ><li
 >In the “Required Features” field, set the inflectional features that this allomorph must have in order to be licit.</li
 ><li
@@ -15044,7 +15279,7 @@ lang="lAxinincaCampa"
 > suffix. For the non-future suffix, we would make the Lexeme Form be ‑<langData
 lang="lAxinincaCampa"
 >i</langData
-> and we would create an Alternate Form of ‑<langData
+> and we would create an Allomorph Form of ‑<langData
 lang="lAxinincaCampa"
 >a</langData
 >. We would set the “Required Features” field of the ‑<langData
@@ -15057,7 +15292,7 @@ lang="lAxinincaCampa"
 letter="xAxinincaCutNonFuturePerf1Obj"
 num="xAxinincaCutNonFuturePerf1Obj"
 ></exampleRef
-> will fail to analyze correctly. Currently, a way to compensate for this is to add another Alternate Form for ‑<langData
+> will fail to analyze correctly. Currently, a way to compensate for this is to add another Allomorph Form for ‑<langData
 lang="lAxinincaCampa"
 >i</langData
 >, setting its “Required Features” field to be for both first person object agreement and perfect aspect.<endnote
@@ -15082,6 +15317,132 @@ term="iStage1"
 type="WordWorks"
 ></object
 > parser also allows constraining allomorphs of derivational affixes. The process is similar: create the allomorph and constrain it via the “Required Features” field.</p
+></section3
+></section2
+><section2
+id="sIrregInflForms"
+><secTitle
+>Irregularly Inflected Forms</secTitle
+><p
+><indexedItem
+term="iIrrInflForms"
+></indexedItem
+><indexedItem
+term="iTurka"
+></indexedItem
+>Next consider the following small set of data for Turka, a language spoken in Burkina Faso.<endnote
+id="nTurka"
+><p
+>The data are from Colin Suggett, personal communication. The abbreviation ‘PL’ means “plural.”</p
+></endnote
+></p
+><example
+num="xTurkaNounPlurals"
+><listWord
+letter="xTurkaNounPluralduu"
+><langData
+lang="lTurka"
+>duu</langData
+><gloss
+lang="lGloss"
+>‘house’</gloss
+></listWord
+><listWord
+letter="xTurkaNounPluraldon"
+><langData
+lang="lTurka"
+>don</langData
+><gloss
+lang="lGloss"
+>‘house.PL’</gloss
+></listWord
+><listWord
+letter="xTurkaNounPluralfuga"
+><langData
+lang="lTurka"
+>fuga</langData
+><gloss
+lang="lGloss"
+>‘field’</gloss
+></listWord
+><listWord
+letter="xTurkaNounPluralfugas"
+><langData
+lang="lTurka"
+>fugasǝ</langData
+><gloss
+lang="lGloss"
+>‘field.PL’</gloss
+></listWord
+><listWord
+letter="xTurkaNounPluralgbafl"
+><langData
+lang="lTurka"
+>gbaflǝ</langData
+><gloss
+lang="lGloss"
+>‘pot’</gloss
+></listWord
+><listWord
+letter="xTurkaNounPluralgbafi"
+><langData
+lang="lTurka"
+>gbafiɛ</langData
+><gloss
+lang="lGloss"
+>‘pot.PL’</gloss
+></listWord
+><listWord
+letter="xTurkaNounPluralkuu"
+><langData
+lang="lTurka"
+>kuu</langData
+><gloss
+lang="lGloss"
+>‘idol’</gloss
+></listWord
+><listWord
+letter="xTurkaNounPluralkii"
+><langData
+lang="lTurka"
+>kii</langData
+><gloss
+lang="lGloss"
+>‘idol.PL’</gloss
+></listWord
+></example
+><p
+>Notice that there is not an obvious way that plurals are formed. That is, the plural forms appear to be portmanteau morphemes: a combination of the singular morpheme plus plural.</p
+><p
+>At least one way to deal with this is to create irregularly inflected form variants for each of the plural forms, tagging them as being the plural variant type, and linking them to their respective singular form. If you make sure that the plural variant type<endnote
+id="nIrrVariantType"
+><p
+>At the time of writing, irregularly inflected variant types are located in the “Lists” area under “Variant Types.”</p
+></endnote
+> has its “Append to Gloss” field set to ‘.pl’(if you are going to use small caps) or ‘.PL’ (if you are not), then the <object
+type="WordWorks"
+></object
+> parser will parse these plural variant forms, using the gloss of the singular form plus what is in the “Append to Gloss” field. When you use this method, you do not need to have a sense for the irregularly inflected form.</p
+><p
+>You can also set the “Inflection Features” field of the irregularly inflected variant type to those inflection features borne by the variant. The <object
+type="WordWorks"
+></object
+> parser will then prevent parses where the indicated inflection features conflict with similar inflection features of other affixes that have different values.</p
+><p
+>Suppose, now, that there are some inflectional templates that have required slots and that the irregularly inflected form portmanteau morpheme has in it the information needed to fill one or more of those required slots. What will happen? Since the <object
+type="WordWorks"
+></object
+> parser requires these slots to be filled, the parse will fail when it should not.</p
+><p
+>The solution is to set the “Slots” field of the irregularly inflected variant type to refer to all required slots in templates that it is taking the place of. The <object
+type="WordWorks"
+></object
+> parser will then correctly parse such forms.<endnote
+id="nNullAffixForSlot"
+><p
+>This works by creating a null prefix (for required slots that occur before the stem) or a null suffix (for required slots that occur after the stem) and giving it the inflection features of the variant type.</p
+></endnote
+> In addition, it will prevent parses where the indicated slots are filled by some other affix.</p
 ></section2
 ><section2
 id="sCoalescence"
@@ -15246,7 +15607,7 @@ lang="lMenya"
 ><wrd
 ><gloss
 lang="lGloss"
->get-<object
+>tour-<object
 type="SmallCaps"
 >23p/irr=goal=ind</object
 ></gloss
@@ -15280,7 +15641,7 @@ lang="lMenya"
 ><wrd
 ><gloss
 lang="lGloss"
->get-<object
+>tour-<object
 type="SmallCaps"
 >1p/irr=goal=ind</object
 ></gloss
@@ -15338,9 +15699,9 @@ type="HowTo"
 ><li
 >Create an entry for each morpheme.</li
 ><li
->For those entries with allomorphy, create the alternate forms.</li
+>For those entries with allomorphy, create the Allomrph Forms.</li
 ><li
->For each alternate form,<ol
+>For each Allomorph Form,<ol
 ><li
 >Create or check that you have an <indexedItem
 term="iAlloEnvironments"
@@ -15461,7 +15822,7 @@ valign="top"
 ></table
 ></example
 ><p
->Note that when there are two or more allomorphs listed for “other allomorphs,” their relative order is significant. They should be listed in the same linear order they have in a word.</p
+>Note that when there are two or more allomorphs listed for “other allomorphs,” their relative order is significant. They should be listed in the same linear order they occur in a word.</p
 ><p
 >The <indexedItem
 term="iEnglish"
@@ -15683,7 +16044,7 @@ id="sAllomorphs"
 ><indexedItem
 term="iAllomorphy"
 ></indexedItem
->There are two things to keep in mind while keying allomorphs (or forms).</p
+>There are two things to keep in mind while keying Lexeme Forms and Allomorph Forms.</p
 ><section3
 id="sAllomorphsNull"
 ><secTitle
@@ -15746,7 +16107,7 @@ term="iStage1"
 >Stage 1 of <object
 type="WordWorks"
 ></object
->, the order of allomorphs is quite significant. Consider the following <indexedItem
+>, the order of Lexeme Forms and Allomorph Forms is quite significant. Consider the following <indexedItem
 term="iEnglish"
 ></indexedItem
 >English data.</p
@@ -15821,18 +16182,18 @@ lang="lEng"
 ><p
 >Because of the ordering and the fact that the first two are conditioned, the third (elsewhere) case will automatically be constrained to not occur after stridents as well as to not occur after voiced segments. The second allomorph will be conditioned to not only occur after voiced segments, but also to not occur after stridents.</p
 ><p
->Do you see how it works? For a given allomorph, <object
+>Do you see how it works? For a given Allomorph Form, <object
 type="WordWorks"
 ></object
-> applies the condition of this allomorph and, at the same time, negates the conditions of all preceding allomorphs. This is why the ordering of allomorphs is crucial.</p
+> applies the condition of this Allomorph Form and, at the same time, negates the conditions of all preceding Allomorph Forms. This is why the ordering of allomorphs is crucial.</p
 ><p
 >Having said that, please note that the <indexedItem
 term="iLexemeForm"
 ></indexedItem
->Lexeme Form field is always automatically ordered last after all of the allomorphs listed in the <indexedItem
+>Lexeme Form field is always automatically ordered last after all of the Allomorph Forms listed in the <indexedItem
 term="iAlternateForms"
 ></indexedItem
->Alternate Forms section of Lexicon Edit.</p
+>Allomorphs section of Lexicon Edit.</p
 ></section3
 ></section2
 ><section2
@@ -15852,10 +16213,10 @@ type="WordWorks"
 > keys on certain ones of these in order to tell the <indexedItem
 term="iMorphologicalParser"
 ></indexedItem
->parser how to handle the particular allomorph. The types in the following list are significant to the parser.<endnote
+>parser how to handle the particular form. The types in the following list are significant to the parser.<endnote
 id="nMorphTypes"
 ><p
->Another way of saying this is that the parser recognizes all morpheme types except for simulfix, suprafix, and circumfix. For <indexedItem
+>Another way of saying this is that the parser recognizes all morpheme types except for discontiguous phrase, simulfix, suprafix, and circumfix. For <indexedItem
 term="iCircumfix"
 ></indexedItem
 >circumfix, however, see section <sectionRef
@@ -15937,9 +16298,9 @@ term="iSuffixInterfix"
 >suffxing interfix</li
 ></ul
 ><p
->One should keep this in mind when applying a type to an allomorph.</p
+>One should keep this in mind when applying a type to a form.</p
 ><p
->In particular, note that if a morpheme is tagged as a <indexedItem
+>In particular, note that if a form is tagged as a <indexedItem
 term="iParticle"
 ></indexedItem
 >particle, then it must stand alone (i.e. it will not be allowed to take affixes or to participate in compounds). <indexedItem
@@ -15947,7 +16308,7 @@ term="iClitic"
 ></indexedItem
 >Clitics, though, may attach to a morpheme tagged as a particle.</p
 ><p
->One may also tag an allomorph as a <indexedItem
+>One may also tag a form as a <indexedItem
 term="iPhrase"
 ></indexedItem
 >phrase, although there are limitations. The <object
@@ -16076,9 +16437,9 @@ term="iAlloEnvironments"
 ><li
 >The only place this entry is marked as being a circumfix is in the morpheme type field of the lexeme form.</li
 ><li
->There is one allomorph for the prefix member.</li
+>There is at least one allomorph for the prefix member.</li
 ><li
->There is one suffix allomorph for the suffix member.</li
+>There is at least one suffix allomorph for the suffix member.</li
 ></ol
 ><p
 >When one keys a circumfix in this manner, the <object
@@ -16914,19 +17275,32 @@ num="xTagalogPartialRedupProcess"
 border="1"
 ><tr
 ><th
+colspan="3"
 >Pattern</th
 ><th
-valign="middle"
 > </th
 ><th
 >Result</th
 ></tr
 ><tr
 ><td
+align="center"
 ><object
 type="TT"
-> [C] [V] X</object
-> </td
+>[C]</object
+></td
+><td
+align="center"
+><object
+type="TT"
+>[V]</object
+></td
+><td
+align="center"
+><object
+type="TT"
+>X</object
+></td
 ><td
 rowspan="2"
 valign="middle"
@@ -16941,9 +17315,22 @@ type="TT"
 ></tr
 ><tr
 ><td
+align="center"
 ><object
 type="TT"
->  1   2  3</object
+>1</object
+></td
+><td
+align="center"
+><object
+type="TT"
+>2</object
+></td
+><td
+align="center"
+><object
+type="TT"
+> 3 </object
 ></td
 ></tr
 ></table
@@ -17006,6 +17393,7 @@ num="xTagalogPartialRedupProcessCVAStem"
 border="1"
 ><tr
 ><th
+colspan="4"
 >Pattern</th
 ><th
 valign="middle"
@@ -17015,10 +17403,29 @@ valign="middle"
 ></tr
 ><tr
 ><td
+align="center"
 ><object
 type="TT"
-> [C] [V] [A] X</object
-> </td
+>[C]</object
+></td
+><td
+align="center"
+><object
+type="TT"
+>[V]</object
+></td
+><td
+align="center"
+><object
+type="TT"
+>[A]</object
+></td
+><td
+align="center"
+><object
+type="TT"
+>X</object
+></td
 ><td
 rowspan="2"
 valign="middle"
@@ -17033,9 +17440,28 @@ type="TT"
 ></tr
 ><tr
 ><td
+align="center"
 ><object
 type="TT"
->  1   2   3  4</object
+>1</object
+></td
+><td
+align="center"
+><object
+type="TT"
+>2</object
+></td
+><td
+align="center"
+><object
+type="TT"
+>3</object
+></td
+><td
+align="center"
+><object
+type="TT"
+> 4 </object
 ></td
 ></tr
 ></table
@@ -17132,6 +17558,7 @@ num="xNahuatlPartialRedupProcess"
 border="1"
 ><tr
 ><th
+colspan="3"
 >Pattern</th
 ><th
 valign="middle"
@@ -17141,10 +17568,23 @@ valign="middle"
 ></tr
 ><tr
 ><td
+align="center"
 ><object
 type="TT"
-> [C] [V] X</object
-> </td
+>[C]</object
+></td
+><td
+align="center"
+><object
+type="TT"
+>[V]</object
+></td
+><td
+align="center"
+><object
+type="TT"
+>X</object
+></td
 ><td
 rowspan="2"
 valign="middle"
@@ -17165,9 +17605,22 @@ type="TT"
 ></tr
 ><tr
 ><td
+align="center"
 ><object
 type="TT"
->  1   2  3</object
+>1</object
+></td
+><td
+align="center"
+><object
+type="TT"
+>2</object
+></td
+><td
+align="center"
+><object
+type="TT"
+> 3 </object
 ></td
 ></tr
 ></table
@@ -17268,6 +17721,7 @@ num="xTagalogAffixProcess"
 border="1"
 ><tr
 ><th
+colspan="2"
 >Pattern</th
 ><th
 valign="middle"
@@ -17277,10 +17731,17 @@ valign="middle"
 ></tr
 ><tr
 ><td
+align="center"
 ><object
 type="TT"
->[C]  X</object
-> </td
+>[C]</object
+></td
+><td
+align="center"
+><object
+type="TT"
+>X</object
+></td
 ><td
 rowspan="2"
 valign="middle"
@@ -17301,9 +17762,16 @@ type="TT"
 ></tr
 ><tr
 ><td
+align="center"
 ><object
 type="TT"
-> 1   2</object
+>1</object
+></td
+><td
+align="center"
+><object
+type="TT"
+> 2 </object
 ></td
 ></tr
 ></table
@@ -17389,6 +17857,7 @@ num="xTobaBatakAffixProcessA"
 border="1"
 ><tr
 ><th
+colspan="2"
 >Pattern</th
 ><th
 valign="middle"
@@ -17398,10 +17867,17 @@ valign="middle"
 ></tr
 ><tr
 ><td
+align="center"
 ><object
 type="TT"
->[C]  X</object
-> </td
+>[C]</object
+></td
+><td
+align="center"
+><object
+type="TT"
+>X</object
+></td
 ><td
 rowspan="2"
 valign="middle"
@@ -17422,9 +17898,16 @@ type="TT"
 ></tr
 ><tr
 ><td
+align="center"
 ><object
 type="TT"
-> 1   2</object
+>1</object
+></td
+><td
+align="center"
+><object
+type="TT"
+> 2 </object
 ></td
 ></tr
 ></table
@@ -17457,7 +17940,7 @@ term="iRootAndPatternMorphology"
 ><indexedItem
 term="iSemitic"
 ></indexedItem
->Yet another way that infixation can be treated as a process was discussed In section <sectionRef
+>Yet another way that infixation can be treated as a process was discussed in section <sectionRef
 sec="sInfixationRootAndPattern"
 ></sectionRef
 >. Consider the <indexedItem
@@ -17469,24 +17952,32 @@ num="xSilti2-1"
 ><interlinear
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lSilti"
->wakaba <exampleRef
+>wakaba</langData
+></wrd
+><wrd
+><exampleRef
 equal="yes"
 letter="xSilti2"
 num="xSilti2"
 ></exampleRef
-></langData
+></wrd
 ></line
 ><line
+><wrd
 ><langData
 lang="lSilti"
 >a-a-wkb-a</langData
+></wrd
 ></line
 ><line
+><wrd
 ><gloss
 lang="lGloss"
 >PERF-buy-3rdSgPERF</gloss
+></wrd
 ></line
 ></lineGroup
 ><free
@@ -17659,6 +18150,7 @@ num="xSiltiPerfAsProcess"
 border="1"
 ><tr
 ><th
+colspan="4"
 >Pattern</th
 ><th
 valign="middle"
@@ -17668,10 +18160,29 @@ valign="middle"
 ></tr
 ><tr
 ><td
+align="center"
 ><object
 type="TT"
->[C] [C] [C] X</object
-> </td
+>[C]</object
+></td
+><td
+align="center"
+><object
+type="TT"
+>[C]</object
+></td
+><td
+align="center"
+><object
+type="TT"
+>[C]</object
+></td
+><td
+align="center"
+><object
+type="TT"
+>X</object
+></td
 ><td
 rowspan="2"
 valign="middle"
@@ -17698,9 +18209,28 @@ type="TT"
 ></tr
 ><tr
 ><td
+align="center"
 ><object
 type="TT"
-> 1   2   3  4</object
+>1</object
+></td
+><td
+align="center"
+><object
+type="TT"
+>2</object
+></td
+><td
+align="center"
+><object
+type="TT"
+>3</object
+></td
+><td
+align="center"
+><object
+type="TT"
+> 4 </object
 ></td
 ></tr
 ></table
@@ -17877,10 +18407,16 @@ type="Term"
 ></object
 >  is empty.</pc
 ><pc
->Another major characteristic of these rules is that they are ordered. That is, the output of rule<object
+>Another major characteristic of these rules is that they are ordered. That is, the output of <object
+type="TT"
+>rule</object
+><object
 type="Subscript"
 >i</object
-> becomes the input to rule<object
+> becomes the input to <object
+type="TT"
+>rule</object
+><object
 type="Subscript"
 >i+1</object
 >.</pc
@@ -17889,10 +18425,7 @@ id="sHCRegularRules"
 ><secTitle
 >“Regular” phonological rules</secTitle
 ><p
->This section provides several examples of how one might write non-metathesis or regular phonological rules. Each example has been implemented using a pre-release version of <object
-type="WordWorks"
-></object
->. Section <appendixRef
+>This section provides several examples of how one might write non-metathesis or regular phonological rules. Section <appendixRef
 app="sHCPhonMetathesis"
 ></appendixRef
 > discusses an example of a metathesis rule.</p
@@ -18111,7 +18644,7 @@ lang="lSelaru"
 > is inserted between the first two consonants. <indexedItem
 term="iEmptySetSymbol"
 ></indexedItem
->(I use the empty set symbol here to indicate that this is an insertion process; the user interface of FLEx may well not use anything to indicate an insertion site.)</pc
+>(I use the empty set symbol here to indicate that this is an insertion process; the user interface of FLEx uses a blank to indicate an insertion site.)</pc
 ></section4
 ><section4
 id="sSealruGlide2Vowel"
@@ -18149,11 +18682,11 @@ lang="lSelaru"
 ><line
 ><gloss
 lang="lGloss"
->3s-discern</gloss
+>2s-discern</gloss
 ></line
 ></lineGroup
 ><free
->‘he discerns’</free
+>‘you discern’</free
 ></listInterlinear
 ><listInterlinear
 letter="xSelaruGVMuknam"
@@ -18797,7 +19330,7 @@ valign="middle"
 ></table
 ></example
 ><pc
->That is, delete a floating high tone. (I use the empty set symbol here to indicate deletion; the user interface of FLEx may well not use anything to indicate a deleted item.) Normally, deletion rules only apply once. If you find that you need a deletion rule to apply more than once, you will need to set the DelReapps Parser Parameter to more than zero. You will want to make this parameter be small or else the parser will run very slowly.</pc
+>That is, delete a floating high tone. (I use the empty set symbol here to indicate deletion; the user interface of FLEx uses a blank to indicate a deleted item.) Normally, deletion rules only apply once. If you find that you need a deletion rule to apply more than once, you will need to set the DelReapps Parser Parameter to more than zero. You will want to make this parameter be small or else the parser will run very slowly.</pc
 ><p
 ><indexedItem
 term="iPhonRuleRuleOrdering"
@@ -18894,6 +19427,17 @@ border="1"
 ></table
 ><p
 >Any errors in assigning glosses are mine.</p
+><p
+>We also use <langData
+lang="lBahasaIndonesiaIPA"
+>ⁿ </langData
+> for the unspecified nasal instead of the more normal <langData
+lang="lBahasaIndonesiaIPA"
+>N</langData
+>.  See section <appendixRef
+app="sHCTipsCase"
+></appendixRef
+> for an explanation.</p
 ></endnote
 ></p
 ><p
@@ -18911,7 +19455,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-bantu</langData
+>məⁿ-bantu</langData
 ></line
 ><line
 ><gloss
@@ -18931,7 +19475,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-deŋar</langData
+>məⁿ-deŋar</langData
 ></line
 ><line
 ><gloss
@@ -18951,7 +19495,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-gambar</langData
+>məⁿ-gambar</langData
 ></line
 ><line
 ><gloss
@@ -18982,7 +19526,7 @@ term="iPhonRuleAlphaVariables"
 valign="middle"
 ><langData
 lang="lBahasaIndonesia"
->N</langData
+>ⁿ</langData
 ></td
 ><td
 valign="middle"
@@ -19174,7 +19718,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-dʒahit</langData
+>məⁿ-dʒahit</langData
 ></line
 ><line
 ><gloss
@@ -19194,7 +19738,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-tʃatat</langData
+>məⁿ-tʃatat</langData
 ></line
 ><line
 ><gloss
@@ -19225,7 +19769,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-ʃarat-kan</langData
+>məⁿ-ʃarat-kan</langData
 ></line
 ><line
 ><gloss
@@ -19245,7 +19789,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-hituŋ</langData
+>məⁿ-hituŋ</langData
 ></line
 ><line
 ><gloss
@@ -19281,7 +19825,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-ambil</langData
+>məⁿ-ambil</langData
 ></line
 ><line
 ><gloss
@@ -19301,7 +19845,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-eraŋ</langData
+>məⁿ-eraŋ</langData
 ></line
 ><line
 ><gloss
@@ -19321,7 +19865,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-isi</langData
+>məⁿ-isi</langData
 ></line
 ><line
 ><gloss
@@ -19341,7 +19885,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-olah</langData
+>məⁿ-olah</langData
 ></line
 ><line
 ><gloss
@@ -19361,7 +19905,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-undaŋ</langData
+>məⁿ-undaŋ</langData
 ></line
 ><line
 ><gloss
@@ -19389,7 +19933,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-lempar</langData
+>məⁿ-lempar</langData
 ></line
 ><line
 ><gloss
@@ -19409,7 +19953,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-nikah</langData
+>məⁿ-nikah</langData
 ></line
 ><line
 ><gloss
@@ -19429,7 +19973,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-ŋatʃo</langData
+>məⁿ-ŋatʃo</langData
 ></line
 ><line
 ><gloss
@@ -19449,7 +19993,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-ɲaɲi</langData
+>məⁿ-ɲaɲi</langData
 ></line
 ><line
 ><gloss
@@ -19469,7 +20013,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-rasa</langData
+>məⁿ-rasa</langData
 ></line
 ><line
 ><gloss
@@ -19489,7 +20033,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-wakil-i</langData
+>məⁿ-wakil-i</langData
 ></line
 ><line
 ><gloss
@@ -19509,7 +20053,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-yakin-i</langData
+>məⁿ-yakin-i</langData
 ></line
 ><line
 ><gloss
@@ -19522,7 +20066,7 @@ lang="lGloss"
 ><p
 >Notice how the <langData
 lang="lBahasaIndonesiaIPA"
->məN</langData
+>məⁿ</langData
 >- prefix surfaces as just <langData
 lang="lBahasaIndonesia"
 >me</langData
@@ -19546,7 +20090,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-pukul</langData
+>məⁿ-pukul</langData
 ></line
 ><line
 ><gloss
@@ -19566,7 +20110,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-tulis</langData
+>məⁿ-tulis</langData
 ></line
 ><line
 ><gloss
@@ -19586,7 +20130,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-kirim</langData
+>məⁿ-kirim</langData
 ></line
 ><line
 ><gloss
@@ -19619,7 +20163,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-fitnah</langData
+>məⁿ-fitnah</langData
 ></line
 ><line
 ><gloss
@@ -19639,7 +20183,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-xawatir-kan</langData
+>məⁿ-xawatir-kan</langData
 ></line
 ><line
 ><gloss
@@ -19659,7 +20203,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-sewa</langData
+>məⁿ-sewa</langData
 ></line
 ><line
 ><gloss
@@ -19672,24 +20216,32 @@ lang="lGloss"
 letter="xIndonesianMensyaratkan2"
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lBahasaIndonesia"
->mensyaratkan <exampleRef
+>mensyaratkan</langData
+></wrd
+><wrd
+><exampleRef
 equal="yes"
 letter="xIndonesianMensyaratkan"
 num="xIndonesianMensyaratkan"
 ></exampleRef
-></langData
+></wrd
 ></line
 ><line
+><wrd
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-ʃarat-kan</langData
+>məⁿ-ʃarat-kan</langData
+></wrd
 ></line
 ><line
+><wrd
 ><gloss
 lang="lGloss"
 >AV-condition-CAUS</gloss
+></wrd
 ></line
 ></lineGroup
 ></listInterlinear
@@ -19704,7 +20256,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-ziarah-i</langData
+>məⁿ-ziarah-i</langData
 ></line
 ><line
 ><gloss
@@ -19717,24 +20269,32 @@ lang="lGloss"
 letter="xIndonesianMenghitung2"
 ><lineGroup
 ><line
+><wrd
 ><langData
 lang="lBahasaIndonesia"
->menghitung <exampleRef
+>menghitung</langData
+></wrd
+><wrd
+><exampleRef
 equal="yes"
 letter="xIndonesianMenghitung"
 num="xIndonesianMenghitung"
 ></exampleRef
-></langData
+></wrd
 ></line
 ><line
+><wrd
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-hituŋ</langData
+>məⁿ-hituŋ</langData
+></wrd
 ></line
 ><line
+><wrd
 ><gloss
 lang="lGloss"
 >AV-count</gloss
+></wrd
 ></line
 ></lineGroup
 ></listInterlinear
@@ -19937,7 +20497,7 @@ type="TT"
 >) or that the segment is unspecified for place (<object
 type="TT"
 >?</object
->). The <object
+>). (The name reflects the observation that how this works seems to be more orthographic conventions than true place of articulation.) The <object
 type="TT"
 >NO→N</object
 > feature's name is an attempt to imply that these segments (the <object
@@ -20777,7 +21337,7 @@ align="center"
 ><th
 ><langData
 lang="lBahasaIndonesia"
->N</langData
+>ⁿ</langData
 ></th
 ><td
 align="center"
@@ -21432,7 +21992,7 @@ num="xIndonesianUnspecifedNasalVowelRule"
 valign="middle"
 ><langData
 lang="lBahasaIndonesia"
->N</langData
+>ⁿ</langData
 ></td
 ><td
 valign="middle"
@@ -21480,7 +22040,7 @@ num="xIndonesianUnspecifedNasalSonorantConsonantRule"
 valign="middle"
 ><langData
 lang="lBahasaIndonesia"
->N</langData
+>ⁿ</langData
 ></td
 ><td
 valign="middle"
@@ -21594,7 +22154,7 @@ num="xIndonesianUnspecifedNasalAssimilationRule"
 valign="middle"
 ><langData
 lang="lBahasaIndonesia"
->N</langData
+>ⁿ</langData
 ></td
 ><td
 valign="middle"
@@ -21935,7 +22495,31 @@ id="sIndonesianNasalMessPlusRedup"
 ><indexedItem
 term="iRedupFull"
 ></indexedItem
->There is actually yet another complication in Bahasa Indonesia with the four segments that can assimilate and then delete. Consider the following forms where the verb stem is fully reduplicated as the continuative morpheme.</p
+>There is actually yet another complication in Bahasa Indonesia with the four segments that can assimilate and then delete. Consider the following forms where the verb stem is fully reduplicated as the continuative morpheme.<endnote
+id="nMenunda-nunda"
+><p
+>Thanks to Jonathan Coombs (personal communication, email of May 30, 2012) for pointing out that the form in <exampleRef
+letter="xIndonesianMenanti-nanti"
+num="xIndonesianMenanti-nanti"
+></exampleRef
+> in earlier versions of this document (<langData
+lang="lBahasaIndonesia"
+>menunda-nunda</langData
+>) is actually from the root <langData
+lang="lBahasaIndonesia"
+>tunda</langData
+>, not the root *<langData
+lang="lBahasaIndonesia"
+>nunda</langData
+>. He also suggested using <langData
+lang="lBahasaIndonesia"
+>menanti-nanti</langData
+> whose root is indeed <langData
+lang="lBahasaIndonesia"
+>nanti</langData
+>.</p
+></endnote
+></p
 ><example
 num="xIndonesianmengFullRedup"
 ><listInterlinear
@@ -21949,7 +22533,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-urut-R</langData
+>məⁿ-urut-R</langData
 ></line
 ><line
 ><gloss
@@ -21959,22 +22543,22 @@ lang="lGloss"
 ></lineGroup
 ></listInterlinear
 ><listInterlinear
-letter="xIndonesianMenunda-nunda"
+letter="xIndonesianMenanti-nanti"
 ><lineGroup
 ><line
 ><langData
 lang="lBahasaIndonesia"
->menunda-nunda</langData
+>menanti-nanti</langData
 ></line
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-nunda-R</langData
+>məⁿ-nanti-R</langData
 ></line
 ><line
 ><gloss
 lang="lGloss"
->AV-delay-CONT</gloss
+>AV-wait-CONT</gloss
 ></line
 ></lineGroup
 ></listInterlinear
@@ -21989,7 +22573,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-bagi-R</langData
+>məⁿ-bagi-R</langData
 ></line
 ><line
 ><gloss
@@ -22009,7 +22593,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-pijit-R</langData
+>məⁿ-pijit-R</langData
 ></line
 ><line
 ><gloss
@@ -22029,7 +22613,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-tulis-R</langData
+>məⁿ-tulis-R</langData
 ></line
 ><line
 ><gloss
@@ -22049,7 +22633,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-kayuh-R</langData
+>məⁿ-kayuh-R</langData
 ></line
 ><line
 ><gloss
@@ -22117,7 +22701,7 @@ paren="final"
 ></exampleRef
 >, this means that we need to assume that the continuative suffix process will apply to the verb stem, resulting in the reduplication of the underlying form of the verb stem. After this process, the <langData
 lang="lBahasaIndonesia"
->meN</langData
+>meⁿ</langData
 >- prefix will attach. Finally, we apply our phonological rules to the result. Thus, for the case of <exampleRef
 letter="xIndonesianMemijit-mijit"
 num="xIndonesianMemijit-mijit"
@@ -22128,7 +22712,7 @@ num="xIndonesianMemijit-mijitPhinRuleInput"
 ><word
 ><langData
 lang="lBahasaIndonesia"
->meN<object
+>meⁿ<object
 type="TT"
 >+</object
 >pijit<object
@@ -22480,7 +23064,7 @@ lang="lBahasaIndonesia"
 valign="middle"
 ><langData
 lang="lBahasaIndonesia"
->N</langData
+>ⁿ</langData
 ></td
 ><td
 valign="middle"
@@ -22784,7 +23368,7 @@ type="TT"
 >this</object
 > match. Since we do not want to match just any such segment, but only the one that immediately follows the unspecified nasal, we put the unspecified nasal <langData
 lang="lBahasaIndonesia"
->N</langData
+>ⁿ</langData
 > just before it. Finally, since it just so happens that all instances of the unspecified nasal in Bahasa Indonesia (as far as I know) are preceded by the vowel <langData
 lang="lBahasaIndonesia"
 >e</langData
@@ -22811,7 +23395,7 @@ lang="lBahasaIndonesia"
 ><p
 >First, when the <langData
 lang="lBahasaIndonesia"
->meN</langData
+>meⁿ</langData
 >- prefix is followed immediately by the <langData
 lang="lBahasaIndonesia"
 >per</langData
@@ -22839,7 +23423,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-per-lebar</langData
+>məⁿ-per-lebar</langData
 ></line
 ><line
 ><gloss
@@ -22859,7 +23443,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-per-oleh</langData
+>məⁿ-per-oleh</langData
 ></line
 ><line
 ><gloss
@@ -22870,22 +23454,49 @@ lang="lGloss"
 ></listInterlinear
 ></example
 ><p
->Eventually, you should be able to use <indexedItem
+><indexedItem
+term="iPhonRuleConstrainExceptionFeature"
+></indexedItem
+>We can use an <indexedItem
 term="iPhonRuleExceptionFeatures"
 ></indexedItem
->exception “features” to handle this exception, but these have not yet been included in the user interface for the new <object
-type="HermitCrab"
-></object
-> within <object
-type="WordWorks"
-></object
->. In the meantime, you will either need to handle such words by hand in the interlinear tool or choose to combine the <langData
-lang="lBahasaIndonesia"
->meN</langData
->- and <langData
+>exception “feature” to handle this exception. We do the following steps:</p
+><example
+num="xIndonesianNExceptionsHowTo"
+><chart
+type="HowTo"
+><ol
+><li
+>Create the exception “feature”. We could call it ‘Does not undergo voiceless obstruent deletion” because this is the rule that does not apply (see <exampleRef
+letter="xIndonesianUnspecifedVoicelessObstruentDeletionRule"
+num="xIndonesianUnspecifedVoicelessObstruentDeletionRule"
+paren="final"
+></exampleRef
+>.</li
+><li
+>Create or find the <langData
 lang="lBahasaIndonesia"
 >per</langData
->- prefixes into one entry.</p
+>- entry.</li
+><li
+>Mark it as having this exception "feature” in its list of To Exception “Features”.</li
+><li
+>Find the phonological rule which deletes a voiceless obstruent <exampleRef
+letter="xIndonesianUnspecifedVoicelessObstruentDeletionRule"
+num="xIndonesianUnspecifedVoicelessObstruentDeletionRule"
+></exampleRef
+> and add this exception “feature” to its list of excluded properties.</li
+></ol
+></chart
+></example
+><p
+>When the <object
+type="HermitCrab"
+></object
+> finds the <langData
+lang="lBahasaIndonesia"
+>per</langData
+>- morpheme, it will no longer try to apply the delete voiceless obstruent rule because it will be excluded. (Please note that you will only see that this rule is not applied during the synthesis process; during analysis, the rule will still be “unapplied.”)</p
 ><p
 >The second exception is for loan words. Consider the following words:</p
 ><example
@@ -22901,7 +23512,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-proklamasi-kan</langData
+>məⁿ-proklamasi-kan</langData
 ></line
 ><line
 ><gloss
@@ -22921,7 +23532,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-traktir</langData
+>məⁿ-traktir</langData
 ></line
 ><line
 ><gloss
@@ -22941,7 +23552,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-swadaya-kan</langData
+>məⁿ-swadaya-kan</langData
 ></line
 ><line
 ><gloss
@@ -22961,7 +23572,7 @@ lang="lBahasaIndonesia"
 ><line
 ><langData
 lang="lBahasaIndonesiaIPA"
->məN-klasifikasi-kan</langData
+>məⁿ-klasifikasi-kan</langData
 ></line
 ><line
 ><gloss
@@ -22972,14 +23583,14 @@ lang="lGloss"
 ></listInterlinear
 ></example
 ><p
->The crucial thing to notice here is that in none of these does the initial consonant of the stem delete. <citation
+>The crucial thing to notice here is that in none of these does the initial consonant of the stem delete. <indexedItem
+term="iPhonRuleExceptionFeatures"
+></indexedItem
+>To handle these, add the exception “feature” created above to each stem entry. <citation
 page="12"
 ref="rSneddon"
 ></citation
-> notes that as a loan word ceases to be considered as foreign and becomes thought of as part of the native vocabulary, the expected deletion will occur. <indexedItem
-term="iPhonRuleExceptionFeatures"
-></indexedItem
->Until exception “features” are added to the user interface for phonological rules, words containing these kinds of loan words will need to be handled manually within the interlinear tool.</p
+> notes that as a loan word ceases to be considered as foreign and becomes thought of as part of the native vocabulary, the expected deletion will occur. If you find that happening for some word, merely remove the exception “feature” from it and the deletion rule will then apply.</p
 ><p
 >The third exception is for monosyllabic stems, which <citation
 page="13"
@@ -22988,11 +23599,206 @@ ref="rSneddon"
 > says are all loan words. <indexedItem
 term="iPhonRuleExceptionFeatures"
 ></indexedItem
->These, too, can eventually be handled via exception “features” but not until the user interface is implemented. In the meantime, you will need to deal with them by hand in the interlinear tool.<indexedRangeEnd
+>These, too, can be handled via our exception “feature” by marking these stems as having this exception "feature.”<indexedRangeEnd
 begin="bIndonesianNasalAssimilation"
 ></indexedRangeEnd
 ></p
 ></section5
+></section4
+></section3
+><section3
+id="sHCRegularRuleConstraining"
+><secTitle
+>Constraining application of “regular” phonological rules</secTitle
+><p
+><indexedRangeBegin
+id="bPhonRuleConstrain"
+term="iPhonRuleConstrain"
+></indexedRangeBegin
+>There are times when the application of a “regular” rule needs to be limited to a set of categories or to some other properties of the word.</p
+><section4
+id="sHCRegularRuleConstrainingCategories"
+><secTitle
+>Rule applies only with certain categories</secTitle
+><p
+><indexedItem
+term="iAxinincaCampa"
+></indexedItem
+><indexedItem
+term="iPhonRuleConstrainCategory"
+></indexedItem
+>Consider the following data from <citation
+page="108"
+ref="rAxinincaCampa"
+></citation
+>.</p
+><example
+num="xAxinincaVerbTEpenthesis"
+><listInterlinear
+letter="xAxinincaVerbTEpenthesisPaddle"
+><lineGroup
+><line
+><langData
+lang="lAxinincaCampa"
+>iNkomataati</langData
+></line
+><line
+><langData
+lang="lAxinincaCampa"
+>i-N-koma-aa-i</langData
+></line
+><line
+><gloss
+lang="lGloss"
+>3PM-FUTURE-paddle-REPETITIVE-FUTURE</gloss
+></line
+></lineGroup
+><free
+>‘he will paddle again’</free
+></listInterlinear
+><listInterlinear
+letter="xAxinincaVerbTEpenthesisCut"
+><lineGroup
+><line
+><langData
+lang="lAxinincaCampa"
+>iNtʃʰikaati</langData
+></line
+><line
+><langData
+lang="lAxinincaCampa"
+>i-N-tʃʰik-aa-i</langData
+></line
+><line
+><gloss
+lang="lGloss"
+>3PM-FUTURE-cut-REPETITIVE-FUTURE</gloss
+></line
+></lineGroup
+><free
+>‘he will cut again’</free
+></listInterlinear
+></example
+><p
+>Notice that when two vowels occur across morpheme boundaries, an epenthetic /<langData
+lang="lAxinincaCampa"
+>t</langData
+>/ is inserted.</p
+><p
+>That is not the entire story, however. Consider what happens in the data in example <exampleRef
+letter="xAxinincaNoun"
+num="xAxinincaNoun"
+></exampleRef
+> (also from <citation
+page="110"
+ref="rAxinincaCampa"
+></citation
+>):</p
+><example
+num="xAxinincaNoun"
+><listInterlinear
+letter="xAxinincaNounSpiders"
+><lineGroup
+><line
+><langData
+lang="lAxinincaCampa"
+>hitoiriki</langData
+></line
+><line
+><langData
+lang="lAxinincaCampa"
+>hito-iriki</langData
+></line
+><line
+><gloss
+lang="lGloss"
+>spider-DIMINUTIVE</gloss
+></line
+></lineGroup
+><free
+>‘small spiders’</free
+></listInterlinear
+><listInterlinear
+letter="xAxinincaNounRocks"
+><lineGroup
+><line
+><langData
+lang="lAxinincaCampa"
+>mapiiriki</langData
+></line
+><line
+><langData
+lang="lAxinincaCampa"
+>mapi-iriki</langData
+></line
+><line
+><gloss
+lang="lGloss"
+>rock-DIMINUTIVE</gloss
+></line
+></lineGroup
+><free
+>‘small rocks”</free
+></listInterlinear
+></example
+><p
+>In these words, even though two vowels occur across a morpheme boundary, no epenthetic /<langData
+lang="lAxinincaCampa"
+>t</langData
+>/ is inserted.</p
+><p
+>What is the difference between the data in <exampleRef
+letter="xAxinincaVerbTEpenthesis"
+num="xAxinincaVerbTEpenthesis"
+></exampleRef
+> and <exampleRef
+letter="xAxinincaNoun"
+num="xAxinincaNoun"
+></exampleRef
+>? Notice that all the forms in <exampleRef
+letter="xAxinincaVerbTEpenthesis"
+num="xAxinincaVerbTEpenthesis"
+></exampleRef
+> are verbs while the ones in <exampleRef
+letter="xAxinincaNoun"
+num="xAxinincaNoun"
+></exampleRef
+> are nouns. So if we had a way to say that the phonological rule which inserts the epenthetic /<langData
+lang="lAxinincaCampa"
+>t</langData
+>/ only applies on verbs, then we can deal with this kind of data.</p
+><p
+>With the <object
+type="HermitCrab"
+></object
+>, it is possible to constrain a phonological rule so that it will apply only when certain categories are present in the word. Like many other situations involving categories in the <object
+type="WordWorks"
+></object
+> parsers, the category hierarchy is respected. That is, if you specify that a particular phonological rule should only apply when a particular category is present, then that rule will only apply if that category or any of its subcategories (or their subcategories) are present.</p
+></section4
+><section4
+id="sHCRegularRuleConstrainingProperties"
+><secTitle
+>Rule applies only with certain properties</secTitle
+><p
+><indexedItem
+term="iPhonRuleConstrainProperty"
+></indexedItem
+>The <object
+type="HermitCrab"
+></object
+> also allows one to constrain the application of a given phonological rule by limiting its application to when specified exception “features” or inflection classes are present or are not present. If one says that this set of exception “features” and/or inflection classes are required, then every one of them must be present before the phonological rule will be applied. If one says that this set of exception “features” and/or inflection classes are excluded, then the phonological rule will be applied only if none of these are present.</p
+><p
+><indexedItem
+term="iPhonRuleConstrainExceptionFeature"
+></indexedItem
+>See section <appendixRef
+app="sIndonesianNasalMessLoans"
+></appendixRef
+> for an example of using an exception “feature” which must not be present in order for a phonological rule to apply.<indexedRangeEnd
+begin="bPhonRuleConstrain"
+></indexedRangeEnd
+></p
 ></section4
 ></section3
 ><section3
@@ -23192,10 +23998,10 @@ num="xRegularPhologicalRuleFormula"
 page="371"
 ref="rKenstowiczAndKisseberth1979"
 ></citation
->). At the time of writing, however, the user interface of <object
+>). The user interface of <object
 type="WordWorks"
 ></object
-> follows a different notation that we think is clearer. It might look like this for the Selaru metathesis case:</p
+>, however, follows a different notation that we think is clearer. It might look like this for the Selaru metathesis case:</p
 ><example
 num="xSelaruMetathesisRule"
 ><table
@@ -24394,10 +25200,10 @@ begin="bPhonRules"
 ><section1
 id="sHermitCrabTips"
 ><secTitle
->Tips for making the <object
+>Tips for Making the <object
 type="HermitCrab"
 ></object
-> work effectively.</secTitle
+> Work Effectively.</secTitle
 ><p
 ><indexedItem
 term="iPhonRuleTips"
@@ -24409,7 +25215,7 @@ type="HermitCrab"
 ><section2
 id="sHCTipsEveryPhonemeInOrthography"
 ><secTitle
->Every phoneme used in the orthography must be defined as a phoneme</secTitle
+>Every Phoneme Used in the Orthography Must be Defined as a Phoneme</secTitle
 ><p
 ><indexedItem
 term="iPhonemes"
@@ -24444,7 +25250,7 @@ term="iPhonRulePhonemes"
 >Whenever you use phonological features with the new <object
 type="HermitCrab"
 ></object
->, it is very important that each phoneme have distinct values for its phonological features. If two or more phonemes share the exact same set of phonological feature-value pairs, then the parser may not be able to correctly determine the morphemes involved. You may want to double check that every phoneme has a unique set of feature-value pairs. One way to do this is via the morphological sketch.</p
+>, it is very important that each phoneme have distinct values for its phonological features. If two or more phonemes share the exact same set of phonological feature-value pairs, then the parser may not be able to correctly determine the morphemes involved. You may want to double check that every phoneme has a unique set of feature-value pairs. One way to do this is via the “Bulk Edit Phoneme Features” tool; another is via the “Grammar Sketch.” Both of these tools are in the Grammar area.</p
 ></section2
 ><section2
 id="sHCTipsFullySpecify"
@@ -24502,7 +25308,7 @@ term="iPhonRulePhonemes"
 ><section2
 id="sHCTipsCase"
 ><secTitle
->Avoid using archiphonemes that are uppercase equivalents of a character in your orthography</secTitle
+>Avoid Using Archiphonemes that are Uppercase Equivalents of a Character in Your Orthography</secTitle
 ><p
 ><indexedItem
 term="iPhonRuleArchiphoneme"
@@ -24539,23 +25345,1419 @@ lang="lBahasaIndonesia"
 >. The solution I used was to change the representation of the unspecified nasal phoneme to a superscript n (<langData
 lang="lBahasaIndonesia"
 >ⁿ</langData
->). So while I could continue to use the N for the name of the unspecified nasal phoneme, I did need to be careful to change the representation and all lexical forms to use the superscript n. For example, the affix I mentioned above became <langData
+>). So while I could continue to use the N for the name of the unspecified nasal phoneme, I did need to be careful to change the representation/grapheme and all lexical forms to use the superscript n. For example, the affix I mentioned above became <langData
 lang="lBahasaIndonesia"
 >meⁿ</langData
 >-. Once I made these changes, the new <object
 type="HermitCrab"
 ></object
-> was able to correctly parse words containing this morpheme.</p
+> was able to correctly parse words containing this morpheme. Note that it is not a problem to type forms such as <langData
+lang="lBahasaIndonesia"
+>meN</langData
+>- into the Citation Form field of an affix's entry for publication purposes, since the parser does not look at the Citation Form at all.</p
 ></section2
 ><section2
 id="sHCTipsAffixProcess"
 ><secTitle
->Make sure every affix process rule is complete</secTitle
+>Make Sure Every Affix Process Rule is Complete</secTitle
 ><p
 ><indexedItem
 term="iAffixProcess"
 ></indexedItem
 >Whenever you create an affix process rule, be sure to fill in the morph type field and also put something in the form field. If the morph type field is empty, the rule may not work. The reason for putting something in the form field is so you will not just get “???” for the shape of the morpheme.</p
+></section2
+><section2
+id="sHCTipsNaturalClasses"
+><secTitle
+>Natural Classes Defined by Phonemes May Not Work as Expected</secTitle
+><p
+><indexedItem
+term="iNaturalClass"
+></indexedItem
+>This one is a bit tricky and not easy to explain.</p
+><p
+>When you have phonological features defined and have fully and uniquely specified each phoneme, you may still run into some odd behaviors with natural classes. Consider the following set of phonemes and features:</p
+><example
+num="xSalarPhonemes1"
+><table
+border="1"
+type="tLeftOffset"
+><tr
+><th
+> </th
+><th
+>***</th
+><th
+>art</th
+><th
+>cont</th
+><th
+>cor</th
+><th
+>front</th
+><th
+>high</th
+><th
+>rnd</th
+><th
+>son</th
+><th
+>str</th
+><th
+>voice</th
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>-</langData
+></th
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>a</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>vowel</td
+><td
+align="center"
+> </td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+> </td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>b</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>lab</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>c</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>pal</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>ç</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>pal</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>ch</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>ret</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>d</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>alv</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>e</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>vowel</td
+><td
+align="center"
+> </td
+><td
+align="center"
+> </td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+> </td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>f</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>lab</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>g</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>vel</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>ğ</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>vel</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>h</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>uvu</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>i</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>vowel</td
+><td
+align="center"
+> </td
+><td
+align="center"
+> </td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+> </td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>ı</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>vowel</td
+><td
+align="center"
+> </td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+> </td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>k</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>vel</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>l</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>alv</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>m</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>lab</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>n</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>alv</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>ñ</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>vel</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>o</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>vowel</td
+><td
+align="center"
+> </td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+> </td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>ö</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>vowel</td
+><td
+align="center"
+> </td
+><td
+align="center"
+> </td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+> </td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>p</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>lab</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>q</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>uvu</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+> </td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>r</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>alv</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>s</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>alv</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>ş</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>pal</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>sh</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>ret</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>t</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>alv</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>u</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>vowel</td
+><td
+align="center"
+> </td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+> </td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>ü</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>vowel</td
+><td
+align="center"
+> </td
+><td
+align="center"
+> </td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+> </td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>v</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>lab</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>x</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>vel</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+> </td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>y</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>pal</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>z</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>alv</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+></tr
+><tr
+><th
+><langData
+lang="lSalar"
+>zh</langData
+></th
+><td
+align="center"
+> </td
+><td
+align="center"
+>ret</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>-</td
+><td
+align="center"
+> </td
+><td
+align="center"
+>-</td
+><td
+align="center"
+>+</td
+><td
+align="center"
+>+</td
+></tr
+></table
+></example
+><p
+>One would expect that while these are not fully specified, they are unique. The problem came when a consonant natural class was defined as consisting of the following phonemes:</p
+><example
+num="xSalarC"
+><single
+><langData
+lang="lSalar"
+>b,  c,  ç,  ch,  d,  f,  g,  ğ,  h,  k,  l,  m,  n,  ñ,  p,  q,  r,  s,  ş,  sh,  t,  v,  x,  y,  z,  zh</langData
+></single
+></example
+><p
+>and there was an affix process rule whose match portion ended in two consonants. One naturally would expect that only those phonemes defined in the consonant natural class would be considered. But this is not how the <object
+type="HermitCrab"
+></object
+> works during its synthesis process. During synthesis, it uses only phonological features. When it was attempting to see if a sequence like <langData
+lang="lSalar"
+>madi</langData
+> ended in two consonants, it said “yes, it does.” How did this happen? How could it think that the final <langData
+lang="lSalar"
+>i</langData
+> was a consonant?</p
+><p
+>The answer is primarily related to the multi-valued nature of the art feature. Since the various phonemes that are part of the consonant natural class (see <exampleRef
+letter="xSalarC"
+num="xSalarC"
+></exampleRef
+>) have different values for the art feature, the <object
+type="HermitCrab"
+></object
+> has to ignore this feature when considering phonological features. Looking at the feature chart in <exampleRef
+letter="xSalarPhonemes1"
+num="xSalarPhonemes1"
+></exampleRef
+> and ignoring the art column, notice that the /<langData
+lang="lSalar"
+>i</langData
+>/ phoneme and the /<langData
+lang="lSalar"
+>l</langData
+>/ phoneme have compatible phonological features. Because of this, the <object
+type="HermitCrab"
+></object
+> said that the final <langData
+lang="lSalar"
+>i</langData
+> of the base <langData
+lang="lSalar"
+>madi</langData
+> matched the consonant natural class.</p
+><p
+>The solution was to add a binary feature of ±consonantal. This was + for all consonants and - for all vowels.</p
+><p
+>The moral of this story, then, is to make sure that the phonological feature system is such that each natural class, when defined via features, contains just the phonemes you want. Using binary features can certainly make this easier.</p
+><p
+>We have added warning messages about this situation in the Try-A-Word tool. The message tells you what the natural class is, what the implied phonological features are, what the predicted phonemes are and what the actual phonemes in the class are. We hope this helps you figure out how to avoid this potential problem.</p
 ></section2
 ></section1
 ><section1
@@ -24573,7 +26775,7 @@ type="HermitCrab"
 ><section2
 id="sHCLimitNoTrace"
 ><secTitle
->Seeing what steps the parser takes not implemented yet</secTitle
+>Seeing what steps the parser takes not fully complete</secTitle
 ><p
 >The default parser for <object
 type="WordWorks"
@@ -24581,10 +26783,10 @@ type="WordWorks"
 > has a way for you to see what steps the parser took while parsing a word (see the <object
 type="Tool"
 >Try a Word</object
-> tool). This has not been implemented yet for the new <object
+> tool). While this has been implemented for the new <object
 type="HermitCrab"
 ></object
->. Our apologies for the fact that this new parser is thus a “black box” with no way to see inside. We simply ran out of time to do all that we would have liked to do in this area. A later version of <object
+>, it does not yet always give you an explanation for why a certain path failed. A later version of <object
 type="WordWorks"
 ></object
 > will include this capability.</p
@@ -24624,7 +26826,10 @@ term="iNaturalClass"
 >When you define a natural class by listing the segments (as opposed to using phonological features), the new <object
 type="HermitCrab"
 ></object
-> may not treat this natural class exactly as you expect. If you do not have any phonological features defined, then the new parser will treat the class as consisting solely of the segments listed in the class.</p
+> may not treat this natural class exactly as you expect (see section <appendixRef
+app="sHCTipsNaturalClasses"
+></appendixRef
+> for an example). If you do not have any phonological features defined, then the new parser will treat the class as consisting solely of the segments listed in the class.</p
 ><p
 >If, on the other hand, you have defined phonological features, then the new <object
 type="HermitCrab"
@@ -24654,28 +26859,148 @@ type="TT"
 type="TT"
 >-</object
 > for all other segments.</p
+><p
+>We have added warning messages about this situation in the Try-A-Word tool. The message tells you what the natural class is, what the implied phonological features are, what the predicted phonemes are and what the actual phonemes in the class are. We hope this helps you figure out how to avoid this potential problem.</p
 ></section2
 ><section2
-id="sHCLimitNoAllomorphyByFeatures"
+id="sHCLimitSegmentParsing"
 ><secTitle
->Affix allomorphs conditioned by morpho-syntactic features not implemented yet</secTitle
+>Ambiguous digraphs and multigraphs may not work as expected</secTitle
 ><p
 ><indexedItem
-term="iAffixAlloFeats"
+term="iDigraphs"
 ></indexedItem
-><indexedItem
-term="iInflFeatAllomorphy"
-></indexedItem
-><indexedItem
-term="iInflFeatRuleOutParses"
-></indexedItem
->The kind of allomorphy described in section <sectionRef
-sec="sAffixAlloFeats"
-></sectionRef
-> is currently not handled by the new <object
+>When an orthography contains ambiguous sequences for phonemes, the <object
 type="HermitCrab"
 ></object
->. Recall that these are affix allomorphs conditioned by non-phonological features.</p
+> may not parse the sequence the way you expect.</p
+><p
+>For example, suppose your orthography includes the orthographic sequences shown in example <exampleRef
+letter="xAmbiguousPhonemes"
+num="xAmbiguousPhonemes"
+></exampleRef
+>.</p
+><example
+num="xAmbiguousPhonemes"
+><table
+border="1"
+><tr
+><th
+>Grapheme</th
+><th
+>Phoneme</th
+></tr
+><tr
+><td
+><langData
+lang="lVernacular"
+>i</langData
+></td
+><td
+>high front vowel</td
+></tr
+><tr
+><td
+><langData
+lang="lVernacular"
+>u</langData
+></td
+><td
+>high back rounded vowel</td
+></tr
+><tr
+><td
+><langData
+lang="lVernacular"
+>k</langData
+></td
+><td
+>voiceless velar stop</td
+></tr
+><tr
+><td
+><langData
+lang="lVernacular"
+>ki</langData
+></td
+><td
+>palatalized voiceless velar stop</td
+></tr
+><tr
+><td
+><langData
+lang="lVernacular"
+>ku</langData
+></td
+><td
+>labialized voiceless velar stop</td
+></tr
+></table
+></example
+><p
+>When there are a sequences like <langData
+lang="lVernacular"
+>kut</langData
+> and <langData
+lang="lVernacular"
+>kuat</langData
+>, what will happen? The first should find <langData
+lang="lVernacular"
+>k</langData
+>, <langData
+lang="lVernacular"
+>u</langData
+>, and <langData
+lang="lVernacular"
+>t</langData
+>. The second should find <langData
+lang="lVernacular"
+>ku</langData
+>, <langData
+lang="lVernacular"
+>a</langData
+> and <langData
+lang="lVernacular"
+>t</langData
+>. The problem is that currently the <object
+type="HermitCrab"
+></object
+> determines what the phonemes are by finding the longest match first. This means whenever it finds <langData
+lang="lVernacular"
+>ku</langData
+>, it will <object
+type="Bold"
+>always</object
+> treat it as the <langData
+lang="lVernacular"
+>ku</langData
+> phoneme. Thus, it thinks that <langData
+lang="lVernacular"
+>kut</langData
+> consists of two phonemes: <langData
+lang="lVernacular"
+>ku</langData
+> and <langData
+lang="lVernacular"
+>t</langData
+>, which is incorrect in this orthography.</p
+><p
+>Unfortunately, the only currently available solution is to change the orthography to remove the ambiguity (such as using <langData
+lang="lVernacular"
+>kʷ</langData
+> instead of <langData
+lang="lVernacular"
+>ku</langData
+> and using <langData
+lang="lVernacular"
+>kʲ</langData
+> instead of <langData
+lang="lVernacular"
+>ki</langData
+>). We hope to have a solution for this in a future version of the <object
+type="HermitCrab"
+></object
+>.</p
 ></section2
 ></section1
 ></appendix
@@ -25255,6 +27580,10 @@ id="lReference"
 ></language
 ><language
 color="blue"
+id="lSalar"
+></language
+><language
+color="blue"
 id="lSelaru"
 ></language
 ><language
@@ -25279,7 +27608,15 @@ id="lTobaBatak"
 ></language
 ><language
 color="blue"
+id="lTurka"
+></language
+><language
+color="blue"
 id="lTurkish"
+></language
+><language
+color="blue"
+id="lVernacular"
 ></language
 ><language
 color="blue"
@@ -25340,7 +27677,7 @@ font-style="italic"
 id="PhonRuleFormulaItem"
 ></type
 ><type
-font-variant="small-caps"
+font-family="Charis SIL CompactSmallCaps"
 id="SmallCaps"
 ></type
 ><type
@@ -25371,7 +27708,7 @@ id="TreeNT"
 ></type
 ><type
 color="black"
-font-family="Fixedsys"
+font-family="Courier New"
 id="TT"
 ></type
 ><type
@@ -25540,7 +27877,7 @@ id="iAffixAlloFeats"
 id="iAlloAlternateForms"
 see="iAlternateForms"
 ><term
->Alternate Forms Field</term
+>Allomorphs Field</term
 ></indexTerm
 ><indexTerm
 id="iAlloEnvironments"
@@ -25580,7 +27917,7 @@ see="iStemNames"
 ><indexTerm
 id="iAlternateForms"
 ><term
->Alternate Forms Field</term
+>Allomorph Forms Field</term
 ></indexTerm
 ><indexTerm
 id="iAmbiguity"
@@ -25870,6 +28207,11 @@ id="iDiscontinuousMorpheme"
 >Discontinuous Morpheme</term
 ></indexTerm
 ><indexTerm
+id="iDigraphs"
+><term
+>Digraphs in Hermit Crab</term
+></indexTerm
+><indexTerm
 id="iEmptySetSymbol"
 ><term
 >Empty Set Symbol</term
@@ -26127,6 +28469,11 @@ id="iInterfixes"
 >Interfixes</term
 ></indexTerm
 ><indexTerm
+id="iIrrInflForms"
+><term
+>Irregularly inflected forms</term
+></indexTerm
+><indexTerm
 id="iIsthmusZapotec"
 kind="language"
 ><term
@@ -26304,6 +28651,28 @@ id="iPhonRuleArchiphoneme"
 id="iPhonRuleAssimilation"
 ><term
 >Assimilation</term
+></indexTerm
+><indexTerm
+id="iPhonRuleConstrain"
+><term
+>Constraining</term
+><indexTerms
+><indexTerm
+id="iPhonRuleConstrainCategory"
+><term
+>Constrain by Category</term
+></indexTerm
+><indexTerm
+id="iPhonRuleConstrainExceptionFeature"
+><term
+>Constrain by Exception “Feature”</term
+></indexTerm
+><indexTerm
+id="iPhonRuleConstrainProperty"
+><term
+>Constrain by Property</term
+></indexTerm
+></indexTerms
 ></indexTerm
 ><indexTerm
 id="iPhonRuleDeletion"
@@ -26544,6 +28913,12 @@ id="iStem"
 >Stem</term
 ></indexTerm
 ><indexTerm
+id="iStemAllomorph"
+see="iStemNames"
+><term
+>Stem Allomorph</term
+></indexTerm
+><indexTerm
 id="iStemNames"
 ><term
 >Stem Names</term
@@ -26601,6 +28976,12 @@ id="iTone"
 see="iPhonRuleTone"
 ><term
 >Tone</term
+></indexTerm
+><indexTerm
+id="iTurka"
+kind="language"
+><term
+>Turka</term
 ></indexTerm
 ><indexTerm
 id="iTurkish"
