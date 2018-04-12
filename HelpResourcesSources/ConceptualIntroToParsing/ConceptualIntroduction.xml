@@ -24,7 +24,7 @@ id="nJonathanCoombs"
 ></endnote
 ></author
 ><date
->13-May-2014</date
+>12-April-2018</date
 ><contents
 showLevel="5"
 ></contents
@@ -10629,7 +10629,7 @@ valign="top"
 ></table
 ></example
 ><p
->Note that when there are two or more morphemes listed for “other morphemes,” their relative order is significant. They should be listed in the same linear order they occur in a word.</p
+>Note that when there are two or more morphemes listed for “other morphemes,” the rule only applies when all of them co-occur in the same word with the key morpheme.  In addition, their relative order is significant. They should be listed in the same linear order they occur in a word.</p
 ><p
 >How does one create a morpheme-oriented ad hoc rule in <object
 type="WordWorks"
@@ -13758,7 +13758,10 @@ type="TT"
 > is the natural class of consonants and <object
 type="TT"
 >[V]</object
-> is the natural class of vowels.</p
+> is the natural class of vowels.  Note that with the infixation environment, the <object
+type="TT"
+>#</object
+> does not indicate word boundary, but rather the beginning of the stem.</p
 ></section3
 ><section3
 id="sInfixationRootAndPattern"
@@ -15422,7 +15425,7 @@ id="nIrrVariantType"
 > has its “Append to Gloss” field set to ‘.pl’(if you are going to use small caps) or ‘.PL’ (if you are not), then the <object
 type="WordWorks"
 ></object
-> parser will parse these plural variant forms, using the gloss of the singular form plus what is in the “Append to Gloss” field. When you use this method, you do not need to have a sense for the irregularly inflected form.</p
+> parser will parse these plural variant forms, using the gloss of the singular form plus what is in the “Append to Gloss” field. When you use this method, the irregularly inflected form must have no sense information or it will not work as intended.</p
 ><p
 >You can also set the “Inflection Features” field of the irregularly inflected variant type to those inflection features borne by the variant. The <object
 type="WordWorks"
@@ -15822,7 +15825,7 @@ valign="top"
 ></table
 ></example
 ><p
->Note that when there are two or more allomorphs listed for “other allomorphs,” their relative order is significant. They should be listed in the same linear order they occur in a word.</p
+>Note that when there are two or more allomorphs listed for “other allomorphs,” the rule only applies when all of them co-occur in the same word with the key allomorph.  In addition, their relative order is significant. They should be listed in the same linear order they occur in a word.</p
 ><p
 >The <indexedItem
 term="iEnglish"
@@ -19434,7 +19437,7 @@ lang="lBahasaIndonesiaIPA"
 > for the unspecified nasal instead of the more normal <langData
 lang="lBahasaIndonesiaIPA"
 >N</langData
->.  See section <appendixRef
+>. See section <appendixRef
 app="sHCTipsCase"
 ></appendixRef
 > for an explanation.</p
