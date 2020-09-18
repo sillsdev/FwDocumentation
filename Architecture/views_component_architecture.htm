@@ -1,0 +1,959 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 9">
+<meta name=Originator content="Microsoft Word 9">
+<link rel=File-List href="./views_component_architecture_files/filelist.xml">
+<link rel=Edit-Time-Data
+href="./views_component_architecture_files/editdata.mso">
+<!--[if !mso]>
+<style>
+v\:* {behavior:url(#default#VML);}
+o\:* {behavior:url(#default#VML);}
+w\:* {behavior:url(#default#VML);}
+.shape {behavior:url(#default#VML);}
+</style>
+<![endif]-->
+<title>Views component architecture</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Randy Regnier</o:Author>
+  <o:LastAuthor>Randy Regnier</o:LastAuthor>
+  <o:Revision>2</o:Revision>
+  <o:TotalTime>1</o:TotalTime>
+  <o:Created>2002-03-08T04:02:00Z</o:Created>
+  <o:LastSaved>2002-03-08T04:03:00Z</o:LastSaved>
+  <o:Pages>12</o:Pages>
+  <o:Words>5928</o:Words>
+  <o:Characters>33793</o:Characters>
+  <o:Company>SIL</o:Company>
+  <o:Lines>281</o:Lines>
+  <o:Paragraphs>67</o:Paragraphs>
+  <o:CharactersWithSpaces>41500</o:CharactersWithSpaces>
+  <o:Version>9.4402</o:Version>
+ </o:DocumentProperties>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:Zoom>150</w:Zoom>
+ </w:WordDocument>
+</xml><![endif]-->
+<style>
+<!--
+ /* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-parent:"";
+	margin:0in;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+p
+	{font-size:12.0pt;
+	font-family:"Times New Roman";
+	mso-fareast-font-family:"Times New Roman";}
+pre
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Courier New";}
+@page Section1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.25in 1.0in 1.25in;
+	mso-header-margin:.5in;
+	mso-footer-margin:.5in;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+@list l0
+	{mso-list-id:546144082;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1780760458 -95624808 736669102 2069394170 -2066462364 -696371022 1896404996 -1621353766 1931388346 1489375652;}
+@list l1
+	{mso-list-id:566721913;
+	mso-list-type:hybrid;
+	mso-list-template-ids:-660148658 -891494518 1652191594 2124428140 790503270 -762439928 394800640 353003766 175249510 1714708680;}
+@list l2
+	{mso-list-id:668479842;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1816061440 981749648 -1356707022 1234205572 90448062 -2003020324 1854546116 1225657938 -507501500 -1550043616;}
+@list l3
+	{mso-list-id:1089619095;
+	mso-list-type:hybrid;
+	mso-list-template-ids:764736174 -1381452460 -245723954 1612631222 -492541634 -516376120 -1323415894 2125898980 1074564460 -375228470;}
+@list l4
+	{mso-list-id:1283223013;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1774600980 -591919642 -1134150858 224181590 1096834960 2094823710 -671949516 -1077354562 981128768 -514670128;}
+@list l5
+	{mso-list-id:1913807101;
+	mso-list-type:hybrid;
+	mso-list-template-ids:970879636 861179988 -1889484436 -1123225804 1171842194 1279686146 -1932874846 -173782724 -273150562 -708543968;}
+@list l6
+	{mso-list-id:1960722904;
+	mso-list-type:hybrid;
+	mso-list-template-ids:2108461294 -2012820218 408981010 -835525730 -791355176 1429399828 968401802 1898185610 97923726 -1180790962;}
+@list l7
+	{mso-list-id:2038506212;
+	mso-list-type:hybrid;
+	mso-list-template-ids:1763105346 -1156811844 1846596308 -877129408 517667584 -700922308 1961922864 1079794004 1432252240 -1228505878;}
+ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+<meta http-equiv=Content-Language content=en-us>
+</head>
+
+<body lang=EN-US link=blue vlink=blue style='tab-interval:.5in'>
+
+<div class=Section1>
+
+<h1>Views component architecture</h1>
+
+<p>John Thomson, 8 December 2000. File: Views_component_architecture.htm.</p>
+
+<p>Revised 30 January, 2001, following team review.</p>
+
+<p>Revised 1 May 2001, incorporating more team suggestions, and adding
+information on lazy evaluation.</p>
+
+<h1>1 Introduction</h1>
+
+<p>The FieldWorks Views component serves several functions:</p>
+
+<ol start=1 type=1>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l2 level1 lfo1;tab-stops:list .5in'>It provides a much
+	 higher-level interface to the FieldWorks text rendering and editing code,
+	 insulating programmers from many of the complexities of laying out
+	 potentially mixed-direction text that may be rendered by a variety of
+	 different engines.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l2 level1 lfo1;tab-stops:list .5in'>It provides sophisticated
+	 control over the layout of information, approaching what can be done using
+	 XML and XSL to produce HTML with styles. In addition, it can create
+	 interlinear layouts.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l2 level1 lfo1;tab-stops:list .5in'>It maintains information
+	 about the source of each bit of text in the display. This means that, with
+	 minimal effort, a layout can function as an editor for many purposes.
+	 Also, when the data changes, it is readily possible to automatically
+	 update all places where it is displayed.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l2 level1 lfo1;tab-stops:list .5in'>* It provides replacements
+	 for a number of Windows common controls which take text input as
+	 FieldWorks TsString objects and can render styled, multilingual strings
+	 using FieldWorks rendering.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l2 level1 lfo1;tab-stops:list .5in'>It supports random scrolling
+	 through very large (book length) windows without pre-loading all the
+	 necessary data.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l2 level1 lfo1;tab-stops:list .5in'>It provides a number of
+	 standard dialogs which can be used for text formatting, helping to give
+	 FieldWorks applications a standard look and feel. These dialogs include an
+	 MS-Word-like character and paragraph named style mechanism.</li>
+</ol>
+
+<p>(* indicates a planned capability not yet implemented).</p>
+
+<p>The component breaks down into two main blocks of code (which we may even
+decide to make separate DLLs). The first part has to do with data layout,
+editing, source tracking, and partial loading of large documents. This code is
+highly interconnected and very complex. It has been carefully kept as portable
+as possible, avoiding direct use of the Windows API and data structures as much
+as possible.</p>
+
+<p>The other part is a collection of largely independent chunks of code, each
+of which implements a particular dialog or ActiveX control. I don't think this
+part needs any particular architectural documentation (once you are familiar
+with the general FieldWorks architecture for dialogs and ActiveX controls) so I
+won't say more about it here. The
+&quot;FieldWorks_common_code_functions.html&quot; document contains an overview
+of them.</p>
+
+<p>The ideas behind the Views component were largely inspired by T<sub>E</sub>X
+(see <i>The TeXbook</i> by Donald E. Knuth, ISBN 0-201-13448-9, published
+jointly by the American Mathematical Society and Addison-Wesley Publishing
+Company) and HTML (<a href="http://www.w3.org/MarkUp/">http://www.w3.org/MarkUp/</a>).</p>
+
+<h1>2 Using views</h1>
+
+<p>There are in general three main aspects to using the core view code.</p>
+
+<ol start=1 type=1>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l5 level1 lfo2;tab-stops:list .5in'>Connecting it to a window so
+	 that it can display itself and interact with the user</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l5 level1 lfo2;tab-stops:list .5in'>Connecting it to a source of
+	 data that it will display and possibly edit.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l5 level1 lfo2;tab-stops:list .5in'>Configuring it to lay that
+	 data out the way you want.</li>
+</ol>
+
+<p>Most of the ActiveX controls do a lot of this work for you. The first point
+is replaced by the normal requirements for hosting a control, and in many cases
+the control takes care of the data source and layout concerns and exposes a
+much simpler interface by which you read and write strings. The most general of
+the ActiveX controls allows you to provide the data source and layout
+configuration while still taking care of the window hookup.</p>
+
+<p>In C++ code you have another way to hook the view up to a window: you can
+subclass one of the classes defined in AfVwWnd.h, and implement a MakeRoot
+method to create the root box and hook up the data and configuration
+interfaces.</p>
+
+<p>It is also possible to display a view without using any of these window
+classes. (One example is AfDeSplitChild, which displays several distinct views
+within a single window). When you do this you have quite a bit of work to do to
+make sure that all necessary events are passed to the view and all events it
+generates are properly handled. Few people will want to do this, but
+understanding how it works is an important part of understanding the
+architecture, so I will outline it below.</p>
+
+<h2>2.1 Configuring a view: data source</h2>
+
+<p>A view displays data which is conceptually organized as a network of objects
+that have properties. The view doesn't care what the objects are; in most of
+our current work they are groups of rows in several tables of a relational
+database, linked by a shared ID. As far as the view is concerned, however, an
+object is simply represented by a handle. (For database work the ID of the
+table rows serves as the value of the handle.) This handle is the widely used
+typedef HVO (Handle to a Viewable Object), currently a long. A pointer to a C++
+object could equally well be used as an HVO. You just have to be consistent
+within any one view.</p>
+
+<p>The view generally needs to be able to find out what properties a particular
+HVO has. An HVO can have both simple properties (strings, numbers, dates, etc.)
+and properties that link it to one or a sequence of other HVOs. For example, an
+HVO that represents a lexicon entry might have a headword string property, a
+property that links it to the HVO of the dictionary it is part of, and a
+property that links it to a sequence of HVOs for objects representing its
+senses.</p>
+
+<p>The interface ISilDataAccess is used to provide the view with this
+information. It has a collection of methods to support different property data
+types, but basically it just allows you to read or write the value of a
+particular property. Which property is identified by an HVO and a tag or flid.
+(Tag is a completely generic term used in the view code, which doesn't care how
+a tag identifies a property. A lot of our client code uses database field
+identifiers or flids to identify properties.)</p>
+
+<p>The most commonly used implementation of ISilDataAccess is the CustViewDa
+class. This allows you to efficiently pre-load a bunch of properties for a
+network of objects from the database, and writes changes back to the database
+immediately; it also supports a powerful multi-level Undo capability. Also
+available are VwCacheDa, a very simple implementation that allows you to simply
+pre-load the data you want to view and lets you (or the view) read back the
+current value of any property. There is also a base class which trivially implements
+all methods to fail; this is useful if you want to make a very simple
+ISilDataAccess that only implements methods for the particular property types
+that a particular view uses.</p>
+
+<p align=center style='text-align:center'><img border=0 width=513 height=376
+id="_x0000_i1025" src="Diagrams\View_Data_Sources.gif"></p>
+
+<h2>2.2 Configuring a view: layout</h2>
+
+<p>Layout is the part of hooking up a view that you usually have to write your
+own code for. Some of the simpler controls don't require this, as they just
+edit a single string, or a &quot;<a href="..\fieldworks_glossary.htm#StText">structured
+text</a>&quot; for which there is a standard layout. Anything more complex
+means writing code to specify the layout.</p>
+
+<p>This begins by your specifying a root object, by passing an <a
+href="..\fieldworks_glossary.htm#HVO">HVO</a> for a root object to the
+SetRootObject() method of the root box (the main object representing the
+view...more <a href="#RootBox">later</a>). (It's actually possible to have
+several independent top-level objects, but that is unusual.)</p>
+
+<p>The view then makes calls back to your code to ask you how exactly you want
+the root object displayed. This may lead to your telling the view to display
+other objects that are parts of the root object or otherwise related to it. The
+view then turns around and asks you how to display each of those, and so forth.
+The back and forth process is designed to give you control over the layout
+while allowing the view to keep track of the relationship between what is on
+the screen and the underlying data. Also, it is designed to be modular: you
+don't have to construct the whole layout in one go, and in fact, the view code
+may not ask you to lay out certain parts until the user scrolls them into view.
+It is also modular in that a layout for a certain kind of object can be re-used
+in various places where that kind of object shows up.</p>
+
+<p>For the views code to call your code, you have to implement some interface,
+since interfaces are the only way COM objects communicate. The particular
+interface you need to implement is defined in the Views subsystem; it is called
+IVwViewConstructor. Typically, the code you actually write is a switch, with at
+least one case for each type of object you need to display. Depending on the
+complexity of the view, you may need only one method, or several. To help,
+especially with the simpler cases, there is a base class, VwBaseVc, which
+trivially implements all the methods to fail (returning E_NOTIMPL). Thus, you
+only have to write the methods you need. The one required method is Display().
+It is passed an HVO, initially identifying the root object, and two other
+arguments, which I will explain in a moment. Other methods only have to be
+implemented if you use particular capabilities of the system.</p>
+
+<p>The first of the other arguments to Display is an IVwEnv. This name is short
+for View Environment, a slightly awkward term borrowed from functional
+programming and meaning an object that represents the state of an incomplete
+computation (in this case, the incomplete construction of the view layout).
+This interface is provided in order to allow you, in turn, to make call-backs
+to the view subsystem to tell it what to do about displaying the object. It has
+methods for telling the view to make a paragraph or table, to change various
+style properties, to insert some literal text, and so forth. You can also tell
+it to insert some property of the current object.</p>
+
+<p>&quot;Property&quot; is used here in a technical sense. The view code
+considers an object to be a bundle of properties. Some of them are simple,
+holding a number or a string. In that case, you just tell the IVwEnv to display
+a string or number property, passing a tag to indicate which property. Some
+properties are more complex, holding a reference to another object or a
+sequence of them.</p>
+
+<p>When you tell the IVwEnv to display a property that contains objects, it
+turns around and calls your Display method again (typically...there are a
+couple of other options, depending on just how you told it to display the
+property). For a sequence property, it will call Display repeatedly, passing
+the HVO of each of the objects in the property.</p>
+
+<p><a name=Fragment></a>Now, it is possible that your view constructor
+recognizes each of the HVO's for each object in your data and knows what to do
+with each. It is more usual, however, that you are going by the structure of
+the data. You know what kind of root object your view is going to display, so
+you know what properties to display for that kind of object. For each of its
+properties, you know the sorts of objects that could be stored there, so when
+you tell the IVwEnv to display property X, you know what kind of objects they
+will be, at least roughly.</p>
+
+<p>This brings us to the third argument to Display, which is a &quot;fragment
+identifier.&quot; Usually, this is the control argument for your switch
+statement. When you initialize the root box, you pass a fragment identifier (to
+SetRootObjects), which is passed on to you in the first Display call. You can
+use it to select the proper case for your root object. When you ask the view to
+display an object-containing property, you specify a fragment, which is then
+passed back to you in the resulting Display calls, and typically used to select
+an appropriate case for the type of objects in that property. Of course, by
+passing different fragment identifiers, you can display the same object in
+different ways.</p>
+
+<p>In either case, the view remembers what part of the screen is displaying the
+value of a particular property. If that property changes, the view reads the
+new value, and repeats whatever it did with the value originally to obtain a
+display of the updated value. (For example, it may call your Display method
+again, passing the current HVOs stored in the property, and the fragment you
+originally told it to use for that display of that property.) In certain cases,
+the view is also able to recognize user actions as editing a particular
+property, and will make calls to the ISilDataAccess to update the property
+value.</p>
+
+<p>Why not just let you look up the values of properties, loop through the
+HVOs, and do whatever is appropriate with each? The reason is that the view
+code wants to keep certain kinds of control over the process. It wants to know
+where a particular property starts and ends. It wants to be able to replace the
+display of a property, or a few objects within a property, without rebuilding
+the whole view from the top down. It wants to be able to postpone some parts of
+the display generation until the results will actually be visible at the
+current scroll position. This architecture gives the view enough control to do
+these kinds of things.&nbsp;</p>
+
+<p align=center style='text-align:center'><img border=0 width=609 height=340
+id="_x0000_i1026" src="Diagrams\View_Layout.gif"></p>
+
+<h2><a name="Host_View"></a>2.3 Hosting a view</h2>
+
+<p>There are several ways of making a view part of your user interface. One
+option is to host, in the usual way, an ActiveX control which contains a view.
+There will eventually be several such controls available in FieldWorks, each
+offering different levels of layout and content control, and different levels
+of ease of use.</p>
+
+<p>You can also, in C++, subclass one of the helper window classes
+AfVwSplitWnd, AfVwScrollWnd, or AfVwWnd. (The first is a child of an
+AfSplitFrame which supports both scrolling and a splitter bar; the second just
+has a scroll bar; and the third does not have its own scroll bar.) In each case
+you override a MakeRoot method to construct an initialize the root box, and the
+rest of the work is done for you. Many examples of this can be found by
+searching for MakeRoot in the Data Notebook and WorldPad source code.</p>
+
+<p>If none of these options works for you, there is some extra work you have to
+do. (Most users won't need to deal with this, but it is helpful in
+understanding the architecture of the implementation.)</p>
+
+<p><a name=RootBox></a>To begin with, the views component implements
+IVwRootBox. Boxes in the Views implementation are rectangular bits of the
+screen, often containing other boxes, and the root box is the one that contains
+them all. Unlike the lower level boxes, the root box implements an interface
+that is accessible to other components. You begin the process of making a view
+by using CoCreateInstance to make a CLSID_VwRootBox to create an actual
+instance of this object. Then you use initialization methods to set it up with
+a data access object and a view constructor, and optionally a style sheet.
+There are two more things you need to do:</p>
+
+<ol start=1 type=1>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l3 level1 lfo3;tab-stops:list .5in'>Arrange to forward relevant
+	 window events to the root box. Much of the IVwRootBox interface is to
+	 allow you to do this.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l3 level1 lfo3;tab-stops:list .5in'>Provide an implementation of
+	 IVwRootSite to allow the view to notify you of events which the root box
+	 detects that you need to do something about.</li>
+</ol>
+
+<p>Events you need to inform the root box of include changes in the width
+available for laying out the view, requests for the screen to be painted, mouse
+and keyboard activity, gain and loss of focus, timer events to allow it to
+flash the insertion point, and changes to object properties that it is using.
+(The standard implementations of ISilDataAcess can help with this last point.)</p>
+
+<p>Events the root box will inform you of include selection changes, the need
+to mark part or all of the view as invalid (needing painting), changes to
+object properties, and changes in the overall size of the view as laid out.</p>
+
+<p>The standard implementation of view hosting is found in AfVwWnd.{h,cpp,
+specifically the class AfVwRootSite. This is designed as a &quot;mixin&quot;
+class: you supply an HWND and it does a lot of the work. If you don't use it,
+you should study it carefully to see what is needed.</p>
+
+<p align=center style='text-align:center'><img border=0 width=417 height=202
+id="_x0000_i1027" src="Diagrams\View_Hosting.gif"></p>
+
+<h1>3 Screen layout: the Box hierarchy</h1>
+
+<p>The screen layout aspect of the view code is handled by a collection of
+classes inheriting from VwBox. A Box represents a rectangular area of the
+screen. Some boxes decompose into further boxes (for example, a Div box
+typically has Paragaph boxes inside it). Other boxes are indivisible: they
+contain a single segment of text or picture or something similar.</p>
+
+<p>The most important parts of the Box class hierarchy are shown here (key
+classes in Bold):<o:p></o:p></p>
+
+<pre align=left><b>VwBox</b></pre><pre><span style='mso-tab-count:1'>        </span>VwLeafBox</pre><pre><span
+style='mso-tab-count:2'>               </span><b>VwStringBox</b></pre><pre><span
+style='mso-tab-count:2'>               </span>VwPictureBox</pre><pre><span
+style='mso-tab-count:1'>        </span><b>VwGroupBox</b></pre><pre><span
+style='mso-tab-count:1'>        </span><span style='mso-tab-count:1'>        </span><b>VwParagraphBox</b></pre><pre><span
+style='mso-tab-count:2'>               </span><b>VwPileBox</b></pre><pre><span
+style='mso-tab-count:3'>                       </span>VwDivBox</pre><pre><span
+style='mso-tab-count:4'>                               </span><b>VwRootBox</b></pre><pre><span
+style='mso-tab-count:3'>                       </span><b>VwTableBox</b></pre><pre><span
+style='mso-tab-count:3'>                       </span>VwTableCellBox</pre><pre><span
+style='mso-tab-count:3'>                       </span>VwInnerPileBox</pre><pre><span
+style='mso-tab-count:2'>               </span>VwTableRowBox</pre><pre><span
+style='mso-tab-count:1'>        </span><b>VwLazyBox</b></pre>
+
+<p>VwBox has implementations of the stuff that is common to all boxes, and
+default implementations for various methods that some subclasses override. This
+includes the ability to participate in a singly-linked list of boxes inside a
+particular group box, keeping track of the containing group box, and keeping
+track of a screen location relative to the container.</p>
+
+<p>VwGroupBox has the common functionality for boxes that contain other boxes.
+It functions as the head of a linked list of those boxes.</p>
+
+<p>VwPileBox knows how to lay out its contained boxes vertically. Most group
+boxes do this.</p>
+
+<p>VwParagraphBox and VwStringBox cooperate to lay text out in paragraphs.
+Pictures and inner piles (interlinear bundles) can also be arranged into
+paragraphs.</p>
+
+<p>VwRootBox is the outermost box (the only one without a container box) in any
+given view. It also implements IVwRootBox.</p>
+
+<p>(Note: It is possible that we will change VwRootBox to be a MixIn class so
+that we can have both roots that are Piles (multiple inheritance with VwDivBox,
+as at present) and roots that are a single paragraph (multiple inheritance with
+VwParagraphBox). This would save a little complexity and memory for very simple
+views, such as an edit box or one line in a ListBox.)</p>
+
+<p>VwLazyBox represents an incomplete layout. A lazy box can't be directly
+drawn on the screen; it must be &quot;expanded&quot; into the &quot;real&quot;
+boxes that it represents. Lazy boxes are used for parts of the view that are
+currently not visible to the user, in order to postpone the full work of
+constructing the hierarchy of boxes and laying them out until it is actually
+needed.</p>
+
+<p align=center style='text-align:center'><img border=0 width=516 height=391
+id="_x0000_i1028" src="Diagrams\Views_Box_Layout.gif"></p>
+
+<p align=center style='text-align:center'>Figure 4. Box layout</p>
+
+<p>Figure 4 shows a typical physical organization of the boxes, with several
+paragraphs nested inside the root box, and strings (and a picture) nested
+inside the paragraphs. Arrows show the linked lists of boxes in the root and in
+the first paragraph.</p>
+
+<h1>4 Data hookup: VwNotifier</h1>
+
+<p>The most complex aspect of the Views code is the classes that keep track of
+the relationship between object properties and what is displayed on the screen.
+The class hierarchy looks like this:</p>
+
+<pre>VwAbstractNotifier</pre><pre><span style='mso-tab-count:1'>        </span><b>VwNotifier</b></pre><pre><span
+style='mso-tab-count:1'>        </span>VwRegenNotifier</pre><pre><span
+style='mso-tab-count:2'>               </span>VwMissingNotifier</pre><pre><span
+style='mso-tab-count:2'>               </span>VwPropListNotifier</pre>
+
+<p>Of these the VwNotifier is by far the most important; the other subclasses
+deal with various special cases, while the VwAbstractNotifier is just an
+abstract class for the relatively limited amount of functionality that all the
+classes share.</p>
+
+<h2>4.1 Basic nature of VwNotifier</h2>
+
+<p>A VwNotifier keeps track of one occurrence of the display of one object at
+one place on the screen. This is important. If a paragraph contains information
+about two objects (say, representing two senses in a dictionary), it will have
+two notifiers associated with it. If a sense is displayed in more than one
+non-contiguous place (say, it is used two or three times in an interlinear
+text), it will have more than one notifier.</p>
+
+<p><a name="Dict_Example"></a>Notifiers, like boxes, can be nested. In fact
+they usually are more deeply nested than boxes. A single paragraph might
+display a dictionary entry by displaying a headword and then a list of senses.
+Each sense might display a number, a gloss, a definition, and some example
+sentences. The example sentences might be objects themselves, each showing
+vernacular and translated text. In such a case, the notifiers for each example
+sentence are nested inside the notifier for the appropriate sense. The
+notifiers for the senses, likewise, are nested inside the one for the entry.</p>
+
+<h2>4.2 Nesting of boxes and notifiers</h2>
+
+<p>An important design issue is the relationship between the box and notifier
+hierarchies. Usually it will be natural for data object boundaries and box
+boundaries to correspond pretty well, though there is often not a 1:1
+correspondence between data objects and boxes. A data object may be part of a
+paragraph (like the example sentences and senses <a href="#Dict_Example">above</a>),
+a whole paragraph (like the entry <a href="#Dict_Example">above</a>), or a
+sequence of paragraphs (as the entry would be if we made a paragraph for each
+sense).</p>
+
+<p>But can an object be part of one paragraph and part of the next? The only
+example I know of where this might be desirable is Scripture, where the
+paragraph boundaries created by modern translators correspond poorly, in some
+cases, to the chapter and verse boundaries put in by earlier interpreters. For
+example, if the objects in the Scripture text correspond to chapters and
+verses, then sometimes a paragraph boundary will come in the middle of a verse;
+or, if the objects correspond to sections and paragraphs, but someone wants to
+display the text with a paragraph for each verse, then sometimes a &quot;verse
+paragraph&quot; (on the screen) will contain part of one logical paragraph and
+part of another.</p>
+
+<p>The view subsystem does not currently support this kind of overlapping. It
+may be necessary to do so one day, but it adds enough complexity that we have
+chosen not to do so until it is needed. Thus, at present, if a paragraph (or
+other &quot;flow object&quot;--anything like a division or inner pile that
+organizes the physical display) is started within the display of a particular
+object, it must be finished before the object is finished. Likewise, if the
+display of a particular object is started within a certain flow object, it must
+be completed before the end of the flow object.</p>
+
+<p>Similar rules apply to the display of a particular property of an object. A
+property started within a flow object must be completed before the end of the
+flow object, and vice versa.</p>
+
+<h2>4.3 Information stored by a notifier</h2>
+
+<p>A notifier stores the following information:</p>
+
+<ol start=1 type=1>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l7 level1 lfo4;tab-stops:list .5in'>The HVO of the object that is
+	 being displayed.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l7 level1 lfo4;tab-stops:list .5in'>A pointer to a
+	 &quot;parent&quot; notifier, the one for the object display that this
+	 object display is considered &quot;part of.&quot;</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l7 level1 lfo4;tab-stops:list .5in'>An index to indicate which of
+	 its parent's properties it is part of.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l7 level1 lfo4;tab-stops:list .5in'>An index to indicate which
+	 object it is within the parent property.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l7 level1 lfo4;tab-stops:list .5in'>A &quot;last box&quot; and
+	 &quot;limit string index&quot; (explained below)</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l7 level1 lfo4;tab-stops:list .5in'>A &quot;key box&quot;
+	 (explained below).</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l7 level1 lfo4;tab-stops:list .5in'>A list of the properties of
+	 its own HVO which are displayed (with a count).</li>
+</ol>
+
+<p>This final list is quite complex, and stores quite a lot of information
+about each property displayed. The idea is to have enough information to
+re-create the display of that property, and replace the current one with it, if
+the value of the property changes. Specifically, for each property in the list,
+we need to keep:</p>
+
+<ol start=1 type=1>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l4 level1 lfo5;tab-stops:list .5in'>The property tag. This allows
+	 us to re-read the data from the ISilDataAccess, and also is the key by
+	 which the notifier is informed that a property changed.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l4 level1 lfo5;tab-stops:list .5in'>An enumeration member that
+	 identifies how the property was displayed. This corresponds to one of the
+	 several methods of IVwEnv that can be used to display properties of the
+	 current object. For example, we remember whether it is a simple string
+	 property, an integer, or a link to another object or sequence of objects.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l4 level1 lfo5;tab-stops:list .5in'>An encoding. Some methods for
+	 displaying a property indicate that only one encoding (from among possibly
+	 several that are stored) should be displayed, and we must display the same
+	 one if we regenerate.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l4 level1 lfo5;tab-stops:list .5in'>An IVwViewConstructor. We
+	 must know which one was used to generate this particular display of this
+	 particular property.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l4 level1 lfo5;tab-stops:list .5in'>A &quot;fragment
+	 identifier.&quot; This is an argument to any view constructor call to
+	 display an object. See the discussion of <a href="#Fragment">Fragment</a>.above.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l4 level1 lfo5;tab-stops:list .5in'>A pointer to a VwPropertyStore.
+	 This object encapsulates the effect all stylistic effects that have been
+	 requested at higher levels in the display, and is needed to re-establish
+	 the proper initial conditions for re-displaying the property.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l4 level1 lfo5;tab-stops:list .5in'>A pointer to the first box
+	 that is part of the display of the property.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l4 level1 lfo5;tab-stops:list .5in'>An index to the first string
+	 within that box that is part of the display of the property (or -1, if the
+	 whole box is part of the property).</li>
+</ol>
+
+<p>(Note: currently the encoding and fragment identifier actually share the
+same field, since it turns out that no single property display type needs
+both.)</p>
+
+<p>Note that we don't store anything directly to indicate where the display of
+a particular property ends. The general assumption is that one property ends
+where the next begins. This generally saves some space. It does mean, though,
+that we need a way to indicate where the last property stops. This is the
+purpose of the &quot;last box&quot; and &quot;limit string index&quot; in the
+data of the notifier itself.</p>
+
+<p>It is possible that the display of an object includes information that is
+not derived from one of its own properties: typically, literal text inserted as
+a label. A reserved tag (ktagGapInAttrs) is used to indicate the range of boxes
+(and possibly strings) used for this.</p>
+
+<p>Note that a notifier never points at a VwStringBox. VwStringBoxes are
+created as part of the process of laying out a paragraph, and are very
+transient. For example, a trivial change in the width of the window will cause
+them all to be discarded and regenerated. By contrast, the other boxes exist as
+long as the view does, unless some of them have to be replaced because a
+property changes, or discarded when scrolled out of view to save memory.
+Instead, the notifier keeps track of the paragraph box and an index into the
+strings that make up its content.</p>
+
+<p>Figure 5 shows a relatively simple case: a display of a data notebook entry.
+The title and record type are shown in one paragraph, the Description as a
+paragraph by itself, and the researchers and tags (with appropriate labels) as
+another. (This is slightly simplified from real life.) I have inserted numbers
+into the last paragraph to identify the distinct string objects it is
+displaying. Note that this notifier does not have entries for all of them. For
+example, it knows that strings 1, 2, 3, and 4 make up the display of the
+Researchers property, but not that 2 and 4 are separators, or how 1 and 3 are
+related to particular notifier objects. Two additional notifier objects (not
+shown) would store those relationships. (In case it isn't obvious, each box on
+the right shows information the notifier stores about one property. The arrow
+represents the box pointer, the number the string index, and the name the
+property tag.)</p>
+
+<p align=center style='text-align:center'><img border=0 width=489 height=256
+id="_x0000_i1029" src="Diagrams\View_Notifier.gif"></p>
+
+<p align=center style='text-align:center'>Todo: Figure 5. A notifier displaying
+a sequence of sting properties</p>
+
+<p>Figure 6 shows a slightly more complex example: the dictionary entry
+described <a href="#Dict_Example">above</a>. Everything is in a single
+paragraph, but there are several layers of nested notifiers. (The arrow from
+the right side of each notifier indicates the last string that is part of the
+object.) In this example, I have not shown the paragraph box pointers (they all
+point to the same one paragraph box!), but used arrows to show how the string
+numbers indicate the limits of each property.</p>
+
+<p align=center style='text-align:center'><img border=0 width=701 height=334
+id="_x0000_i1030" src="Diagrams\Views_Notifier_Hierarchy.gif"></p>
+
+<p align=center style='text-align:center'><a name="Figure_6"></a>Figure 6. A
+hierarchy of notifiers</p>
+
+<p>Note that the same tag can conceivably occur repeatedly in the property
+list. For example, a single display of a book might include its chapters twice,
+once normally, and once to create a table of contents.</p>
+
+<h2>4.4 Notifier information stored in the root box</h2>
+
+<p>The root box stores two maps which are used to locate notifiers, using
+different keys:</p>
+
+<p>The first map stores the notifiers keyed by HVO. This allows quick discovery
+of the notifiers that might need to do something when a particular property of
+a particular object is displayed.</p>
+
+<p>The other map stores notifiers keyed by a box. In most cases, this is the
+first box of their first property. However, it is sometimes instead one off the
+containers of that first box. The rule is that the key box and its successors
+(in the Next() chain) must include everything this notifier displays. It should
+be as close to the first box as possible (in the Container() chain) without
+violating that. (This choice of a key is dictated by keeping as many algorithms
+as possible as simple as possible. Only a detailed study of all the code in
+this module would really make clear why this is the right choice. In fact, at
+this point I am not totally sure that it <i>is</i> the best choice. So far,
+though, it seems to be good enough.) </p>
+
+<p>The purpose of the map keyed by box is to allow us to find relevant
+notifiers for a particular box. It is a fairly marginal design decision to use
+such a map rather than a linked list starting with a pointer in the box, which
+would be the most natural alternative. Here are some reasons: </p>
+
+<ol start=1 type=1>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l6 level1 lfo6;tab-stops:list .5in'>Many boxes are not key boxes
+	 for any notifier. Thus, there is a memory saving for not having a pointer
+	 in each box. (Of course, there is a memory cost for the boxes that do have
+	 notifiers; for them, the linked list would be a little more space
+	 efficient. The exact trade-off here could only be determined
+	 experimentally.)</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l6 level1 lfo6;tab-stops:list .5in'>Maintaining the linked lists
+	 when properties changed would be fairly challenging. In hindsight, I'm not
+	 sure it would be worse than the present code; but I'd want to be pretty
+	 convinced it was going to be better before changing.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l6 level1 lfo6;tab-stops:list .5in'>It is potentially useful that
+	 boxes have little or no knowledge of notifiers. We may one day want to
+	 produce box structures that don't have notifiers. These could be useful in
+	 print-only views (that don't support editing and don't last long enough to
+	 worry about data changes), or in a view designed for embedding in another
+	 application without being connected to the database.</li>
+</ol>
+
+<h2>4.5 Finding embedded notifiers</h2>
+
+<p>It is sometimes helpful to find notifiers that are embedded in other
+notifiers. For example, we may be asked to make a selection at the start of
+(say) the second sense of the first entry in the window. One might expect that
+notifiers would store such information. In fact, notifiers don't point &quot;down&quot;
+to embedded notifiers, except indirectly through the box chains. That is, a
+notifier has no direct knowledge of the notifier for the first object in its
+first object-containing property, and so forth. It is possible to locate child
+notifiers, but doing so involves some fairly complex manipulations involving
+boxes and the box-to-notifier map in the root box. (For example, we know this
+notifiers own first box, we can find all the notifiers interested in that box,
+and see whether one is the one we want. If not, we can try embedded boxes,
+following boxes, and so forth.</p>
+
+<p>It may be helpful to understand why this information is not stored
+explicitly:</p>
+
+<ol start=1 type=1>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l0 level1 lfo7;tab-stops:list .5in'>Notifier information is
+	 relatively rarely used. The box chains are performance-critical for
+	 layout, drawing, and similar operations. By contrast, notifiers are used
+	 only when something changes, or other relatively rare operations such as
+	 deciding whether editing is enabled at the selection. Thus, I've tried
+	 hard to make them not store any information which can be computed when
+	 needed, as a space saving. (It's also a time saving when creating
+	 them...something we do a <i>lot</i> more than using them.)</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l0 level1 lfo7;tab-stops:list .5in'>The less links we have to
+	 construct (and maintain, when things change), the less things there are to
+	 get wrong, and the more likely it is that there will be immediate bad
+	 consequences if we do get something wrong, since everything depends on the
+	 links we do have. Thus, maintaining a minimum of links makes for
+	 robustness.</li>
+</ol>
+
+<h1>5 VwPropertyStore</h1>
+
+<p>Each Box in the system potentially has a good deal of stylistic information
+associated with it. All boxes have foreground and background color and can have
+margins, borders, and &quot;padding&quot; (space inside the border, outside any
+other contents). Each of these can be different on all four sides. Then, each box
+can have a lot of text property information. Much of this information is
+automatically transferred to embedded boxes, unless overridden.</p>
+
+<p>In a large display, it is very likely that many boxes will share the same
+properties. Thus, a useful space saving can be had by making a separate object
+to represent all the stylistic properties it is possible for a box to have. The
+object that does this is called a VwPropertyStore.</p>
+
+<p>The properties used in different parts of the display are related in terms
+of their origin. For example, if the view constructor specifies &quot;left
+margin 0.5 inches,&quot; the properties for the next paragraph will be the same
+as those of the containing division except for that one property. The
+combination is quite likely to occur again (say, in the display of the next
+object). So, it is useful to actually record the fact that when you apply
+&quot;left margin 0.5 inches&quot; to property store X produces property store
+Y. We actually store this information in property store X, so that when X is the
+current default properties, and the view constructor invokes &quot;left margin
+0.5 inches&quot;, we can find property store Y quickly</p>
+
+<p align=center style='text-align:center'><img border=0 width=645 height=422
+id="_x0000_i1031" src="Diagrams\View_Prop_Store.gif"></p>
+
+<p align=center style='text-align:center'>Figure 7. Hierarchy of property stores
+and related boxes.</p>
+
+<p>In some ways, a property store is like a TsTextProps. The two store much the
+same range of properties. Here are some key differences.</p>
+
+<ol start=1 type=1>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l1 level1 lfo8;tab-stops:list .5in'>A TsTextProps is guaranteed
+	 unique. In a given thread we only ever have one with given set of values.
+	 Property stores are usually unique but it is not guaranteed.</li>
+ <li class=MsoNormal style='mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;
+	 mso-list:l1 level1 lfo8;tab-stops:list .5in'>A TsTextProps stores
+	 properties with both a value and a &quot;variation.&quot; It is able to
+	 represent things like &quot;line height 20% larger than font height&quot;
+	 and &quot;invert bold&quot; as well as absolute values, because
+	 TsTextProps are often used as modifications of some base style. And in
+	 general, most properties don't have a value specified at all in a
+	 TsTextProps. On the other hand, a VwPropertyStore always gives an absolute
+	 value for every property. (It can process variations as input, though. In
+	 fact, one of the ways to derive one property store from another is to
+	 specify a group of changes using a TsTextProps.)</li>
+</ol>
+
+<p>Thus, in addition to a hierarchy of boxes related by containment on the
+screen, and a hierarchy of notifiers related by logical containment, a view
+also has a hierarchy of property stores, related by the property change that
+produced one from another.</p>
+
+<p>There are a number of other subtleties to property stores (for example, they
+help deal with the issue of which properties set on an outer flow object are
+automatically transferred to an inner one, and help interpret named styles) but
+this is probably enough information for an overall architecture.</p>
+
+<h1>6 IVwSelection</h1>
+
+<p>Another important part of the view architecture is the ability to make
+selections and to perform various operations on them. There are two
+implementations currently: an abstract class VwSelection which implements the
+behaviors I think will be common to all selections, and a concrete class
+VwTextSelection which represents selecting all the text between two positions
+in the display.</p>
+
+<p>A text selection is implemented as a pointer to a paragraph box and an
+offset into the text of that box; or possibly, two pointers to two different
+paragraph boxes and a character offset into each of them. This is a convenient
+representation for the operations where performance is demanded (such as
+drawing the selection), but not particularly convenient for clients of the view
+system, since boxes are not even objects they are aware of. Generally, a client
+wants to manipulate selections in terms of objects and properties.</p>
+
+<p>Consider <a href="#Figure_6">figure 6</a> again. Suppose we have selected
+the &quot;is&quot; in &quot;that is correct.&quot; That is, characters 40 and
+41 in the overall paragraph. That doesn't tell the client much. However,
+knowing that it is characters 5 and 6 of the translation of example 1.1 is
+likely to be more useful. To that we can add the information that example 1.1
+is item 0 in the examples of sense 1, which is sense 0 in the senses of the top
+level entry.</p>
+
+<p>We can also reverse this process: ask the system to create a selection that
+is characters 5 and 6 of the translation of sentence 0 in the examples of sense
+0 of the root entry.</p>
+
+<p>In general, then, the information about a selection consists of a path from
+the root object down to a particular string property of a particular object.
+Each step in the path involves a tag which identifies the property, and if it
+is a sequence property, the position in the sequence.</p>
+
+<p>In this simple example, it would actually be enough to just say that we have
+selected characters 5-6 of example 1.1. However, in general, a display could
+contain the same property of the same object in more than one place. So an
+unambiguous specification of the selection needs to include the full path.
+Also, in a large display, searching the whole thing for the display of example
+1.1 could be expensive, particularly if example 1.1 happens to be data that we
+have not yet loaded. For all these reasons, when specifying a selection, it is
+necessary to give a full path.</p>
+
+<p>There are three complications to the process of specifying the path to a
+selection that we have not yet considered.</p>
+
+<p>First, it is possible for a view to have more than one top-level, or root,
+object. Thus, in general, the path to a selection includes an index into the
+list of root objects.</p>
+
+<p>Next, the terminal property, containing the actual characters selected,
+might be a multlingual one. In that case, it is important to know which
+alternative the selection is part of (especially if more than one is visible).</p>
+
+<p>Finally, it is possible that a property is displayed more than once.
+Consider a display of a document which first displays its sections using a
+fragment identifier that produces just the title of a section (thus producing a
+table of contents), and then displays the sections again using a different
+fragment identifier to produce the actual content. Now it is not enough just to
+know that the selection is in section 4 of the document; we have to know
+whether it is in the first or second occurrence of that property in the display
+of the document.</p>
+
+<p>Thus, in general, one step in the path from the root down to the actual
+selection consists of a property tag, a count indicating how many previous
+occurrences of that property there have been in the display of the parent
+object (usually 0), and an index into the property (in case it is a sequence
+one).</p>
+
+<h1>7 Laziness</h1>
+
+<p>The view subsystem supports &quot;Laziness&quot;, in the sense of not computing
+something until it is needed. Specifically, it can postpone computing the
+layout of some objects in a sequence until the user scrolls to make them
+visible.</p>
+
+<p>Quite a number of limitations are placed around this ability, in the
+interests of limiting the cost of laziness, both the cost of complicating the
+code, and the cost of decreasing performance in displaying what <i>is</i>
+visible. Only one kind of property can be displayed lazily (AddLazyVecItems is
+equivalent to AddObjVecItems except for laziness), and it cannot be embedded
+inside anything except one or more Div flow objects. (At present, for example,
+we can't make a table that has a lazy sequence of rows, or a row that has a
+lazy sequence of cells, or a cell that contains a lazy sequence of paragraphs.
+Nor can we be lazy about different parts of a single string property, or
+anything similar.) </p>
+
+<p>When the system needs to display or otherwise deal with the contents of the
+part of the display that it has been lazy about computing, it goes ahead and
+computes as much of it as needed. At this point, the view constructor has a
+chance to get into the act and load the data that is going to be needed. This
+allows us to be lazy about reading the data into memory, as well as lazy about
+generating the display structures themselves.</p>
+
+<p>To help produce layouts and scroll ranges that have some relation to
+reality, the view constructor is also given the chance to provide an estimate
+of the height of one item.</p>
+
+<p>Implementationally, laziness is done by creating a VwLazyBox instead of
+calling Display for each item in the sequence indicated by the arguments to
+AddLazyVecItems. When a real box is wanted, code figures out which part of the
+sequence needs to be turned into real boxes, and calls Display for those items.
+It may be necessary to convert the lazy box into two, one for items before the
+part expanded, and one for those after. Or, it may be that all the items are
+being expanded, and the lazy box goes away.</p>
+
+</div>
+
+</body>
+
+</html>
