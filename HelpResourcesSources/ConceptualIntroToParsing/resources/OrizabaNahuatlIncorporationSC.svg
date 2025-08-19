@@ -1,0 +1,48 @@
+<?xml version='1.0' standalone='no'?>
+<svg width='530.226953125' height='160.832265625' version='1.1' xmlns='http://www.w3.org/2000/svg' contentScriptType='text/javascript'>
+<rect width="100%" height="100%" fill="#ffffff"/>
+<text x="86.78025390625" y="14.94" font-family="Courier New" font-size="12.0" fill="#ff0000">Word</text>
+<text x="5.940000000000001" y="46.363749999999996" font-family="Courier New" font-size="12.0" fill="#ff0000">Subject</text>
+<line x1="101.18259765625" y1="21.543515624999998" x2="31.1441015625" y2="33.373515624999996" stroke="#400040" stroke-width="1.0"/>
+<text x="20.34234375" y="77.7875" font-family="Courier New" font-size="12.0" fill="#0000ff">ni-</text>
+<line x1="31.1441015625" y1="52.967265624999996" x2="31.1441015625" y2="64.797265625" stroke="#400040" stroke-width="1.0"/>
+<text x="5.940000000000001" y="91.38125" font-family="Charis SIL Small Caps" font-size="12.0" fill="#008000">1sg.sbj</text>
+<text x="74.178203125" y="46.363749999999996" font-family="Courier New" font-size="12.0" fill="#ff0000">Object</text>
+<line x1="101.18259765625" y1="21.543515624999998" x2="95.78171875" y2="33.373515624999996" stroke="#400040" stroke-width="1.0"/>
+<text x="88.580546875" y="77.7875" font-family="Courier New" font-size="12.0" fill="#0000ff">k-</text>
+<line x1="95.78171875" y1="52.967265624999996" x2="95.78171875" y2="64.797265625" stroke="#400040" stroke-width="1.0"/>
+<text x="77.7787890625" y="91.38125" font-family="Charis SIL Small Caps" font-size="12.0" fill="#008000">3.obj</text>
+<text x="142.41640625" y="46.363749999999996" font-family="Courier New" font-size="12.0" fill="#ff0000">Stem[vt]</text>
+<line x1="101.18259765625" y1="21.543515624999998" x2="171.22109375" y2="33.373515624999996" stroke="#400040" stroke-width="1.0"/>
+<text x="156.81875" y="77.7875" font-family="Courier New" font-size="12.0" fill="#ff0000">root</text>
+<line x1="171.22109375" y1="52.967265624999996" x2="171.22109375" y2="64.797265625" stroke="#400040" stroke-width="1.0"/>
+<text x="149.617578125" y="109.21124999999999" font-family="Courier New" font-size="12.0" fill="#0000ff">tolova</text>
+<line x1="171.22109375" y1="84.391015625" x2="171.22109375" y2="96.22101562499999" stroke="#400040" stroke-width="1.0"/>
+<text x="135.215234375" y="122.80499999999999" font-family="Courier New" font-size="12.0" fill="#008000">to.swallow</text>
+
+
+<text x="373.3212890625" y="14.94" font-family="Courier New" font-size="12.0" fill="#ff0000">Word</text>
+<text x="305.940000000000001" y="46.363749999999996" font-family="Courier New" font-size="12.0" fill="#ff0000">Subject</text>
+<line x1="387.7236328125" y1="21.543515624999998" x2="331.1441015625" y2="33.373515624999996" stroke="#400040" stroke-width="1.0"/>
+<text x="320.34234375" y="77.7875" font-family="Courier New" font-size="12.0" fill="#0000ff">ni-</text>
+<line x1="331.1441015625" y1="52.967265624999996" x2="331.1441015625" y2="64.797265625" stroke="#400040" stroke-width="1.0"/>
+<text x="305.940000000000001" y="91.38125" font-family="Charis SIL Small Caps" font-size="12.0" fill="#008000">1sg.sbj</text>
+<text x="415.4984765625" y="46.363749999999996" font-family="Courier New" font-size="12.0" fill="#ff0000">Stem[vi]</text>
+<line x1="387.7236328125" y1="21.543515624999998" x2="444.3031640625" y2="33.373515624999996" stroke="#400040" stroke-width="1.0"/>
+<text x="388.580546875" y="77.7875" font-family="Courier New" font-size="12.0" fill="#ff0000">Stem</text>
+<line x1="444.3031640625" y1="52.967265624999996" x2="402.982890625" y2="64.797265625" stroke="#400040" stroke-width="1.0"/>
+<text x="388.580546875" y="109.21124999999999" font-family="Courier New" font-size="12.0" fill="#ff0000">root</text>
+<line x1="402.982890625" y1="84.391015625" x2="402.982890625" y2="96.22101562499999" stroke="#400040" stroke-width="1.0"/>
+<text x="392.1811328125" y="140.635" font-family="Courier New" font-size="12.0" fill="#0000ff">pah</text>
+<line x1="402.982890625" y1="115.81476562499999" x2="402.982890625" y2="127.64476562499999" stroke="#400040" stroke-width="1.0"/>
+<text x="374.178203125" y="154.22875" font-family="Courier New" font-size="12.0" fill="#008000">medicine</text>
+<text x="456.81875" y="77.7875" font-family="Courier New" font-size="12.0" fill="#ff0000">Stem[vt]</text>
+<line x1="444.3031640625" y1="52.967265624999996" x2="485.6234375" y2="64.797265625" stroke="#400040" stroke-width="1.0"/>
+<text x="471.22109375" y="109.21124999999999" font-family="Courier New" font-size="12.0" fill="#ff0000">root</text>
+<line x1="485.6234375" y1="84.391015625" x2="485.6234375" y2="96.22101562499999" stroke="#400040" stroke-width="1.0"/>
+<text x="464.019921875" y="140.635" font-family="Courier New" font-size="12.0" fill="#0000ff">tolova</text>
+<line x1="485.6234375" y1="115.81476562499999" x2="485.6234375" y2="127.64476562499999" stroke="#400040" stroke-width="1.0"/>
+<text x="449.617578125" y="154.22875" font-family="Courier New" font-size="12.0" fill="#008000">to.swallow</text>
+
+<text x="230" y="50" font-family="Charis SIL" font-size="12.0" fill="#000000">becomes</text>
+</svg>

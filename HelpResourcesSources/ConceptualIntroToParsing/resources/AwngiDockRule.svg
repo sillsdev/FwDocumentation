@@ -1,0 +1,55 @@
+<?xml version='1.0' standalone='no'?>
+<svg width='320' height='40' version='1.1' xmlns='http://www.w3.org/2000/svg' contentScriptType='text/javascript'>
+<rect width="100%" height="100%" fill="#ffffff"/>
+
+<!-- input feature -->
+<text x="8" y="15" font-family="Charis SIL" font-size="12.0">+</text>
+<text x="20" y="15" font-family="Charis SIL" font-size="12.0">:</text>
+<text x="25" y="15" font-family="Charis SIL" font-size="12.0">syllabic</text>
+
+<text x="10" y="30" font-family="Charis SIL" font-size="12.0">L</text>
+<text x="20" y="30" font-family="Charis SIL" font-size="12.0">:</text>
+<text x="25" y="30" font-family="Charis SIL" font-size="12.0">tone</text>
+
+<!-- left square bracket -->
+<line x1="6" y1="3" x2="8" y2="3" stroke="#400040" stroke-width="1.0"/>
+<line x1="6" y1="33" x2="8" y2="33" stroke="#400040" stroke-width="1.0"/>
+<line x1="6" y1="3" x2="6" y2="33" stroke="#400040" stroke-width="1.0"/>
+
+<!-- right square bracket -->
+<line x1="68" y1="3" x2="70" y2="3" stroke="#400040" stroke-width="1.0"/>
+<line x1="68" y1="33" x2="70" y2="33" stroke="#400040" stroke-width="1.0"/>
+<line x1="70" y1="3" x2="70" y2="33" stroke="#400040" stroke-width="1.0"/>
+
+<text x="81" y="15" font-family="Charis SIL" font-size="12.0" font-weight="bold">→</text>
+
+<!-- output feature -->
+<text x="110" y="15" font-family="Charis SIL" font-size="12.0">+</text>
+<text x="120" y="15" font-family="Charis SIL" font-size="12.0">:</text>
+<text x="125" y="15" font-family="Charis SIL" font-size="12.0">syllabic</text>
+
+<text x="110" y="30" font-family="Charis SIL" font-size="12.0">H</text>
+<text x="120" y="30" font-family="Charis SIL" font-size="12.0">:</text>
+<text x="125" y="30" font-family="Charis SIL" font-size="12.0">tone</text>
+
+<!-- left square bracket -->
+<line x1="106" y1="3" x2="108" y2="3" stroke="#400040" stroke-width="1.0"/>
+<line x1="106" y1="33" x2="108" y2="33" stroke="#400040" stroke-width="1.0"/>
+<line x1="106" y1="3" x2="106" y2="33" stroke="#400040" stroke-width="1.0"/>
+
+<!-- right square bracket -->
+<line x1="167" y1="3" x2="169" y2="3" stroke="#400040" stroke-width="1.0"/>
+<line x1="167" y1="33" x2="169" y2="33" stroke="#400040" stroke-width="1.0"/>
+<line x1="169" y1="3" x2="169" y2="33" stroke="#400040" stroke-width="1.0"/>
+
+<text x="180" y="15" font-family="Charis SIL" font-size="12.0" font-weight="bold">/</text>
+
+<text x="200" y="15" font-family="Charis SIL" font-size="12.0">[↗ : tone]</text>
+
+<text x="270" y="15" font-family="Charis SIL" font-size="12.0">[C]</text>
+<text x="287" y="10" font-family="Charis SIL" font-size="9.0">∞</text>
+<text x="288" y="18" font-family="Charis SIL" font-size="6.0">0</text>
+
+<text x="300" y="15" font-family="Charis SIL" font-size="12.0">___</text>
+
+</svg>

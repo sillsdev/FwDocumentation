@@ -1,0 +1,35 @@
+<?xml version='1.0' standalone='no'?>
+<svg width='218' height='40' version='1.1' xmlns='http://www.w3.org/2000/svg' contentScriptType='text/javascript'>
+<rect width="100%" height="100%" fill="#ffffff"/>
+
+<text x="8" y="15" font-family="Charis SIL" font-size="12.0" fill="#0000ff">ⁿ</text>
+
+<text x="23" y="15" font-family="Charis SIL" font-size="12.0" font-weight="bold">→</text>
+
+<text x="45" y="15" font-family="Charis SIL" font-size="12.0">∅</text>
+
+<text x="70" y="15" font-family="Charis SIL" font-size="12.0" font-weight="bold">/</text>
+
+<text x="85" y="15" font-family="Charis SIL" font-size="12.0">___</text>
+
+<text x="103" y="15" font-family="Charis SIL" font-size="12.0">+</text>
+
+<text x="124" y="15" font-family="Charis SIL" font-size="12.0">+</text>
+<text x="134" y="15" font-family="Charis SIL" font-size="12.0">:</text>
+<text x="139" y="15" font-family="Charis SIL" font-size="12.0">consonantal</text>
+
+<text x="124" y="30" font-family="Charis SIL" font-size="12.0">+</text>
+<text x="134" y="30" font-family="Charis SIL" font-size="12.0">:</text>
+<text x="139" y="30" font-family="Charis SIL" font-size="12.0">sonorant</text>
+
+<!-- left square bracket -->
+<line x1="121" y1="3" x2="123" y2="3" stroke="#400040" stroke-width="1.0"/>
+<line x1="121" y1="33" x2="123" y2="33" stroke="#400040" stroke-width="1.0"/>
+<line x1="121" y1="3" x2="121" y2="33" stroke="#400040" stroke-width="1.0"/>
+
+<!-- right square bracket -->
+<line x1="206" y1="3" x2="208" y2="3" stroke="#400040" stroke-width="1.0"/>
+<line x1="206" y1="33" x2="208" y2="33" stroke="#400040" stroke-width="1.0"/>
+<line x1="208" y1="3" x2="208" y2="33" stroke="#400040" stroke-width="1.0"/>
+
+</svg>
