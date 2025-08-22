@@ -8,9 +8,9 @@
 ></br
 >for FieldWorks Language Explorer</title
 ><author
->Ronald Moe</author
+>Ronald Moe, with revisions by others</author
 ><date
->November 11, 2014</date
+>November 11, 2014, revised 11 October 2016</date
 ><contents
 showLevel="4"
 ></contents
@@ -617,7 +617,7 @@ id="sLinguisticUnits"
 ><p
 >In order to produce a dictionary we must understand the various types of lexical units and how to handle them in Language Explorer. Linguists use the terms 'word', 'morpheme', 'allomorph', 'affix', 'root', 'stem', 'derivative', 'compound', and 'phrase' to refer to various kinds of linguistic units. Lexicographers use the terms 'lexeme', 'headword', 'citation form', 'complex form', and 'variant' to refer to linguistic units that are important for lexicography. They also use the terms 'main entry', 'subentry', and 'minor entry' to refer to various kinds of dictionary entries. Some of these terms are frequently confused.</p
 ><p
->It is vitally important that you understand these terms so that you put the correct information in the right field and label the information correctly. Many of the features of Language Explorer depend on fields containing the type of information they were designed for. For instance Language Explorer has special tools and features for handling variants and allomorphs. There is also a procedure for linking complex forms, such as compounds, to their roots. The program can automatically do a lot of work for you. It can cross-reference entries, create subentries in a root dictionary, create minor subentries in a stem dictionary, and much else. But it can only do these things if you understand the various kinds of units and what to do with them.</p
+>It is vitally important that you understand these terms so that you put the correct information in the right field and label the information correctly. Many of the features of Language Explorer depend on fields containing the type of information they were designed for. For instance Language Explorer has special tools and features for handling variants and allomorphs. There is also a procedure for linking complex forms, such as compounds, to their roots. The program can automatically do a lot of work for you. It can cross-reference entries, create subentries in a root dictionary, create minor subentries in a stem (or lexeme) dictionary, and much else. But it can only do these things if you understand the various kinds of units and what to do with them.</p
 ><section2
 id="sBasicTerms"
 ><secTitle
@@ -3463,7 +3463,7 @@ id="sMinorSubentry"
 ><secTitle
 >Minor subentry</secTitle
 ><p
->A minor subentry is a type of entry in a printed dictionary. It is a short entry that is placed under a main entry and indented slightly. A minor subentry serves as a cross-reference to direct the user to a different main entry where the lexeme is described. Minor subentries can be used for complex forms in a stem dictionary. The following example is a minor subentry for <langData
+>A minor subentry is a type of entry in a printed dictionary. It is a short entry that is placed under a main entry and indented slightly. A minor subentry serves as a cross-reference to direct the user to a different main entry where the lexeme is described. Minor subentries can be used for complex forms in a lexeme dictionary. The following example is a minor subentry for <langData
 lang="lENG"
 >make peace</langData
 >:</p
@@ -3508,7 +3508,10 @@ type="tBold"
 >) If two people or countries make peace, they stop fighting and agree to end a conflict.</chart
 ></example
 ><p
->Currently Language Explorer does not allow you to do this. A previous version of the program did, but this feature has been disabled. Currently Language Explorer only generates cross-references at the end of the main entry.</p
+>Currently Language Explorer allows minor subentries in the <object
+type="tFLExElement"
+>Hybrid</object
+> view. Currently Language Explorer also generates cross-references at the end of the main entry.</p
 ><p
 >In a root dictionary a compound or idiom can be a subentry under more than one root. To save space in a printed dictionary, you could make the compound or idiom into a full subentry under one root and a minor subentry under the others. The following examples show <langData
 lang="lENG"
@@ -3702,13 +3705,13 @@ type="tBold"
 ><p
 >If you choose <object
 type="tFLExElement"
->Stem-based</object
+>Lexeme-based</object
 > in <object
 type="tFLExElement"
 >Configure Dictionary</object
->, Language Explorer can generate a cross-reference for each complex form. To do this you need to check <object
+>, Language Explorer can generate a cross-reference for each complex form. To display these you need to check <object
 type="tFLExElement"
->Complex Form</object
+>Referenced Complex Forms</object
 > at the bottom of the list of fields.</p
 ></section3
 ></section2
@@ -3730,9 +3733,9 @@ id="sMorphDict"
 ><section3
 id="sRDVSSD"
 ><secTitle
->Root dictionaries versus stem dictionaries</secTitle
+>Root dictionaries versus lexeme dictionaries</secTitle
 ><p
->There are two ways to arrange entries in an alphabetically organized dictionary—by root or by stem. A root dictionary places all derivatives, compounds, and phrases under their respective root (or roots) and formats them as subentries. A stem dictionary alphabetizes all the complex forms separately as main entries. In a root dictionary the three entries ‘do’ ‘doable’ ‘redo’ would be organized like this:</p
+>There are two ways to arrange entries in an alphabetically organized dictionary—by root or by lexeme. A root dictionary places all derivatives, compounds, and phrases under their respective root (or roots) and formats them as subentries. A lexeme dictionary alphabetizes all the complex forms separately as main entries. In a root dictionary the three entries ‘do’ ‘doable’ ‘redo’ would be organized like this:</p
 ><example
 num="xROOTdo"
 ><chart
@@ -3774,7 +3777,7 @@ type="tItalic"
 >. to do something again, especially because it wasn't done right the first time.</chart
 ></example
 ><p
->The same three entries in a stem dictionary would be organized like this:</p
+>The same three entries in a lexeme dictionary would be organized like this:</p
 ><p
 >—D—</p
 ><example
@@ -3821,18 +3824,21 @@ type="tItalic"
 >. to do something again, especially because it wasn't done right the first time.</chart
 ></example
 ><p
->Notice that complex forms that are derived by suffix will alphabetize near each other, but those that are derived by prefix will alphabetize elsewhere. So if your language only has derivational suffixes, the difference between a root dictionary and a stem dictionary will be small. But if your language has lots of derivational prefixes, the difference will be very great. Derivational prefixes scatter the derivatives throughout a stem dictionary.</p
+>Notice that complex forms that are derived by suffix will alphabetize near each other, but those that are derived by prefix will alphabetize elsewhere. So if your language only has derivational suffixes, the difference between a root dictionary and a lexeme dictionary will be small. But if your language has lots of derivational prefixes, the difference will be very great. Derivational prefixes scatter the derivatives throughout a lexeme dictionary.</p
 ><p
->Language Explorer allows you to format and display the database as a root-based dictionary or stem-based dictionary in <object
+>Language Explorer allows you to format and display the database as a root-based dictionary or lexeme-based dictionary in <object
 type="tFLExElement"
 >Dictionary</object
-> view. You can also export the database in either format.</p
+> view. It also includes a third format called <object
+type="tFLExElement"
+>Hybrid</object
+> view.  In this view, complex forms appear separately as main entries, but there is also a minor subentry for them under their root.  You can also export the database in any of these formats just by changing the configuration--it is not necessary to change the organization of the data.</p
 ><section4
 id="sAdvDisadv"
 ><secTitle
->Advantages and disadvantages of root and stem dictionaries</secTitle
+>Advantages and disadvantages of root and lexeme dictionaries</secTitle
 ><p
->Most dictionaries are neither root nor stem dictionaries, but a combination of the two. The reason for this is that there are advantages and disadvantages to each type. So most lexicographers choose some sort of compromise.</p
+>Most dictionaries are neither completely root nor lexeme dictionaries, but a combination of the two. The reason for this is that there are advantages and disadvantages to each type. So most lexicographers choose some sort of compromise.</p
 ><p
 >The most serious disadvantage of a root dictionary is that the entries are hard to find, especially for someone who does not know the language well. For someone who is not familiar with English the words '<langData
 lang="lENG"
@@ -3934,7 +3940,7 @@ id="sWordDict"
 ><p
 >Some lexicographers want to produce a dictionary of single words. There are two types of word dictionaries. The first type lists all fully formed words, including inflected forms. The second type only lists stems (perhaps using an inflected form as the citation form). A spelling dictionary can be of either type.</p
 ><p
->The problem with word dictionaries is that about one third of the lexemes in a language are lexical phrases. Some lexicographers produce a word dictionary, but list the lexical phrases at the end of the entry for the root. Sometimes they include a definition of the phrase. Such a dictionary is something between a root dictionary and a stem dictionary. (In fact it would be accurate to call it a stem dictionary.) Language Explorer enables you to produce such a dictionary. To do this, you need to click the <object
+>The problem with word dictionaries is that about one third of the lexemes in a language are lexical phrases. Some lexicographers produce a word dictionary, but list the lexical phrases at the end of the entry for the root. Sometimes they include a definition of the phrase. Such a dictionary is something between a root dictionary and a lexeme dictionary. (In fact it would be accurate to call it a lexeme dictionary.) Language Explorer enables you to produce such a dictionary. To do this, you need to click the <object
 type="tFLExElement"
 >Exclude As Headword</object
 > field in each entry that is a phrase.</p
@@ -4706,7 +4712,7 @@ type="tFLExElement"
 > field to specify various types of complex forms--lexemes that are composed of more than one morpheme. Language Explorer uses this information to format a root-based dictionary. The list of complex forms is maintained in the <object
 type="tFLExElement"
 >Lists--Complex Form Types</object
-> area. There are three basic types of complex forms--derivatives, compounds, and phrases. In a root-based dictionary complex forms are usually presented as subentries. In a stem-based dictionary complex forms are usually presented a main entries. However you may choose to produce something in between a root-based and stem-based dictionary by making derivatives and compounds main entries, but make phrases subentries. You can configure your dictionary in any of these ways by using the <object
+> area. There are three basic types of complex forms--derivatives, compounds, and phrases. In a root-based dictionary complex forms are usually presented as subentries. In a lexeme-based dictionary complex forms are usually presented a main entries. However you may choose to produce something in between a root-based and lexeme-based dictionary by making derivatives and compounds main entries, but make phrases subentries. You can configure your dictionary in any of these ways by using the <object
 type="tFLExElement"
 >Configure Dictionary</object
 > tool under the <object
@@ -7122,7 +7128,7 @@ type="tFLExElement"
 >Tools</object
 > menu. In Language Explorer a reversal index entry consists of three fields. The <object
 type="tFLExElement"
->Form</object
+>Reversal Form</object
 > field is the analysis language form that you gave in the <object
 type="tFLExElement"
 >Reversal Entries</object
@@ -7131,7 +7137,7 @@ type="tFLExElement"
 >Lexicon Edit</object
 > area. So the <object
 type="tFLExElement"
->Form</object
+>Reversal Form</object
 > field and the <object
 type="tFLExElement"
 >Reversal Entries</object
@@ -7139,7 +7145,7 @@ type="tFLExElement"
 ><p
 >The <object
 type="tFLExElement"
->Category</object
+>Reversal Category</object
 > field is intended to be the category of the analysis language word, not the vernacular word. If the analysis language form is not a single word, you should not give any grammatical category for it. If it is an idiom, you might want to considering labeling it as such. But some forms will simply be a description of the meaning of the vernacular word. It would be misleading to give a grammatical category for something that is essentially a definition. You should be especially careful when the grammatical category of the analysis language form and the vernacular form do not match. Because of these difficulties, most dictionaries avoid the whole problem by not even giving the grammatical category of the analysis language form. After all, the <object
 type="tFLExElement"
 >Reversal Index</object
@@ -7147,16 +7153,16 @@ type="tFLExElement"
 ><p
 >The <object
 type="tFLExElement"
->Senses</object
+>Referenced Senses</object
 > field is a virtual field that is automatically generated by Language Explorer. It is essentially a cross-reference to a sense of an entry in the lexicon. You can use the <object
 type="tFLExElement"
 >Configure Reversal Index</object
 > tool to specify what will be included in the <object
 type="tFLExElement"
->Senses</object
+>Referenced Senses</object
 > field. Language Explorer can include any of the fields from the lexicon in the <object
 type="tFLExElement"
->Senses</object
+>Referenced Senses</object
 > field.</p
 ><p
 >You can use the reversal index system to produce a simple index (also known as a "finder list") or to draft an analysis language-vernacular dictionary. Language Explorer is not designed to handle both sides of a vernacular-analysis and analysis-vernacular pair of dictionaries. To do an adequate job of producing both dictionaries, you would need to set up two separate projects.</p
@@ -8795,6 +8801,22 @@ sec="sLeVSCiVSHe"
 >.</p
 ></section4
 ><section4
+id="sDialLblsEntFi"
+><secTitle
+>Dialect Labels (Entry)</secTitle
+><p
+>The <object
+type="tFLExElement"
+>Dialect Labels (Entry)</object
+> field is used to specify that an entry only pertains to certain dialects.  It is a list field, and the values may be created in the <object
+type="tFLExElement"
+>Dialects</object
+> list in the <object
+type="tFLExElement"
+>Lists</object
+> area.</p
+></section4
+><section4
 id="sCompFrmsFi"
 ><secTitle
 >Complex Forms</secTitle
@@ -8871,7 +8893,7 @@ id="sShowMinCFFi"
 ><secTitle
 >Show Minor Entry (for Complex Form)</secTitle
 ><p
->In a root-based dictionary each complex form is presented as a subentry under one of its roots. If it would be difficult for the user to find the entry, you can create a minor entry for the complex form. The minor entry will alphabetize where the complex form would have appeared in a stem-based dictionary, making it possible for the user to look up the spelling of the complex form. For instance the root of <langData
+>In a root-based dictionary each complex form is presented as a subentry under one of its roots. If it would be difficult for the user to find the entry, you can create a minor entry for the complex form. The minor entry will alphabetize where the complex form would have appeared in a lexeme-based dictionary, making it possible for the user to look up the spelling of the complex form. For instance the root of <langData
 lang="lENG"
 >prospective</langData
 > is <langData
@@ -9209,15 +9231,63 @@ id="sEtymologyFi"
 >The <object
 type="tFLExElement"
 >Etymology</object
-> field is used to indicate the proto-language form of the word. For instance the English word 'name' is descended from the proto-Indo-European root '<langData
+> cluster is used to indicate various information about the origins of the word. For instance the English word 'name' is descended from the proto-Indo-European root '<langData
 lang="lENG"
 >nomen</langData
 >'.</p
 ><p
->Note that there is currently no field in Language Explorer specifically devoted to borrowed words. An expansion of the etymology section has been requested. Until the programmers can implement it, you can use the <object
+>[Needs updating:] Note that there is currently no field in Language Explorer specifically devoted to borrowed words. An expansion of the etymology section has been requested. Until the programmers can implement it, you can use the <object
 type="tFLExElement"
 >Etymology</object
 > field to indicate borrowed words. However it would be wiser to set up a custom field for them in order to keep inherited words and borrowed words separate in the database. In order to fully specify a borrowed word, you could set up separate custom fields to indicate the source language, the form in the source language, and the original meaning in the source language.</p
+></section4
+><section4
+id="sPrecCmtEtyFi"
+><secTitle
+>Preceding Comment</secTitle
+><p
+>The <object
+type="tFLExElement"
+>Preceding Comment</object
+> field is used for whatever annotation you want to use before the proto-language form of the word. For instance you might use '&lt;' or 'from' in this field.</p
+></section4
+><section4
+id="sSrcLgEtyFi"
+><secTitle
+>Source Language, Source Language Notes</secTitle
+><p
+>The <object
+type="tFLExElement"
+>Source Language</object
+> field is used to indicate the proto-language of the word. For instance the English word 'name' is descended from the proto-Indo-European root '<langData
+lang="lENG"
+>nomen</langData
+>', so you would enter proto-Indo-European here. The <object
+type="tFLExElement"
+>Source Language</object
+> field is a list field and gets its values from the <object
+type="tFLExElement"
+>Languages</object
+> list in the <object
+type="tFLExElement"
+>Lists</object
+> area. The <object
+type="tFLExElement"
+>Source Language Notes</object
+> field is a free-form field in which you may type whatever you wish. This is useful when you wish to include annotations on the language name, such as 'from Malay, probably'.</p
+></section4
+><section4
+id="sSrcFormEtyFi"
+><secTitle
+>Source Form</secTitle
+><p
+>The <object
+type="tFLExElement"
+>Source Form</object
+> field is used to indicate the proto-language form of the word. For instance the English word 'name' is descended from the proto-Indo-European root '<langData
+lang="lENG"
+>nomen</langData
+>'.</p
 ></section4
 ><section4
 id="sGlossEtyFi"
@@ -9229,7 +9299,7 @@ type="tFLExElement"
 >Gloss</object
 > field is used to indicate the meaning of the proto-language form given in the <object
 type="tFLExElement"
->Etymology</object
+>Source Form</object
 > field. (Note that this <object
 type="tFLExElement"
 >Gloss</object
@@ -9257,16 +9327,57 @@ type="tFLExElement"
 > field.</p
 ></section4
 ><section4
-id="sCommentEtyFi"
+id="sFollCmtEtyFi"
 ><secTitle
->Comment (on Etymology)</secTitle
+>Following Comment</secTitle
 ><p
 >The <object
 type="tFLExElement"
->Comment</object
+>Following Comment</object
+> field is used for whatever annotation you may want to put at the end of an etymology.  Unlike the <object
+type="tFLExElement"
+>Etymology Note</object
+> field, this field is intended for printing.  </p
+></section4
+><section4
+id="sSourceEtyFi"
+><secTitle
+>Bibliographic Source (of Etymology)</secTitle
+><p
+>The <object
+type="tFLExElement"
+>Source</object
+> field is used to indicate the source of the information in the Etymology field. For instance the information about the etymology of the English word '<langData
+lang="lENG"
+>hell</langData
+>' in section <sectionRef
+sec="sGlossEtyFi"
+></sectionRef
+> was taken from the American Heritage Dictionary on page 1521. So I would put something like "AHD:1521" in the <object
+type="tFLExElement"
+>Source</object
+> field. The <object
+type="tFLExElement"
+>Source</object
+> field is adapted from the MDF "Etymology Source" field, which in that system was a note field and not intended for printing. If you use a published work to find information about the etymology of words, you should indicate this in your introduction and include a reference to it in your bibliography. If you do this, it would not be necessary to print the <object
+type="tFLExElement"
+>Source</object
+> field in your dictionary. This field should not be confused with the <object
+type="tFLExElement"
+>Source</object
+> field on the sense level.</p
+></section4
+><section4
+id="sCommentEtyFi"
+><secTitle
+>Etymology Note</secTitle
+><p
+>The <object
+type="tFLExElement"
+>Etymology Note</object
 > field is used to record any comments you might want to make about the etymology of the lexeme. The <object
 type="tFLExElement"
->Comment</object
+>Etymology Note</object
 > field is adapted from the MDF "Etymology Comment" field, which in that system was a note field and not intended for printing. It is included in Language Explorer so that you will have a place for notes to yourself to remind yourself of issues and factors related to your analysis. For instance in section <sectionRef
 sec="sGlossEtyFi"
 ></sectionRef
@@ -9289,7 +9400,7 @@ lang="lENG"
 ><p
 >If you are uncertain of the etymology of a word, you can discuss the options in the <object
 type="tFLExElement"
->Comment</object
+>Etymology Note</object
 > field. For instance '<langData
 lang="lENG"
 >name</langData
@@ -9319,7 +9430,7 @@ lang="lENG"
 >nōmen</langData
 >'. (In fact it is borrowed from the Latin.) You could note the two possibilities and the pros and cons of each in the <object
 type="tFLExElement"
->Comment</object
+>Etymology Note</object
 > field.</p
 ><p
 >This field should not be confused with other <object
@@ -9332,34 +9443,6 @@ type="tFLExElement"
 type="tFLExElement"
 >Variant</object
 > section. All three are note fields for the relevant section.</p
-></section4
-><section4
-id="sSourceEtyFi"
-><secTitle
->Source (of Etymology)</secTitle
-><p
->The <object
-type="tFLExElement"
->Source</object
-> field is used to indicate the source of the information in the Etymology field. For instance the information about the etymology of the English word '<langData
-lang="lENG"
->hell</langData
->' in section <sectionRef
-sec="sGlossEtyFi"
-></sectionRef
-> was taken from the American Heritage Dictionary on page 1521. So I would put something like "AHD:1521" in the <object
-type="tFLExElement"
->Source</object
-> field. The <object
-type="tFLExElement"
->Source</object
-> field is adapted from the MDF "Etymology Source" field, which in that system was a note field and not intended for printing. If you use a published work to find information about the etymology of words, you should indicate this in your introduction and include a reference to it in your bibliography. If you do this, it would not be necessary to print the <object
-type="tFLExElement"
->Source</object
-> field in your dictionary. This field should not be confused with the <object
-type="tFLExElement"
->Source</object
-> field on the sense level.</p
 ></section4
 ><section4
 id="sNoteFi"
