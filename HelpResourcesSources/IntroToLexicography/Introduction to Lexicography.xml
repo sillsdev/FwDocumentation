@@ -10,7 +10,7 @@
 ><author
 >Ronald Moe, with revisions by others</author
 ><date
->November 11, 2014, revised 11 October 2016</date
+>November 11, 2014; last revised August 22, 2025</date
 ><contents
 showLevel="4"
 ></contents
@@ -3832,7 +3832,7 @@ type="tFLExElement"
 > view. It also includes a third format called <object
 type="tFLExElement"
 >Hybrid</object
-> view.  In this view, complex forms appear separately as main entries, but there is also a minor subentry for them under their root.  You can also export the database in any of these formats just by changing the configuration--it is not necessary to change the organization of the data.</p
+> view. In this view, complex forms appear separately as main entries, but there is also a minor subentry for them under their root. You can also export the database in any of these formats just by changing the configuration--it is not necessary to change the organization of the data.</p
 ><section4
 id="sAdvDisadv"
 ><secTitle
@@ -7444,7 +7444,10 @@ type="tFLExElement"
 >Features</object
 >, and <object
 type="tFLExElement"
->Stem Names</object
+><object
+type="StemName"
+></object
+></object
 >. These sections enable you to specify how the category members behave morphologically. The sections were designed to be used by the parser, but some dictionaries also include this information in the dictionary article to help users know how to inflect words.</p
 ></section3
 ><section3
@@ -8014,7 +8017,13 @@ type="tFLExElement"
 >Classified Dictionary</object
 > area.</p
 ><p
->Language Explorer is distributed with a list of domains already installed. This list is the Dictionary Development Process (DDP) list of domains. You can find out more about using semantic domains by visiting the DDP website (http://www.sil.org/computing/ddp/index.htm). You can edit the list to make it more relevant to your language and culture.</p
+>Language Explorer is distributed with a list of domains already installed. This list is the Dictionary Development Process (DDP) list of domains, also known as the Rapid Word Collection (RWC) method. You can find out more about using semantic domains by visiting the DDP website (<link
+href="http://rapidwords.net/"
+>http://rapidwords.net/</link
+> and <link
+href="https://semdom.org/"
+>https://semdom.org/</link
+>). You can edit the list to make it more relevant to your language and culture.</p
 ></section3
 ><section3
 id="sSenseStatus"
@@ -8346,7 +8355,10 @@ type="tFLExElement"
 >Environments</object
 >, and <object
 type="tFLExElement"
->Stem Name</object
+><object
+type="StemName"
+></object
+></object
 > field. These five fields form a bundle.</p
 ><p
 >The reason why there is a separate <object
@@ -8667,20 +8679,35 @@ type="tFLExElement"
 ><section4
 id="sStemNameFi"
 ><secTitle
->Stem Name</secTitle
+><object
+type="StemName"
+></object
+></secTitle
 ><p
 >The <object
 type="tFLExElement"
->Stem Name</object
+><object
+type="StemName"
+></object
+></object
 > field is used to label an allomorph that is conditioned by a grammatical context rather than a phonological context. The <object
 type="tFLExElement"
->Stem Name</object
-> field is used by the parser. You create a stem name in the <object
+><object
+type="StemName"
+></object
+></object
+> field is used by the parser. You create a <object
+type="stemname"
+></object
+> in the <object
 type="tFLExElement"
 >Grammar--Category Edit</object
 > area. For more on the <object
 type="tFLExElement"
->Stem Name</object
+><object
+type="StemName"
+></object
+></object
 > field see Andy Black's paper 'Introduction to Parsing' under <object
 type="tFLExElement"
 >Resources</object
@@ -8808,7 +8835,7 @@ id="sDialLblsEntFi"
 >The <object
 type="tFLExElement"
 >Dialect Labels (Entry)</object
-> field is used to specify that an entry only pertains to certain dialects.  It is a list field, and the values may be created in the <object
+> field is used to specify that an entry only pertains to certain dialects. It is a list field, and the values may be created in the <object
 type="tFLExElement"
 >Dialects</object
 > list in the <object
@@ -9334,10 +9361,10 @@ id="sFollCmtEtyFi"
 >The <object
 type="tFLExElement"
 >Following Comment</object
-> field is used for whatever annotation you may want to put at the end of an etymology.  Unlike the <object
+> field is used for whatever annotation you may want to put at the end of an etymology. Unlike the <object
 type="tFLExElement"
 >Etymology Note</object
-> field, this field is intended for printing.  </p
+> field, this field is intended for printing.</p
 ></section4
 ><section4
 id="sSourceEtyFi"
@@ -10808,7 +10835,10 @@ type="tFLExElement"
 >Environments</object
 >, and <object
 type="tFLExElement"
->Stem Name</object
+><object
+type="StemName"
+></object
+></object
 >. The last four fields also occur on the entry level following the <object
 type="tFLExElement"
 >Lexeme Form</object
@@ -10892,12 +10922,21 @@ sec="sEnvironFi"
 ><section4
 id="sStemNameAFFi"
 ><secTitle
->Stem Name</secTitle
+><object
+type="StemName"
+></object
+></secTitle
 ><p
 >The <object
 type="tFLExElement"
->Stem Name</object
-> field is used to label an allomorph that is conditioned by a grammatical context rather than a phonological context. For more on stem names see <sectionRef
+><object
+type="StemName"
+></object
+></object
+> field is used to label an allomorph that is conditioned by a grammatical context rather than a phonological context. For more on <object
+type="stemname"
+></object
+>s see <sectionRef
 sec="sStemNameFi"
 ></sectionRef
 >.</p
@@ -11669,8 +11708,8 @@ id="rLexPro"
 ></backMatter
 ><languages
 ><language
+ISO639-3Code="gko"
 color="#0000ff"
-ethnCode="GKO"
 font-family="Galatia SIL"
 font-size="12pt"
 font-style="normal"
@@ -11680,7 +11719,6 @@ name="Koine Greek"
 ></language
 ><language
 color="#0000ff"
-ethnCode="GKO"
 font-family="Doulos SIL"
 font-size="12pt"
 font-style="normal"
@@ -11689,8 +11727,8 @@ id="lGKR"
 name="Koine Greek-Romanized"
 ></language
 ><language
+ISO639-3Code="eng"
 color="#0000ff"
-ethnCode="ENG"
 id="lENG"
 name="English"
 ></language
@@ -11703,8 +11741,8 @@ font-weight="normal"
 id="lIPA"
 ></language
 ><language
+ISO639-3Code="mdh"
 color="#0000ff"
-ethnCode="MDH"
 id="lMDH"
 name="Maguindanaon"
 ></language
@@ -11829,6 +11867,14 @@ font-size="12pt"
 font-style="normal"
 font-weight="normal"
 id="tHangingIndent"
+></type
+><type
+after="Stem Allomorph Label"
+id="StemName"
+></type
+><type
+after="stem allomorph label"
+id="stemname"
 ></type
 ><type
 cssSpecial="margin-left:-.2in"
